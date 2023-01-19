@@ -1,0 +1,101 @@
+html[theme=dark] .navbar__link:hover {
+  background-color: var(--dark-subsection-bg);
+  border: 1px solid var(--dark-text-color);
+}
+@media (max-width: 767px) {
+  html[theme=dark] .navbar__menu::before {
+    background-color: var(--dark-main-bg);
+  }
+}
+
+html[theme=light] .navbar__link:hover {
+  background-color: var(--light-subsection-bg);
+  border: 1px solid var(--light-text-color);
+}
+@media (max-width: 767px) {
+  html[theme=light] .navbar__menu::before {
+    background-color: var(--light-main-bg);
+  }
+}
+
+.navbar__menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.navbar__link {
+  font-size: 24px;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  line-height: 24px;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.2s, -webkit-box-shadow 0.2s;
+  transition: background-color 0.2s, -webkit-box-shadow 0.2s;
+  -o-transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s, -webkit-box-shadow 0.2s;
+  margin: 1px;
+}
+.navbar__link:hover {
+  margin: 0;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.navbar__link.active {
+  font-weight: 700;
+}
+@media (max-width: 767px) {
+  .navbar__menu {
+    left: 50%;
+    position: fixed;
+    z-index: 40;
+    top: -100vh;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  .navbar__menu::before {
+    content: "";
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  .navbar__menu.active {
+    top: 65px;
+  }
+  .navbar__menu.active::before {
+    top: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+  .navbar__link {
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+    margin: 0px 0px 10px 0px;
+    text-align: center;
+    width: 220px;
+  }
+}
+@media (min-width: 767px) {
+  .navbar__menu {
+    position: fixed;
+    width: 200px;
+    padding: 0 15px 0 0;
+  }
+  .navbar__link {
+    font-size: 22px;
+    padding: 5px 15px;
+  }
+}

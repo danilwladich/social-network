@@ -1,0 +1,65 @@
+html[theme=dark] .settings__item:not(:last-child) {
+  border-bottom: var(--dark-text-color) solid 2px;
+}
+
+html[theme=light] .settings__item:not(:last-child) {
+  border-bottom: var(--light-text-color) solid 2px;
+}
+
+.settings__category {
+  font-size: 20px;
+  font-weight: 700;
+  padding: 5px 0;
+}
+.settings__item {
+  padding: 10px 0;
+}
+.settings__button {
+  cursor: pointer;
+  display: inline-block;
+  background-color: transparent;
+  font-size: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.settings__button svg {
+  margin: 0px 0px 0px 5px;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.settings__button:hover path {
+  stroke-width: 2px;
+}
+.settings__button.disabled {
+  opacity: 0.7;
+}
+.settings__button.logout {
+  color: #fff;
+  line-height: 100%;
+  border-radius: 4px;
+  padding: 5px 15px;
+  background-color: #cc0000;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.settings__button.logout:hover {
+  background-color: red;
+  text-decoration: none;
+}
+.settings__button.logout svg {
+  width: 125px;
+  height: 20px;
+}
+.settings__button.logout svg circle {
+  stroke: #fff;
+}

@@ -1,0 +1,146 @@
+html[theme="dark"] {
+	.header {
+		background-color: var(--dark-subsection-bg);
+		border-bottom: 1px solid var(--dark-text-color);
+		@media (max-width: 767px) {
+			&__burger {
+				&:before,
+				&:after {
+					content: "";
+					background-color: var(--dark-text-color);
+				}
+				span {
+					background-color: var(--dark-text-color);
+				}
+			}
+		}
+	}
+}
+
+html[theme="light"] {
+	.header {
+		background-color: var(--light-subsection-bg);
+		border-bottom: 1px solid var(--light-text-color);
+		@media (max-width: 767px) {
+			&__burger {
+				&:before,
+				&:after {
+					content: "";
+					background-color: var(--light-text-color);
+				}
+				span {
+					background-color: var(--light-text-color);
+				}
+			}
+		}
+	}
+}
+
+.header {
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+	z-index: 50;
+	position: fixed;
+	width: 100%;
+	padding: 5px 0;
+	height: 50px;
+	display: grid;
+	grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
+	&__menu {
+		grid-column: 2/3;
+		display: flex;
+		justify-content: space-between;
+		position: relative;
+		padding: 0 15px;
+	}
+	&__user {
+		img {
+			pointer-events: none;
+			user-select: none;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+	}
+	&__login {
+		text-transform: uppercase;
+		font-size: 20px;
+		line-height: 40px;
+	}
+	&__logo {
+		font-size: 24px;
+		letter-spacing: 2px;
+		font-weight: 700;
+		line-height: 40px;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	&__button {
+		display: none;
+		background-color: transparent;
+		img {
+			width: 40px;
+			pointer-events: none;
+			user-select: none;
+		}
+	}
+	@media (max-width: 767px) {
+		&__burger {
+			z-index: 50;
+			display: block;
+			cursor: pointer;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 15px;
+			width: 30px;
+			height: 24px;
+			&:before,
+			&:after {
+				content: "";
+				position: absolute;
+				width: 100%;
+				height: 2px;
+				left: 0;
+				border-radius: 8px;
+				transition: all 0.2s ease;
+			}
+			&:before {
+				top: 0;
+			}
+			&:after {
+				bottom: 0;
+			}
+			span {
+				position: absolute;
+				width: 100%;
+				height: 2px;
+				left: 0;
+				border-radius: 8px;
+				top: 50%;
+				transform: translateY(-50%);
+				transition: all 0.2s ease;
+			}
+			&.active:before {
+				transform: rotate(45deg);
+				top: 11px;
+			}
+			&.active:after {
+				transform: rotate(-45deg);
+				bottom: 11px;
+			}
+			&.active span {
+				transform: scale(0);
+			}
+		}
+	}
+	@media (min-width: 767px) {
+		&__logo {
+			letter-spacing: 4px;
+		}
+		&__button {
+			display: block;
+		}
+	}
+}

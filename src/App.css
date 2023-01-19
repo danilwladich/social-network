@@ -1,38 +1,380 @@
-.App {
-  text-align: center;
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}
+
+:root {
+  --dark-text-color: rgba(255, 255, 255, 0.87);
+  --dark-subsection-bg: rgb(26, 26, 26);
+  --dark-main-bg: rgb(37, 37, 37);
+  --dark-button-bg: rgb(37, 37, 37);
+  --dark-button-bg-active: rgb(60, 60, 60);
+  --light-text-color: rgb(0, 0, 0);
+  --light-subsection-bg: rgb(255, 255, 255);
+  --light-main-bg: rgb(235, 235, 235);
+  --light-button-bg: rgb(235, 235, 235);
+  --light-button-bg-active: rgb(210, 210, 210);
+}
+
+html[theme=dark] {
+  background-color: var(--dark-main-bg);
+}
+html[theme=dark] ::-webkit-scrollbar-track {
+  background: rgba(155, 155, 155, 0.3);
+}
+html[theme=dark] ::-webkit-scrollbar-thumb {
+  background: rgba(155, 155, 155, 0.5);
+}
+html[theme=dark] ::-webkit-scrollbar-thumb:hover {
+  background: rgb(155, 155, 155);
+}
+@media (max-width: 767px) {
+  html[theme=dark] {
+    background-color: var(--dark-subsection-bg);
   }
 }
+html[theme=dark] * {
+  color: var(--dark-text-color);
+}
+html[theme=dark] .subsection {
+  background-color: var(--dark-subsection-bg);
+}
+@media (max-width: 767px) {
+  html[theme=dark] .subsection:not(:empty):not(:first-child) {
+    border-top: 1px solid var(--dark-text-color);
+  }
+}
+@media (min-width: 767px) {
+  html[theme=dark] .subsection:not(:empty) {
+    border: 1px solid var(--dark-text-color);
+  }
+}
+html[theme=dark] .loading_element {
+  background-color: var(--dark-main-bg);
+}
+html[theme=dark] .app_loading div {
+  border: 4px solid #fff;
+}
+html[theme=dark] option {
+  color: #fff;
+  background-color: #000;
+}
+html[theme=dark] .loadingCircle circle {
+  stroke: #fff;
+}
+html[theme=dark] .closeX path {
+  stroke: #fff;
+}
+html[theme=dark] .likeHeart path {
+  stroke: #fff;
+}
+html[theme=dark] .likeHeart.likedMe {
+  fill: #fff;
+}
 
-.App-header {
-  background-color: #282c34;
+html[theme=light] {
+  background-color: var(--light-main-bg);
+}
+html[theme=light] ::-webkit-scrollbar-track {
+  background: rgba(85, 85, 85, 0.3);
+}
+html[theme=light] ::-webkit-scrollbar-thumb {
+  background: rgba(85, 85, 85, 0.5);
+}
+html[theme=light] ::-webkit-scrollbar-thumb:hover {
+  background: rgb(85, 85, 85);
+}
+@media (max-width: 767px) {
+  html[theme=light] {
+    background-color: var(--light-subsection-bg);
+  }
+}
+html[theme=light] * {
+  color: var(--light-text-color);
+}
+html[theme=light] .subsection {
+  background-color: var(--light-subsection-bg);
+}
+@media (max-width: 767px) {
+  html[theme=light] .subsection:not(:empty):not(:first-child) {
+    border-top: 1px solid var(--light-text-color);
+  }
+}
+@media (min-width: 767px) {
+  html[theme=light] .subsection:not(:empty) {
+    border: 1px solid var(--light-text-color);
+  }
+}
+html[theme=light] .loading_element {
+  background-color: var(--light-main-bg);
+}
+html[theme=light] .app_loading div {
+  border: 4px solid #000;
+}
+html[theme=light] option {
+  color: #000;
+  background-color: #fff;
+}
+html[theme=light] .loadingCircle circle {
+  stroke: #000;
+}
+html[theme=light] .closeX path {
+  stroke: #000;
+}
+html[theme=light] .likeHeart path {
+  stroke: #000;
+}
+html[theme=light] .likeHeart.likedMe {
+  fill: #000;
+}
+
+body {
+  overflow-y: overlay;
+  overflow-x: hidden;
+}
+body.lock {
+  overflow: hidden;
+}
+
+.wrapper {
+  position: relative;
+  font-family: "Asap", sans-serif;
   min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.App-link {
-  color: #61dafb;
+.content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  padding: 50px 10px 0px 10px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (min-width: 767px) {
+  .content {
+    padding: 65px 15px 15px 15px;
+    display: grid;
+    grid-template-columns: 1fr 200px minmax(auto, 1000px) 1fr;
   }
-  to {
-    transform: rotate(360deg);
+  .content aside {
+    grid-column: 2/3;
+  }
+  .content section {
+    grid-column: 3/4;
+  }
+}
+
+.subsection:not(:empty) {
+  position: relative;
+  padding: 15px 0px;
+}
+@media (min-width: 767px) {
+  .subsection:not(:empty) {
+    border-radius: 8px;
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+  }
+  .subsection:not(:empty):not(:first-child) {
+    margin: 15px 0px 0px 0px;
+  }
+}
+
+.title {
+  text-align: center;
+  padding: 0px 0px 15px 0px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 150%;
+}
+@media (min-width: 767px) {
+  .title {
+    font-size: 22px;
+  }
+}
+
+.app_loading {
+  display: inline-block;
+  position: fixed;
+  left: 50vw;
+  top: 50vh;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+}
+.app_loading div {
+  position: absolute;
+  opacity: 1;
+  border-radius: 50%;
+  -webkit-animation: app_loading 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+          animation: app_loading 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.app_loading div:nth-child(2) {
+  -webkit-animation-delay: -0.5s;
+          animation-delay: -0.5s;
+}
+
+@-webkit-keyframes app_loading {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+
+@keyframes app_loading {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
   }
 }

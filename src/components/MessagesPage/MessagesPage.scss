@@ -1,0 +1,250 @@
+html[theme="dark"] {
+	.messages {
+		&__user {
+			&:hover {
+				background-color: var(--dark-main-bg);
+			}
+		}
+		&__header {
+			border-bottom: var(--dark-text-color) solid 1px;
+			&_back {
+				background-color: var(--dark-button-bg);
+				&:hover {
+					background-color: var(--dark-button-bg-active);
+				}
+				svg {
+					fill: var(--dark-text-color);
+				}
+			}
+		}
+		&__field {
+			&_input {
+				border: 2px solid var(--dark-text-color);
+				background-color: var(--dark-button-bg);
+			}
+			&_send {
+				&:not(:disabled):hover {
+					background-color: var(--dark-button-bg-active);
+				}
+			}
+		}
+		&__message {
+			&_content {
+				background-color: var(--dark-main-bg);
+			}
+		}
+	}
+}
+html[theme="light"] {
+	.messages {
+		&__user {
+			&:hover {
+				background-color: var(--light-main-bg);
+			}
+		}
+		&__header {
+			border-bottom: var(--light-text-color) solid 1px;
+			&_back {
+				background-color: var(--light-button-bg);
+				&:hover {
+					background-color: var(--light-button-bg-active);
+				}
+				svg {
+					fill: var(--light-text-color);
+				}
+			}
+		}
+		&__field {
+			&_input {
+				border: 2px solid var(--light-text-color);
+				background-color: var(--light-button-bg);
+			}
+			&_send {
+				&:not(:disabled):hover {
+					background-color: var(--light-button-bg-active);
+				}
+			}
+		}
+		&__message {
+			&_content {
+				background-color: var(--light-main-bg);
+			}
+		}
+	}
+}
+
+.messages {
+	&__chat {
+		height: calc(100vh - 65px);
+		margin: -10px 0px -5px 0px;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+	}
+	&__user {
+		padding: 5px;
+		border-radius: 4px;
+		display: flex;
+		transition: all 0.2s;
+		&_image {
+			img {
+				pointer-events: none;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				object-fit: cover;
+			}
+		}
+		&_info {
+			flex: 1 0 auto;
+			padding: 5px 10px;
+		}
+		&_name {
+			font-size: 18px;
+			text-transform: capitalize;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			a:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	&__header {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0px 0px 5px 0px;
+		&_back {
+			display: flex;
+			gap: 2px;
+			font-size: 18px;
+			padding: 5px 10px;
+			align-items: center;
+			transition: all 0.2s;
+			border-radius: 4px;
+			svg {
+				width: 12px;
+				height: 12px;
+			}
+		}
+		&_name {
+			font-size: 18px;
+			text-transform: capitalize;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			a:hover {
+				text-decoration: underline;
+			}
+		}
+		&_image {
+			img {
+				pointer-events: none;
+				width: 35px;
+				height: 35px;
+				border-radius: 50%;
+				object-fit: cover;
+			}
+		}
+	}
+	&__content {
+		flex: 1 1 auto;
+		margin: 0px -7px 0px 0px;
+		padding: 10px 12px 10px 0px;
+		max-height: 100%;
+		overflow-y: overlay;
+	}
+	&__field {
+		position: relative;
+		width: 100%;
+		&_input {
+			border-radius: 4px;
+			resize: none;
+			display: inline-block;
+			font-size: 16px;
+			line-height: 26px;
+			background-color: transparent;
+			padding: 10px;
+			width: calc(100% - 50px);
+			overflow: auto;
+			height: 50px;
+		}
+		&_send {
+			transition: all 0.2s;
+			position: absolute;
+			top: 5px;
+			right: 0;
+			font-size: 0;
+			opacity: 0.3;
+			border-radius: 4px;
+			background-color: transparent;
+			svg {
+				transform: rotate(-90deg);
+				width: 40px;
+				height: 40px;
+			}
+			&:not(:disabled) {
+				opacity: 1;
+			}
+		}
+	}
+	&__message {
+		&:not(:last-child) {
+			margin: 0px 0px 10px 0px;
+		}
+		width: 66.667%;
+		&.out {
+			&:not(:last-child) {
+				margin: 0px 0px 10px auto;
+			}
+			margin: 0px 0px 0px auto;
+			text-align: right;
+		}
+		&_content {
+			padding: 2px 5px;
+			border-radius: 8px;
+			display: inline-block;
+			max-width: 100%;
+		}
+		&_row {
+			display: flex;
+			align-items: flex-end;
+			gap: 5px;
+		}
+		&_text {
+			width: 100%;
+			font-size: 16px;
+			line-height: 150%;
+			overflow-wrap: anywhere;
+		}
+		&_date {
+			opacity: 0.7;
+			font-size: 10px;
+		}
+	}
+	@media (min-width: 767px) {
+		&__chat {
+			height: calc(100vh - 112px);
+			margin: 0;
+		}
+		&__user {
+			padding: 5px 10px;
+			&_image {
+				img {
+					width: 60px;
+					height: 60px;
+				}
+			}
+			&_name {
+				font-size: 20px;
+			}
+		}
+		&__message {
+			&_date {
+				font-size: 12px;
+			}
+		}
+	}
+}
