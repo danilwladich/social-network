@@ -22,7 +22,9 @@ export function Post(props: IProps) {
 	const dateNow = new Date().toString().split(" ").slice(1, 5);
 	const dateToShow =
 		date[0] === dateNow[0] && date[2] === dateNow[2]
-			? date[0] + " " + date[1] + " at " + date[3].slice(0, 5)
+			? date[0] === dateNow[0]
+				? date[3].slice(0, 5)
+				: date[0] + " " + date[1] + " at " + date[3].slice(0, 5)
 			: date[1] + " " + date[0] + " " + date[2];
 
 	const likes = postData.likes.toString();

@@ -2,7 +2,7 @@ html[theme=dark] .navbar__link:hover {
   background-color: var(--dark-subsection-bg);
   border: 1px solid var(--dark-text-color);
 }
-@media (max-width: 767px) {
+@media (max-width: 766px) {
   html[theme=dark] .navbar__menu::before {
     background-color: var(--dark-main-bg);
   }
@@ -12,7 +12,7 @@ html[theme=light] .navbar__link:hover {
   background-color: var(--light-subsection-bg);
   border: 1px solid var(--light-text-color);
 }
-@media (max-width: 767px) {
+@media (max-width: 766px) {
   html[theme=light] .navbar__menu::before {
     background-color: var(--light-main-bg);
   }
@@ -48,7 +48,7 @@ html[theme=light] .navbar__link:hover {
 .navbar__link.active {
   font-weight: 700;
 }
-@media (max-width: 767px) {
+@media (max-width: 766px) {
   .navbar__menu {
     left: 50%;
     position: fixed;

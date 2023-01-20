@@ -1,8 +1,8 @@
 html[theme=dark] .users__loading_item:not(:last-child) {
-  border-bottom: var(--dark-text-color) solid 2px;
+  border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .users__user:not(:last-child) {
-  border-bottom: var(--dark-text-color) solid 2px;
+  border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .users__user_showactions {
   background-color: var(--dark-subsection-bg);
@@ -29,10 +29,10 @@ html[theme=dark] .users__pagination_page.active:after {
 }
 
 html[theme=light] .users__loading_item:not(:last-child) {
-  border-bottom: var(--light-text-color) solid 2px;
+  border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .users__user:not(:last-child) {
-  border-bottom: var(--light-text-color) solid 2px;
+  border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .users__user_showactions {
   background-color: var(--light-subsection-bg);
@@ -95,7 +95,7 @@ html[theme=light] .users__pagination_page.active:after {
 }
 .users__loading_name {
   width: 125px;
-  height: 16px;
+  height: 14px;
   overflow: hidden;
 }
 .users__loading_location {
@@ -107,14 +107,17 @@ html[theme=light] .users__pagination_page.active:after {
           flex: 0 0 30px;
   height: 10px;
 }
+.users__items {
+  margin: -10px 0px 0px 0px;
+}
 .users__user {
+  padding: 10px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 10px 0;
   gap: 10px;
   position: relative;
 }
@@ -161,6 +164,9 @@ html[theme=light] .users__pagination_page.active:after {
   font-size: 14px;
 }
 .users__user_name a {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
   display: block;
   padding: 15px 0;
   width: 100%;
@@ -183,9 +189,6 @@ html[theme=light] .users__pagination_page.active:after {
   background-color: transparent;
   position: relative;
   z-index: 3;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   border-radius: 4px;
 }
 .users__user_showactions:hover {
@@ -229,9 +232,6 @@ html[theme=light] .users__pagination_page.active:after {
   border-radius: 4px;
   background-color: transparent;
   padding: 5px 10px;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   opacity: 0;
   visibility: hidden;
 }
@@ -279,9 +279,6 @@ html[theme=light] .users__pagination_page.active:after {
 }
 .users__pagination_arrow {
   border-radius: 4px;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   background-color: transparent;
 }
 .users__pagination_arrow:disabled {
@@ -289,9 +286,6 @@ html[theme=light] .users__pagination_page.active:after {
 }
 .users__pagination_page {
   display: none;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   border-radius: 4px;
   background-color: transparent;
   padding: 5px 10px;
@@ -327,6 +321,9 @@ html[theme=light] .users__pagination_page.active:after {
   .users__loading_info {
     height: 75px;
   }
+  .users__loading_name {
+    height: 16px;
+  }
   .users__loading_location {
     display: block;
     width: 100px;
@@ -345,19 +342,19 @@ html[theme=light] .users__pagination_page.active:after {
     height: 75px;
   }
   .users__user_name {
-    font-size: 14px;
+    font-size: 16px;
   }
   .users__user_name a {
     display: inline;
     padding: 0;
   }
   .users__user_location {
+    overflow: hidden;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     gap: 5px;
     opacity: 0.7;
-    text-transform: capitalize;
     font-size: 14px;
   }
   .users__pagination {

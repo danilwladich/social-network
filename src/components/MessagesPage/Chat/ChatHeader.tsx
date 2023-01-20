@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { MessagesUserData } from "../../../models/Messages/MessagesUserData";
+import { ChatWith } from "../../../models/Messages/ChatWith";
 
 interface IProps {
-	chatWith: MessagesUserData;
+	chatWith: ChatWith;
 }
 
 export function ChatHeader(props: IProps) {

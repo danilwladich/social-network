@@ -1,5 +1,5 @@
 html[theme=dark] .friends__loading_item:not(:last-child) {
-  border-bottom: var(--dark-text-color) solid 2px;
+  border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .friends__categories_button {
   background-color: var(--dark-button-bg);
@@ -11,7 +11,7 @@ html[theme=dark] .friends__categories_button.active {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .friends__user:not(:last-child) {
-  border-bottom: var(--dark-text-color) solid 2px;
+  border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .friends__user_showactions {
   background-color: var(--dark-subsection-bg);
@@ -29,7 +29,7 @@ html[theme=dark] .friends__user_follow:hover {
 }
 
 html[theme=light] .friends__loading_item:not(:last-child) {
-  border-bottom: var(--light-text-color) solid 2px;
+  border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .friends__categories_button {
   background-color: var(--light-button-bg);
@@ -41,7 +41,7 @@ html[theme=light] .friends__categories_button.active {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .friends__user:not(:last-child) {
-  border-bottom: var(--light-text-color) solid 2px;
+  border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .friends__user_showactions {
   background-color: var(--light-subsection-bg);
@@ -69,6 +69,17 @@ html[theme=light] .friends__user_follow:hover {
       -ms-flex-pack: center;
           justify-content: center;
   gap: 10px;
+}
+.friends__title a:last-child {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 auto;
+          flex: 0 1 auto;
+  overflow: hidden;
+}
+.friends__title a:last-child h2 {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
 }
 .friends__title img {
   width: 33px;
@@ -167,7 +178,7 @@ html[theme=light] .friends__user_follow:hover {
 }
 .friends__loading_name {
   width: 125px;
-  height: 16px;
+  height: 14px;
   overflow: hidden;
 }
 .friends__loading_location {
@@ -196,9 +207,6 @@ html[theme=light] .friends__user_follow:hover {
   padding: 5px 10px;
   border-radius: 4px;
   text-transform: capitalize;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   width: 100%;
   text-align: center;
 }
@@ -207,6 +215,7 @@ html[theme=light] .friends__user_follow:hover {
   font-size: 18px;
 }
 .friends__items:not(:empty) {
+  margin: -10px 0px 0px 0px;
   padding: 15px 0px 0px 0px;
 }
 .friends__items_loading {
@@ -224,13 +233,13 @@ html[theme=light] .friends__user_follow:hover {
   height: 30px;
 }
 .friends__user {
+  padding: 10px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 10px 0;
   gap: 10px;
   position: relative;
 }
@@ -277,6 +286,9 @@ html[theme=light] .friends__user_follow:hover {
   font-size: 14px;
 }
 .friends__user_name a {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
   display: block;
   padding: 15px 0;
   width: 100%;
@@ -299,9 +311,6 @@ html[theme=light] .friends__user_follow:hover {
   background-color: transparent;
   position: relative;
   z-index: 3;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   border-radius: 4px;
 }
 .friends__user_showactions:hover {
@@ -345,9 +354,6 @@ html[theme=light] .friends__user_follow:hover {
   border-radius: 4px;
   background-color: transparent;
   padding: 5px 10px;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   opacity: 0;
   visibility: hidden;
 }
@@ -385,6 +391,9 @@ html[theme=light] .friends__user_follow:hover {
   .friends__loading_info {
     height: 75px;
   }
+  .friends__loading_name {
+    height: 16px;
+  }
   .friends__loading_location {
     display: block;
     width: 100px;
@@ -410,19 +419,19 @@ html[theme=light] .friends__user_follow:hover {
     height: 75px;
   }
   .friends__user_name {
-    font-size: 14px;
+    font-size: 16px;
   }
   .friends__user_name a {
     display: inline;
     padding: 0;
   }
   .friends__user_location {
+    overflow: hidden;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     gap: 5px;
     opacity: 0.7;
-    text-transform: capitalize;
     font-size: 14px;
   }
 }

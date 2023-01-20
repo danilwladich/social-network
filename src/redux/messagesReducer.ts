@@ -3,33 +3,7 @@ import { IAction } from "../models/Action/IAction";
 import { IMessages } from "../models/Messages/IMessages";
 
 const initialState: IMessages = {
-	usersData: [
-		{
-			id: "danilwladich",
-			firstName: "Danil",
-			lastName: "Wladich",
-			image:
-				"https://sun9-east.userapi.com/sun9-24/s/v1/ig2/oBKM4lV1C-ju3ALxjXv7-FTQYeAyFIPITgJA2jYhXHoal3Xk3JlzwEAQSTmYAU5SqYIgZKQ2Lcx8A77SHeCfCIbn.jpg?size=994x1005&quality=95&type=album",
-		},
-		{
-			id: "kolyahellcoder",
-			firstName: "Kolya",
-			lastName: "Kostenko",
-			image: "",
-		},
-		{
-			id: "artembog",
-			firstName: "Artem",
-			lastName: "Krutoj",
-			image: "",
-		},
-		{
-			id: "welichajshyj",
-			firstName: "Papich",
-			lastName: "Welikij",
-			image: "",
-		},
-	],
+	usersData: [],
 	chatWith: {
 		id: "",
 		firstName: "",

@@ -1,31 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { IState } from "../../../models/IState";
 import { connect } from "react-redux";
 import { Chat } from "./Chat";
 import { sendMessage } from "../../../redux/messagesReducer";
 import { useParams } from "react-router-dom";
 import { MessagesMessageData } from "../../../models/Messages/MessagesMessageData";
-import { MessagesUserData } from "../../../models/Messages/MessagesUserData";
+import { ChatWith } from "../../../models/Messages/ChatWith";
 
 interface IProps {
-	chatWith: MessagesUserData;
+	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
 	sendMessage: (v: string) => void;
 }
 
 export function ChatContainerAPI(props: IProps) {
 	// eslint-disable-next-line
+	const [isLoading, setIsLoading] = useState(false);
+	// eslint-disable-next-line
 	const userID = useParams().id;
 
-	return (
-		<>
-			<Chat
-				chatWith={props.chatWith}
-				messagesData={props.messagesData}
-				sendMessage={props.sendMessage}
-			/>
-		</>
-	);
+	if (isLoading) {
+		return <>{/* <FriendsPageLoading /> */}</>;
+	} else if (!props.chatWith.id) {
+		return <div className="messages__not_found">User not found</div>;
+	} else {
+		return (
+			<>
+				<Chat
+					chatWith={props.chatWith}
+					messagesData={props.messagesData}
+					sendMessage={props.sendMessage}
+				/>
+			</>
+		);
+	}
 }
 
 function mapStateToProps(state: IState) {

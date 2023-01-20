@@ -15,25 +15,23 @@ export function Account(props: IProps) {
 	}
 	return (
 		<>
-			<h3 className="settings__category">Account</h3>
-			<div className="settings__items">
-				<div className="settings__item">
-					<button
-						disabled={buttonInProgress}
-						onClick={() => {
-							sure ? logout() : setSure(true);
-						}}
-						className="settings__button logout"
-					>
-						{buttonInProgress ? (
-							<LoadingCircle />
-						) : sure ? (
-							"Are you sure?"
-						) : (
-							"Log Out"
-						)}
-					</button>
-				</div>
+			<div className="settings__item">
+				<h3 className="settings__category">Account</h3>
+				<button
+					disabled={buttonInProgress}
+					onClick={() => {
+						sure ? logout() : setSure(true);
+					}}
+					className="settings__button logout"
+				>
+					{buttonInProgress ? (
+						<LoadingCircle />
+					) : sure ? (
+						"Are you sure?"
+					) : (
+						"Log Out"
+					)}
+				</button>
 			</div>
 		</>
 	);

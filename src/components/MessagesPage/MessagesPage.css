@@ -1,8 +1,11 @@
+html[theme=dark] .messages__user.unread {
+  background-color: var(--dark-button-bg);
+}
 html[theme=dark] .messages__user:hover {
-  background-color: var(--dark-main-bg);
+  background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .messages__header {
-  border-bottom: var(--dark-text-color) solid 1px;
+  border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .messages__header_back {
   background-color: var(--dark-button-bg);
@@ -24,11 +27,14 @@ html[theme=dark] .messages__message_content {
   background-color: var(--dark-main-bg);
 }
 
+html[theme=light] .messages__user.unread {
+  background-color: var(--light-button-bg);
+}
 html[theme=light] .messages__user:hover {
-  background-color: var(--light-main-bg);
+  background-color: var(--light-button-bg-active);
 }
 html[theme=light] .messages__header {
-  border-bottom: var(--light-text-color) solid 1px;
+  border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .messages__header_back {
   background-color: var(--light-button-bg);
@@ -50,6 +56,87 @@ html[theme=light] .messages__message_content {
   background-color: var(--light-main-bg);
 }
 
+.messages__users {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+.messages__users_nousers {
+  font-size: 18px;
+  text-align: center;
+}
+.messages__user {
+  padding: 5px;
+  border-radius: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+.messages__user_image {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 50px;
+          flex: 0 0 50px;
+}
+.messages__user_image img {
+  pointer-events: none;
+  width: 100%;
+  height: 50px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.messages__user_info {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.messages__user_name {
+  font-size: 16px;
+  font-weight: 700;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
+.messages__user_lastmessage {
+  font-size: 14px;
+  opacity: 0.7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 5px;
+}
+.messages__user_lastmessage_text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
+.messages__not_found {
+  font-size: 26px;
+  text-align: center;
+}
 .messages__chat {
   height: calc(100vh - 65px);
   margin: -10px 0px -5px 0px;
@@ -61,41 +148,6 @@ html[theme=light] .messages__message_content {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-.messages__user {
-  padding: 5px;
-  border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
-}
-.messages__user_image img {
-  pointer-events: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.messages__user_info {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
-  padding: 5px 10px;
-}
-.messages__user_name {
-  font-size: 18px;
-  text-transform: capitalize;
-  -o-text-overflow: ellipsis;
-     text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.messages__user_name a:hover {
-  text-decoration: underline;
 }
 .messages__header {
   position: relative;
@@ -120,9 +172,6 @@ html[theme=light] .messages__message_content {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   border-radius: 4px;
 }
 .messages__header_back svg {
@@ -131,7 +180,7 @@ html[theme=light] .messages__message_content {
 }
 .messages__header_name {
   font-size: 18px;
-  text-transform: capitalize;
+  font-weight: 700;
   -o-text-overflow: ellipsis;
      text-overflow: ellipsis;
   white-space: nowrap;
@@ -156,6 +205,18 @@ html[theme=light] .messages__message_content {
   padding: 10px 12px 10px 0px;
   max-height: 100%;
   overflow-y: overlay;
+  position: relative;
+}
+.messages__content_nocontent {
+  text-align: center;
+  width: 66.667%;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 .messages__field {
   position: relative;
@@ -174,9 +235,6 @@ html[theme=light] .messages__message_content {
   height: 50px;
 }
 .messages__field_send {
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   position: absolute;
   top: 5px;
   right: 0;
@@ -234,19 +292,30 @@ html[theme=light] .messages__message_content {
   font-size: 10px;
 }
 @media (min-width: 767px) {
+  .messages__user {
+    border-radius: 0;
+    margin: 0 -15px 0 -15px;
+    padding: 5px 15px;
+    gap: 15px;
+  }
+  .messages__user_image {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 60px;
+            flex: 0 0 60px;
+  }
+  .messages__user_image img {
+    height: 60px;
+  }
+  .messages__user_info {
+    height: 60px;
+  }
+  .messages__user_date {
+    right: 15px;
+    font-size: 14px;
+  }
   .messages__chat {
     height: calc(100vh - 112px);
     margin: 0;
-  }
-  .messages__user {
-    padding: 5px 10px;
-  }
-  .messages__user_image img {
-    width: 60px;
-    height: 60px;
-  }
-  .messages__user_name {
-    font-size: 20px;
   }
   .messages__message_date {
     font-size: 12px;

@@ -1,12 +1,15 @@
 html[theme="dark"] {
 	.messages {
 		&__user {
+			&.unread {
+				background-color: var(--dark-button-bg);
+			}
 			&:hover {
-				background-color: var(--dark-main-bg);
+				background-color: var(--dark-button-bg-active);
 			}
 		}
 		&__header {
-			border-bottom: var(--dark-text-color) solid 1px;
+			border-bottom: var(--dark-items-border-bottom) solid 1px;
 			&_back {
 				background-color: var(--dark-button-bg);
 				&:hover {
@@ -38,12 +41,15 @@ html[theme="dark"] {
 html[theme="light"] {
 	.messages {
 		&__user {
+			&.unread {
+				background-color: var(--light-button-bg);
+			}
 			&:hover {
-				background-color: var(--light-main-bg);
+				background-color: var(--light-button-bg-active);
 			}
 		}
 		&__header {
-			border-bottom: var(--light-text-color) solid 1px;
+			border-bottom: var(--light-items-border-bottom) solid 1px;
 			&_back {
 				background-color: var(--light-button-bg);
 				&:hover {
@@ -74,41 +80,68 @@ html[theme="light"] {
 }
 
 .messages {
-	&__chat {
-		height: calc(100vh - 65px);
-		margin: -10px 0px -5px 0px;
-		position: relative;
+	&__users {
 		display: flex;
 		flex-direction: column;
+		gap: 5px;
+		&_nousers {
+			font-size: 18px;
+			text-align: center;
+		}
 	}
 	&__user {
 		padding: 5px;
 		border-radius: 4px;
 		display: flex;
-		transition: all 0.2s;
+		gap: 10px;
 		&_image {
+			flex: 0 0 50px;
 			img {
 				pointer-events: none;
-				width: 50px;
+				width: 100%;
 				height: 50px;
 				border-radius: 50%;
 				object-fit: cover;
 			}
 		}
 		&_info {
-			flex: 1 0 auto;
-			padding: 5px 10px;
+			flex: 1 1 auto;
+			height: 50px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 5px;
+			overflow: hidden;
+			white-space: nowrap;
 		}
 		&_name {
-			font-size: 18px;
-			text-transform: capitalize;
-			text-overflow: ellipsis;
-			white-space: nowrap;
+			font-size: 16px;
+			font-weight: 700;
 			overflow: hidden;
-			a:hover {
-				text-decoration: underline;
+			text-overflow: ellipsis;
+		}
+		&_lastmessage {
+			font-size: 14px;
+			opacity: 0.7;
+			display: flex;
+			gap: 5px;
+			&_text {
+				flex: 1 1 auto;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 		}
+	}
+	&__not_found {
+		font-size: 26px;
+		text-align: center;
+	}
+	&__chat {
+		height: calc(100vh - 65px);
+		margin: -10px 0px -5px 0px;
+		position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 	&__header {
 		position: relative;
@@ -122,7 +155,6 @@ html[theme="light"] {
 			font-size: 18px;
 			padding: 5px 10px;
 			align-items: center;
-			transition: all 0.2s;
 			border-radius: 4px;
 			svg {
 				width: 12px;
@@ -131,7 +163,7 @@ html[theme="light"] {
 		}
 		&_name {
 			font-size: 18px;
-			text-transform: capitalize;
+			font-weight: 700;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			overflow: hidden;
@@ -155,6 +187,16 @@ html[theme="light"] {
 		padding: 10px 12px 10px 0px;
 		max-height: 100%;
 		overflow-y: overlay;
+		position: relative;
+		&_nocontent {
+			text-align: center;
+			width: 66.667%;
+			font-size: 20px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
 	}
 	&__field {
 		position: relative;
@@ -172,7 +214,6 @@ html[theme="light"] {
 			height: 50px;
 		}
 		&_send {
-			transition: all 0.2s;
 			position: absolute;
 			top: 5px;
 			right: 0;
@@ -225,21 +266,28 @@ html[theme="light"] {
 		}
 	}
 	@media (min-width: 767px) {
-		&__chat {
-			height: calc(100vh - 112px);
-			margin: 0;
-		}
 		&__user {
-			padding: 5px 10px;
+			border-radius: 0;
+			margin: 0 -15px 0 -15px;
+			padding: 5px 15px;
+			gap: 15px;
 			&_image {
+				flex: 0 0 60px;
 				img {
-					width: 60px;
 					height: 60px;
 				}
 			}
-			&_name {
-				font-size: 20px;
+			&_info {
+				height: 60px;
 			}
+			&_date {
+				right: 15px;
+				font-size: 14px;
+			}
+		}
+		&__chat {
+			height: calc(100vh - 112px);
+			margin: 0;
 		}
 		&__message {
 			&_date {

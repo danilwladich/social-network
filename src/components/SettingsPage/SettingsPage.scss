@@ -1,38 +1,54 @@
 html[theme="dark"] {
 	.settings {
 		&__item:not(:last-child) {
-			border-bottom: var(--dark-text-color) solid 2px;
+			border-bottom: var(--dark-items-border-bottom) solid 1px;
+		}
+		&__button {
+			background-color: var(--dark-button-bg);
+			&:hover {
+				background-color: var(--dark-button-bg-active);
+			}
 		}
 	}
 }
 html[theme="light"] {
 	.settings {
 		&__item:not(:last-child) {
-			border-bottom: var(--light-text-color) solid 2px;
+			border-bottom: var(--light-items-border-bottom) solid 1px;
+		}
+		&__button {
+			background-color: var(--light-button-bg);
+			&:hover {
+				background-color: var(--light-button-bg-active);
+			}
 		}
 	}
 }
 
 .settings {
-	&__category {
-		font-size: 20px;
-		font-weight: 700;
-		padding: 5px 0;
-	}
 	&__item {
 		padding: 10px 0;
 	}
+	&__category {
+		font-size: 20px;
+		font-weight: 700;
+	}
 	&__button {
+		margin: 15px 0px 0px 0px;
 		cursor: pointer;
 		display: inline-block;
 		background-color: transparent;
-		font-size: 20px;
+		font-size: 18px;
+		padding: 5px 15px;
 		display: flex;
 		align-items: center;
+		gap: 5px;
+		border-radius: 4px;
+		height: 28px;
 		svg {
-			margin: 0px 0px 0px 5px;
-			width: 40px;
-			height: 40px;
+			margin: -5px 0;
+			width: 23px;
+			height: 23px;
 			pointer-events: none;
 			user-select: none;
 		}
@@ -45,20 +61,17 @@ html[theme="light"] {
 			opacity: 0.7;
 		}
 		&.logout {
-			color: #fff;
 			line-height: 100%;
-			border-radius: 4px;
-			padding: 5px 15px;
-			background-color: #cc0000;
-			transition: all 0.2s;
 			&:hover {
-				background-color: red;
-				text-decoration: none;
+				color: #fff;
+				background-color: red !important;
+				svg {
+					circle {
+						stroke: #fff;
+					}
+				}
 			}
 			svg {
-				circle {
-					stroke: #fff;
-				}
 				width: 125px;
 				height: 20px;
 			}

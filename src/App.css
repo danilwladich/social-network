@@ -99,22 +99,32 @@ h6 {
   border-radius: 4px;
 }
 
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  -webkit-transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
+  transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
+  -o-transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
+  transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
+  transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
+}
+
 :root {
   --dark-text-color: rgba(255, 255, 255, 0.87);
   --dark-subsection-bg: rgb(26, 26, 26);
   --dark-main-bg: rgb(37, 37, 37);
   --dark-button-bg: rgb(37, 37, 37);
   --dark-button-bg-active: rgb(60, 60, 60);
+  --dark-items-border-bottom: rgba(255, 255, 255, 0.3);
   --light-text-color: rgb(0, 0, 0);
   --light-subsection-bg: rgb(255, 255, 255);
   --light-main-bg: rgb(235, 235, 235);
   --light-button-bg: rgb(235, 235, 235);
   --light-button-bg-active: rgb(210, 210, 210);
+  --light-items-border-bottom: rgba(0, 0, 0, 0.3);
 }
 
-html[theme=dark] {
-  background-color: var(--dark-main-bg);
-}
 html[theme=dark] ::-webkit-scrollbar-track {
   background: rgba(155, 155, 155, 0.3);
 }
@@ -124,8 +134,11 @@ html[theme=dark] ::-webkit-scrollbar-thumb {
 html[theme=dark] ::-webkit-scrollbar-thumb:hover {
   background: rgb(155, 155, 155);
 }
-@media (max-width: 767px) {
-  html[theme=dark] {
+html[theme=dark] body {
+  background-color: var(--dark-main-bg);
+}
+@media (max-width: 766px) {
+  html[theme=dark] body {
     background-color: var(--dark-subsection-bg);
   }
 }
@@ -135,7 +148,7 @@ html[theme=dark] * {
 html[theme=dark] .subsection {
   background-color: var(--dark-subsection-bg);
 }
-@media (max-width: 767px) {
+@media (max-width: 766px) {
   html[theme=dark] .subsection:not(:empty):not(:first-child) {
     border-top: 1px solid var(--dark-text-color);
   }
@@ -168,9 +181,6 @@ html[theme=dark] .likeHeart.likedMe {
   fill: #fff;
 }
 
-html[theme=light] {
-  background-color: var(--light-main-bg);
-}
 html[theme=light] ::-webkit-scrollbar-track {
   background: rgba(85, 85, 85, 0.3);
 }
@@ -180,8 +190,11 @@ html[theme=light] ::-webkit-scrollbar-thumb {
 html[theme=light] ::-webkit-scrollbar-thumb:hover {
   background: rgb(85, 85, 85);
 }
-@media (max-width: 767px) {
-  html[theme=light] {
+html[theme=light] body {
+  background-color: var(--light-main-bg);
+}
+@media (max-width: 766px) {
+  html[theme=light] body {
     background-color: var(--light-subsection-bg);
   }
 }
@@ -191,7 +204,7 @@ html[theme=light] * {
 html[theme=light] .subsection {
   background-color: var(--light-subsection-bg);
 }
-@media (max-width: 767px) {
+@media (max-width: 766px) {
   html[theme=light] .subsection:not(:empty):not(:first-child) {
     border-top: 1px solid var(--light-text-color);
   }
@@ -225,6 +238,9 @@ html[theme=light] .likeHeart.likedMe {
 }
 
 body {
+  -webkit-transition: background-color 0s;
+  -o-transition: background-color 0s;
+  transition: background-color 0s;
   overflow-y: overlay;
   overflow-x: hidden;
 }
@@ -255,7 +271,7 @@ body.lock {
   .content {
     padding: 65px 15px 15px 15px;
     display: grid;
-    grid-template-columns: 1fr 200px minmax(auto, 1000px) 1fr;
+    grid-template-columns: 0.667fr 200px minmax(537px, 1000px) 1fr;
   }
   .content aside {
     grid-column: 2/3;
@@ -283,10 +299,12 @@ body.lock {
 
 .title {
   text-align: center;
-  padding: 0px 0px 15px 0px;
   font-size: 20px;
   font-weight: 700;
   line-height: 150%;
+}
+.title:not(:last-child) {
+  padding: 0px 0px 15px 0px;
 }
 @media (min-width: 767px) {
   .title {

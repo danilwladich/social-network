@@ -10,8 +10,10 @@ export function SettingsPage() {
 			<section className="settings">
 				<div className="subsection">
 					<h2 className="settings__title title">Settings</h2>
-					<GeneralContainer />
-					<AccountContainer />
+					<div className="settings__items">
+						<GeneralContainer />
+						<AccountContainer />
+					</div>
 				</div>
 			</section>
 		</>

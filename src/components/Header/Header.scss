@@ -2,7 +2,7 @@ html[theme="dark"] {
 	.header {
 		background-color: var(--dark-subsection-bg);
 		border-bottom: 1px solid var(--dark-text-color);
-		@media (max-width: 767px) {
+		@media (max-width: 766px) {
 			&__burger {
 				&:before,
 				&:after {
@@ -21,7 +21,7 @@ html[theme="light"] {
 	.header {
 		background-color: var(--light-subsection-bg);
 		border-bottom: 1px solid var(--light-text-color);
-		@media (max-width: 767px) {
+		@media (max-width: 766px) {
 			&__burger {
 				&:before,
 				&:after {
@@ -85,7 +85,7 @@ html[theme="light"] {
 			user-select: none;
 		}
 	}
-	@media (max-width: 767px) {
+	@media (max-width: 766px) {
 		&__burger {
 			z-index: 50;
 			display: block;

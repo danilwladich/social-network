@@ -39,15 +39,8 @@ export function LoginForm(props: IProps) {
 		<Form
 			onSubmit={onSubmit}
 			validate={validate}
-			render={({ pristine, values, hasValidationErrors }) => (
-				<form
-					onSubmit={(e) => {
-						e.preventDefault();
-						if (!hasValidationErrors) {
-							onSubmit(values);
-						}
-					}}
-				>
+			render={({ handleSubmit, pristine, hasValidationErrors }) => (
+				<form>
 					<Field
 						name="phoneNumber"
 						render={({ input, meta }) => (
@@ -98,6 +91,7 @@ export function LoginForm(props: IProps) {
 					<button
 						tabIndex={3}
 						type="submit"
+						onClick={handleSubmit}
 						disabled={pristine || submitting || hasValidationErrors}
 						className="login__button"
 					>

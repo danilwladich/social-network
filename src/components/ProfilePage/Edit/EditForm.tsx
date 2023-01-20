@@ -83,15 +83,8 @@ export function EditForm(props: IProps) {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
-				render={({ pristine, values, hasValidationErrors }) => (
-					<form
-						onSubmit={(e) => {
-							e.preventDefault();
-							if (!hasValidationErrors) {
-								onSubmit(values);
-							}
-						}}
-					>
+				render={({ handleSubmit, pristine, values, hasValidationErrors }) => (
+					<form>
 						<Field
 							name="image"
 							render={({ input: { onChange, value, ...input }, meta }) => (
@@ -193,7 +186,7 @@ export function EditForm(props: IProps) {
 						)}
 
 						<button
-							type="submit"
+							onClick={handleSubmit}
 							disabled={pristine || submitting || hasValidationErrors}
 							className="profile__edit_button"
 						>

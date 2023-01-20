@@ -3,4 +3,5 @@ export interface MessagesMessageData {
 	message: string;
 	date: string;
 	out: boolean;
+	read: boolean;
 }

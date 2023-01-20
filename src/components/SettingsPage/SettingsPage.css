@@ -1,35 +1,51 @@
 html[theme=dark] .settings__item:not(:last-child) {
-  border-bottom: var(--dark-text-color) solid 2px;
+  border-bottom: var(--dark-items-border-bottom) solid 1px;
+}
+html[theme=dark] .settings__button {
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .settings__button:hover {
+  background-color: var(--dark-button-bg-active);
 }
 
 html[theme=light] .settings__item:not(:last-child) {
-  border-bottom: var(--light-text-color) solid 2px;
+  border-bottom: var(--light-items-border-bottom) solid 1px;
+}
+html[theme=light] .settings__button {
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .settings__button:hover {
+  background-color: var(--light-button-bg-active);
 }
 
-.settings__category {
-  font-size: 20px;
-  font-weight: 700;
-  padding: 5px 0;
-}
 .settings__item {
   padding: 10px 0;
 }
+.settings__category {
+  font-size: 20px;
+  font-weight: 700;
+}
 .settings__button {
+  margin: 15px 0px 0px 0px;
   cursor: pointer;
   display: inline-block;
   background-color: transparent;
-  font-size: 20px;
+  font-size: 18px;
+  padding: 5px 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 5px;
+  border-radius: 4px;
+  height: 28px;
 }
 .settings__button svg {
-  margin: 0px 0px 0px 5px;
-  width: 40px;
-  height: 40px;
+  margin: -5px 0;
+  width: 23px;
+  height: 23px;
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -43,23 +59,16 @@ html[theme=light] .settings__item:not(:last-child) {
   opacity: 0.7;
 }
 .settings__button.logout {
-  color: #fff;
   line-height: 100%;
-  border-radius: 4px;
-  padding: 5px 15px;
-  background-color: #cc0000;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
 }
 .settings__button.logout:hover {
-  background-color: red;
-  text-decoration: none;
+  color: #fff;
+  background-color: red !important;
+}
+.settings__button.logout:hover svg circle {
+  stroke: #fff;
 }
 .settings__button.logout svg {
   width: 125px;
   height: 20px;
-}
-.settings__button.logout svg circle {
-  stroke: #fff;
 }

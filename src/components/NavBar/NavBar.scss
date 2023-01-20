@@ -6,7 +6,7 @@ html[theme="dark"] {
 				border: 1px solid var(--dark-text-color);
 			}
 		}
-		@media (max-width: 767px) {
+		@media (max-width: 766px) {
 			&__menu {
 				&::before {
 					background-color: var(--dark-main-bg);
@@ -24,7 +24,7 @@ html[theme="light"] {
 				border: 1px solid var(--light-text-color);
 			}
 		}
-		@media (max-width: 767px) {
+		@media (max-width: 766px) {
 			&__menu {
 				&::before {
 					background-color: var(--light-main-bg);
@@ -55,7 +55,7 @@ html[theme="light"] {
 			font-weight: 700;
 		}
 	}
-	@media (max-width: 767px) {
+	@media (max-width: 766px) {
 		&__menu {
 			left: 50%;
 			position: fixed;

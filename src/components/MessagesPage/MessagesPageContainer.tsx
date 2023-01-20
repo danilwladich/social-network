@@ -8,8 +8,9 @@ import { MessagesPage } from "./MessagesPage";
 interface IProps {}
 
 function MessagesPageAPI(props: IProps) {
-	const userID = useParams().id;
 	document.title = `Messages`;
+	const userID = useParams().id;
+
 	return (
 		<>
 			<MessagesPage userID={userID} />

@@ -2,7 +2,7 @@ html[theme=dark] .header {
   background-color: var(--dark-subsection-bg);
   border-bottom: 1px solid var(--dark-text-color);
 }
-@media (max-width: 767px) {
+@media (max-width: 766px) {
   html[theme=dark] .header__burger:before, html[theme=dark] .header__burger:after {
     content: "";
     background-color: var(--dark-text-color);
@@ -16,7 +16,7 @@ html[theme=light] .header {
   background-color: var(--light-subsection-bg);
   border-bottom: 1px solid var(--light-text-color);
 }
-@media (max-width: 767px) {
+@media (max-width: 766px) {
   html[theme=light] .header__burger:before, html[theme=light] .header__burger:after {
     content: "";
     background-color: var(--light-text-color);
@@ -88,7 +88,7 @@ html[theme=light] .header {
       -ms-user-select: none;
           user-select: none;
 }
-@media (max-width: 767px) {
+@media (max-width: 766px) {
   .header__burger {
     z-index: 50;
     display: block;

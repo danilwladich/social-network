@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from "react";
 import { MessagesMessageData } from "../../../models/Messages/MessagesMessageData";
 import { ChatInput } from "./ChatInput";
 import { Message } from "./Message";
-import { MessagesUserData } from "../../../models/Messages/MessagesUserData";
 import { ChatHeader } from "./ChatHeader";
+import { ChatWith } from "../../../models/Messages/ChatWith";
 
 interface IProps {
-	chatWith: MessagesUserData;
+	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
 	sendMessage: (v: string) => void;
 }
@@ -27,9 +27,13 @@ export function Chat(props: IProps) {
 				<ChatHeader chatWith={props.chatWith} />
 
 				<div ref={chatRef} className="messages__content">
-					{props.messagesData.map((m) => (
-						<Message key={m.id} messageData={m} />
-					))}
+					{!!props.messagesData.length ? (
+						props.messagesData.map((m) => (
+							<Message key={m.id} messageData={m} />
+						))
+					) : (
+						<div className="messages__content_nocontent">{`You haven't had chat with ${props.chatWith.firstName} ${props.chatWith.lastName} yet`}</div>
+					)}
 				</div>
 
 				<ChatInput
