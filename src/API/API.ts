@@ -32,6 +32,11 @@ export const API = {
 	logout() {
 		return instance.delete(`auth/me`).then((response) => response.data);
 	},
+	deleteAccount(password: string, confirmPassword: string) {
+		return instance
+			.delete(`delete/account`, { data: { password, confirmPassword } })
+			.then((response) => response.data);
+	},
 
 	// profile
 	getProfile(userID: string) {

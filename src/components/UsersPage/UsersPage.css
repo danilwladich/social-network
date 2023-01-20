@@ -254,6 +254,11 @@ html[theme=light] .users__pagination_page.active:after {
           justify-content: center;
   gap: 25px;
 }
+.users__pagination button:not(:disabled) {
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
 .users__pagination button:not(:disabled):hover {
   -webkit-transform: translate(-2px, -2px);
       -ms-transform: translate(-2px, -2px);

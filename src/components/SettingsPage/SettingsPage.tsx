@@ -1,6 +1,6 @@
 import React from "react";
-import { GeneralContainer } from "./SettingsCategories/General/GeneralContainer";
-import { AccountContainer } from "./SettingsCategories/Account/AccountContainer";
+import { GeneralContainer } from "./General/GeneralContainer";
+import { AccountContainer } from "./Account/AccountContainer";
 import "./SettingsPage.css";
 
 export function SettingsPage() {

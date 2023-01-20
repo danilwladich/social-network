@@ -1,12 +1,8 @@
 @import "./null.scss";
 
 * {
-	padding: 0;
-	margin: 0;
-	border: 0;
-	transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s,
-		stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s,
-		visibility 0.2s;
+	transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s,
+		fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
 }
 
 :root {
@@ -56,6 +52,10 @@ html[theme="dark"] {
 				border: 1px solid var(--dark-text-color);
 			}
 		}
+	}
+	.modal {
+		background-color: var(--dark-subsection-bg);
+		border: 1px solid var(--dark-text-color);
 	}
 	.loading_element {
 		background-color: var(--dark-main-bg);
@@ -121,6 +121,10 @@ html[theme="light"] {
 			}
 		}
 	}
+	.modal {
+		background-color: var(--light-subsection-bg);
+		border: 1px solid var(--light-text-color);
+	}
 	.loading_element {
 		background-color: var(--light-main-bg);
 	}
@@ -155,8 +159,8 @@ html[theme="light"] {
 
 body {
 	transition: background-color 0s;
-	overflow-y: overlay;
 	overflow-x: hidden;
+	overflow-y: overlay;
 	&.lock {
 		overflow: hidden;
 	}
@@ -212,6 +216,34 @@ body {
 	}
 }
 
+.modal {
+	&__bg {
+		position: fixed;
+		z-index: 100;
+		left: 0;
+		top: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.7);
+		animation: showModal 0.4s;
+	}
+	overflow-y: overlay;
+	position: fixed;
+	width: 260px;
+	top: 15px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 100;
+	padding: 15px 10px;
+	border-radius: 8px;
+	max-height: calc(100vh - 30px);
+	animation: showModal 0.4s;
+	@media (min-width: 767px) {
+		width: 280px;
+		padding: 15px;
+	}
+}
+
 .app_loading {
 	display: inline-block;
 	position: fixed;
@@ -259,5 +291,14 @@ body {
 		width: 72px;
 		height: 72px;
 		opacity: 0;
+	}
+}
+
+@keyframes showModal {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }

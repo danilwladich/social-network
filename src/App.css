@@ -100,14 +100,11 @@ h6 {
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  -webkit-transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
-  transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
-  -o-transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
-  transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
-  transition: background-color 0.2s, transfrom 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
+  transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
+  -o-transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
+  transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
+  transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
 }
 
 :root {
@@ -157,6 +154,10 @@ html[theme=dark] .subsection {
   html[theme=dark] .subsection:not(:empty) {
     border: 1px solid var(--dark-text-color);
   }
+}
+html[theme=dark] .modal {
+  background-color: var(--dark-subsection-bg);
+  border: 1px solid var(--dark-text-color);
 }
 html[theme=dark] .loading_element {
   background-color: var(--dark-main-bg);
@@ -214,6 +215,10 @@ html[theme=light] .subsection {
     border: 1px solid var(--light-text-color);
   }
 }
+html[theme=light] .modal {
+  background-color: var(--light-subsection-bg);
+  border: 1px solid var(--light-text-color);
+}
 html[theme=light] .loading_element {
   background-color: var(--light-main-bg);
 }
@@ -241,8 +246,8 @@ body {
   -webkit-transition: background-color 0s;
   -o-transition: background-color 0s;
   transition: background-color 0s;
-  overflow-y: overlay;
   overflow-x: hidden;
+  overflow-y: overlay;
 }
 body.lock {
   overflow: hidden;
@@ -309,6 +314,40 @@ body.lock {
 @media (min-width: 767px) {
   .title {
     font-size: 22px;
+  }
+}
+
+.modal {
+  overflow-y: overlay;
+  position: fixed;
+  width: 260px;
+  top: 15px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 100;
+  padding: 15px 10px;
+  border-radius: 8px;
+  max-height: calc(100vh - 30px);
+  -webkit-animation: showModal 0.4s;
+          animation: showModal 0.4s;
+}
+.modal__bg {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  -webkit-animation: showModal 0.4s;
+          animation: showModal 0.4s;
+}
+@media (min-width: 767px) {
+  .modal {
+    width: 280px;
+    padding: 15px;
   }
 }
 
@@ -394,5 +433,21 @@ body.lock {
     width: 72px;
     height: 72px;
     opacity: 0;
+  }
+}
+@-webkit-keyframes showModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes showModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

@@ -133,3 +133,26 @@ export const logoutTC = () => {
 		}
 	};
 };
+
+export const deleteAccountTC = (password: string, confirmPassword: string) => {
+	return async (dispatch: Dispatch<any>) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.deleteAccount(password, confirmPassword).then((data) => {
+				if (data.success === true) {
+					dispatch(notAuthUser());
+				} else {
+					return Promise.reject(data.statusText);
+				}
+			});
+		} catch (e: unknown) {
+			if (typeof e === "string") {
+				return Promise.reject(e);
+			}
+
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Delete account: " + error.message));
+			return Promise.reject();
+		}
+	};
+};

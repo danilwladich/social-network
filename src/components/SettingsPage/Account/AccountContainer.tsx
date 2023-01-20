@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { IState } from "../../../../models/IState";
-import { logoutTC } from "../../../../redux/authReducer";
+import { IState } from "../../../models/IState";
+import { deleteAccountTC, logoutTC } from "../../../redux/authReducer";
 import { Account } from "./Account";
 
 function mapStateToProps(state: IState) {
@@ -9,4 +9,5 @@ function mapStateToProps(state: IState) {
 
 export const AccountContainer = connect(mapStateToProps, {
 	logoutTC,
+	deleteAccountTC,
 })(Account);

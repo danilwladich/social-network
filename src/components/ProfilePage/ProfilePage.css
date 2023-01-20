@@ -6,21 +6,14 @@ html[theme=dark] .profile__actions > a:hover,
 html[theme=dark] .profile__actions > button:hover {
   background-color: var(--dark-button-bg-active);
 }
-html[theme=dark] .profile__edit_close path {
-  stroke: var(--light-subsection-bg);
-}
-html[theme=dark] .profile__edit_modal {
-  background-color: var(--dark-subsection-bg);
-  border: 1px solid var(--dark-text-color);
-}
 html[theme=dark] .profile__edit_input {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid var(--dark-items-border-bottom);
 }
 html[theme=dark] .profile__edit_input.empty {
   color: rgba(255, 255, 255, 0.5);
 }
 html[theme=dark] .profile__edit_input:focus {
-  border-bottom: 1px solid var(--light-subsection-bg);
+  border-bottom: 1px solid var(--dark-text-color);
 }
 html[theme=dark] .profile__edit_button {
   background-color: var(--dark-button-bg);
@@ -59,15 +52,8 @@ html[theme=light] .profile__actions > a:hover,
 html[theme=light] .profile__actions > button:hover {
   background-color: var(--light-button-bg-active);
 }
-html[theme=light] .profile__edit_close path {
-  stroke: var(--light-text-color);
-}
-html[theme=light] .profile__edit_modal {
-  background-color: var(--light-subsection-bg);
-  border: 1px solid var(--light-text-color);
-}
 html[theme=light] .profile__edit_input {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid var(--light-items-border-bottom);
 }
 html[theme=light] .profile__edit_input.empty {
   color: rgba(0, 0, 0, 0.5);
@@ -229,38 +215,11 @@ html[theme=light] .profile__post_like:hover {
 .profile__about a:hover {
   text-decoration: underline;
 }
-.profile__edit_bg {
-  position: fixed;
-  z-index: 100;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  -webkit-animation: showModal 0.4s;
-          animation: showModal 0.4s;
-}
-.profile__edit_modal {
-  position: fixed;
-  width: 260px;
-  top: 15px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
-  z-index: 100;
-  padding: 15px 10px;
-  border-radius: 8px;
-  max-height: calc(100vh - 30px);
-  overflow: auto;
-  -webkit-animation: showModal 0.4s;
-          animation: showModal 0.4s;
-}
 .profile__edit_title {
+  line-height: 1;
   font-size: 22px;
   text-align: center;
   font-weight: 700;
-  padding: 0px 0px 25px 0px;
 }
 .profile__edit_close {
   position: absolute;
@@ -323,7 +282,6 @@ html[theme=light] .profile__post_like:hover {
   font-weight: 700;
 }
 .profile__edit_incorrect {
-  font-weight: 300;
   color: rgba(255, 0, 0, 0.87) !important;
   position: absolute;
   bottom: -14px;
@@ -332,7 +290,6 @@ html[theme=light] .profile__post_like:hover {
   word-wrap: break-word;
   text-align: center;
   color: rgba(255, 0, 0, 0.87) !important;
-  font-weight: 300;
   text-transform: capitalize;
 }
 .profile__edit_button {
@@ -342,6 +299,9 @@ html[theme=light] .profile__post_like:hover {
   padding: 10px 50px;
   margin: 30px auto 0px;
   border-radius: 4px;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
   opacity: 0.7;
 }
 .profile__edit_button:not(:disabled) {
@@ -464,7 +424,6 @@ html[theme=light] .profile__post_like:hover {
   border-radius: 4px;
   padding: 5px 10px;
   background-color: transparent;
-  font-weight: 300;
   font-size: 16px;
 }
 .profile__post_like svg {
@@ -474,7 +433,6 @@ html[theme=light] .profile__post_like:hover {
 }
 .profile__post_date {
   opacity: 0.7;
-  font-weight: 300;
   font-size: 14px;
 }
 @media (min-width: 767px) {
@@ -532,10 +490,6 @@ html[theme=light] .profile__post_like:hover {
   .profile__actions a,
 .profile__actions button:not(.profile__edit_close) {
     width: 150px;
-  }
-  .profile__edit_modal {
-    width: 280px;
-    padding: 15px;
   }
   .profile__edit_label span {
     margin: 0px 15px 0px 0px;

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { IState } from "../../../../models/IState";
-import { setTheme } from "../../../../redux/settingsReducer";
+import { IState } from "../../../models/IState";
+import { setTheme } from "../../../redux/settingsReducer";
 import { General } from "./General";
 
 function mapStateToProps(state: IState) {

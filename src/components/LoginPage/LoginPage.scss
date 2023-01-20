@@ -1,7 +1,7 @@
 html[theme="dark"] {
 	.login {
 		&__input {
-			border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+			border-bottom: 1px solid var(--dark-items-border-bottom);
 			&:focus {
 				border-bottom: 1px solid var(--dark-text-color);
 			}
@@ -17,7 +17,7 @@ html[theme="dark"] {
 html[theme="light"] {
 	.login {
 		&__input {
-			border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+			border-bottom: 1px solid var(--light-items-border-bottom);
 			&:focus {
 				border-bottom: 1px solid var(--light-text-color);
 			}
@@ -35,7 +35,7 @@ html[theme="light"] {
 	grid-column: span 2 !important;
 	position: absolute;
 	width: 260px;
-	top: 65px;
+	top: 50px;
 	left: 50%;
 	transform: translateX(-50%);
 	&__label {
@@ -58,20 +58,20 @@ html[theme="light"] {
 		cursor: pointer;
 	}
 	&__incorrect {
-		font-weight: 300;
 		color: rgba(255, 0, 0, 0.87) !important;
 		position: absolute;
 		bottom: -14px;
 	}
 	&__button {
 		display: block;
+		width: 175px;
 		font-size: 20px;
 		background-color: transparent;
 		padding: 10px 50px;
 		margin: 30px auto 15px auto;
 		border-radius: 4px;
-
 		opacity: 0.7;
+		transition: all 0.2s;
 		&:not(:disabled) {
 			opacity: 1;
 			&:hover {
@@ -87,6 +87,13 @@ html[theme="light"] {
 			margin: 0px 0px -5px 0px;
 		}
 	}
+	&__error {
+		word-wrap: break-word;
+		text-align: center;
+		color: rgba(255, 0, 0, 0.87) !important;
+
+		text-transform: capitalize;
+	}
 	&__link {
 		line-height: 150%;
 		font-size: 14px;
@@ -96,14 +103,8 @@ html[theme="light"] {
 			opacity: 1;
 		}
 	}
-	&__error {
-		word-wrap: break-word;
-		text-align: center;
-		color: rgba(255, 0, 0, 0.87) !important;
-		font-weight: 300;
-		text-transform: capitalize;
-	}
 	@media (min-width: 767px) {
+		top: 65px;
 		width: 280px;
 	}
 }

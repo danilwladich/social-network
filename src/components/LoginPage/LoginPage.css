@@ -1,5 +1,5 @@
 html[theme=dark] .login__input {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid var(--dark-items-border-bottom);
 }
 html[theme=dark] .login__input:focus {
   border-bottom: 1px solid var(--dark-text-color);
@@ -12,7 +12,7 @@ html[theme=dark] .login__button:not(:disabled):hover {
 }
 
 html[theme=light] .login__input {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid var(--light-items-border-bottom);
 }
 html[theme=light] .login__input:focus {
   border-bottom: 1px solid var(--light-text-color);
@@ -28,7 +28,7 @@ html[theme=light] .login__button:not(:disabled):hover {
   grid-column: span 2 !important;
   position: absolute;
   width: 260px;
-  top: 65px;
+  top: 50px;
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
@@ -54,19 +54,22 @@ html[theme=light] .login__button:not(:disabled):hover {
   cursor: pointer;
 }
 .login__incorrect {
-  font-weight: 300;
   color: rgba(255, 0, 0, 0.87) !important;
   position: absolute;
   bottom: -14px;
 }
 .login__button {
   display: block;
+  width: 175px;
   font-size: 20px;
   background-color: transparent;
   padding: 10px 50px;
   margin: 30px auto 15px auto;
   border-radius: 4px;
   opacity: 0.7;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
 }
 .login__button:not(:disabled) {
   opacity: 1;
@@ -86,6 +89,12 @@ html[theme=light] .login__button:not(:disabled):hover {
   height: 23px;
   margin: 0px 0px -5px 0px;
 }
+.login__error {
+  word-wrap: break-word;
+  text-align: center;
+  color: rgba(255, 0, 0, 0.87) !important;
+  text-transform: capitalize;
+}
 .login__link {
   line-height: 150%;
   font-size: 14px;
@@ -94,15 +103,9 @@ html[theme=light] .login__button:not(:disabled):hover {
 .login__link:hover {
   opacity: 1;
 }
-.login__error {
-  word-wrap: break-word;
-  text-align: center;
-  color: rgba(255, 0, 0, 0.87) !important;
-  font-weight: 300;
-  text-transform: capitalize;
-}
 @media (min-width: 767px) {
   .login {
+    top: 65px;
     width: 280px;
   }
 }

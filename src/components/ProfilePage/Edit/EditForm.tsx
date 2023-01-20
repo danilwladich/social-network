@@ -12,7 +12,7 @@ interface IProps {
 		country?: string,
 		city?: string
 	) => Promise<void>;
-	editModeOff: () => void;
+	modalOff: () => void;
 }
 
 export function EditForm(props: IProps) {
@@ -40,7 +40,7 @@ export function EditForm(props: IProps) {
 		const image = v.image ? v.image[0] : undefined;
 		props
 			.editProfileTC(image, v.id, v.country, v.city)
-			.then(() => props.editModeOff())
+			.then(() => props.modalOff())
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));
 	}
@@ -124,7 +124,7 @@ export function EditForm(props: IProps) {
 							render={({ input, meta }) => (
 								<div className="profile__edit_field">
 									<label htmlFor="idInput" className="profile__edit_label">
-										Custom id
+										Nickname
 										<p>
 											socnet.com/
 											{values.id
