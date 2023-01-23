@@ -1,5 +1,5 @@
 export interface ProfilePostData {
-	id: number;
+	id: string;
 	date: string;
 	post: string;
 	likes: number;

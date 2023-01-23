@@ -2,8 +2,7 @@ import React, { useRef, useState } from "react";
 import { Arrow } from "../../assets/Arrow";
 
 interface IProps {
-	sendMessage: (v: string) => void;
-	scrollAfterSend: () => void;
+	sendMessage: (message: string, id: number) => void;
 }
 
 export function ChatInput(props: IProps) {
@@ -25,8 +24,9 @@ export function ChatInput(props: IProps) {
 	}
 	function sendMessage() {
 		updateNewMessageValue("");
-		props.sendMessage(newMessageValue);
-		props.scrollAfterSend();
+		if (newMessageValue.trim() !== "") {
+			props.sendMessage(newMessageValue, 1);
+		}
 	}
 	function onKeyDownHandler(
 		e: React.KeyboardEvent<HTMLSpanElement>,

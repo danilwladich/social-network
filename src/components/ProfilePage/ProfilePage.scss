@@ -401,10 +401,13 @@ html[theme="light"] {
 		}
 	}
 	&__post {
-		&:not(:first-child) {
+		&:first-child:not(:last-child) {
+			padding: 0px 0px 10px 0px;
+		}
+		&:last-child:not(:first-child) {
 			padding: 10px 0px 0px 0px;
 		}
-		&:not(:last-child) {
+		&:not(:last-child):not(:first-child) {
 			padding: 10px 0px 10px 0px;
 		}
 		&_content {
@@ -413,7 +416,7 @@ html[theme="light"] {
 		}
 		&_more {
 			background-color: transparent;
-			padding: 2px;
+			padding: 2px 5px;
 			font-size: 16px;
 			border-radius: 4px;
 			&:hover {
@@ -453,7 +456,7 @@ html[theme="light"] {
 			&_actions {
 				gap: 15px;
 				div {
-					width: 150px;
+					width: 175px;
 				}
 			}
 			&_image {
@@ -489,7 +492,7 @@ html[theme="light"] {
 			gap: 15px;
 			a,
 			button:not(.profile__edit_close) {
-				width: 150px;
+				width: 175px;
 			}
 		}
 		&__edit {
@@ -499,14 +502,5 @@ html[theme="light"] {
 				}
 			}
 		}
-	}
-}
-
-@keyframes showModal {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
 	}
 }

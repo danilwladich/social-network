@@ -67,9 +67,9 @@ export const loginTC = (phoneNumber: string, password: string) => {
 	return async (dispatch: Dispatch<any>) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.login(phoneNumber, password).then((data) => {
+			await API.login(phoneNumber, password).then(async (data) => {
 				if (data.success === true) {
-					dispatch(authMeTC());
+					await dispatch(authMeTC());
 				} else {
 					return Promise.reject(data.statusText);
 				}
@@ -96,9 +96,9 @@ export const registerTC = (
 		try {
 			dispatch(setErrorMessage(""));
 			await API.register(phoneNumber, password, firstName, lastName).then(
-				(data) => {
+				async (data) => {
 					if (data.success === true) {
-						dispatch(loginTC(phoneNumber, password));
+						await dispatch(loginTC(phoneNumber, password));
 					} else {
 						return Promise.reject(data.statusText);
 					}

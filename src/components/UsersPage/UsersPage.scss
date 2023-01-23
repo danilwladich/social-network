@@ -87,6 +87,9 @@ html[theme="light"] {
 
 .users {
 	&__loading {
+		&_items{
+			margin: -10px 0px 0px 0px;
+		}
 		&_item {
 			display: flex;
 			align-items: center;

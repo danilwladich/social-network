@@ -25,10 +25,10 @@ export function Categories(props: IProps) {
 				</NavLink>
 				<NavLink
 					draggable="false"
-					to={"/friends/" + props.id + "/followed"}
+					to={"/friends/" + props.id + "/following"}
 					className="friends__categories_button"
 				>
-					Followed
+					Following
 				</NavLink>
 			</div>
 		</>

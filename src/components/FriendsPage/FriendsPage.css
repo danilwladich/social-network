@@ -139,7 +139,7 @@ html[theme=light] .friends__user_follow:hover {
   height: 20px;
 }
 .friends__loading_items {
-  margin: 15px 0px 0px 0px;
+  margin: 5px 0px 0px 0px;
 }
 .friends__loading_item {
   display: -webkit-box;

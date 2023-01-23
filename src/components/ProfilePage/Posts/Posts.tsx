@@ -8,27 +8,27 @@ interface IProps {
 	profileID: string;
 	postsData: ProfilePostData[];
 	addPostTC: (post: string) => Promise<void>;
-	likePostTC: (userID: string, postID: number) => Promise<void>;
-	unlikePostTC: (userID: string, postID: number) => Promise<void>;
+	likePostTC: (postID: string) => Promise<void>;
+	unlikePostTC: (postID: string) => Promise<void>;
 }
 
 export function Posts(props: IProps) {
-	const [likeButtonsInProgress, setLikeButtonsInProgress] = useState<number[]>(
+	const [likeButtonsInProgress, setLikeButtonsInProgress] = useState<string[]>(
 		[]
 	);
 
-	function likePost(postID: number) {
+	function likePost(postID: string) {
 		setLikeButtonsInProgress((prev) => [...prev, postID]);
 		props
-			.likePostTC(props.profileID, postID)
+			.likePostTC(postID)
 			.finally(() =>
 				setLikeButtonsInProgress((prev) => prev.filter((id) => id !== postID))
 			);
 	}
-	function unlikePost(postID: number) {
+	function unlikePost(postID: string) {
 		setLikeButtonsInProgress((prev) => [...prev, postID]);
 		props
-			.unlikePostTC(props.profileID, postID)
+			.unlikePostTC(postID)
 			.finally(() =>
 				setLikeButtonsInProgress((prev) => prev.filter((id) => id !== postID))
 			);

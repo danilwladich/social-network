@@ -10,6 +10,7 @@ import { User } from "./Users/User";
 interface IProps {
 	isLoading: boolean;
 	category: string;
+	authID: string;
 	whoseFriends: WhoseFriends;
 	usersData: FriendsUserData[];
 	totalCount: number;
@@ -74,6 +75,7 @@ export function FriendsPage(props: IProps) {
 						{props.usersData.map((u) => (
 							<User
 								key={u.id}
+								itsMe={u.id === props.authID}
 								userData={u}
 								setFollow={() => setFollow(u.id)}
 								setUnfollow={() => setUnfollow(u.id)}

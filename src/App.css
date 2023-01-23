@@ -318,6 +318,7 @@ body.lock {
 }
 
 .modal {
+  overflow-x: hidden;
   overflow-y: overlay;
   position: fixed;
   width: 260px;

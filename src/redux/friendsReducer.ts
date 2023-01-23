@@ -7,6 +7,7 @@ import { setErrorMessage } from "./appReducer";
 import { FriendsUserData } from "../models/Friends/FriendsUserData";
 import { IFriends } from "./../models/Friends/IFriends";
 import { WhoseFriends } from "../models/Friends/WhoseFriends";
+import { IState } from "./../models/IState";
 
 const initialState: IFriends = {
 	whoseFriends: {
@@ -102,16 +103,39 @@ export const getFriendsTC = (
 	page: number,
 	pageSize: number
 ) => {
-	return async (dispatch: Dispatch<IAction>) => {
+	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.getFriends(userID, category, page, pageSize).then((data) => {
-				if (page === 1) {
-					dispatch(setWhoseFriends(data.whoseFriends));
+			const lastUserID =
+				page > 1
+					? getState().friends.usersData[
+							getState().friends.usersData.length - 1
+					  ].id
+					: null;
+
+			await API.getFriends(userID, category, page, pageSize, lastUserID).then(
+				(data) => {
+					if (data.success === true) {
+						if (page === 1) {
+							dispatch(setWhoseFriends(data.whoseFriends));
+						}
+						dispatch(setFriends(data.usersData, page));
+						dispatch(setFriendsTotalCount(data.totalCount));
+					} else {
+						dispatch(
+							setWhoseFriends({
+								id: "",
+								firstName: "",
+								lastName: "",
+								image: "",
+							})
+						);
+						dispatch(setFriends([], 1));
+						dispatch(setFriendsTotalCount(0));
+						dispatch(setErrorMessage("Get friends: " + data.statusText));
+					}
 				}
-				dispatch(setFriends(data.usersData, page));
-				dispatch(setFriendsTotalCount(data.totalCount));
-			});
+			);
 		} catch (e: unknown) {
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Get friends: " + error.message));

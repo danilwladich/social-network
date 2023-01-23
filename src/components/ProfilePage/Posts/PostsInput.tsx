@@ -41,7 +41,9 @@ export function PostsInput(props: IProps) {
 	function addPost() {
 		setAddPostInProgress(true);
 		updateNewPostValue("");
-		props.addPostTC(newPostValue).finally(() => setAddPostInProgress(false));
+		if (newPostValue.trim() !== "") {
+			props.addPostTC(newPostValue).finally(() => setAddPostInProgress(false));
+		}
 	}
 	function onKeyDownHandler(
 		e: React.KeyboardEvent<HTMLSpanElement>,

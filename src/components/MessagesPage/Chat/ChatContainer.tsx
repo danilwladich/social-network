@@ -10,7 +10,7 @@ import { ChatWith } from "../../../models/Messages/ChatWith";
 interface IProps {
 	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
-	sendMessage: (v: string) => void;
+	sendMessage: (message: string, id: number) => void;
 }
 
 export function ChatContainerAPI(props: IProps) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { MessagesMessageData } from "../../../models/Messages/MessagesMessageData";
 import { ChatInput } from "./ChatInput";
 import { Message } from "./Message";
@@ -8,38 +8,48 @@ import { ChatWith } from "../../../models/Messages/ChatWith";
 interface IProps {
 	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
-	sendMessage: (v: string) => void;
+	sendMessage: (message: string, id: number) => void;
 }
 
 export function Chat(props: IProps) {
-	const chatRef = useRef<HTMLDivElement>(null);
-	useEffect(() => {
-		chatRef.current?.scrollTo(0, chatRef.current.scrollHeight);
+	const messagesEnd = useRef<HTMLDivElement>(null);
+
+	useLayoutEffect(() => {
+		scrollBottom();
 	}, []);
 
-	function scrollAfterSend() {
-		chatRef.current?.scrollTo(0, chatRef.current.scrollHeight);
-	}
+	useEffect(() => {
+		if (props.messagesData[props.messagesData.length - 1].out) {
+			scrollBottom();
+		}
+	}, [props.messagesData]);
 
+	function scrollBottom() {
+		messagesEnd.current?.scrollIntoView();
+	}
 	return (
 		<>
 			<div className="messages__chat">
 				<ChatHeader chatWith={props.chatWith} />
 
-				<div ref={chatRef} className="messages__content">
+				<div className="messages__content">
 					{!!props.messagesData.length ? (
-						props.messagesData.map((m) => (
-							<Message key={m.id} messageData={m} />
-						))
+						<>
+							{props.messagesData.map((m) => (
+								<Message key={m.id} messageData={m} />
+							))}
+
+							<div
+								style={{ float: "left", clear: "both" }}
+								ref={messagesEnd}
+							></div>
+						</>
 					) : (
 						<div className="messages__content_nocontent">{`You haven't had chat with ${props.chatWith.firstName} ${props.chatWith.lastName} yet`}</div>
 					)}
 				</div>
 
-				<ChatInput
-					sendMessage={props.sendMessage}
-					scrollAfterSend={scrollAfterSend}
-				/>
+				<ChatInput sendMessage={props.sendMessage} />
 			</div>
 		</>
 	);

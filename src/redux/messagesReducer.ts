@@ -26,6 +26,7 @@ export function messagesReducer(
 				message: action.value,
 				date: new Date().toString().split(" ").slice(1, 5).join(" "),
 				out: true,
+				read: false,
 			};
 			return {
 				...state,
@@ -38,7 +39,11 @@ export function messagesReducer(
 }
 
 // action
-export const sendMessage: (v: string) => IAction = (v) => ({
+export const sendMessage: (message: string, id: number) => IAction = (
+	message,
+	id
+) => ({
 	type: ActionType.SEND_MESSAGE,
-	value: v,
+	value: message,
+	id,
 });

@@ -50,6 +50,7 @@ interface setProfile {
 interface addPost {
 	type: ActionType.ADD_POST;
 	value: string;
+	id: string;
 }
 interface setPosts {
 	type: ActionType.SET_POSTS;
@@ -62,11 +63,11 @@ interface setPostsTotalCount {
 }
 interface likePost {
 	type: ActionType.LIKE_POST;
-	value: number;
+	value: string;
 }
 interface unlikePost {
 	type: ActionType.UNLIKE_POST;
-	value: number;
+	value: string;
 }
 
 // USERS & PROFILE & FRIENDS
@@ -83,6 +84,7 @@ interface unfollowUser {
 interface sendMessage {
 	type: ActionType.SEND_MESSAGE;
 	value: string;
+	id: number;
 }
 
 // FRIENDS

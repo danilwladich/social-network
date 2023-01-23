@@ -15,6 +15,7 @@ interface IProps {
 }
 
 function ProfilePageAPI(props: IProps) {
+	document.title = `SocNet`;
 	const [isLoading, setIsLoading] = useState(false);
 	let profileID = useParams().id;
 

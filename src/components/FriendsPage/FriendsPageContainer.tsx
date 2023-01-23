@@ -67,7 +67,7 @@ function FriendsPageAPI(props: IProps) {
 			userID &&
 			(category === "all" ||
 				category === "followers" ||
-				category === "followed")
+				category === "following")
 		) {
 			setIsLoading(true);
 			props
@@ -83,7 +83,7 @@ function FriendsPageAPI(props: IProps) {
 	if (
 		category !== "all"
 			? category !== "followers"
-				? category !== "followed"
+				? category !== "following"
 				: false
 			: false
 	) {
@@ -115,6 +115,7 @@ function FriendsPageAPI(props: IProps) {
 				<FriendsPage
 					isLoading={isLoading}
 					category={category!}
+					authID={props.authID}
 					whoseFriends={whoseFriends}
 					usersData={props.usersData}
 					totalCount={props.totalCount}

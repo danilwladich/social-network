@@ -227,6 +227,7 @@ body {
 		background-color: rgba(0, 0, 0, 0.7);
 		animation: showModal 0.4s;
 	}
+	overflow-x: hidden;
 	overflow-y: overlay;
 	position: fixed;
 	width: 260px;

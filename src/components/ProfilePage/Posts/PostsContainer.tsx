@@ -19,8 +19,8 @@ interface IProps {
 	totalCount: number;
 	getPostsTC: (userID: string, page: number, pageSize: number) => Promise<void>;
 	addPostTC: (post: string) => Promise<void>;
-	likePostTC: (userID: string, postID: number) => Promise<void>;
-	unlikePostTC: (userID: string, postID: number) => Promise<void>;
+	likePostTC: (postID: string) => Promise<void>;
+	unlikePostTC: (postID: string) => Promise<void>;
 }
 
 export function PostsContainerAPI(props: IProps) {

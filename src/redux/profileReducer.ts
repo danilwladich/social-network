@@ -22,7 +22,7 @@ const initialState: IProfile = {
 		friends: 0,
 		follow: {
 			followers: 0,
-			followed: 0,
+			following: 0,
 		},
 		location: {
 			country: "",
@@ -63,16 +63,14 @@ export function profileReducer(
 
 		case ActionType.ADD_POST:
 			const newPost = {
-				id: state.postsData.length
-					? state.postsData[state.postsData.length - 1].id + 1
-					: 1,
+				id: action.id,
 				date: new Date().toString().split(" ").slice(1, 5).join(" "),
 				post: action.value,
 				likes: 0,
 			};
 			return {
 				...state,
-				postsData: [...state.postsData, newPost],
+				postsData: [newPost, ...state.postsData],
 			};
 
 		case ActionType.LIKE_POST:
@@ -107,7 +105,7 @@ export function profileReducer(
 							friends: state.aboutData.friends + 1,
 							follow: {
 								...state.aboutData.follow,
-								followed: state.aboutData.follow.followed - 1,
+								following: state.aboutData.follow.following - 1,
 							},
 					  }
 					: {
@@ -129,7 +127,7 @@ export function profileReducer(
 							friends: state.aboutData.friends - 1,
 							follow: {
 								...state.aboutData.follow,
-								followed: state.aboutData.follow.followed + 1,
+								following: state.aboutData.follow.following + 1,
 							},
 					  }
 					: {
@@ -170,17 +168,18 @@ export const setPostsTotalCount: (count: number) => IAction = (count) => ({
 	value: count,
 });
 
-export const addPost: (v: string) => IAction = (v) => ({
+export const addPost: (post: string, id: string) => IAction = (post, id) => ({
 	type: ActionType.ADD_POST,
-	value: v,
+	value: post,
+	id,
 });
 
-export const likePost: (id: number) => IAction = (id) => ({
+export const likePost: (id: string) => IAction = (id) => ({
 	type: ActionType.LIKE_POST,
 	value: id,
 });
 
-export const unlikePost: (id: number) => IAction = (id) => ({
+export const unlikePost: (id: string) => IAction = (id) => ({
 	type: ActionType.UNLIKE_POST,
 	value: id,
 });
@@ -190,7 +189,7 @@ export const getProfileTC = (userID: string) => {
 	return async (dispatch: Dispatch<any>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.getProfile(userID).then((data) => {
+			await API.getProfile(userID).then(async (data) => {
 				if (data.success === true) {
 					dispatch(setProfile(data.userData, data.aboutData));
 					if (data.userData.id === getState().auth.user.id) {
@@ -200,7 +199,29 @@ export const getProfileTC = (userID: string) => {
 							dispatch(setHeaderImage(""));
 						}
 					}
-					dispatch(getPostsTC(userID, 1, getState().profile.pageSize));
+					await dispatch(getPostsTC(userID, 1, getState().profile.pageSize));
+				} else {
+					dispatch(
+						setProfile(
+							{
+								id: "",
+								firstName: "",
+								lastName: "",
+								image: "",
+							},
+							{
+								friends: 0,
+								follow: {
+									followers: 0,
+									following: 0,
+								},
+								location: {
+									country: "",
+									city: "",
+								},
+							}
+						)
+					);
 				}
 			});
 		} catch (e: unknown) {
@@ -211,14 +232,23 @@ export const getProfileTC = (userID: string) => {
 };
 
 export const getPostsTC = (userID: string, page: number, pageSize: number) => {
-	return async (dispatch: Dispatch<IAction>) => {
+	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.getPosts(userID, page, pageSize).then((data) => {
+			const lastPostID =
+				page > 1
+					? getState().profile.postsData[
+							getState().profile.postsData.length - 1
+					  ].id
+					: null;
+
+			await API.getPosts(userID, page, pageSize, lastPostID).then((data) => {
 				if (data.success === true) {
 					dispatch(setPosts(data.postsData, page));
 					dispatch(setPostsTotalCount(data.totalCount));
 				} else {
+					dispatch(setPosts([], 1));
+					dispatch(setPostsTotalCount(0));
 					dispatch(setErrorMessage("Get posts: " + data.statusText));
 				}
 			});
@@ -235,7 +265,7 @@ export const addPostTC = (post: string) => {
 			dispatch(setErrorMessage(""));
 			await API.addPost(post).then((data) => {
 				if (data.success === true) {
-					dispatch(addPost(post));
+					dispatch(addPost(post, data.postID));
 				} else {
 					dispatch(setErrorMessage("Add post: " + data.statusText));
 				}
@@ -247,11 +277,11 @@ export const addPostTC = (post: string) => {
 	};
 };
 
-export const likePostTC = (userID: string, postID: number) => {
+export const likePostTC = (postID: string) => {
 	return async (dispatch: Dispatch<IAction>) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.likePost(userID, postID).then((data) => {
+			await API.likePost(postID).then((data) => {
 				if (data.success === true) {
 					dispatch(likePost(postID));
 				} else {
@@ -265,11 +295,11 @@ export const likePostTC = (userID: string, postID: number) => {
 	};
 };
 
-export const unlikePostTC = (userID: string, postID: number) => {
+export const unlikePostTC = (postID: string) => {
 	return async (dispatch: Dispatch<IAction>) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.unlikePost(userID, postID).then((data) => {
+			await API.unlikePost(postID).then((data) => {
 				if (data.success === true) {
 					dispatch(unlikePost(postID));
 				} else {

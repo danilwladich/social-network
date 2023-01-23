@@ -2,7 +2,7 @@ export interface ProfileAboutData {
 	friends: number;
 	follow: {
 		followers: number;
-		followed: number;
+		following: number;
 	};
 	location: {
 		country?: string;

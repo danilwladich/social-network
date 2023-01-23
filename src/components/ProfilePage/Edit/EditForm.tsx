@@ -67,7 +67,8 @@ export function EditForm(props: IProps) {
 				e.id === "messages" ||
 				e.id === "friends" ||
 				e.id === "users" ||
-				e.id === "settings"
+				e.id === "settings" ||
+				e.id === "posts"
 			) {
 				errors.id = "Not allowed!";
 			}
@@ -137,7 +138,7 @@ export function EditForm(props: IProps) {
 										id="idInput"
 										type="text"
 										className="profile__edit_input"
-										placeholder="New id"
+										placeholder="New nickname"
 									/>
 									{meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>

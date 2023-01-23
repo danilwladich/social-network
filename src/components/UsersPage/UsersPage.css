@@ -58,6 +58,9 @@ html[theme=light] .users__pagination_page.active:after {
   background-color: var(--light-text-color);
 }
 
+.users__loading_items {
+  margin: -10px 0px 0px 0px;
+}
 .users__loading_item {
   display: -webkit-box;
   display: -ms-flexbox;

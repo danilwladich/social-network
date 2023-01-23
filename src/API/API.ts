@@ -3,9 +3,9 @@ import axios from "axios";
 const instance = axios.create({
 	withCredentials: true,
 
-	baseURL: "http://localhost/api/",
+	baseURL: "http://localhost:80/api/",
 	headers: {
-		"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+		"Content-Type": "application/json",
 	},
 });
 
@@ -16,7 +16,7 @@ export const API = {
 	},
 	login(phoneNumber: string, password: string) {
 		return instance
-			.post(`login`, { phoneNumber, password })
+			.post(`auth/login`, { phoneNumber, password })
 			.then((response) => response.data);
 	},
 	register(
@@ -26,7 +26,7 @@ export const API = {
 		lastName: string
 	) {
 		return instance
-			.post(`register`, { phoneNumber, password, firstName, lastName })
+			.post(`auth/register`, { phoneNumber, password, firstName, lastName })
 			.then((response) => response.data);
 	},
 	logout() {
@@ -42,24 +42,32 @@ export const API = {
 	getProfile(userID: string) {
 		return instance.get(`profile/${userID}`).then((response) => response.data);
 	},
-	getPosts(userID: string, page: number, pageSize: number) {
+	getPosts(
+		userID: string,
+		page: number,
+		pageSize: number,
+		lastPostID: string | null
+	) {
 		return instance
-			.get(`posts/${userID}?page=${page}&count=${pageSize}`)
+			.get(
+				`profile/posts/${userID}?page=${page}&count=${pageSize}` +
+					(!!lastPostID ? `&lastPostID=${lastPostID}` : "")
+			)
 			.then((response) => response.data);
 	},
 	addPost(post: string) {
 		return instance
-			.post(`post/add`, { post })
+			.post(`profile/posts`, { post })
 			.then((response) => response.data);
 	},
-	likePost(userID: string, postID: number) {
+	likePost(postID: string) {
 		return instance
-			.post(`post/like/${userID}/${postID}`)
+			.post(`profile/posts/like/${postID}`)
 			.then((response) => response.data);
 	},
-	unlikePost(userID: string, postID: number) {
+	unlikePost(postID: string) {
 		return instance
-			.delete(`post/like/${userID}/${postID}`)
+			.delete(`profile/posts/like/${postID}`)
 			.then((response) => response.data);
 	},
 	editProfile(
@@ -74,20 +82,32 @@ export const API = {
 	},
 
 	// friends
-	getFriends(userID: string, category: string, page: number, pageSize: number) {
+	getFriends(
+		userID: string,
+		category: string,
+		page: number,
+		pageSize: number,
+		lastUserID: string | null
+	) {
 		return instance
 			.get(
-				`friends/${userID}?category=${category}&page=${page}&count=${pageSize}`
+				`friends/${userID}?category=${category}&page=${page}&count=${pageSize}` +
+					(!!lastUserID ? `&lastUserID=${lastUserID}` : "")
 			)
 			.then((response) => response.data);
 	},
 
 	// users
-	getUsers(page: number, pageSize: number) {
+	getUsers(page: number, pageSize: number, lastUserID: string | null) {
 		return instance
-			.get(`users?page=${page}&count=${pageSize}`)
+			.get(
+				`users?page=${page}&count=${pageSize}` +
+					(!!lastUserID ? `&lastUserID=${lastUserID}` : "")
+			)
 			.then((response) => response.data);
 	},
+
+	// general
 	followUser(userID: string) {
 		return instance.post(`follow/${userID}`).then((response) => response.data);
 	},

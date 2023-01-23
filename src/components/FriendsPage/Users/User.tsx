@@ -4,6 +4,7 @@ import { FriendsUserData } from "../../../models/Friends/FriendsUserData";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 
 interface IProps {
+	itsMe: boolean;
 	userData: FriendsUserData;
 	followButtonInProgress: boolean;
 	setFollow: () => void;
@@ -40,42 +41,45 @@ export function User(props: IProps) {
 					</div>
 				</div>
 
-				<div
-					onMouseEnter={() => setShowActions(true)}
-					onMouseLeave={() => setShowActions(false)}
-					className="friends_user_actions"
-				>
-					<button
-						onClick={() => {
-							userData.followed ? props.setUnfollow() : props.setFollow();
-						}}
-						disabled={props.followButtonInProgress}
-						className={"friends__user_follow " + (showActions ? "active" : "")}
+				{!props.itsMe && (
+					<div
+						onMouseEnter={() => setShowActions(true)}
+						onMouseLeave={() => setShowActions(false)}
+						className="friends_user_actions"
 					>
-						{props.followButtonInProgress ? (
-							<LoadingCircle />
-						) : userData.follower && userData.followed ? (
-							"Unfriend"
-						) : userData.followed ? (
-							"Followed"
-						) : userData.follower ? (
-							"Accept request"
-						) : (
-							"Add friend"
-						)}
-					</button>
+						<button
+							onClick={() => {
+								userData.followed ? props.setUnfollow() : props.setFollow();
+							}}
+							disabled={props.followButtonInProgress}
+							className={
+								"friends__user_follow " + (showActions ? "active" : "")
+							}
+						>
+							{props.followButtonInProgress ? (
+								<LoadingCircle />
+							) : userData.follower && userData.followed ? (
+								"Unfriend"
+							) : userData.followed ? (
+								"Followed"
+							) : userData.follower ? (
+								"Accept request"
+							) : (
+								"Add friend"
+							)}
+						</button>
 
-					<button
-						onClick={() => {
-							showActions ? setShowActions(false) : setShowActions(true);
-						}}
-						className="friends__user_showactions"
-					>
-						<span></span>
-					</button>
-				</div>
+						<button
+							onClick={() => {
+								showActions ? setShowActions(false) : setShowActions(true);
+							}}
+							className="friends__user_showactions"
+						>
+							<span></span>
+						</button>
+					</div>
+				)}
 			</div>
 		</>
 	);
 }
-

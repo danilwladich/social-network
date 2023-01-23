@@ -3,6 +3,7 @@ import { Dispatch } from "react";
 import { API } from "../API/API";
 import { ActionType } from "../models/Action/ActionType";
 import { IAction } from "../models/Action/IAction";
+import { IState } from "../models/IState";
 import { IUsers } from "../models/Users/IUsers";
 import { UsersUserData } from "../models/Users/UsersUserData";
 import { setErrorMessage } from "./appReducer";
@@ -79,12 +80,23 @@ export const setUnfollow: (userID: string) => IAction = (userID) => ({
 
 // thunk
 export const getUsersTC = (page: number, pageSize: number) => {
-	return async (dispatch: Dispatch<IAction>) => {
+	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.getUsers(page, pageSize).then((data) => {
-				dispatch(setUsers(data.usersData));
-				dispatch(setUsersTotalCount(data.totalCount));
+			const lastUserID =
+				page > 1
+					? getState().users.usersData[getState().users.usersData.length - 1].id
+					: null;
+
+			await API.getUsers(page, pageSize, lastUserID).then((data) => {
+				if (data.success === true) {
+					dispatch(setUsers(data.usersData));
+					dispatch(setUsersTotalCount(data.totalCount));
+				} else {
+					dispatch(setUsers([]));
+					dispatch(setUsersTotalCount(0));
+					dispatch(setErrorMessage("Get users: " + data.statusText));
+				}
 			});
 		} catch (e: unknown) {
 			const error = e as AxiosError;
@@ -100,8 +112,6 @@ export const setFollowTC = (id: string) => {
 			await API.followUser(id).then((data) => {
 				if (data.success === true) {
 					dispatch(setFollow(id));
-				} else {
-					dispatch(setErrorMessage("Follow: " + data.statusText));
 				}
 			});
 		} catch (e: unknown) {
@@ -118,8 +128,6 @@ export const setUnfollowTC = (id: string) => {
 			await API.unfollowUser(id).then((data) => {
 				if (data.success === true) {
 					dispatch(setUnfollow(id));
-				} else {
-					dispatch(setErrorMessage("Unfollow: " + data.statusText));
 				}
 			});
 		} catch (e: unknown) {
