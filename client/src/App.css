@@ -176,10 +176,10 @@ html[theme=dark] .closeX path {
   stroke: #fff;
 }
 html[theme=dark] .likeHeart path {
-  stroke: #fff;
+  stroke: var(--dark-text-color);
 }
 html[theme=dark] .likeHeart.likedMe {
-  fill: #fff;
+  fill: var(--dark-text-color);
 }
 
 html[theme=light] ::-webkit-scrollbar-track {
@@ -236,10 +236,15 @@ html[theme=light] .closeX path {
   stroke: #000;
 }
 html[theme=light] .likeHeart path {
-  stroke: #000;
+  stroke: var(--light-text-color);
 }
 html[theme=light] .likeHeart.likedMe {
-  fill: #000;
+  fill: var(--light-text-color);
+}
+
+html {
+  min-height: calc(100% + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
 }
 
 body {
@@ -256,7 +261,6 @@ body.lock {
 .wrapper {
   position: relative;
   font-family: "Asap", sans-serif;
-  min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -270,11 +274,11 @@ body.lock {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  padding: 50px 10px 0px 10px;
+  padding: 50px calc(10px + env(safe-area-inset-right)) 0 calc(10px + env(safe-area-inset-left));
 }
 @media (min-width: 767px) {
   .content {
-    padding: 65px 15px 15px 15px;
+    padding: 65px calc(15px + env(safe-area-inset-right)) 0 calc(15px + env(safe-area-inset-left));
     display: grid;
     grid-template-columns: 0.667fr 200px minmax(537px, 1000px) 1fr;
   }

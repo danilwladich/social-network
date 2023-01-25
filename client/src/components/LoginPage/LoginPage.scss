@@ -38,6 +38,7 @@ html[theme="light"] {
 	top: 50px;
 	left: 50%;
 	transform: translateX(-50%);
+	overflow: hidden;
 	&__label {
 		cursor: pointer;
 		display: block;
@@ -56,6 +57,7 @@ html[theme="light"] {
 		background-color: transparent;
 		max-width: 250px;
 		cursor: pointer;
+		border-radius: 0px;
 	}
 	&__incorrect {
 		color: rgba(255, 0, 0, 0.87) !important;
@@ -103,7 +105,11 @@ html[theme="light"] {
 	}
 	&__recaptcha {
 		position: absolute;
-		visibility: hidden;
+		z-index: 1;
+		bottom: -10px;
+		right: -1px;
+		transform: translate(0) scale(0.7);
+		opacity: 0.7;
 	}
 	@media (min-width: 767px) {
 		top: 65px;

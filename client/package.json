@@ -15,7 +15,6 @@
 		"final-form": "^4.20.7",
 		"form-data": "^4.0.0",
 		"react": "^18.2.0",
-		"react-country-region-selector": "^3.6.1",
 		"react-dom": "^18.2.0",
 		"react-final-form": "^6.5.9",
 		"react-google-recaptcha": "^2.1.0",
@@ -25,7 +24,6 @@
 		"react-scripts": "5.0.1",
 		"redux": "^4.2.0",
 		"redux-thunk": "^2.4.2",
-		"reselect": "^4.1.7",
 		"typescript": "^4.9.4",
 		"web-vitals": "^2.1.4"
 	},

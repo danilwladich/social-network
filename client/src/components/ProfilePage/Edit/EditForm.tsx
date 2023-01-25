@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
-import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 import { useNavigate } from "react-router-dom";
 
@@ -48,8 +47,18 @@ export function EditForm(props: IProps) {
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));
 	}
-	function validate(e: { image?: FileList; id?: string }) {
-		const errors: { image?: string; id?: string } = {};
+	function validate(e: {
+		image?: FileList;
+		id?: string;
+		country?: string;
+		city?: string;
+	}) {
+		const errors: {
+			image?: string;
+			id?: string;
+			country?: string;
+			city?: string;
+		} = {};
 		// image
 		if (e.image && e.image.length) {
 			if (e.image[0].size > 10 * 1024 * 1024) {
@@ -84,6 +93,32 @@ export function EditForm(props: IProps) {
 			}
 		}
 
+		// country
+		if (e.country) {
+			if (e.country.length < 2) {
+				errors.country = "Too short!";
+			}
+			if (e.country.length > 25) {
+				errors.country = "Too short!";
+			}
+			if (e.country.match(/[^a-zA-Z-]+/g)) {
+				errors.country = "Allow only latin letters!";
+			}
+		}
+
+		// city
+		if (e.city) {
+			if (e.city.length < 2) {
+				errors.city = "Too short!";
+			}
+			if (e.city.length > 25) {
+				errors.city = "Too short!";
+			}
+			if (e.city.match(/[^a-zA-Z-]+/g)) {
+				errors.city = "Allow only latin letters!";
+			}
+		}
+
 		return errors;
 	}
 	return (
@@ -106,7 +141,7 @@ export function EditForm(props: IProps) {
 										<img
 											ref={newImageRef}
 											src={props.image || "/images/user.jpg"}
-											alt="user"
+											alt={props.authID}
 										/>
 									</label>
 									<input
@@ -156,39 +191,42 @@ export function EditForm(props: IProps) {
 
 						<Field
 							name="country"
-							render={({ input: { value, onChange } }) => (
+							render={({ input, meta }) => (
 								<div className="profile__edit_field">
 									<label htmlFor="countryInput" className="profile__edit_label">
 										County
 									</label>
-									<CountryDropdown
-										defaultOptionLabel={props.location.country}
-										onChange={onChange}
-										value={value}
+									<input
+										{...input}
 										id="countryInput"
-										classes={"profile__edit_input " + (!value ? "empty" : "")}
+										type="text"
+										className="profile__edit_input"
+										placeholder={props.location.country || "Select country"}
 									/>
+									{meta.error && (
+										<div className="profile__edit_incorrect">{meta.error}</div>
+									)}
 								</div>
 							)}
 						/>
 
 						<Field
 							name="city"
-							render={({ input: { value, onChange } }) => (
+							render={({ input, meta }) => (
 								<div className="profile__edit_field">
 									<label htmlFor="cityInput" className="profile__edit_label">
 										City
 									</label>
-									<RegionDropdown
-										defaultOptionLabel={
-											!values.country || values.country === props.location.country ? props.location.city : "Select city"
-										}
-										country={values.country || props.location.country || ""}
-										onChange={onChange}
-										value={value}
+									<input
+										{...input}
 										id="cityInput"
-										classes={"profile__edit_input " + (!value ? "empty" : "")}
+										type="text"
+										className="profile__edit_input"
+										placeholder={props.location.city || "Select city"}
 									/>
+									{meta.error && (
+										<div className="profile__edit_incorrect">{meta.error}</div>
+									)}
 								</div>
 							)}
 						/>

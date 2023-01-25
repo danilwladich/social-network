@@ -41,7 +41,7 @@ html[theme="light"] {
 	z-index: 50;
 	position: fixed;
 	width: 100%;
-	padding: 5px 0;
+	padding: 5px env(safe-area-inset-right) 5px env(safe-area-inset-left);
 	height: 50px;
 	display: grid;
 	grid-template-columns: 1fr minmax(auto, 1200px) 1fr;

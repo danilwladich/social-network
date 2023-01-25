@@ -33,6 +33,7 @@ html[theme=light] .login__button:not(:disabled):hover {
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+  overflow: hidden;
 }
 .login__label {
   cursor: pointer;
@@ -52,6 +53,7 @@ html[theme=light] .login__button:not(:disabled):hover {
   background-color: transparent;
   max-width: 250px;
   cursor: pointer;
+  border-radius: 0px;
 }
 .login__incorrect {
   color: rgba(255, 0, 0, 0.87) !important;
@@ -105,7 +107,13 @@ html[theme=light] .login__button:not(:disabled):hover {
 }
 .login__recaptcha {
   position: absolute;
-  visibility: hidden;
+  z-index: 1;
+  bottom: -10px;
+  right: -1px;
+  -webkit-transform: translate(0) scale(0.7);
+      -ms-transform: translate(0) scale(0.7);
+          transform: translate(0) scale(0.7);
+  opacity: 0.7;
 }
 @media (min-width: 767px) {
   .login {

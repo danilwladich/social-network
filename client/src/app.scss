@@ -81,10 +81,10 @@ html[theme="dark"] {
 	}
 	.likeHeart {
 		path {
-			stroke: #fff;
+			stroke: var(--dark-text-color);
 		}
 		&.likedMe {
-			fill: #fff;
+			fill: var(--dark-text-color);
 		}
 	}
 }
@@ -149,12 +149,17 @@ html[theme="light"] {
 	}
 	.likeHeart {
 		path {
-			stroke: #000;
+			stroke: var(--light-text-color);
 		}
 		&.likedMe {
-			fill: #000;
+			fill: var(--light-text-color);
 		}
 	}
+}
+
+html {
+	min-height: calc(100% + env(safe-area-inset-top));
+	padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
 }
 
 body {
@@ -169,16 +174,17 @@ body {
 .wrapper {
 	position: relative;
 	font-family: "Asap", sans-serif;
-	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 }
 
 .content {
 	flex: 1 1 auto;
-	padding: 50px 10px 0px 10px;
+	padding: 50px calc(10px + env(safe-area-inset-right)) 0
+		calc(10px + env(safe-area-inset-left));
 	@media (min-width: 767px) {
-		padding: 65px 15px 15px 15px;
+		padding: 65px calc(15px + env(safe-area-inset-right)) 0
+			calc(15px + env(safe-area-inset-left));
 		display: grid;
 		grid-template-columns: 0.667fr 200px minmax(537px, 1000px) 1fr;
 		aside {

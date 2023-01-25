@@ -114,7 +114,7 @@ export function RegisterForm(props: IProps) {
 			if (e.firstName.slice(1).toLowerCase() !== e.firstName.slice(1)) {
 				errors.firstName = "Must be capitalized!";
 			}
-			if (e.firstName.trim().match(/[^a-zA-Z]+/g)) {
+			if (e.firstName.match(/[^a-zA-Z-]+/g)) {
 				errors.firstName = "Only latin letters allowed!";
 			}
 		}
@@ -136,7 +136,7 @@ export function RegisterForm(props: IProps) {
 			if (e.lastName.slice(1).toLowerCase() !== e.lastName.slice(1)) {
 				errors.lastName = "Must be capitalized!";
 			}
-			if (e.lastName.trim().match(/[^a-zA-Z]+/g)) {
+			if (e.lastName.match(/[^a-zA-Z-]+/g)) {
 				errors.lastName = "Only latin letters allowed!";
 			}
 		}

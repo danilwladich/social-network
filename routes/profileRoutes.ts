@@ -228,7 +228,15 @@ router.post(
 			const authID = req.user!.userID as string;
 			const postID = req.params.postID;
 
-			await Post.findByIdAndUpdate(postID, { $addToSet: { likes: authID } });
+			const post = await Post.findById(postID);
+			if (!post) {
+				return res.status(400).json({
+					success: false,
+					statusText: "Post nof found",
+				});
+			}
+
+			await post.updateOne({ $addToSet: { likes: authID } });
 
 			res.status(201).json({
 				success: true,
@@ -248,7 +256,15 @@ router.delete(
 			const authID = req.user!.userID as string;
 			const postID = req.params.postID;
 
-			await Post.findByIdAndUpdate(postID, { $pull: { likes: authID } });
+			const post = await Post.findById(postID);
+			if (!post) {
+				return res.status(400).json({
+					success: false,
+					statusText: "Post nof found",
+				});
+			}
+
+			await post.updateOne({ $pull: { likes: authID } });
 
 			res.status(200).json({
 				success: true,
@@ -280,10 +296,12 @@ router.put(
 		check("id", "Not allowed new id").not().equals("settings"),
 		check("id", "Not allowed new id").not().equals("images"),
 		check("country", "Country must be alpha")
-			.matches(/[a-zA-Z]+/g)
+			.matches(/[a-zA-Z-]+/g)
+			.isLength({ min: 2, max: 25 })
 			.optional({ nullable: true, checkFalsy: true }),
 		check("city", "City must be alpha")
-			.matches(/[a-zA-Z]+/g)
+			.matches(/[a-zA-Z-]+/g)
+			.isLength({ min: 2, max: 25 })
 			.optional({ nullable: true, checkFalsy: true }),
 	],
 	async (req: IGetUserAuthRequest, res: Response) => {
@@ -303,21 +321,28 @@ router.put(
 			const image = req.file;
 
 			const user = await User.findById(authID);
+			if (!user) {
+				return res.status(400).json({
+					success: false,
+					statusText: "Auth error",
+				});
+			}
 
 			if (!!image) {
-				await user!.updateOne({ avatar: "/images/" + authID + "/avatar.jpg" });
+				await user.updateOne({ avatar: "/images/" + authID + "/avatar.jpg" });
 			}
 
 			if (!!country) {
-				await user!.updateOne({ "location.country": country });
+				await user.updateOne({ "location.country": country });
 			}
 
 			if (!!city) {
-				await user!.updateOne({ "location.city": city });
+				await user.updateOne({ "location.city": city });
 			}
 
 			if (!!id) {
 				const nicknameAlreadyExist = await User.findOne({ nickname: id });
+
 				if (!!nicknameAlreadyExist) {
 					return res.status(200).json({
 						success: false,
@@ -325,7 +350,7 @@ router.put(
 					});
 				}
 
-				await user!.updateOne({ nickname: id });
+				await user.updateOne({ nickname: id });
 
 				return res
 					.status(201)

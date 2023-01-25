@@ -9,9 +9,6 @@ html[theme=dark] .profile__actions > button:hover {
 html[theme=dark] .profile__edit_input {
   border-bottom: 1px solid var(--dark-items-border-bottom);
 }
-html[theme=dark] .profile__edit_input.empty {
-  color: rgba(255, 255, 255, 0.5);
-}
 html[theme=dark] .profile__edit_input:focus {
   border-bottom: 1px solid var(--dark-text-color);
 }
@@ -23,7 +20,7 @@ html[theme=dark] .profile__edit_button:not(:disabled):hover {
 }
 html[theme=dark] .profile__posts_input {
   border: 2px solid var(--dark-text-color);
-  background-color: var(--dark-button-bg);
+  background-color: var(--dark-main-bg);
 }
 html[theme=dark] .profile__posts_send circle {
   stroke: var(--dark-text-color);
@@ -69,9 +66,6 @@ html[theme=light] .profile__actions > button:hover {
 html[theme=light] .profile__edit_input {
   border-bottom: 1px solid var(--light-items-border-bottom);
 }
-html[theme=light] .profile__edit_input.empty {
-  color: rgba(0, 0, 0, 0.5);
-}
 html[theme=light] .profile__edit_input:focus {
   border-bottom: 1px solid var(--light-text-color);
 }
@@ -83,7 +77,7 @@ html[theme=light] .profile__edit_button:not(:disabled):hover {
 }
 html[theme=light] .profile__posts_input {
   border: 2px solid var(--light-text-color);
-  background-color: var(--light-button-bg);
+  background-color: var(--light-main-bg);
 }
 html[theme=light] .profile__posts_send circle {
   stroke: var(--light-text-color);
@@ -300,12 +294,7 @@ html[theme=light] .profile__post_delete:hover {
   background-color: transparent;
   max-width: 250px;
   cursor: pointer;
-}
-.profile__edit select.profile__edit_input {
-  padding: 3px 0;
-}
-.profile__edit select.profile__edit_input option:checked {
-  font-weight: 700;
+  border-radius: 0px;
 }
 .profile__edit_incorrect {
   color: rgba(255, 0, 0, 0.87) !important;

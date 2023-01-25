@@ -13,7 +13,7 @@ const app: Application = express();
 
 // dev
 import cors from "cors";
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: true }));
 // /dev
 
 app.use(bodyParser.json({ limit: "10mb" }));
@@ -24,7 +24,7 @@ app.use("/api/friends", friendsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/follow", followRoutes);
 
-const PORT = config.get("port") || 5000;
+const PORT = config.get("port") || 80;
 
 async function start() {
 	try {

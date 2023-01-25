@@ -21,9 +21,9 @@ router.post(
 		check("password", "Password required").exists(),
 		check("password", "Password too short").isLength({ min: 8 }),
 		check("firstName", "First name required").exists(),
-		check("firstName", "First name must be alpha").isAlpha(),
+		check("firstName", "First name must be alpha").matches(/[a-zA-Z-]+/g),
 		check("lastName", "Last name required").exists(),
-		check("lastName", "Last name must be alpha").isAlpha(),
+		check("lastName", "Last name must be alpha").matches(/[a-zA-Z-]+/g),
 		check("recaptcha", "Recaptcha required").exists(),
 	],
 	async (req: Request, res: Response) => {
