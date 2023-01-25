@@ -103,6 +103,10 @@ html[theme=light] .login__button:not(:disabled):hover {
 .login__link:hover {
   opacity: 1;
 }
+.login__recaptcha {
+  position: absolute;
+  visibility: hidden;
+}
 @media (min-width: 767px) {
   .login {
     top: 65px;

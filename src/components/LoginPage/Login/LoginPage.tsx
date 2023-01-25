@@ -6,7 +6,8 @@ import { LoginForm } from "./LoginForm";
 interface IProps {
 	isAuth: boolean;
 	authID: string;
-	loginTC: (phoneNumber: string, password: string) => Promise<void>;
+	bodyTheme: string;
+	loginTC: (phoneNumber: string, password: string, recaptcha: string) => Promise<void>;
 }
 
 export function LoginPage(props: IProps) {
@@ -19,7 +20,7 @@ export function LoginPage(props: IProps) {
 			<section className="login">
 				<div className="subsection">
 					<h2 className="login__title title">Login</h2>
-					<LoginForm loginTC={props.loginTC} />
+					<LoginForm loginTC={props.loginTC} bodyTheme={props.bodyTheme}/>
 					<NavLink to="/register" className="login__link">
 						Don`t have an account yet?
 					</NavLink>

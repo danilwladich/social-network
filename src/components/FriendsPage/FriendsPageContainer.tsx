@@ -112,16 +112,7 @@ function FriendsPageAPI(props: IProps) {
 		}`;
 		return (
 			<>
-				<FriendsPage
-					isLoading={isLoading}
-					category={category!}
-					authID={props.authID}
-					whoseFriends={whoseFriends}
-					usersData={props.usersData}
-					totalCount={props.totalCount}
-					setFollowTC={props.setFollowTC}
-					setUnfollowTC={props.setUnfollowTC}
-				/>
+				<FriendsPage isLoading={isLoading} category={category!} {...props} />
 			</>
 		);
 	}

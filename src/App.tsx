@@ -36,6 +36,10 @@ interface IProps {
 	initializationTC: () => void;
 }
 
+// TODO add fallback for suspense
+// TODO add fallback for suspense
+// TODO add fallback for suspense
+
 function App(props: IProps) {
 	document.title = `SocNet`;
 	useLayoutEffect(() => {

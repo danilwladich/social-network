@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 
 interface IProps {
-	deleteAccountTC: (password: string, confirmPassword: string) => Promise<void>;
+	deleteAccountTC: (password: string) => Promise<void>;
 	modalOff: () => void;
 }
 
@@ -10,10 +10,10 @@ export function DeleteAccountForm(props: IProps) {
 	const [submitting, setSubmitting] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
-	function onSubmit(v: { password: string; confirmPassword: string }) {
+	function onSubmit(v: { password: string }) {
 		setSubmitting(true);
 		props
-			.deleteAccountTC(v.password, v.confirmPassword)
+			.deleteAccountTC(v.password)
 			.then(() => props.modalOff())
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));

@@ -5,6 +5,10 @@ import { EditForm } from "./EditForm";
 interface IProps {
 	authID: string;
 	image?: string;
+	location: {
+		country?: string;
+		city?: string;
+	};
 	editProfileTC: (
 		image?: File,
 		id?: string,
@@ -25,6 +29,7 @@ export function Edit(props: IProps) {
 		bodyLock?.classList.remove("lock");
 		setShowModal(false);
 	}
+	
 	return (
 		<>
 			<button onClick={() => modalOn()} className="profile__actions_edit">
@@ -41,7 +46,7 @@ export function Edit(props: IProps) {
 						<button className="profile__edit_close" onClick={() => modalOff()}>
 							<CloseX />
 						</button>
-						<EditForm {...props} modalOff={modalOff} />
+						<EditForm {...props} />
 					</div>
 				</>
 			)}

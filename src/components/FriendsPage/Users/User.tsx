@@ -41,7 +41,7 @@ export function User(props: IProps) {
 					</div>
 				</div>
 
-				{!props.itsMe && (
+				{!props.itsMe ? (
 					<div
 						onMouseEnter={() => setShowActions(true)}
 						onMouseLeave={() => setShowActions(false)}
@@ -78,7 +78,7 @@ export function User(props: IProps) {
 							<span></span>
 						</button>
 					</div>
-				)}
+				) : <div className="friends__user_itsme">Me</div>}
 			</div>
 		</>
 	);

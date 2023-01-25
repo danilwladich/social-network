@@ -4,7 +4,7 @@ import { DeleteAccountForm } from "./DeleteAccountForm";
 
 interface IProps {
 	logoutTC: () => Promise<void>;
-	deleteAccountTC: (password: string, confirmPassword: string) => Promise<void>;
+	deleteAccountTC: (password: string) => Promise<void>;
 }
 
 export function Account(props: IProps) {

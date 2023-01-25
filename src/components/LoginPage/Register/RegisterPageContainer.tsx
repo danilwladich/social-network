@@ -7,6 +7,7 @@ function mapStateToProps(state: IState) {
 	return {
 		isAuth: state.auth.isAuth,
 		authID: state.auth.user.id,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

@@ -24,13 +24,7 @@ interface IProps {
 function UsersPageAPI(props: IProps) {
 	document.title = `Find users`;
 	const [isLoading, setIsLoading] = useState(false);
-	const [currentPage, setCurrentPage] = useState(
-		parseInt(
-			sessionStorage.getItem("usersCurrentPage")
-				? sessionStorage.getItem("usersCurrentPage")!
-				: "1"
-		)
-	);
+	const [currentPage, setCurrentPage] = useState(1);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -42,7 +36,6 @@ function UsersPageAPI(props: IProps) {
 
 	function pageChanged(page: number) {
 		window.scrollTo(0, 0);
-		sessionStorage.setItem("usersCurrentPage", page.toString());
 		setCurrentPage(page);
 	}
 
@@ -52,13 +45,9 @@ function UsersPageAPI(props: IProps) {
 	return (
 		<>
 			<UsersPage
-				usersData={props.usersData}
-				pageSize={props.pageSize}
-				totalCount={props.totalCount}
+				{...props}
 				currentPage={currentPage}
 				pageChanged={pageChanged}
-				setFollowTC={props.setFollowTC}
-				setUnfollowTC={props.setUnfollowTC}
 			/>
 		</>
 	);

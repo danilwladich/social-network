@@ -357,7 +357,6 @@ html[theme=light] .users__pagination_page.active:after {
     padding: 0;
   }
   .users__user_location {
-    overflow: hidden;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

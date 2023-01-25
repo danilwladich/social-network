@@ -52,6 +52,10 @@ interface addPost {
 	value: string;
 	id: string;
 }
+interface deletePost {
+	type: ActionType.DELTE_POST;
+	value: string;
+}
 interface setPosts {
 	type: ActionType.SET_POSTS;
 	value: ProfilePostData[];
@@ -124,6 +128,7 @@ export type IAction =
 	| setWhoseFriends
 	| setPosts
 	| setPostsTotalCount
+	| deletePost
 	| unfollowUser
 	| setUsers
 	| setFriends

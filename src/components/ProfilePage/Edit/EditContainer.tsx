@@ -7,6 +7,7 @@ function mapStateToProps(state: IState) {
 	return {
 		authID: state.auth.user.id,
 		image: state.profile.userData.image,
+		location: state.profile.aboutData.location,
 	};
 }
 

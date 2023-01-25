@@ -10,6 +10,7 @@ export enum ActionType {
 
 	SET_PROFILE = "profile/SET_PROFILE",
 	ADD_POST = "profile/ADD_POST",
+	DELTE_POST = "profile/DELTE_POST",
 	SET_POSTS = "profile/SET_POSTS",
 	SET_POSTS_TOTAL_COUNT = "users/SET_POSTS_TOTAL_COUNT",
 	LIKE_POST = "profile/LIKE_POST",

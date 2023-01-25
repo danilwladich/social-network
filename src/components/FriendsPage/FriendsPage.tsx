@@ -41,6 +41,7 @@ export function FriendsPage(props: IProps) {
 				setFollowButtonsInProgress((prev) => prev.filter((id) => id !== userID))
 			);
 	}
+	
 	return (
 		<>
 			<section className="friends">

@@ -1,4 +1,5 @@
 import axios from "axios";
+import FormData from "form-data";
 
 const instance = axios.create({
 	withCredentials: true,
@@ -14,27 +15,34 @@ export const API = {
 	authMe() {
 		return instance.get(`auth/me`).then((response) => response.data);
 	},
-	login(phoneNumber: string, password: string) {
+	login(phoneNumber: string, password: string, recaptcha: string) {
 		return instance
-			.post(`auth/login`, { phoneNumber, password })
+			.post(`auth/login`, { phoneNumber, password, recaptcha })
 			.then((response) => response.data);
 	},
 	register(
 		phoneNumber: string,
 		password: string,
 		firstName: string,
-		lastName: string
+		lastName: string,
+		recaptcha: string
 	) {
 		return instance
-			.post(`auth/register`, { phoneNumber, password, firstName, lastName })
+			.post(`auth/register`, {
+				phoneNumber,
+				password,
+				firstName,
+				lastName,
+				recaptcha,
+			})
 			.then((response) => response.data);
 	},
 	logout() {
 		return instance.delete(`auth/me`).then((response) => response.data);
 	},
-	deleteAccount(password: string, confirmPassword: string) {
+	deleteAccount(password: string) {
 		return instance
-			.delete(`delete/account`, { data: { password, confirmPassword } })
+			.delete(`auth/delete`, { data: { password } })
 			.then((response) => response.data);
 	},
 
@@ -60,6 +68,11 @@ export const API = {
 			.post(`profile/posts`, { post })
 			.then((response) => response.data);
 	},
+	deletePost(postID: string) {
+		return instance
+			.delete(`profile/posts/${postID}`)
+			.then((response) => response.data);
+	},
 	likePost(postID: string) {
 		return instance
 			.post(`profile/posts/like/${postID}`)
@@ -76,8 +89,16 @@ export const API = {
 		country: string | null = null,
 		city: string | null = null
 	) {
+		const formData = new FormData();
+		image && formData.append("image", image, "avatar.jpg");
+		id && formData.append("id", id);
+		country && formData.append("country", country);
+		city && formData.append("city", city);
+
 		return instance
-			.put(`profile/edit`, { image, id, country, city })
+			.put(`profile/edit`, formData, {
+				headers: { "Content-Type": "multipart/form-data" },
+			})
 			.then((response) => response.data);
 	},
 

@@ -366,6 +366,12 @@ html[theme=light] .friends__user_follow:hover {
   opacity: 1;
   visibility: visible;
 }
+.friends__user_itsme {
+  opacity: 0.7;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 20px;
+          flex: 0 0 20px;
+}
 @media (min-width: 767px) {
   .friends__title {
     gap: 15px;
@@ -426,7 +432,6 @@ html[theme=light] .friends__user_follow:hover {
     padding: 0;
   }
   .friends__user_location {
-    overflow: hidden;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

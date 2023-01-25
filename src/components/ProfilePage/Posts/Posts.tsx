@@ -4,41 +4,48 @@ import { Post } from "./Post";
 import { PostsInput } from "./PostsInput";
 
 interface IProps {
+	authID: string;
 	userID: string;
-	profileID: string;
 	postsData: ProfilePostData[];
 	addPostTC: (post: string) => Promise<void>;
+	deletePostTC: (postID: string) => Promise<void>;
 	likePostTC: (postID: string) => Promise<void>;
 	unlikePostTC: (postID: string) => Promise<void>;
 }
 
 export function Posts(props: IProps) {
-	const [likeButtonsInProgress, setLikeButtonsInProgress] = useState<string[]>(
-		[]
-	);
+	const [buttonsInProgress, setButtonsInProgress] = useState<string[]>([]);
 
 	function likePost(postID: string) {
-		setLikeButtonsInProgress((prev) => [...prev, postID]);
+		setButtonsInProgress((prev) => [...prev, postID]);
 		props
 			.likePostTC(postID)
 			.finally(() =>
-				setLikeButtonsInProgress((prev) => prev.filter((id) => id !== postID))
+				setButtonsInProgress((prev) => prev.filter((id) => id !== postID))
 			);
 	}
 	function unlikePost(postID: string) {
-		setLikeButtonsInProgress((prev) => [...prev, postID]);
+		setButtonsInProgress((prev) => [...prev, postID]);
 		props
 			.unlikePostTC(postID)
 			.finally(() =>
-				setLikeButtonsInProgress((prev) => prev.filter((id) => id !== postID))
+				setButtonsInProgress((prev) => prev.filter((id) => id !== postID))
+			);
+	}
+	function deletePost(postID: string) {
+		setButtonsInProgress((prev) => [...prev, postID]);
+		props
+			.deletePostTC(postID)
+			.finally(() =>
+				setButtonsInProgress((prev) => prev.filter((id) => id !== postID))
 			);
 	}
 
 	return (
 		<>
-			{(!!props.postsData.length || props.userID === props.profileID) && (
+			{(!!props.postsData.length || props.authID === props.userID) && (
 				<div className="profile__posts">
-					{props.userID === props.profileID && (
+					{props.authID === props.userID && (
 						<PostsInput addPostTC={props.addPostTC} />
 					)}
 
@@ -46,9 +53,12 @@ export function Posts(props: IProps) {
 						<Post
 							key={p.id}
 							postData={p}
-							likeButtonInProgress={likeButtonsInProgress.some(
-								(id) => id === p.id
-							)}
+							buttonInProgress={buttonsInProgress.some((id) => id === p.id)}
+							deletePost={
+								props.authID === props.userID
+									? () => deletePost(p.id)
+									: undefined
+							}
 							likePost={() => likePost(p.id)}
 							unlikePost={() => unlikePost(p.id)}
 						/>

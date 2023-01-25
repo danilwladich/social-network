@@ -2,20 +2,25 @@ import React, { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { LoadingCircle } from "../../assets/LoadingCircle";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
 	authID: string;
 	image?: string;
+	location: {
+		country?: string;
+		city?: string;
+	};
 	editProfileTC: (
 		image?: File,
 		id?: string,
 		country?: string,
 		city?: string
 	) => Promise<void>;
-	modalOff: () => void;
 }
 
 export function EditForm(props: IProps) {
+	const navigate = useNavigate();
 	const newImageRef = useRef<HTMLImageElement>(null);
 	const [submitting, setSubmitting] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
@@ -29,7 +34,6 @@ export function EditForm(props: IProps) {
 			};
 		}
 	}
-
 	function onSubmit(v: {
 		image?: FileList;
 		id?: string;
@@ -40,7 +44,7 @@ export function EditForm(props: IProps) {
 		const image = v.image ? v.image[0] : undefined;
 		props
 			.editProfileTC(image, v.id, v.country, v.city)
-			.then(() => props.modalOff())
+			.then(() => navigate("/"))
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));
 	}
@@ -48,7 +52,7 @@ export function EditForm(props: IProps) {
 		const errors: { image?: string; id?: string } = {};
 		// image
 		if (e.image && e.image.length) {
-			if (e.image[0].size > 10000000) {
+			if (e.image[0].size > 10 * 1024 * 1024) {
 				errors.image = "File size cannot be more than 10mb!";
 			}
 		}
@@ -68,9 +72,12 @@ export function EditForm(props: IProps) {
 				e.id === "friends" ||
 				e.id === "users" ||
 				e.id === "settings" ||
-				e.id === "posts"
+				e.id === "images"
 			) {
 				errors.id = "Not allowed!";
+			}
+			if (e.id === props.authID) {
+				errors.id = "It's already your nickname";
 			}
 			if (e.id.match(/[^\w]/g)) {
 				errors.id = "Allow only alphanumeric!";
@@ -155,6 +162,7 @@ export function EditForm(props: IProps) {
 										County
 									</label>
 									<CountryDropdown
+										defaultOptionLabel={props.location.country}
 										onChange={onChange}
 										value={value}
 										id="countryInput"
@@ -172,7 +180,10 @@ export function EditForm(props: IProps) {
 										City
 									</label>
 									<RegionDropdown
-										country={values.country ? values.country : ""}
+										defaultOptionLabel={
+											!values.country || values.country === props.location.country ? props.location.city : "Select city"
+										}
+										country={values.country || props.location.country || ""}
 										onChange={onChange}
 										value={value}
 										id="cityInput"

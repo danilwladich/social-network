@@ -63,11 +63,15 @@ export const authMeTC = () => {
 	};
 };
 
-export const loginTC = (phoneNumber: string, password: string) => {
+export const loginTC = (
+	phoneNumber: string,
+	password: string,
+	recaptcha: string
+) => {
 	return async (dispatch: Dispatch<any>) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.login(phoneNumber, password).then(async (data) => {
+			await API.login(phoneNumber, password, recaptcha).then(async (data) => {
 				if (data.success === true) {
 					await dispatch(authMeTC());
 				} else {
@@ -90,20 +94,25 @@ export const registerTC = (
 	phoneNumber: string,
 	password: string,
 	firstName: string,
-	lastName: string
+	lastName: string,
+	recaptcha: string
 ) => {
 	return async (dispatch: Dispatch<any>) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.register(phoneNumber, password, firstName, lastName).then(
-				async (data) => {
-					if (data.success === true) {
-						await dispatch(loginTC(phoneNumber, password));
-					} else {
-						return Promise.reject(data.statusText);
-					}
+			await API.register(
+				phoneNumber,
+				password,
+				firstName,
+				lastName,
+				recaptcha
+			).then(async (data) => {
+				if (data.success === true) {
+					await dispatch(authMeTC());
+				} else {
+					return Promise.reject(data.statusText);
 				}
-			);
+			});
 		} catch (e: unknown) {
 			if (typeof e === "string") {
 				return Promise.reject(e);
@@ -134,13 +143,13 @@ export const logoutTC = () => {
 	};
 };
 
-export const deleteAccountTC = (password: string, confirmPassword: string) => {
+export const deleteAccountTC = (password: string) => {
 	return async (dispatch: Dispatch<any>) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.deleteAccount(password, confirmPassword).then((data) => {
+			await API.deleteAccount(password).then(async (data) => {
 				if (data.success === true) {
-					dispatch(notAuthUser());
+					await dispatch(logoutTC());
 				} else {
 					return Promise.reject(data.statusText);
 				}

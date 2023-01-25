@@ -10,6 +10,7 @@ interface IProps {
 export function About(props: IProps) {
 	const aboutData = props.aboutData;
 	const [showMore, setShowMore] = useState(false);
+	
 	return (
 		<>
 			<div className="profile__about">

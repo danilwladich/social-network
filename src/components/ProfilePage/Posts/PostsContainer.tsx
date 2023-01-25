@@ -7,18 +7,20 @@ import {
 	likePostTC,
 	addPostTC,
 	getPostsTC,
+	deletePostTC,
 } from "../../../redux/profileReducer";
 import { ProfilePostData } from "../../../models/Profile/ProfilePostData";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 
 interface IProps {
+	authID: string;
 	userID: string;
-	profileID: string;
 	postsData: ProfilePostData[];
 	pageSize: number;
 	totalCount: number;
 	getPostsTC: (userID: string, page: number, pageSize: number) => Promise<void>;
 	addPostTC: (post: string) => Promise<void>;
+	deletePostTC: (postID: string) => Promise<void>;
 	likePostTC: (postID: string) => Promise<void>;
 	unlikePostTC: (postID: string) => Promise<void>;
 }
@@ -58,7 +60,7 @@ export function PostsContainerAPI(props: IProps) {
 		if (pagesCount > 0 && currentPage !== 1) {
 			setIsLoading(true);
 			props
-				.getPostsTC(props.profileID, currentPage, props.pageSize)
+				.getPostsTC(props.userID, currentPage, props.pageSize)
 				.finally(() => setIsLoading(false));
 		}
 		// eslint-disable-next-line
@@ -66,14 +68,7 @@ export function PostsContainerAPI(props: IProps) {
 
 	return (
 		<>
-			<Posts
-				userID={props.userID}
-				profileID={props.profileID}
-				postsData={props.postsData}
-				addPostTC={props.addPostTC}
-				likePostTC={props.likePostTC}
-				unlikePostTC={props.unlikePostTC}
-			/>
+			<Posts {...props} />
 
 			{isLoading && (
 				<div className="profile__posts_loading">
@@ -86,8 +81,8 @@ export function PostsContainerAPI(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
-		userID: state.auth.user.id,
-		profileID: state.profile.userData.id,
+		authID: state.auth.user.id,
+		userID: state.profile.userData.id,
 		postsData: state.profile.postsData,
 		pageSize: state.profile.pageSize,
 		totalCount: state.profile.totalCount,
@@ -97,6 +92,7 @@ function mapStateToProps(state: IState) {
 export const PostsContainer = connect(mapStateToProps, {
 	getPostsTC,
 	addPostTC,
+	deletePostTC,
 	likePostTC,
 	unlikePostTC,
 })(PostsContainerAPI);

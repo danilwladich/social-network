@@ -154,11 +154,12 @@ html[theme="light"] {
 			border-radius: 4px;
 			opacity: 0.7;
 			transition: all 0.2s;
+			background-color: rgba(255, 0, 0, 0.6) !important;
+			color: #fff !important;
 			&:not(:disabled) {
 				opacity: 1;
 				&:hover {
 					transform: translate(-1px, -1px);
-					color: #fff;
 					background-color: red !important;
 				}
 				&:active {

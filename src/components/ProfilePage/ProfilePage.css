@@ -43,6 +43,20 @@ html[theme=dark] .profile__post_like {
 html[theme=dark] .profile__post_like:hover {
   background-color: var(--dark-button-bg-active);
 }
+html[theme=dark] .profile__post_showactions {
+  background-color: var(--dark-subsection-bg);
+}
+html[theme=dark] .profile__post_showactions span,
+html[theme=dark] .profile__post_showactions span:before,
+html[theme=dark] .profile__post_showactions span:after {
+  background-color: var(--dark-text-color);
+}
+html[theme=dark] .profile__post_delete {
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .profile__post_delete:hover {
+  background-color: var(--dark-button-bg-active);
+}
 
 html[theme=light] .profile__actions > a,
 html[theme=light] .profile__actions > button {
@@ -89,6 +103,20 @@ html[theme=light] .profile__post_like {
 html[theme=light] .profile__post_like:hover {
   background-color: var(--light-button-bg-active);
 }
+html[theme=light] .profile__post_showactions {
+  background-color: var(--light-subsection-bg);
+}
+html[theme=light] .profile__post_showactions span,
+html[theme=light] .profile__post_showactions span:before,
+html[theme=light] .profile__post_showactions span:after {
+  background-color: var(--light-text-color);
+}
+html[theme=light] .profile__post_delete {
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .profile__post_delete:hover {
+  background-color: var(--light-button-bg-active);
+}
 
 .profile__loading_image {
   margin: 0px auto 15px auto;
@@ -119,13 +147,10 @@ html[theme=light] .profile__post_like:hover {
 }
 .profile__loading_about p {
   height: 20px;
-  width: 125px;
+  width: 100px;
 }
 .profile__loading_about p:not(:last-child) {
   margin: 0px 0px 5px 0px;
-}
-.profile__loading_about p:last-child {
-  margin: 10px 0px 0px 0px;
 }
 .profile__loading_posts {
   position: relative;
@@ -204,7 +229,8 @@ html[theme=light] .profile__post_like:hover {
 .profile__about_more {
   font-size: 16px;
   background-color: transparent;
-  padding: 5px 0px;
+  padding: 5px 10px;
+  margin: 0px 0px -5px 0px;
 }
 .profile__about_more:hover {
   text-decoration: underline;
@@ -421,7 +447,8 @@ html[theme=light] .profile__post_like:hover {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 10px 0px 0px 0px;
+  margin: 10px 0px 0px 0px;
+  position: relative;
 }
 .profile__post_like {
   border-radius: 4px;
@@ -434,9 +461,76 @@ html[theme=light] .profile__post_like:hover {
   width: 18px;
   height: 18px;
 }
+.profile__post_showactions {
+  opacity: 0.3;
+  width: 28px;
+  height: 28px;
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 4px;
+}
+.profile__post_showactions:hover {
+  opacity: 1;
+}
+.profile__post_showactions span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.profile__post_showactions span:before,
+.profile__post_showactions span:after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.profile__post_showactions span:before {
+  left: -9px;
+}
+.profile__post_showactions span:after {
+  right: -9px;
+}
+.profile__post_delete {
+  z-index: 2;
+  position: absolute;
+  width: 150px;
+  right: 35px;
+  bottom: 33px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: 16px;
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 5px 10px;
+  opacity: 0;
+  visibility: hidden;
+}
+.profile__post_delete svg {
+  margin: 0px 0px -5px 0px;
+  width: 85px;
+  height: 18px;
+}
+.profile__post_delete.active {
+  opacity: 1;
+  visibility: visible;
+}
 .profile__post_date {
   opacity: 0.7;
-  font-size: 14px;
+  font-size: 12px;
 }
 @media (min-width: 767px) {
   .profile__loading_user {
@@ -496,5 +590,8 @@ html[theme=light] .profile__post_like:hover {
   }
   .profile__edit_label span {
     margin: 0px 15px 0px 0px;
+  }
+  .profile__post_date {
+    font-size: 14px;
   }
 }

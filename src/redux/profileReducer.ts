@@ -10,6 +10,7 @@ import { setHeaderImage } from "./headerReducer";
 import { ProfilePostData } from "../models/Profile/ProfilePostData";
 import { ProfileUserData } from "../models/Profile/ProfileUserData";
 import { ProfileAboutData } from "../models/Profile/ProfileAboutData";
+import { authMeTC } from "./authReducer";
 
 const initialState: IProfile = {
 	userData: {
@@ -71,6 +72,13 @@ export function profileReducer(
 			return {
 				...state,
 				postsData: [newPost, ...state.postsData],
+			};
+
+		case ActionType.DELTE_POST:
+			return {
+				...state,
+				postsData: [...state.postsData].filter((p) => p.id !== action.value),
+				totalCount: state.totalCount - 1,
 			};
 
 		case ActionType.LIKE_POST:
@@ -174,6 +182,11 @@ export const addPost: (post: string, id: string) => IAction = (post, id) => ({
 	id,
 });
 
+export const deletePost: (postID: string) => IAction = (postID) => ({
+	type: ActionType.DELTE_POST,
+	value: postID,
+});
+
 export const likePost: (id: string) => IAction = (id) => ({
 	type: ActionType.LIKE_POST,
 	value: id,
@@ -245,7 +258,9 @@ export const getPostsTC = (userID: string, page: number, pageSize: number) => {
 			await API.getPosts(userID, page, pageSize, lastPostID).then((data) => {
 				if (data.success === true) {
 					dispatch(setPosts(data.postsData, page));
-					dispatch(setPostsTotalCount(data.totalCount));
+					if (page === 1) {
+						dispatch(setPostsTotalCount(data.totalCount));
+					}
 				} else {
 					dispatch(setPosts([], 1));
 					dispatch(setPostsTotalCount(0));
@@ -273,6 +288,24 @@ export const addPostTC = (post: string) => {
 		} catch (e: unknown) {
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Add post: " + error.message));
+		}
+	};
+};
+
+export const deletePostTC = (postID: string) => {
+	return async (dispatch: Dispatch<IAction>) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.deletePost(postID).then((data) => {
+				if (data.success === true) {
+					dispatch(deletePost(postID));
+				} else {
+					dispatch(setErrorMessage("Delete post: " + data.statusText));
+				}
+			});
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Delete post: " + error.message));
 		}
 	};
 };
@@ -322,9 +355,11 @@ export const editProfileTC = (
 	return async (dispatch: Dispatch<any>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.editProfile(image, id, country, city).then((data) => {
+			await API.editProfile(image, id, country, city).then(async (data) => {
 				if (data.success === true) {
-					dispatch(getProfileTC(getState().auth.user.id));
+					if (!!id) {
+						await dispatch(authMeTC());
+					}
 				} else {
 					return Promise.reject(data.statusText);
 				}
@@ -333,6 +368,7 @@ export const editProfileTC = (
 			if (typeof e === "string") {
 				return Promise.reject(e);
 			}
+
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Edit profile: " + error.message));
 			return Promise.reject();

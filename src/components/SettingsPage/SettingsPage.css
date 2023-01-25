@@ -147,6 +147,8 @@ html[theme=light] .settings__delete_button {
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
+  background-color: rgba(255, 0, 0, 0.6) !important;
+  color: #fff !important;
 }
 .settings__delete_button:not(:disabled) {
   opacity: 1;
@@ -155,7 +157,6 @@ html[theme=light] .settings__delete_button {
   -webkit-transform: translate(-1px, -1px);
       -ms-transform: translate(-1px, -1px);
           transform: translate(-1px, -1px);
-  color: #fff;
   background-color: red !important;
 }
 .settings__delete_button:not(:disabled):active {

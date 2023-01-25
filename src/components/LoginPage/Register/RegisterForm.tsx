@@ -1,31 +1,49 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
+import ReCAPTCHA from "react-google-recaptcha";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 
 interface IProps {
+	bodyTheme: string;
 	registerTC: (
 		phoneNumber: string,
 		password: string,
 		firstName: string,
-		lastName: string
+		lastName: string,
+		recaptcha: string
 	) => Promise<void>;
 }
 
 export function RegisterForm(props: IProps) {
 	const [errorMessage, setErrorMessage] = useState("");
 	const [submitting, setSubmitting] = useState(false);
+	const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-	function onSubmit(v: {
+	async function onSubmit(v: {
 		phoneNumber: string;
 		password: string;
 		firstName: string;
 		lastName: string;
 	}) {
 		setSubmitting(true);
+		const recaptcha = await recaptchaRef.current?.executeAsync();
+		if (!recaptcha) {
+			setSubmitting(false);
+			return () => setErrorMessage("Recaptcha error, try again");
+		}
 		props
-			.registerTC(v.phoneNumber, v.password, v.firstName, v.lastName)
-			.catch((reject) => setErrorMessage(reject))
+			.registerTC(
+				v.phoneNumber,
+				v.password,
+				v.firstName.trim(),
+				v.lastName.trim(),
+				recaptcha
+			)
+			.catch((reject) => {
+				setErrorMessage(reject);
+				recaptchaRef.current?.reset();
+			})
 			.finally(() => setSubmitting(false));
 	}
 	function validate(e: {
@@ -96,7 +114,7 @@ export function RegisterForm(props: IProps) {
 			if (e.firstName.slice(1).toLowerCase() !== e.firstName.slice(1)) {
 				errors.firstName = "Must be capitalized!";
 			}
-			if (e.firstName.match(/[^a-zA-Z]+/g)) {
+			if (e.firstName.trim().match(/[^a-zA-Z]+/g)) {
 				errors.firstName = "Only latin letters allowed!";
 			}
 		}
@@ -118,7 +136,7 @@ export function RegisterForm(props: IProps) {
 			if (e.lastName.slice(1).toLowerCase() !== e.lastName.slice(1)) {
 				errors.lastName = "Must be capitalized!";
 			}
-			if (e.lastName.match(/[^a-zA-Z]+/g)) {
+			if (e.lastName.trim().match(/[^a-zA-Z]+/g)) {
 				errors.lastName = "Only latin letters allowed!";
 			}
 		}
@@ -245,6 +263,14 @@ export function RegisterForm(props: IProps) {
 								)}
 							</div>
 						)}
+					/>
+
+					<ReCAPTCHA
+						size="invisible"
+						className="login__recaptcha"
+						theme={props.bodyTheme as "light" | "dark"}
+						sitekey="6LcwYyQkAAAAAMsq2VnRYkkqNqLt-ljuy-gfmPYn"
+						ref={recaptchaRef}
 					/>
 
 					{errorMessage && <div className="login__error">{errorMessage}</div>}
