@@ -1,0 +1,177 @@
+html[theme=dark] .settings__item:not(:last-child) {
+  border-bottom: var(--dark-items-border-bottom) solid 1px;
+}
+html[theme=dark] .settings__button {
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .settings__button:hover {
+  background-color: var(--dark-button-bg-active);
+}
+html[theme=dark] .settings__delete_input {
+  border-bottom: 1px solid var(--dark-items-border-bottom);
+}
+html[theme=dark] .settings__delete_input:focus {
+  border-bottom: 1px solid var(--dark-text-color);
+}
+html[theme=dark] .settings__delete_button {
+  background-color: var(--dark-button-bg);
+}
+
+html[theme=light] .settings__item:not(:last-child) {
+  border-bottom: var(--light-items-border-bottom) solid 1px;
+}
+html[theme=light] .settings__button {
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .settings__button:hover {
+  background-color: var(--light-button-bg-active);
+}
+html[theme=light] .settings__delete_input {
+  border-bottom: 1px solid var(--light-items-border-bottom);
+}
+html[theme=light] .settings__delete_input:focus {
+  border-bottom: 1px solid var(--light-text-color);
+}
+html[theme=light] .settings__delete_button {
+  background-color: var(--light-button-bg);
+}
+
+.settings__item {
+  padding: 10px 0;
+}
+.settings__category {
+  font-size: 20px;
+  font-weight: 700;
+}
+.settings__button {
+  margin: 15px 0px 0px 0px;
+  cursor: pointer;
+  display: inline-block;
+  background-color: transparent;
+  font-size: 18px;
+  padding: 5px 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
+  border-radius: 4px;
+  height: 28px;
+}
+.settings__button svg {
+  margin: -5px 0;
+  width: 23px;
+  height: 23px;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.settings__button:hover path {
+  stroke-width: 2px;
+}
+.settings__button.disabled {
+  opacity: 0.7;
+}
+.settings__button.delete {
+  line-height: 100%;
+}
+.settings__button.delete:hover {
+  color: #fff;
+  background-color: red !important;
+}
+.settings__button.delete:hover svg circle {
+  stroke: #fff;
+}
+.settings__button.delete svg {
+  width: 125px;
+  height: 20px;
+}
+.settings__delete_title {
+  line-height: 1;
+  font-size: 22px;
+  text-align: center;
+  font-weight: 700;
+}
+.settings__delete_close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+.settings__delete_close svg {
+  width: 30px;
+  height: 30px;
+}
+.settings__delete_label {
+  cursor: pointer;
+  display: block;
+  font-size: 18px;
+  padding: 0px 0px 10px 0px;
+}
+.settings__delete_field {
+  padding: 0 5px 5px 5px;
+  margin: 0px 0px 25px 0px;
+  position: relative;
+}
+.settings__delete_input {
+  width: 100%;
+  line-height: 150%;
+  font-size: 20px;
+  background-color: transparent;
+  max-width: 250px;
+  cursor: pointer;
+}
+.settings__delete_incorrect {
+  color: rgba(255, 0, 0, 0.87) !important;
+  position: absolute;
+  bottom: -14px;
+}
+.settings__delete_button {
+  display: block;
+  width: 175px;
+  font-size: 20px;
+  background-color: transparent;
+  padding: 10px 50px;
+  margin: 30px auto 15px auto;
+  border-radius: 4px;
+  opacity: 0.7;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  background-color: rgba(255, 0, 0, 0.6) !important;
+  color: #fff !important;
+}
+.settings__delete_button:not(:disabled) {
+  opacity: 1;
+}
+.settings__delete_button:not(:disabled):hover {
+  -webkit-transform: translate(-1px, -1px);
+      -ms-transform: translate(-1px, -1px);
+          transform: translate(-1px, -1px);
+  background-color: red !important;
+}
+.settings__delete_button:not(:disabled):active {
+  -webkit-transform: translate(0);
+      -ms-transform: translate(0);
+          transform: translate(0);
+}
+.settings__delete_button svg {
+  width: 62px;
+  height: 23px;
+  margin: 0px 0px -5px 0px;
+}
+.settings__delete_error {
+  word-wrap: break-word;
+  text-align: center;
+  color: rgba(255, 0, 0, 0.87) !important;
+  text-transform: capitalize;
+}
