@@ -51,7 +51,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 		let users;
 
 		if (category === "all") {
-			const friends = [...user.following].filter((id) =>
+			const friends = user.following.filter((id) =>
 				user.followers.includes(id)
 			);
 
@@ -63,7 +63,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 
 			totalCount = await User.find({ _id: { $in: friends } }).count();
 		} else if (category === "followers") {
-			const followers = [...user.followers].filter(
+			const followers = user.followers.filter(
 				(id) => !user.following.includes(id)
 			);
 
@@ -75,7 +75,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 
 			totalCount = await User.find({ _id: { $in: followers } }).count();
 		} else {
-			const following = [...user.following].filter(
+			const following = user.following.filter(
 				(id) => !user.followers.includes(id)
 			);
 

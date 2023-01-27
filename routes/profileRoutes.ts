@@ -54,8 +54,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 		};
 
 		const friends: number =
-			[...user.following].filter((id) => user.followers.includes(id)).length ||
-			0;
+			user.following.filter((id) => user.followers.includes(id)).length || 0;
 
 		const aboutData = {
 			friends,
@@ -156,7 +155,6 @@ router.post(
 
 			if (!errors.isEmpty()) {
 				return res.status(400).json({
-					errors: errors.array(),
 					success: false,
 					statusText: errors.array(),
 				});
@@ -310,7 +308,6 @@ router.put(
 
 			if (!errors.isEmpty()) {
 				return res.status(400).json({
-					errors: errors.array(),
 					success: false,
 					statusText: errors.array(),
 				});

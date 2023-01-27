@@ -102,6 +102,14 @@ export const API = {
 			.then((response) => response.data);
 	},
 
+	// messages
+	getChats() {
+		return instance.get(`messages`).then((response) => response.data);
+	},
+	getChat(userID: string) {
+		return instance.get(`messages/${userID}`).then((response) => response.data);
+	},
+
 	// friends
 	getFriends(
 		userID: string,

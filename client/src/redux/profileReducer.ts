@@ -77,7 +77,7 @@ export function profileReducer(
 		case ActionType.DELTE_POST:
 			return {
 				...state,
-				postsData: [...state.postsData].filter((p) => p.id !== action.value),
+				postsData: state.postsData.filter((p) => p.id !== action.value),
 				totalCount: state.totalCount - 1,
 			};
 

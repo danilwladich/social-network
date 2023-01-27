@@ -8,6 +8,7 @@ import { initializationTC } from "./redux/appReducer";
 import { IState } from "./models/IState";
 import { ErrorContainer } from "./components/Error/ErrorContainer";
 import { NotExist } from "./components/NotExist/NotExist";
+import * as io from "socket.io-client";
 
 const LoginPageContainer = React.lazy(
 	() => import("./components/LoginPage/Login/LoginPageContainer")
@@ -31,9 +32,12 @@ const SettingsPageContainer = React.lazy(
 	() => import("./components/SettingsPage/SettingsPageContainer")
 );
 
+export const socket = io.connect("http://localhost:80");
+
 interface IProps {
+	authID: string;
 	initializationSuccess: boolean;
-	initializationTC: () => void;
+	initializationTC: () => Promise<void>;
 }
 
 // TODO add fallback for suspense
@@ -42,10 +46,14 @@ interface IProps {
 
 function App(props: IProps) {
 	document.title = `SocNet`;
+	
 	useLayoutEffect(() => {
 		props.initializationTC();
+		if (!!props.authID) {
+			socket.emit("connected", props.authID);
+		}
 		// eslint-disable-next-line
-	}, []);
+	}, [props.authID]);
 
 	if (!props.initializationSuccess) {
 		return (
@@ -127,6 +135,7 @@ function App(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
+		authID: state.auth.user.id,
 		initializationSuccess: state.app.initializationSuccess,
 	};
 }

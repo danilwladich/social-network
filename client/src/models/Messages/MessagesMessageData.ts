@@ -1,5 +1,5 @@
 export interface MessagesMessageData {
-	id: number;
+	id: string;
 	message: string;
 	date: string;
 	out: boolean;

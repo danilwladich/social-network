@@ -1,8 +1,11 @@
 import React, { useRef, useState } from "react";
 import { Arrow } from "../../assets/Arrow";
+import { socket } from "../../../App";
 
 interface IProps {
-	sendMessage: (message: string, id: number) => void;
+	authID: string;
+	userID: string;
+	sendMessage: (message: string, id: string) => void;
 }
 
 export function ChatInput(props: IProps) {
@@ -10,7 +13,7 @@ export function ChatInput(props: IProps) {
 	const fieldRef = useRef<HTMLTextAreaElement>(null);
 
 	function updateNewMessageValue(v: string) {
-		if (v.length < 5000) {
+		if (v.length <= 5000) {
 			setNewMessageValue(v);
 		}
 		if (fieldRef.current!.scrollHeight + 4 < 300) {
@@ -24,17 +27,27 @@ export function ChatInput(props: IProps) {
 	}
 	function sendMessage() {
 		updateNewMessageValue("");
-		if (newMessageValue.trim() !== "") {
-			props.sendMessage(newMessageValue, 1);
+
+		const from = props.authID;
+		const to = props.userID;
+
+		const id = "temporaryid//" + Math.round(Math.random() * 1000000000);
+
+		socket.emit("sendMessage", {
+			message: newMessageValue.trim(),
+			from,
+			to,
+			id,
+		});
+
+		if ((newMessageValue.trim() !== "")) {
+			props.sendMessage(newMessageValue.trim(), id);
 		}
 	}
-	function onKeyDownHandler(
-		e: React.KeyboardEvent<HTMLSpanElement>,
-		disabled: boolean
-	) {
+	function onKeyDownHandler(e: React.KeyboardEvent<HTMLSpanElement>) {
 		if (!e.shiftKey && e.key === "Enter") {
 			e.preventDefault();
-			if (!disabled) {
+			if (newMessageValue.trim() !== "") {
 				sendMessage();
 			}
 		}
@@ -45,7 +58,7 @@ export function ChatInput(props: IProps) {
 				<textarea
 					ref={fieldRef}
 					autoFocus
-					onKeyDown={(e) => onKeyDownHandler(e, newMessageValue.trim() === "")}
+					onKeyDown={(e) => onKeyDownHandler(e)}
 					onChange={(e) => updateNewMessageValue(e.target.value)}
 					value={newMessageValue}
 					placeholder="Write new message..."

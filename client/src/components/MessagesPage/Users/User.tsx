@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { MessagesUserData } from "../../../models/Messages/MessagesUserData";
+import { CheckMark } from "../../assets/CheckMark";
 
 interface IProps {
 	userData: MessagesUserData;
@@ -24,7 +25,10 @@ export function User(props: IProps) {
 			<NavLink
 				to={"/messages/" + userData.id}
 				draggable="false"
-				className={"messages__user " + (!lastMessage.read ? "unread" : "")}
+				className={
+					"messages__user " +
+					(!lastMessage.read && !lastMessage.out ? "unread" : "")
+				}
 			>
 				<div className="messages__user_image">
 					<img
@@ -38,10 +42,28 @@ export function User(props: IProps) {
 					<div className="messages__user_name">
 						{userData.firstName + " " + userData.lastName}
 					</div>
+
 					<div className="messages__user_lastmessage">
 						<div className="messages__user_lastmessage_text">
 							{(lastMessage.out ? "Me: " : "") + lastMessage.message}
 						</div>
+
+						{lastMessage.out && (
+							<div
+								className={
+									"messages__user_lastmessage_status " + (lastMessage.read ? "read" : "")
+								}
+							>
+								{lastMessage.id.includes("temporaryid") ? (
+									<CheckMark />
+								) : (
+									<>
+										<CheckMark />
+										<CheckMark />
+									</>
+								)}
+							</div>
+						)}
 						<div className="messages__user_lastmessage_date">{dateToShow}</div>
 					</div>
 				</div>

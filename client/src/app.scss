@@ -87,6 +87,9 @@ html[theme="dark"] {
 			fill: var(--dark-text-color);
 		}
 	}
+	.checkMark{
+		fill: var(--dark-text-color);
+	}
 }
 
 html[theme="light"] {
@@ -154,6 +157,9 @@ html[theme="light"] {
 		&.likedMe {
 			fill: var(--light-text-color);
 		}
+	}
+	.checkMark{
+		fill: var(--light-text-color);
 	}
 }
 

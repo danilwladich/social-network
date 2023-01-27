@@ -181,6 +181,9 @@ html[theme=dark] .likeHeart path {
 html[theme=dark] .likeHeart.likedMe {
   fill: var(--dark-text-color);
 }
+html[theme=dark] .checkMark {
+  fill: var(--dark-text-color);
+}
 
 html[theme=light] ::-webkit-scrollbar-track {
   background: rgba(85, 85, 85, 0.3);
@@ -239,6 +242,9 @@ html[theme=light] .likeHeart path {
   stroke: var(--light-text-color);
 }
 html[theme=light] .likeHeart.likedMe {
+  fill: var(--light-text-color);
+}
+html[theme=light] .checkMark {
   fill: var(--light-text-color);
 }
 

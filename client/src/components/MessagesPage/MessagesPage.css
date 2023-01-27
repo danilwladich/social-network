@@ -77,6 +77,7 @@ html[theme=light] .messages__message_content {
   display: -ms-flexbox;
   display: flex;
   gap: 10px;
+  line-height: 150%;
 }
 .messages__user_image {
   -webkit-box-flex: 0;
@@ -123,15 +124,30 @@ html[theme=light] .messages__message_content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 5px;
 }
 .messages__user_lastmessage_text {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  overflow: hidden;
+  overflow-x: hidden;
   -o-text-overflow: ellipsis;
      text-overflow: ellipsis;
+}
+.messages__user_lastmessage_status {
+  opacity: 0.7;
+}
+.messages__user_lastmessage_status svg {
+  height: 10px;
+}
+.messages__user_lastmessage_status svg:last-child:not(:first-child) {
+  margin: 0px 0px 0px -5px;
+}
+.messages__user_lastmessage_status.read svg {
+  fill: yellowgreen;
 }
 .messages__not_found {
   font-size: 26px;
@@ -254,42 +270,71 @@ html[theme=light] .messages__message_content {
   opacity: 1;
 }
 .messages__message {
-  width: 66.667%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .messages__message:not(:last-child) {
   margin: 0px 0px 10px 0px;
 }
 .messages__message.out {
-  margin: 0px 0px 0px auto;
-  text-align: right;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
 }
 .messages__message.out:not(:last-child) {
-  margin: 0px 0px 10px auto;
+  margin: 0px 0px 10px 0px;
 }
 .messages__message_content {
-  padding: 2px 5px;
+  max-width: 66.667%;
+  padding: 2px 7px;
   border-radius: 8px;
-  display: inline-block;
-  max-width: 100%;
-}
-.messages__message_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  gap: 5px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.messages__message_spacer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .messages__message_text {
-  width: 100%;
   font-size: 16px;
   line-height: 150%;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+}
+.messages__message_footer {
+  font-size: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  gap: 5px;
+}
+.messages__message_status {
+  opacity: 0.7;
+}
+.messages__message_status svg {
+  height: 10px;
+}
+.messages__message_status svg:last-child:not(:first-child) {
+  margin: 0px 0px 0px -5px;
+}
+.messages__message_status.read svg {
+  fill: yellowgreen;
 }
 .messages__message_date {
   opacity: 0.7;
-  font-size: 10px;
 }
 @media (min-width: 767px) {
   .messages__user {
@@ -313,11 +358,17 @@ html[theme=light] .messages__message_content {
     right: 15px;
     font-size: 14px;
   }
+  .messages__user_lastmessage_status svg {
+    height: 12px;
+  }
   .messages__chat {
     height: calc(100vh - 112px);
     margin: 0;
   }
-  .messages__message_date {
+  .messages__message_footer {
     font-size: 12px;
+  }
+  .messages__message_status svg {
+    height: 12px;
   }
 }

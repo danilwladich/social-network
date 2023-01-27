@@ -6,6 +6,9 @@ import { ProfileAboutData } from "../Profile/ProfileAboutData";
 import { ProfileUserData } from "../Profile/ProfileUserData";
 import { FriendsUserData } from "../Friends/FriendsUserData";
 import { WhoseFriends } from "../Friends/WhoseFriends";
+import { MessagesUserData } from "../Messages/MessagesUserData";
+import { ChatWith } from "../Messages/ChatWith";
+import { MessagesMessageData } from "../Messages/MessagesMessageData";
 
 // APP
 interface setInitializationd {
@@ -85,10 +88,33 @@ interface unfollowUser {
 }
 
 // MESSAGES
+interface setChats {
+	type: ActionType.SET_CHATS;
+	value: MessagesUserData[];
+}
+interface setChat {
+	type: ActionType.SET_CHAT;
+	chatWith: ChatWith;
+	messagesData: MessagesMessageData[];
+}
 interface sendMessage {
 	type: ActionType.SEND_MESSAGE;
 	value: string;
-	id: number;
+	id: string;
+}
+interface messageSent {
+	type: ActionType.MESSAGE_SENT;
+	oldID: string;
+	newID: string;
+}
+interface receiveMessage {
+	type: ActionType.RECEIVE_MESSAGE;
+	messageData: MessagesMessageData;
+	fromUser: MessagesUserData;
+}
+interface messagesRead {
+	type: ActionType.MESSAGES_READ;
+	value: string;
 }
 
 // FRIENDS
@@ -122,15 +148,20 @@ export type IAction =
 	| setErrorMessage
 	| notAuthUser
 	| setTheme
+	| setChats
 	| sendMessage
 	| addPost
+	| messagesRead
 	| followUser
+	| messageSent
 	| setWhoseFriends
 	| setPosts
 	| setPostsTotalCount
 	| deletePost
 	| unfollowUser
 	| setUsers
+	| setChat
+	| receiveMessage
 	| setFriends
 	| setFriendsTotalCount
 	| setUsersTotalCount

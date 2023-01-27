@@ -123,6 +123,7 @@ html[theme=light] .users__pagination_page.active:after {
           align-items: center;
   gap: 10px;
   position: relative;
+  line-height: 150%;
 }
 .users__user_image {
   -webkit-box-flex: 0;
@@ -363,6 +364,9 @@ html[theme=light] .users__pagination_page.active:after {
     gap: 5px;
     opacity: 0.7;
     font-size: 14px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
   }
   .users__pagination {
     gap: 10px;
