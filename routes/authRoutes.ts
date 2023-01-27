@@ -5,6 +5,7 @@ import config from "config";
 import { check, validationResult } from "express-validator";
 import User from "../models/User";
 import Post from "../models/Post";
+import Message from "../models/Message";
 import { nanoid } from "nanoid";
 import authMiddleware, {
 	IGetUserAuthRequest,
@@ -190,7 +191,7 @@ router.get("/me", async (req: Request, res: Response) => {
 		res.status(200).json({
 			success: true,
 			statusText: "Auth successful",
-			user: { id: nickname },
+			user: { id: nickname, token },
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });
@@ -248,6 +249,8 @@ router.delete(
 				{ _id: { $in: user!.followers } },
 				{ $pull: { following: authID } }
 			);
+
+			await Message.deleteMany({ $or: [{ from: authID }, { to: authID }] });
 
 			await user!.deleteOne();
 

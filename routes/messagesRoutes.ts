@@ -85,8 +85,8 @@ router.get(
 router.post(
 	"",
 	[
-		check("from", "From required").exists(),
-		check("to", "To required").exists(),
+		check("fromUserID", "From user ID required").exists(),
+		check("toUserNickname", "To user nickname required").exists(),
 		check("message", "Message required").exists(),
 		check("message", "Message too long").isLength({ max: 5000 }),
 	],
@@ -101,20 +101,25 @@ router.post(
 				});
 			}
 
-			const { from, to, message } = req.body;
+			const { fromUserID, toUserNickname, message } = req.body;
 
-			const fromUser = await User.findOne(
-				{ nickname: from },
-				{ _id: 1, firstName: 1, lastName: 1, avatar: 1 }
+			const fromUser = await User.findById(fromUserID, {
+				_id: 1,
+				firstName: 1,
+				lastName: 1,
+				avatar: 1,
+			});
+
+			const toUser = await User.findOne(
+				{ nickname: toUserNickname },
+				{ _id: 1 }
 			);
-			const toUser = await User.findOne({ nickname: to }, { _id: 1 });
 			if (!fromUser || !toUser) {
 				return res.status(200).json({
 					success: false,
 					statusText: "User not found",
 				});
 			}
-			const fromUserID = fromUser._id;
 			const toUserID = toUser._id;
 
 			const newMessage = new Message({
@@ -211,7 +216,8 @@ router.get(
 router.put(
 	"/read",
 	[
-		check("whom", "Whom required").exists(),
+		check("whoUserID", "Who user ID required").exists(),
+		check("whomUserNickname", "Whom user nickname required").exists(),
 	],
 	async (req: Request, res: Response) => {
 		try {
@@ -224,18 +230,22 @@ router.put(
 				});
 			}
 
-			const { whom } = req.body;
+			const { whoUserID, whomUserNickname } = req.body;
 
-			const user = await User.findOne({ nickname: whom });
-			if (!user) {
+			const whoUser = await User.findById(whoUserID, { _id: 1 });
+			const whomUser = await User.findOne({ nickname: whomUserNickname });
+			if (!whoUser || !whomUser) {
 				return res.status(200).json({
 					success: false,
 					statusText: "User not found",
 				});
 			}
-			const userID = user._id;
+			const whomUserID = whomUser._id;
 
-			await Message.updateMany({ from: userID, read: false }, { read: true });
+			await Message.updateMany(
+				{ from: whomUserID, to: whoUserID, read: false },
+				{ read: true }
+			);
 
 			res.status(200).json({
 				success: true,

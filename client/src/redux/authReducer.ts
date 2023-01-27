@@ -9,6 +9,7 @@ import { setErrorMessage } from "./appReducer";
 const initialState: IAuth = {
 	user: {
 		id: "",
+		token: "",
 	},
 	isAuth: false,
 };

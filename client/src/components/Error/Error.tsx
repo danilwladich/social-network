@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { socket } from "../../App";
 import { CloseX } from "../assets/CloseX";
 import "./Error.css";
 
@@ -8,6 +9,17 @@ interface IProps {
 }
 
 export function Error(props: IProps) {
+	useEffect(() => {
+		socket.on("error", (data) => {
+			props.setErrorMessage(data.statusText);
+		});
+
+		return () => {
+			socket.off("error").off();
+		};
+		// eslint-disable-next-line
+	}, []);
+
 	return (
 		<>
 			{props.errorMessage && (

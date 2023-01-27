@@ -32,10 +32,13 @@ const SettingsPageContainer = React.lazy(
 	() => import("./components/SettingsPage/SettingsPageContainer")
 );
 
-export const socket = io.connect("http://localhost:80");
+export const socket = io.connect("http://localhost:80", { autoConnect: false });
 
 interface IProps {
-	authID: string;
+	authUser: {
+		id: string;
+		token: string;
+	};
 	initializationSuccess: boolean;
 	initializationTC: () => Promise<void>;
 }
@@ -46,14 +49,21 @@ interface IProps {
 
 function App(props: IProps) {
 	document.title = `SocNet`;
-	
+
+	const authUser = props.authUser;
+
 	useLayoutEffect(() => {
 		props.initializationTC();
-		if (!!props.authID) {
-			socket.emit("connected", props.authID);
+		
+		if (!!authUser.id && !!authUser.token) {
+			socket.connect()
+			socket.emit("connected", {
+				nickname: authUser.id,
+				token: authUser.token,
+			});
 		}
 		// eslint-disable-next-line
-	}, [props.authID]);
+	}, [authUser.id]);
 
 	if (!props.initializationSuccess) {
 		return (
@@ -135,7 +145,7 @@ function App(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
-		authID: state.auth.user.id,
+		authUser: state.auth.user,
 		initializationSuccess: state.app.initializationSuccess,
 	};
 }
