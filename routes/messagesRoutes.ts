@@ -15,59 +15,76 @@ router.get(
 		try {
 			const authID = req.user!.userID as string;
 
-			const messages = await Message.find({
+			const messagesFromUsers = await Message.distinct("from", {
 				$or: [{ from: authID }, { to: authID }],
-			}).sort({
-				_id: -1,
 			});
+			const messagesToUsers = await Message.distinct("to", {
+				$or: [{ from: authID }, { to: authID }],
+			});
+			const messagesUsers = messagesFromUsers.concat(messagesToUsers);
 
+			// set unique ids of users
 			const usersSet: Set<string> = new Set();
-			let usersArray: string[] = [];
-
-			messages.forEach((m) => {
-				if (m.from!.toString() !== authID) {
-					usersSet.add(m.from!.toString());
-				}
-				if (m.to!.toString() !== authID) {
-					usersSet.add(m.to!.toString());
+			messagesUsers.forEach((id) => {
+				if (id.toString() !== authID) {
+					usersSet.add(id.toString());
 				}
 			});
+			let usersArray: string[] = [];
+			usersSet.forEach((id) => usersArray.push(id));
 
-			usersSet.forEach((v) => usersArray.push(v));
-
+			// find users and last message for each
 			const users = await Promise.all(
 				usersArray.map(async (id) => {
-					return await User.findById(id, {
-						nickname: 1,
-						firstName: 1,
-						lastName: 1,
-						avatar: 1,
-					});
+					const lastMessage = await Message.findOne(
+						{
+							$or: [
+								{ from: id, to: authID },
+								{ to: id, from: authID },
+							],
+						},
+						{ _id: 1, date: 1, message: 1, read: 1, from: 1 }
+					).sort({ _id: -1 });
+
+					return {
+						...(await User.findById(id, {
+							_id: 1,
+							nickname: 1,
+							firstName: 1,
+							lastName: 1,
+							avatar: 1,
+						}))!.toObject(),
+
+						lastMessage: {
+							...lastMessage!.toObject(),
+							id: lastMessage!._id,
+							out: lastMessage!.from!.toString() === authID,
+							from: undefined,
+							_id: undefined,
+						},
+					};
 				})
 			);
 
+			// sorting users by last message id
+			users.sort((a, b) => {
+				if (a.lastMessage.id > b.lastMessage.id) {
+					return -1;
+				}
+				if (a.lastMessage.id < b.lastMessage.id) {
+					return 1;
+				}
+				return 0;
+			});
+
+			// mapping users
 			const usersData = users.map((u) => {
 				return {
-					id: u?.nickname,
-					lastName: u?.lastName,
-					firstName: u?.firstName,
-					image: u?.avatar,
-					lastMessage: messages
-						.filter((m) => {
-							return (
-								m.to?.toString() === u?._id.toString() ||
-								m.from?.toString() === u?._id.toString()
-							);
-						})
-						.map((m) => {
-							return {
-								id: m.id,
-								date: m.date,
-								message: m.message,
-								out: m.from?.toString() === authID,
-								read: m.read,
-							};
-						})[0],
+					id: u.nickname,
+					lastName: u.lastName,
+					firstName: u.firstName,
+					image: u.avatar,
+					lastMessage: u.lastMessage,
 				};
 			});
 
@@ -149,6 +166,16 @@ router.get(
 	authMiddleware,
 	async (req: IGetUserAuthRequest, res: Response) => {
 		try {
+			const page = parseInt((req.query.page as string) || "");
+			const count = parseInt((req.query.count as string) || "");
+			const lastMessageID = req.query.lastMessageID;
+			if (!page || !count || page < 1 || count > 200) {
+				return res.status(400).json({
+					success: false,
+					statusText: "Invalid query parameters",
+				});
+			}
+
 			const nickname = req.params.nickname;
 			const user = await User.findOne({ nickname });
 			if (!user) {
@@ -161,29 +188,24 @@ router.get(
 
 			const authID = req.user!.userID as string;
 
-			const messagesTo = await Message.find({ from: authID, to: userID }).sort({
-				_id: 1,
-			});
-			const messagesFrom = await Message.find({
-				from: userID,
-				to: authID,
-			}).sort({
-				_id: 1,
-			});
+			const filter = !lastMessageID
+				? {
+						$or: [
+							{ from: userID, to: authID },
+							{ to: userID, from: authID },
+						],
+				  }
+				: {
+						$or: [
+							{ from: userID, to: authID },
+							{ to: userID, from: authID },
+						],
+						_id: { $lt: lastMessageID },
+				  };
 
-			const messages = messagesFrom.concat(messagesTo);
+			const messages = await Message.find(filter).sort({ _id: -1 }).limit(count);
 
-			const messagesSort = messages.sort((a, b) => {
-				if (a._id < b._id) {
-					return -1;
-				}
-				if (a._id > b._id) {
-					return 1;
-				}
-				return 0;
-			});
-
-			const messagesData = messagesSort.map((m) => {
+			const messagesData = messages.map((m) => {
 				return {
 					id: m._id,
 					date: m.date,
@@ -199,6 +221,24 @@ router.get(
 				lastName: user.lastName,
 				image: user.avatar,
 			};
+
+			// sent total count if page === 1
+			if (page === 1) {
+				const totalCount = await Message.find({
+					$or: [
+						{ from: userID, to: authID },
+						{ to: userID, from: authID },
+					],
+				}).count();
+
+				return res.status(200).json({
+					success: true,
+					statusText: "Chat sent successfully",
+					chatWith,
+					messagesData,
+					totalCount,
+				});
+			}
 
 			res.status(200).json({
 				success: true,

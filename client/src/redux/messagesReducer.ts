@@ -8,6 +8,7 @@ import { IMessages } from "../models/Messages/IMessages";
 import { MessagesMessageData } from "../models/Messages/MessagesMessageData";
 import { MessagesUserData } from "../models/Messages/MessagesUserData";
 import { setErrorMessage } from "./appReducer";
+import { IState } from "./../models/IState";
 
 const initialState: IMessages = {
 	usersData: [],
@@ -18,6 +19,8 @@ const initialState: IMessages = {
 		image: "",
 	},
 	messagesData: [],
+	pageSize: 50,
+	totalCount: 0,
 };
 
 export function messagesReducer(
@@ -31,11 +34,25 @@ export function messagesReducer(
 				usersData: [...action.value],
 			};
 
-		case ActionType.SET_CHAT:
+		case ActionType.SET_CHAT_WITH:
 			return {
 				...state,
-				chatWith: action.chatWith,
-				messagesData: [...action.messagesData],
+				chatWith: action.value,
+			};
+
+		case ActionType.SET_MESSAGES:
+			return {
+				...state,
+				messagesData:
+					action.page === 1
+						? [...action.messagesData]
+						: [...state.messagesData, ...action.messagesData],
+			};
+
+		case ActionType.SET_MESSAGES_TOTAL_COUNT:
+			return {
+				...state,
+				totalCount: action.value,
 			};
 
 		case ActionType.SEND_MESSAGE:
@@ -48,7 +65,7 @@ export function messagesReducer(
 			};
 			return {
 				...state,
-				messagesData: [...state.messagesData, newMessage],
+				messagesData: [newMessage, ...state.messagesData],
 			};
 
 		case ActionType.MESSAGE_SENT:
@@ -71,7 +88,7 @@ export function messagesReducer(
 				],
 				messagesData:
 					action.fromUser.id === state.chatWith.id
-						? [...state.messagesData, action.messageData]
+						? [action.messageData, ...state.messagesData]
 						: state.messagesData,
 			};
 
@@ -80,7 +97,7 @@ export function messagesReducer(
 				...state,
 				usersData: state.usersData.map((u) => {
 					if (u.lastMessage.out) {
-						return { ...u, lastMessage: {...u.lastMessage, read: true} };
+						return { ...u, lastMessage: { ...u.lastMessage, read: true } };
 					}
 					return u;
 				}),
@@ -108,13 +125,23 @@ export const setChats: (usersData: MessagesUserData[]) => IAction = (
 	value: usersData,
 });
 
-export const setChat: (
-	chatWith: ChatWith,
-	messagesData: MessagesMessageData[]
-) => IAction = (chatWith, messagesData) => ({
-	type: ActionType.SET_CHAT,
-	chatWith,
+export const setChatWith: (chatWith: ChatWith) => IAction = (chatWith) => ({
+	type: ActionType.SET_CHAT_WITH,
+	value: chatWith,
+});
+
+export const setMessages: (
+	messagesData: MessagesMessageData[],
+	page: number
+) => IAction = (messagesData, page) => ({
+	type: ActionType.SET_MESSAGES,
 	messagesData,
+	page,
+});
+
+export const setMessagesTotalCount: (count: number) => IAction = (count) => ({
+	type: ActionType.SET_MESSAGES_TOTAL_COUNT,
+	value: count,
 });
 
 export const sendMessage: (message: string, id: string) => IAction = (
@@ -169,25 +196,34 @@ export const getChatsTC = () => {
 	};
 };
 
-export const getChatTC = (userID: string) => {
-	return async (dispatch: Dispatch<IAction>) => {
+export const getChatTC = (userID: string, page: number, pageSize: number) => {
+	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.getChat(userID).then((data) => {
+			const lastMessageID =
+				page > 1
+					? getState().messages.messagesData[
+							getState().messages.messagesData.length - 1
+					  ].id
+					: null;
+
+			await API.getChat(userID, page, pageSize, lastMessageID).then((data) => {
 				if (data.success === true) {
-					dispatch(setChat(data.chatWith, data.messagesData));
+					dispatch(setMessages(data.messagesData, page));
+					if (page === 1) {
+						dispatch(setChatWith(data.chatWith));
+						dispatch(setMessagesTotalCount(data.totalCount));
+					}
 				} else {
 					dispatch(
-						setChat(
-							{
-								id: "",
-								firstName: "",
-								lastName: "",
-								image: "",
-							},
-							[]
-						)
+						setChatWith({
+							id: "",
+							firstName: "",
+							lastName: "",
+							image: "",
+						})
 					);
+					dispatch(setMessages([], 1));
 				}
 			});
 		} catch (e: unknown) {

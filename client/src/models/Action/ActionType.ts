@@ -22,7 +22,9 @@ export enum ActionType {
 
 	// messages
 	SET_CHATS = "messages/SET_CHATS",
-	SET_CHAT = "messages/SET_CHAT",
+	SET_CHAT_WITH = 'messages/SET_CHAT_WITH',
+	SET_MESSAGES = "messages/SET_MESSAGES",
+	SET_MESSAGES_TOTAL_COUNT = 'messages/SET_MESSAGES_TOTAL_COUNT',
 	SEND_MESSAGE = "messages/SEND_MESSAGE",
 	MESSAGE_SENT = 'messages/MESSAGE_SENT',
 	RECEIVE_MESSAGE = "messages/RECEIVE_MESSAGE",

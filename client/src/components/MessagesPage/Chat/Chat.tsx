@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { MessagesMessageData } from "../../../models/Messages/MessagesMessageData";
 import { ChatInput } from "./ChatInput";
 import { Message } from "./Message";
@@ -10,6 +10,8 @@ interface IProps {
 	authID: string;
 	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
+	contentRef: React.RefObject<HTMLDivElement>;
+	contentLock: boolean;
 	sendMessage: (message: string, id: string) => void;
 }
 
@@ -17,55 +19,19 @@ interface IProps {
 
 export function Chat(props: IProps) {
 	const messagesEnd = useRef<HTMLDivElement>(null);
-	const contentRef = useRef<HTMLDivElement>(null);
-	const [contentLock, setContentLock] = useState(true);
-
-	// first render scroll bottom
-	useLayoutEffect(() => {
-		scrollBottom();
-	}, []);
-
-	// set contentLock based on scrollTop
-	useEffect(() => {
-		function scrollHandler() {
-			if (contentRef.current !== null)
-				if (
-					contentRef.current.scrollHeight -
-						(contentRef.current.scrollTop + contentRef.current.clientHeight) >
-					50
-				) {
-					setContentLock(false);
-				} else if (
-					contentRef.current.scrollHeight -
-						(contentRef.current.scrollTop + contentRef.current.clientHeight) ===
-					0
-				) {
-					setContentLock(true);
-				}
-		}
-
-		contentRef.current?.addEventListener("scroll", scrollHandler);
-		return () => {
-			// eslint-disable-next-line
-			contentRef.current?.removeEventListener("scroll", scrollHandler);
-		};
-	});
+	const contentRef = props.contentRef;
 
 	// scroll bottom after get and send messages + read messages socket
 	useEffect(() => {
 		if (!!props.messagesData.length) {
-			if (props.messagesData[props.messagesData.length - 1].out) {
+			if (props.contentLock) {
 				scrollBottom();
-			} else {
-				if (contentLock) {
-					scrollBottom();
-				}
-				if (!props.messagesData[props.messagesData.length - 1].read) {
-					socket.emit("readMessages", {
-						who: props.authID,
-						whom: props.chatWith.id,
-					});
-				}
+			}
+			if (!props.messagesData[0].read) {
+				socket.emit("readMessages", {
+					who: props.authID,
+					whom: props.chatWith.id,
+				});
 			}
 		}
 		// eslint-disable-next-line
@@ -82,7 +48,7 @@ export function Chat(props: IProps) {
 				<div className="messages__content" ref={contentRef}>
 					{!!props.messagesData.length ? (
 						<>
-							{props.messagesData.map((m) => (
+							{[...props.messagesData].reverse().map((m) => (
 								<Message key={m.id} messageData={m} />
 							))}
 

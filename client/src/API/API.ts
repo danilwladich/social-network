@@ -106,8 +106,18 @@ export const API = {
 	getChats() {
 		return instance.get(`messages`).then((response) => response.data);
 	},
-	getChat(userID: string) {
-		return instance.get(`messages/${userID}`).then((response) => response.data);
+	getChat(
+		userID: string,
+		page: number,
+		pageSize: number,
+		lastMessageID: string | null
+	) {
+		return instance
+			.get(
+				`messages/${userID}?page=${page}&count=${pageSize}` +
+					(!!lastMessageID ? `&lastMessageID=${lastMessageID}` : "")
+			)
+			.then((response) => response.data);
 	},
 
 	// friends

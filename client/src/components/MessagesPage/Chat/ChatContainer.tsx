@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IState } from "../../../models/IState";
 import { connect } from "react-redux";
 import { Chat } from "./Chat";
@@ -12,23 +12,71 @@ interface IProps {
 	authID: string;
 	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
-	getChatTC: (userID: string) => Promise<void>;
+	pageSize: number;
+	totalCount: number;
+	getChatTC: (userID: string, page: number, pageSize: number) => Promise<void>;
 	sendMessage: (message: string, id: string) => void;
 }
 
 export function ChatContainerAPI(props: IProps) {
 	const [isLoading, setIsLoading] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [contentLock, setContentLock] = useState(true);
+	const contentRef = useRef<HTMLDivElement>(null);
 	const userID = useParams().id;
+
+	const pagesCount = Math.ceil(props.totalCount / props.pageSize);
+	const pages: number[] = [];
+	for (let i = 1; i <= pagesCount; i++) {
+		pages.push(i);
+	}
+
+	useEffect(() => {
+		function scrollHandler() {
+			if (contentRef.current !== null) {
+				// set current page based on scrollTop
+				if (
+					pagesCount > 0 &&
+					currentPage !== pagesCount &&
+					!isLoading &&
+					contentRef.current.scrollTop <= contentRef.current.clientHeight * 2
+				) {
+					setCurrentPage((prev) => prev + 1);
+				}
+
+				// set content lock based on scrollTop
+				if (
+					contentRef.current.scrollHeight -
+						(contentRef.current.scrollTop + contentRef.current.clientHeight) >
+					50
+				) {
+					setContentLock(false);
+				} else if (
+					contentRef.current.scrollHeight -
+						(contentRef.current.scrollTop + contentRef.current.clientHeight) ===
+					0
+				) {
+					setContentLock(true);
+				}
+			}
+		}
+
+		contentRef.current?.addEventListener("scroll", scrollHandler);
+		return () => {
+			// eslint-disable-next-line
+			contentRef.current?.removeEventListener("scroll", scrollHandler);
+		};
+	});
 
 	useLayoutEffect(() => {
 		if (!!userID) {
 			setIsLoading(true);
-			props.getChatTC(userID).finally(() => {
+			props.getChatTC(userID, currentPage, props.pageSize).finally(() => {
 				setIsLoading(false);
 			});
 		}
 		// eslint-disable-next-line
-	}, []);
+	}, [currentPage, props.pageSize]);
 
 	if (isLoading) {
 		return <>Loading...</>; // TODO
@@ -37,7 +85,7 @@ export function ChatContainerAPI(props: IProps) {
 	} else {
 		return (
 			<>
-				<Chat {...props} />
+				<Chat {...props} contentRef={contentRef} contentLock={contentLock} />
 			</>
 		);
 	}
@@ -48,6 +96,8 @@ function mapStateToProps(state: IState) {
 		authID: state.auth.user.id,
 		chatWith: state.messages.chatWith,
 		messagesData: state.messages.messagesData,
+		pageSize: state.messages.pageSize,
+		totalCount: state.messages.totalCount,
 	};
 }
 

@@ -6,4 +6,6 @@ export interface IMessages {
 	usersData: MessagesUserData[];
 	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
+	pageSize: number,
+	totalCount: number,
 }

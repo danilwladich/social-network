@@ -92,10 +92,18 @@ interface setChats {
 	type: ActionType.SET_CHATS;
 	value: MessagesUserData[];
 }
-interface setChat {
-	type: ActionType.SET_CHAT;
-	chatWith: ChatWith;
+interface setChatWith {
+	type: ActionType.SET_CHAT_WITH;
+	value: ChatWith;
+}
+interface setMessages {
+	type: ActionType.SET_MESSAGES;
 	messagesData: MessagesMessageData[];
+	page: number;
+}
+interface setMessagesTotalCount {
+	type: ActionType.SET_MESSAGES_TOTAL_COUNT;
+	value: number;
 }
 interface sendMessage {
 	type: ActionType.SEND_MESSAGE;
@@ -160,7 +168,9 @@ export type IAction =
 	| deletePost
 	| unfollowUser
 	| setUsers
-	| setChat
+	| setChatWith
+	| setMessages
+	| setMessagesTotalCount
 	| receiveMessage
 	| setFriends
 	| setFriendsTotalCount
