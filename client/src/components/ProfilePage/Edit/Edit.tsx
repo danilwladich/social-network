@@ -19,7 +19,7 @@ interface IProps {
 
 export function Edit(props: IProps) {
 	const [showModal, setShowModal] = useState(false);
-
+	
 	const bodyLock = document.querySelector("body");
 	function modalOn() {
 		bodyLock?.classList.add("lock");

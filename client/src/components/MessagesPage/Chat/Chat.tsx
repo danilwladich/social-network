@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { MessagesMessageData } from "../../../models/Messages/MessagesMessageData";
 import { ChatInput } from "./ChatInput";
 import { Message } from "./Message";
 import { ChatHeader } from "./ChatHeader";
 import { ChatWith } from "../../../models/Messages/ChatWith";
 import { socket } from "../../../App";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
 	authID: string;
@@ -15,11 +16,28 @@ interface IProps {
 	sendMessage: (message: string, id: string) => void;
 }
 
-// TODO exis chat on escape key down
-
 export function Chat(props: IProps) {
+	const navigate = useNavigate();
 	const messagesEnd = useRef<HTMLDivElement>(null);
 	const contentRef = props.contentRef;
+	const chatWith = props.chatWith;
+
+	// first render scroll bottom
+	useLayoutEffect(() => {
+		scrollBottom();
+	}, []);
+
+	// go to all chats when esc pressed
+	useEffect(() => {
+		function keyDownHandler(e: KeyboardEvent) {
+			if (e.key === "Escape") {
+				navigate("/messages");
+			}
+		}
+
+		window.addEventListener("keydown", keyDownHandler);
+		return () => window.removeEventListener("keydown", keyDownHandler);
+	});
 
 	// scroll bottom after get and send messages + read messages socket
 	useEffect(() => {
@@ -40,10 +58,11 @@ export function Chat(props: IProps) {
 	function scrollBottom() {
 		messagesEnd.current?.scrollIntoView();
 	}
+
 	return (
 		<>
 			<div className="messages__chat">
-				<ChatHeader chatWith={props.chatWith} />
+				<ChatHeader chatWith={chatWith} />
 
 				<div className="messages__content" ref={contentRef}>
 					{!!props.messagesData.length ? (
@@ -58,14 +77,16 @@ export function Chat(props: IProps) {
 							></div>
 						</>
 					) : (
-						<div className="messages__content_nocontent">{`You haven't had chat with ${props.chatWith.firstName} ${props.chatWith.lastName} yet`}</div>
+						<div className="messages__content_nocontent">
+							{`You haven't had chat with ${chatWith.firstName} ${chatWith.lastName} yet`}
+						</div>
 					)}
 				</div>
 
 				<ChatInput
 					sendMessage={props.sendMessage}
 					authID={props.authID}
-					userID={props.chatWith.id}
+					userID={chatWith.id}
 				/>
 			</div>
 		</>

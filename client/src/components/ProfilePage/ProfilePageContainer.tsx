@@ -17,7 +17,7 @@ interface IProps {
 function ProfilePageAPI(props: IProps) {
 	document.title = `SocNet`;
 	const [isLoading, setIsLoading] = useState(false);
-	let profileID = useParams().id;
+	const profileID = useParams().id;
 
 	useLayoutEffect(() => {
 		if (profileID) {
@@ -31,12 +31,9 @@ function ProfilePageAPI(props: IProps) {
 		return <Navigate to={"/" + props.authID} />;
 	}
 	if (isLoading) {
-		return (
-			<>
-				<ProfilePageLoading />
-			</>
-		);
-	} else if (!props.userID) {
+		return <ProfilePageLoading />;
+	}
+	if (!props.userID) {
 		return (
 			<section className="profile">
 				<div className="subsection">
@@ -44,13 +41,12 @@ function ProfilePageAPI(props: IProps) {
 				</div>
 			</section>
 		);
-	} else {
-		return (
-			<>
-				<ProfilePage />
-			</>
-		);
 	}
+	return (
+		<>
+			<ProfilePage />
+		</>
+	);
 }
 
 function mapStateToProps(state: IState) {

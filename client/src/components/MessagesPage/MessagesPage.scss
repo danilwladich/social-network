@@ -1,5 +1,12 @@
 html[theme="dark"] {
 	.messages {
+		&__loading {
+			&_chat {
+				&_header {
+					border-bottom: var(--dark-items-border-bottom) solid 1px;
+				}
+			}
+		}
 		&__user {
 			&.unread {
 				background-color: var(--dark-button-bg);
@@ -40,6 +47,13 @@ html[theme="dark"] {
 }
 html[theme="light"] {
 	.messages {
+		&__loading {
+			&_chat {
+				&_header {
+					border-bottom: var(--light-items-border-bottom) solid 1px;
+				}
+			}
+		}
 		&__user {
 			&.unread {
 				background-color: var(--light-button-bg);
@@ -80,6 +94,94 @@ html[theme="light"] {
 }
 
 .messages {
+	&__loading {
+		&_users {
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+		}
+		&_user {
+			padding: 5px;
+			display: flex;
+			gap: 10px;
+			&_image {
+				flex: 0 0 50px;
+				height: 50px;
+				border-radius: 50%;
+			}
+			&_info {
+				flex: 1 1 auto;
+				height: 50px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				gap: 5px;
+			}
+			&_name {
+				width: 125px;
+				height: 16px;
+			}
+			&_lastmessage {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				&_text {
+					flex: 1 1 auto;
+					height: 14px;
+					div {
+						height: 14px;
+						width: 100px;
+					}
+				}
+				&_date {
+					width: 35px;
+					height: 14px;
+				}
+			}
+		}
+		&_chat {
+			margin: -10px 0px -5px 0px;
+			height: calc(100vh - 65px);
+			display: flex;
+			flex-direction: column;
+			&_header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0px 0px 5px 0px;
+			}
+			&_back {
+				width: 75px;
+				height: 28px;
+			}
+			&_name {
+				width: 125px;
+				height: 18px;
+			}
+			&_image {
+				width: 35px;
+				height: 35px;
+				border-radius: 50%;
+			}
+			&_content {
+				flex: 1 1 auto;
+			}
+			&_field {
+				position: relative;
+			}
+			&_input {
+				width: calc(100% - 50px);
+				height: 50px;
+			}
+			&_send {
+				position: absolute;
+				top: 7.5px;
+				right: 0;
+				width: 35px;
+				height: 35px;
+			}
+		}
+	}
 	&__users {
 		display: flex;
 		flex-direction: column;
@@ -165,6 +267,7 @@ html[theme="light"] {
 		justify-content: space-between;
 		align-items: center;
 		padding: 0px 0px 5px 0px;
+		gap: 5px;
 		&_back {
 			display: flex;
 			gap: 2px;
@@ -295,10 +398,29 @@ html[theme="light"] {
 			}
 		}
 		&_date {
+			user-select: none;
 			opacity: 0.7;
 		}
 	}
 	@media (min-width: 767px) {
+		&__loading {
+			&_user {
+				margin: 0 -15px 0 -15px;
+				padding: 5px 15px;
+				gap: 15px;
+				&_image {
+					flex: 0 0 60px;
+					height: 60px;
+				}
+				&_info {
+					height: 60px;
+				}
+			}
+			&_chat {
+				height: calc(100vh - 112px);
+				margin: 0;
+			}
+		}
 		&__user {
 			border-radius: 0;
 			margin: 0 -15px 0 -15px;

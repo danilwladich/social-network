@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { MessagesMessageData } from "../../../models/Messages/MessagesMessageData";
 import { ChatWith } from "../../../models/Messages/ChatWith";
 import { getChatTC } from "./../../../redux/messagesReducer";
+import { ChatLoading } from "./ChatLoading";
 
 interface IProps {
 	authID: string;
@@ -39,7 +40,7 @@ export function ChatContainerAPI(props: IProps) {
 					pagesCount > 0 &&
 					currentPage !== pagesCount &&
 					!isLoading &&
-					contentRef.current.scrollTop <= contentRef.current.clientHeight * 2
+					contentRef.current.scrollTop <= contentRef.current.clientHeight
 				) {
 					setCurrentPage((prev) => prev + 1);
 				}
@@ -78,17 +79,17 @@ export function ChatContainerAPI(props: IProps) {
 		// eslint-disable-next-line
 	}, [currentPage, props.pageSize]);
 
-	if (isLoading) {
-		return <>Loading...</>; // TODO
-	} else if (!props.chatWith.id) {
-		return <div className="messages__not_found">User not found</div>;
-	} else {
-		return (
-			<>
-				<Chat {...props} contentRef={contentRef} contentLock={contentLock} />
-			</>
-		);
+	if (isLoading && currentPage === 1) {
+		return <ChatLoading />;
 	}
+	if (!props.chatWith.id) {
+		return <div className="messages__not_found">User not found</div>;
+	}
+	return (
+		<>
+			<Chat {...props} contentRef={contentRef} contentLock={contentLock} />
+		</>
+	);
 }
 
 function mapStateToProps(state: IState) {

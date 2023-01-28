@@ -89,14 +89,10 @@ function FriendsPageAPI(props: IProps) {
 	) {
 		return <Navigate to={"/friends/" + location.split("/")[2] + "/all"} />;
 	}
-
 	if (currentPage === 1 && isLoading) {
-		return (
-			<>
-				<FriendsPageLoading />
-			</>
-		);
-	} else if (!whoseFriends.id) {
+		return <FriendsPageLoading />;
+	}
+	if (!whoseFriends.id) {
 		return (
 			<section className="friends">
 				<div className="subsection">
@@ -104,18 +100,17 @@ function FriendsPageAPI(props: IProps) {
 				</div>
 			</section>
 		);
-	} else {
-		document.title = `${whoseFriends.firstName} ${whoseFriends.lastName} ${
-			category === "all"
-				? "Friends"
-				: category![0].toUpperCase() + category!.slice(1)
-		}`;
-		return (
-			<>
-				<FriendsPage isLoading={isLoading} category={category!} {...props} />
-			</>
-		);
 	}
+	document.title = `${whoseFriends.firstName} ${whoseFriends.lastName} ${
+		category === "all"
+			? "Friends"
+			: category![0].toUpperCase() + category!.slice(1)
+	}`;
+	return (
+		<>
+			<FriendsPage isLoading={isLoading} category={category!} {...props} />
+		</>
+	);
 }
 
 function mapStateToProps(state: IState) {

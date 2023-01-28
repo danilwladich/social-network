@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Users } from "./Users";
 import { MessagesUserData } from "../../../models/Messages/MessagesUserData";
 import { getChatsTC } from "../../../redux/messagesReducer";
+import { UsersLoading } from "./UsersLoading";
 
 interface IProps {
 	usersData: MessagesUserData[];
@@ -12,7 +13,7 @@ interface IProps {
 
 export function UsersContainerAPI(props: IProps) {
 	const [isLoading, setIsLoading] = useState(false);
-	
+
 	useLayoutEffect(() => {
 		setIsLoading(true);
 		props.getChatsTC().finally(() => setIsLoading(false));
@@ -20,7 +21,7 @@ export function UsersContainerAPI(props: IProps) {
 	}, []);
 
 	if (isLoading) {
-		return <>Loading...</>; // TODO
+		return <UsersLoading />;
 	}
 	return (
 		<>

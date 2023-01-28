@@ -1,3 +1,6 @@
+html[theme=dark] .messages__loading_chat_header {
+  border-bottom: var(--dark-items-border-bottom) solid 1px;
+}
 html[theme=dark] .messages__user.unread {
   background-color: var(--dark-button-bg);
 }
@@ -27,6 +30,9 @@ html[theme=dark] .messages__message_content {
   background-color: var(--dark-main-bg);
 }
 
+html[theme=light] .messages__loading_chat_header {
+  border-bottom: var(--light-items-border-bottom) solid 1px;
+}
 html[theme=light] .messages__user.unread {
   background-color: var(--light-button-bg);
 }
@@ -56,6 +62,129 @@ html[theme=light] .messages__message_content {
   background-color: var(--light-main-bg);
 }
 
+.messages__loading_users {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+.messages__loading_user {
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+.messages__loading_user_image {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 50px;
+          flex: 0 0 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.messages__loading_user_info {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
+}
+.messages__loading_user_name {
+  width: 125px;
+  height: 16px;
+}
+.messages__loading_user_lastmessage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+}
+.messages__loading_user_lastmessage_text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  height: 14px;
+}
+.messages__loading_user_lastmessage_text div {
+  height: 14px;
+  width: 100px;
+}
+.messages__loading_user_lastmessage_date {
+  width: 35px;
+  height: 14px;
+}
+.messages__loading_chat {
+  margin: -10px 0px -5px 0px;
+  height: calc(100vh - 65px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.messages__loading_chat_header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px 0px 5px 0px;
+}
+.messages__loading_chat_back {
+  width: 75px;
+  height: 28px;
+}
+.messages__loading_chat_name {
+  width: 125px;
+  height: 18px;
+}
+.messages__loading_chat_image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.messages__loading_chat_content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+.messages__loading_chat_field {
+  position: relative;
+}
+.messages__loading_chat_input {
+  width: calc(100% - 50px);
+  height: 50px;
+}
+.messages__loading_chat_send {
+  position: absolute;
+  top: 7.5px;
+  right: 0;
+  width: 35px;
+  height: 35px;
+}
 .messages__users {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -177,6 +306,7 @@ html[theme=light] .messages__message_content {
       -ms-flex-align: center;
           align-items: center;
   padding: 0px 0px 5px 0px;
+  gap: 5px;
 }
 .messages__header_back {
   display: -webkit-box;
@@ -334,9 +464,31 @@ html[theme=light] .messages__message_content {
   fill: yellowgreen;
 }
 .messages__message_date {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   opacity: 0.7;
 }
 @media (min-width: 767px) {
+  .messages__loading_user {
+    margin: 0 -15px 0 -15px;
+    padding: 5px 15px;
+    gap: 15px;
+  }
+  .messages__loading_user_image {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 60px;
+            flex: 0 0 60px;
+    height: 60px;
+  }
+  .messages__loading_user_info {
+    height: 60px;
+  }
+  .messages__loading_chat {
+    height: calc(100vh - 112px);
+    margin: 0;
+  }
   .messages__user {
     border-radius: 0;
     margin: 0 -15px 0 -15px;

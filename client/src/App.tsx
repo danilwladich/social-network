@@ -8,6 +8,7 @@ import { initializationTC } from "./redux/appReducer";
 import { IState } from "./models/IState";
 import { ErrorContainer } from "./components/Error/ErrorContainer";
 import { NotExist } from "./components/NotExist/NotExist";
+import { AppLoading } from "./components/assets/AppLoading";
 import * as io from "socket.io-client";
 
 const LoginPageContainer = React.lazy(
@@ -43,10 +44,6 @@ interface IProps {
 	initializationTC: () => Promise<void>;
 }
 
-// TODO add fallback for suspense
-// TODO add fallback for suspense
-// TODO add fallback for suspense
-
 function App(props: IProps) {
 	document.title = `SocNet`;
 
@@ -54,9 +51,9 @@ function App(props: IProps) {
 
 	useLayoutEffect(() => {
 		props.initializationTC();
-		
+
 		if (!!authUser.id && !!authUser.token) {
-			socket.connect()
+			socket.connect();
 			socket.emit("connected", {
 				nickname: authUser.id,
 				token: authUser.token,
@@ -66,12 +63,7 @@ function App(props: IProps) {
 	}, [authUser.id]);
 
 	if (!props.initializationSuccess) {
-		return (
-			<div className="app_loading">
-				<div></div>
-				<div></div>
-			</div>
-		);
+		return <AppLoading />;
 	}
 	return (
 		<div className="wrapper">
@@ -83,7 +75,7 @@ function App(props: IProps) {
 					<Route
 						path="/login"
 						element={
-							<React.Suspense>
+							<React.Suspense fallback={<AppLoading />}>
 								<LoginPageContainer />
 							</React.Suspense>
 						}
@@ -91,7 +83,7 @@ function App(props: IProps) {
 					<Route
 						path="/register"
 						element={
-							<React.Suspense>
+							<React.Suspense fallback={<AppLoading />}>
 								<RegisterPageContainer />
 							</React.Suspense>
 						}
@@ -99,7 +91,7 @@ function App(props: IProps) {
 					<Route
 						path="/:id?"
 						element={
-							<React.Suspense>
+							<React.Suspense fallback={<AppLoading />}>
 								<ProfilePageContainer />
 							</React.Suspense>
 						}
@@ -107,7 +99,7 @@ function App(props: IProps) {
 					<Route
 						path="/messages/:id?"
 						element={
-							<React.Suspense>
+							<React.Suspense fallback={<AppLoading />}>
 								<MessagesPageContainer />
 							</React.Suspense>
 						}
@@ -115,7 +107,7 @@ function App(props: IProps) {
 					<Route
 						path="/friends/:id?/:category?"
 						element={
-							<React.Suspense>
+							<React.Suspense fallback={<AppLoading />}>
 								<FriendsPageContainer />
 							</React.Suspense>
 						}
@@ -123,7 +115,7 @@ function App(props: IProps) {
 					<Route
 						path="/users"
 						element={
-							<React.Suspense>
+							<React.Suspense fallback={<AppLoading />}>
 								<UsersPageContainer />
 							</React.Suspense>
 						}
@@ -131,7 +123,7 @@ function App(props: IProps) {
 					<Route
 						path="/settings"
 						element={
-							<React.Suspense>
+							<React.Suspense fallback={<AppLoading />}>
 								<SettingsPageContainer />
 							</React.Suspense>
 						}
