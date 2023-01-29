@@ -4,10 +4,10 @@
 	"description": "social network",
 	"main": "index.js",
 	"scripts": {
-		"start": "node app.js",
+		"start": "cross-env NODE_ENV=production node app.js",
 		"server": "nodemon app.ts",
 		"client": "npm run start --prefix client",
-		"dev": "concurrently \"npm run server\" \"npm run client\""
+		"dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\""
 	},
 	"keywords": [
 		"socialnetwork",
@@ -40,6 +40,7 @@
 		"@types/node": "^18.11.18",
 		"concurrently": "^7.6.0",
 		"cors": "^2.8.5",
+		"cross-env": "^7.0.3",
 		"nodemon": "^2.0.20",
 		"ts-node": "^10.9.1",
 		"typescript": "^4.9.4"

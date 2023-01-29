@@ -54,7 +54,7 @@ export function LoginForm(props: IProps) {
 		<Form
 			onSubmit={onSubmit}
 			validate={validate}
-			render={({ handleSubmit, pristine, hasValidationErrors }) => (
+			render={({ handleSubmit, pristine }) => (
 				<form>
 					<Field
 						name="phoneNumber"
@@ -115,7 +115,7 @@ export function LoginForm(props: IProps) {
 						tabIndex={3}
 						type="submit"
 						onClick={handleSubmit}
-						disabled={pristine || submitting || hasValidationErrors}
+						disabled={pristine || submitting}
 						className="login__button"
 					>
 						{submitting ? <LoadingCircle /> : "Log In"}

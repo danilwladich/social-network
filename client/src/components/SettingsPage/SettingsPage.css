@@ -46,13 +46,15 @@ html[theme=light] .settings__delete_button {
 .settings__button {
   margin: 15px 0px 0px 0px;
   cursor: pointer;
-  display: inline-block;
   background-color: transparent;
   font-size: 18px;
   padding: 5px 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

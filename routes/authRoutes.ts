@@ -224,8 +224,14 @@ router.delete(
 			const { password } = req.body;
 
 			const user = await User.findById(authID);
+			if (!user) {
+				return res.status(200).json({
+					success: false,
+					statusText: "Auth error",
+				});
+			}
 
-			const passwordCorrect = await bcrytp.compare(password, user!.password);
+			const passwordCorrect = await bcrytp.compare(password, user.password);
 			if (!passwordCorrect) {
 				return res.status(200).json({
 					success: false,
@@ -240,19 +246,23 @@ router.delete(
 
 			await Post.deleteMany({ owner: authID });
 
+			await Post.updateMany({ likes: authID }, { $pull: { likes: authID } });
+
+			await Message.deleteMany({ $or: [{ from: authID }, { to: authID }] });
+
 			await User.updateMany(
-				{ _id: { $in: user!.following } },
+				{ _id: { $in: user.following } },
 				{ $pull: { followers: authID } }
 			);
 
 			await User.updateMany(
-				{ _id: { $in: user!.followers } },
+				{ _id: { $in: user.followers } },
 				{ $pull: { following: authID } }
 			);
 
 			await Message.deleteMany({ $or: [{ from: authID }, { to: authID }] });
 
-			await user!.deleteOne();
+			await user.deleteOne();
 
 			res.status(200).json({
 				success: true,

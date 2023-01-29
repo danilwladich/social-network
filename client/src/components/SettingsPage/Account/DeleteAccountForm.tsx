@@ -44,7 +44,7 @@ export function DeleteAccountForm(props: IProps) {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
-				render={({ handleSubmit, pristine, hasValidationErrors }) => (
+				render={({ handleSubmit, pristine }) => (
 					<form>
 						<Field
 							name="password"
@@ -107,7 +107,7 @@ export function DeleteAccountForm(props: IProps) {
 
 						<button
 							onClick={handleSubmit}
-							disabled={pristine || submitting || hasValidationErrors}
+							disabled={pristine || submitting}
 							className="settings__delete_button"
 						>
 							Delete

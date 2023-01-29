@@ -150,7 +150,7 @@ export function RegisterForm(props: IProps) {
 		<Form
 			onSubmit={onSubmit}
 			validate={validate}
-			render={({ handleSubmit, pristine, hasValidationErrors }) => (
+			render={({ handleSubmit, pristine }) => (
 				<form>
 					<Field
 						name="phoneNumber"
@@ -278,7 +278,7 @@ export function RegisterForm(props: IProps) {
 					<button
 						tabIndex={6}
 						onClick={handleSubmit}
-						disabled={pristine || submitting || hasValidationErrors}
+						disabled={pristine || submitting}
 						className="login__button"
 					>
 						{submitting ? <LoadingCircle /> : "Sign up"}

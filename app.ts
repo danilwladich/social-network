@@ -11,12 +11,13 @@ import followRoutes from "./routes/followRoutes";
 import bodyParser from "body-parser";
 import { Server } from "socket.io";
 import http from "http";
-import socket from './socket'
+import socket from "./socket";
 
 const app: Application = express();
 
 // dev
 import cors from "cors";
+import path from "path";
 app.use(cors({ credentials: true, origin: true }));
 // /dev
 
@@ -29,6 +30,13 @@ app.use("/api/friends", friendsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/follow", followRoutes);
 
+if (process.env.NODE_ENV === "production") {
+	app.use("/", express.static(path.join(__dirname, "./client/build")));
+	app.use((req, res, next) => {
+		res.sendFile(path.join(__dirname, "./client/build/index.html"));
+	});
+}
+
 const server = http.createServer(app);
 const io = new Server(server, {
 	cors: {
@@ -36,7 +44,7 @@ const io = new Server(server, {
 		methods: ["GET", "POST"],
 	},
 });
-socket(io)
+socket(io);
 
 const PORT = config.get("port") || 80;
 

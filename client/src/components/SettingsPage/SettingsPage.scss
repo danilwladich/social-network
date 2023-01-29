@@ -59,11 +59,11 @@ html[theme="light"] {
 	&__button {
 		margin: 15px 0px 0px 0px;
 		cursor: pointer;
-		display: inline-block;
 		background-color: transparent;
 		font-size: 18px;
 		padding: 5px 15px;
 		display: flex;
+		max-width: fit-content;
 		align-items: center;
 		justify-content: center;
 		gap: 5px;

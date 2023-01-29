@@ -127,7 +127,7 @@ export function EditForm(props: IProps) {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
-				render={({ handleSubmit, pristine, values, hasValidationErrors }) => (
+				render={({ handleSubmit, pristine, values }) => (
 					<form>
 						<Field
 							name="image"
@@ -238,7 +238,7 @@ export function EditForm(props: IProps) {
 
 						<button
 							onClick={handleSubmit}
-							disabled={pristine || submitting || hasValidationErrors}
+							disabled={pristine || submitting}
 							className="profile__edit_button"
 						>
 							{submitting ? <LoadingCircle /> : "Save"}

@@ -203,7 +203,9 @@ router.get(
 						_id: { $lt: lastMessageID },
 				  };
 
-			const messages = await Message.find(filter).sort({ _id: -1 }).limit(count);
+			const messages = await Message.find(filter)
+				.sort({ _id: -1 })
+				.limit(count);
 
 			const messagesData = messages.map((m) => {
 				return {
