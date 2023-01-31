@@ -372,6 +372,8 @@ body.lock {
           transform: translate(-50%, -50%);
   width: 80px;
   height: 80px;
+  -webkit-animation: app_loading_delay 4s;
+          animation: app_loading_delay 4s;
 }
 .app_loading div {
   position: absolute;
@@ -444,6 +446,28 @@ body.lock {
     width: 72px;
     height: 72px;
     opacity: 0;
+  }
+}
+@-webkit-keyframes app_loading_delay {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes app_loading_delay {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 @-webkit-keyframes showModal {

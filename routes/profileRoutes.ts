@@ -293,6 +293,7 @@ router.put(
 		check("id", "Not allowed new id").not().equals("users"),
 		check("id", "Not allowed new id").not().equals("settings"),
 		check("id", "Not allowed new id").not().equals("images"),
+		check("id", "Not allowed new id").not().equals("news"),
 		check("country", "Country must be alpha")
 			.matches(/[a-zA-Z-]+/g)
 			.isLength({ min: 2, max: 25 })

@@ -41,7 +41,7 @@ export function FriendsPage(props: IProps) {
 				setFollowButtonsInProgress((prev) => prev.filter((id) => id !== userID))
 			);
 	}
-	
+
 	return (
 		<>
 			<section className="friends">
@@ -69,7 +69,14 @@ export function FriendsPage(props: IProps) {
 
 					<div className="friends__total">
 						<strong>Total count:</strong>{" "}
-						{usersData.length || "There is nothing here yet"}
+						{usersData.length ||
+							`${
+								whoseFriends.id === props.authID
+									? "You"
+									: whoseFriends.firstName
+							} don't have any ${
+								props.category === "all" ? "friends" : props.category
+							} yet`}
 					</div>
 
 					<div className="friends__items">

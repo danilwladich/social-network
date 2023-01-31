@@ -9,12 +9,14 @@ import { authReducer } from "./authReducer";
 import { appReducer } from "./appReducer";
 import { headerReducer } from "./headerReducer";
 import { friendsReducer } from "./friendsReducer";
+import { newsReducer } from "./newsReducer";
 
 const reducers = combineReducers({
 	app: appReducer,
 	header: headerReducer,
 	auth: authReducer,
 	profile: profileReducer,
+	news: newsReducer,
 	messages: messagesReducer,
 	friends: friendsReducer,
 	users: usersReducer,

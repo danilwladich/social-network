@@ -1,0 +1,158 @@
+html[theme="dark"] {
+	.news {
+		&__post {
+			&:not(:last-child) {
+				border-bottom: var(--dark-items-border-bottom) solid 1px;
+			}
+			&_more {
+				background-color: var(--dark-button-bg);
+			}
+			&_like {
+				background-color: var(--dark-button-bg);
+				&:hover {
+					background-color: var(--dark-button-bg-active);
+				}
+			}
+		}
+	}
+}
+html[theme="light"] {
+	.news {
+		&__post {
+			&:not(:last-child) {
+				border-bottom: var(--light-items-border-bottom) solid 1px;
+			}
+			&_more {
+				background-color: var(--light-button-bg);
+			}
+			&_like {
+				background-color: var(--light-button-bg);
+				&:hover {
+					background-color: var(--light-button-bg-active);
+				}
+			}
+		}
+	}
+}
+
+.news {
+	&__posts {
+		&_loading {
+			margin: 30px 0px 0px 0px;
+			height: 30px;
+			svg {
+				position: absolute;
+				left: 50%;
+				bottom: 15px;
+				transform: translateX(-50%);
+				width: 30px;
+				height: 30px;
+			}
+		}
+	}
+	&__post {
+		&:first-child:not(:last-child) {
+			padding: 0px 0px 10px 0px;
+		}
+		&:last-child:not(:first-child) {
+			padding: 10px 0px 0px 0px;
+		}
+		&:not(:last-child):not(:first-child) {
+			padding: 10px 0px 10px 0px;
+		}
+		&_owner {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin: 0px 0px 10px 0px;
+			&_image {
+				flex: 0 0 35px;
+				img {
+					pointer-events: none;
+					user-select: none;
+					border-radius: 50%;
+					width: 100%;
+					height: 35px;
+				}
+			}
+			&_name {
+				flex: 1 1 auto;
+				font-weight: 700;
+				font-size: 14px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				a {
+					display: block;
+					line-height: 35px;
+				}
+			}
+		}
+		&_content {
+			line-height: 150%;
+			font-size: 16px;
+		}
+		&_more {
+			background-color: transparent;
+			padding: 2px 5px;
+			font-size: 16px;
+			border-radius: 4px;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		&_info {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 10px 0px 0px 0px;
+			position: relative;
+		}
+		&_like {
+			border-radius: 4px;
+			padding: 5px 10px;
+			background-color: transparent;
+			font-size: 16px;
+			svg {
+				margin: 0px 5px -4px 0px;
+				width: 18px;
+				height: 18px;
+			}
+		}
+		&_date {
+			opacity: 0.7;
+			font-size: 12px;
+		}
+	}
+	&__no_posts {
+		line-height: 150%;
+		font-size: 18px;
+		text-align: center;
+		a {
+			text-decoration: underline;
+		}
+	}
+	@media (min-width: 767px) {
+		&__post {
+			&_owner {
+				gap: 15px;
+				&_image {
+					flex: 0 0 45px;
+					img {
+						height: 45px;
+					}
+				}
+				&_name {
+					font-size: 16px;
+					a {
+						display: inline-block;
+						line-height: 100%;
+					}
+				}
+			}
+			&_date {
+				font-size: 14px;
+			}
+		}
+	}
+}

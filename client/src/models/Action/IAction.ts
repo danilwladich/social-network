@@ -9,6 +9,7 @@ import { WhoseFriends } from "../Friends/WhoseFriends";
 import { MessagesUserData } from "../Messages/MessagesUserData";
 import { ChatWith } from "../Messages/ChatWith";
 import { MessagesMessageData } from "../Messages/MessagesMessageData";
+import { NewsPostData } from "./../News/NewsPostData";
 
 // APP
 interface setInitializationd {
@@ -75,6 +76,17 @@ interface likePost {
 interface unlikePost {
 	type: ActionType.UNLIKE_POST;
 	value: string;
+}
+
+// NEWS
+interface setNews {
+	type: ActionType.SET_NEWS;
+	value: NewsPostData[];
+	page: number;
+}
+interface setNewsTotalCount {
+	type: ActionType.SET_NEWS_TOTAL_COUNT;
+	value: number;
 }
 
 // USERS & PROFILE & FRIENDS
@@ -163,8 +175,10 @@ export type IAction =
 	| followUser
 	| messageSent
 	| setWhoseFriends
+	| setNews
 	| setPosts
 	| setPostsTotalCount
+	| setNewsTotalCount
 	| deletePost
 	| unfollowUser
 	| setUsers

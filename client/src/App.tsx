@@ -20,6 +20,9 @@ const RegisterPageContainer = React.lazy(
 const ProfilePageContainer = React.lazy(
 	() => import("./components/ProfilePage/ProfilePageContainer")
 );
+const NewsPageContainer = React.lazy(
+	() => import("./components/NewsPage/NewsPageContainer")
+);
 const MessagesPageContainer = React.lazy(
 	() => import("./components/MessagesPage/MessagesPageContainer")
 );
@@ -93,6 +96,14 @@ function App(props: IProps) {
 						element={
 							<React.Suspense fallback={<AppLoading />}>
 								<ProfilePageContainer />
+							</React.Suspense>
+						}
+					/>
+					<Route
+						path="/news"
+						element={
+							<React.Suspense fallback={<AppLoading />}>
+								<NewsPageContainer />
 							</React.Suspense>
 						}
 					/>

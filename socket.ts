@@ -60,7 +60,7 @@ export default (io: Server) => {
 						});
 				} else {
 					io.sockets.to(connectedSockets[data.from].socketID).emit("error", {
-						statusText,
+						statusText: "Send message: " + statusText,
 					});
 				}
 			}
@@ -84,7 +84,7 @@ export default (io: Server) => {
 					}
 				} else {
 					io.sockets.to(connectedSockets[data.who].socketID).emit("error", {
-						statusText,
+						statusText: "Read messages: " + statusText,
 					});
 				}
 			}

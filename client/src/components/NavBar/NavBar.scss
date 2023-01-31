@@ -7,11 +7,7 @@ html[theme="dark"] {
 			}
 		}
 		@media (max-width: 766px) {
-			&__menu {
-				&::before {
-					background-color: var(--dark-main-bg);
-				}
-			}
+			background-color: var(--dark-main-bg);
 		}
 	}
 }
@@ -25,11 +21,7 @@ html[theme="light"] {
 			}
 		}
 		@media (max-width: 766px) {
-			&__menu {
-				&::before {
-					background-color: var(--light-main-bg);
-				}
-			}
+			background-color: var(--light-main-bg);
 		}
 	}
 }
@@ -56,35 +48,39 @@ html[theme="light"] {
 		}
 	}
 	@media (max-width: 766px) {
+		z-index: 10;
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.4s;
+		&.active {
+			opacity: 1;
+			visibility: visible;
+		}
 		&__menu {
-			left: 50%;
+			width: 100%;
 			position: fixed;
+			overflow-y: overlay;
+			max-height: calc(100vh - 80px);
 			z-index: 40;
 			top: -100vh;
 			transition: all 0.4s;
-			&::before {
-				content: "";
-				position: fixed;
-				width: 100vw;
-				height: 100vh;
-				top: 0;
-				left: 0;
-				opacity: 0;
-				visibility: hidden;
-				transition: all 0.4s;
-			}
 			&.active {
 				top: 65px;
-				&::before {
-					top: 0;
-					opacity: 1;
-					visibility: visible;
-				}
 			}
 		}
 		&__link {
+			position: relative;
+			left: 50%;
 			transform: translateX(-50%);
-			margin: 0px 0px 10px 0px;
+			margin: 1px 1px 11px 1px;
+			&:hover {
+				margin: 0 0 10px 0;
+			}
 			text-align: center;
 			width: 220px;
 		}

@@ -13,7 +13,7 @@ export function NavBar(props: IProps) {
 	return (
 		<>
 			{props.isAuth && (
-				<aside className="navbar">
+				<aside className={"navbar " + (props.burger ? "active" : "")}>
 					<nav className={"navbar__menu " + (props.burger ? "active" : "")}>
 						<NavLink
 							draggable="false"
@@ -22,6 +22,14 @@ export function NavBar(props: IProps) {
 							className="navbar__link"
 						>
 							My Profile
+						</NavLink>
+						<NavLink
+							draggable="false"
+							to="/news"
+							onClick={() => props.setBurger(false)}
+							className="navbar__link"
+						>
+							News
 						</NavLink>
 						<NavLink
 							draggable="false"

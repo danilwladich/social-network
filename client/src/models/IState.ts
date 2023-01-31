@@ -6,12 +6,14 @@ import { IAuth } from "./IAuth";
 import { IApp } from "./IApp";
 import { IHeader } from "./IHeader";
 import { IFriends } from "./Friends/IFriends";
+import { INews } from "./News/INews";
 
 export interface IState {
 	app: IApp;
 	auth: IAuth;
 	header: IHeader;
 	profile: IProfile;
+	news: INews;
 	messages: IMessages;
 	friends: IFriends;
 	users: IUsers;

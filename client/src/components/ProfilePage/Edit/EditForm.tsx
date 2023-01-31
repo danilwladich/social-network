@@ -81,6 +81,7 @@ export function EditForm(props: IProps) {
 				e.id === "friends" ||
 				e.id === "users" ||
 				e.id === "settings" ||
+				e.id === "news" ||
 				e.id === "images"
 			) {
 				errors.id = "Not allowed!";
@@ -121,7 +122,7 @@ export function EditForm(props: IProps) {
 
 		return errors;
 	}
-	
+
 	return (
 		<>
 			<Form

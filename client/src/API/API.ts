@@ -102,6 +102,16 @@ export const API = {
 			.then((response) => response.data);
 	},
 
+	// news
+	getNews(page: number, pageSize: number, lastPostID: string | null) {
+		return instance
+			.get(
+				`news?page=${page}&count=${pageSize}` +
+					(!!lastPostID ? `&lastPostID=${lastPostID}` : "")
+			)
+			.then((response) => response.data);
+	},
+
 	// messages
 	getChats() {
 		return instance.get(`messages`).then((response) => response.data);
