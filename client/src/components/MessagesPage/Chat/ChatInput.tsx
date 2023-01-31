@@ -5,6 +5,7 @@ import { socket } from "../../../App";
 interface IProps {
 	authID: string;
 	userID: string;
+	readMessages: boolean;
 	sendMessage: (message: string, id: string) => void;
 }
 
@@ -25,25 +26,34 @@ export function ChatInput(props: IProps) {
 			fieldRef.current!.style.height = "50px";
 		}
 	}
+
 	function sendMessage() {
-		updateNewMessageValue("");
+		if (newMessageValue.trim() !== "") {
+			updateNewMessageValue("");
 
-		const from = props.authID;
-		const to = props.userID;
+			const from = props.authID;
+			const to = props.userID;
 
-		const id = "temporaryid//" + Math.round(Math.random() * 1000000000);
+			const id = "temporaryid//" + Math.round(Math.random() * 1000000000);
 
-		socket.emit("sendMessage", {
-			message: newMessageValue.trim(),
-			from,
-			to,
-			id,
-		});
+			socket.emit("sendMessage", {
+				message: newMessageValue.trim(),
+				from,
+				to,
+				id,
+			});
 
-		if ((newMessageValue.trim() !== "")) {
+			if (!props.readMessages) {
+				socket.emit("readMessages", {
+					who: props.authID,
+					whom: props.userID,
+				});
+			}
+
 			props.sendMessage(newMessageValue.trim(), id);
 		}
 	}
+
 	function onKeyDownHandler(e: React.KeyboardEvent<HTMLSpanElement>) {
 		if (!e.shiftKey && e.key === "Enter") {
 			e.preventDefault();

@@ -170,6 +170,9 @@ html[theme="light"] {
 				width: 62px;
 				height: 23px;
 				margin: 0px 0px -5px 0px;
+				circle {
+					stroke: #fff !important;
+				}
 			}
 		}
 		&_error {

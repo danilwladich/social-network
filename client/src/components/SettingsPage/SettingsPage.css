@@ -171,6 +171,9 @@ html[theme=light] .settings__delete_button {
   height: 23px;
   margin: 0px 0px -5px 0px;
 }
+.settings__delete_button svg circle {
+  stroke: #fff !important;
+}
 .settings__delete_error {
   word-wrap: break-word;
   text-align: center;

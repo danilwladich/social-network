@@ -20,6 +20,7 @@ export function MessagesPage(props: IProps) {
 	document.title = `Messages`;
 	const userID = useParams().id;
 
+	// sockets
 	useEffect(() => {
 		socket.on("receiveMessage", (data) => {
 			props.receiveMessage(data.messageData, data.fromUser);
@@ -32,6 +33,7 @@ export function MessagesPage(props: IProps) {
 		socket.on("messagesRead", (data) => {
 			props.messagesRead(data.userID);
 		});
+		
 		return () => {
 			socket.off("receiveMessage").off();
 			socket.off("messageSent").off();

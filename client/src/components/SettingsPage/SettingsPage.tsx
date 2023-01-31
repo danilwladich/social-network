@@ -3,6 +3,7 @@ import { GeneralContainer } from "./General/GeneralContainer";
 import { AccountContainer } from "./Account/AccountContainer";
 import "./SettingsPage.css";
 import { Copyright } from "./Copyright/Copyright";
+import { Messages } from "./Messages/Messages";
 
 export function SettingsPage() {
 	document.title = `Settings`;
@@ -14,9 +15,11 @@ export function SettingsPage() {
 					<div className="settings__items">
 						<GeneralContainer />
 
-						<AccountContainer />
+						<Messages />
 
 						<Copyright />
+
+						<AccountContainer />
 					</div>
 				</div>
 			</section>

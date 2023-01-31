@@ -21,6 +21,8 @@ export function Chat(props: IProps) {
 	const messagesEnd = useRef<HTMLDivElement>(null);
 	const contentRef = props.contentRef;
 	const chatWith = props.chatWith;
+	const readMessages =
+		localStorage.getItem("readMessages") === "true" ? true : false;
 
 	// first render scroll bottom
 	useLayoutEffect(() => {
@@ -45,10 +47,11 @@ export function Chat(props: IProps) {
 			if (props.contentLock) {
 				scrollBottom();
 			}
-			if (!props.messagesData[0].read) {
+
+			if (readMessages && !props.messagesData[0].read) {
 				socket.emit("readMessages", {
 					who: props.authID,
-					whom: props.chatWith.id,
+					whom: chatWith.id,
 				});
 			}
 		}
@@ -87,6 +90,7 @@ export function Chat(props: IProps) {
 					sendMessage={props.sendMessage}
 					authID={props.authID}
 					userID={chatWith.id}
+					readMessages={readMessages}
 				/>
 			</div>
 		</>
