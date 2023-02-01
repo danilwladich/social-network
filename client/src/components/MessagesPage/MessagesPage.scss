@@ -255,7 +255,7 @@ html[theme="light"] {
 		text-align: center;
 	}
 	&__chat {
-		height: calc(100vh - 65px);
+		height: calc(100% - 65px);
 		margin: -10px 0px -5px 0px;
 		position: relative;
 		display: flex;
@@ -448,7 +448,7 @@ html[theme="light"] {
 			}
 		}
 		&__chat {
-			height: calc(100vh - 112px);
+			height: calc(100% - 112px);
 			margin: 0;
 		}
 		&__message {

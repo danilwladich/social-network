@@ -25,7 +25,13 @@ export default (io: Server) => {
 		// send message
 		socket.on("sendMessage", async (data) => {
 			if (connectedSockets[data.from]) {
-				const res = await axios.post("http://localhost:80/api/messages", {
+				let apiUri;
+				if (process.env.NODE_ENV === "production") {
+					apiUri = "/api/messages";
+				} else {
+					apiUri = "http://localhost:80/api/messages";
+				}
+				const res = await axios.post(apiUri, {
 					fromUserID: connectedSockets[data.from].userID,
 					toUserNickname: data.to,
 					message: data.message,
@@ -70,7 +76,13 @@ export default (io: Server) => {
 		// read message
 		socket.on("readMessages", async (data) => {
 			if (connectedSockets[data.who]) {
-				const res = await axios.put("http://localhost:80/api/messages/read", {
+				let apiUri;
+				if (process.env.NODE_ENV === "production") {
+					apiUri = "/api/messages/read";
+				} else {
+					apiUri = "http://localhost:80/api/messages/read";
+				}
+				const res = await axios.put(apiUri, {
 					whoUserID: connectedSockets[data.who].userID,
 					whomUserNickname: data.whom,
 				});
@@ -92,3 +104,5 @@ export default (io: Server) => {
 		});
 	});
 };
+
+// TODO disconect

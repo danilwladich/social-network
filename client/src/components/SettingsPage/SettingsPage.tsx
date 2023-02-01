@@ -17,9 +17,9 @@ export function SettingsPage() {
 
 						<Messages />
 
-						<Copyright />
-
 						<AccountContainer />
+
+						<Copyright />
 					</div>
 				</div>
 			</section>

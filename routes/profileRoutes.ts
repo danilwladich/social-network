@@ -11,7 +11,12 @@ const router = Router();
 
 const store = multer.diskStorage({
 	destination(req: IGetUserAuthRequest, file, cb) {
-		const path = "./client/public/images/" + req.user!.userID;
+		let path;
+		if (process.env.NODE_ENV === "production") {
+			path = "./client/build/images/" + req.user!.userID;
+		} else {
+			path = "./client/public/images/" + req.user!.userID;
+		}
 		fs.mkdirSync(path, { recursive: true });
 		return cb(null, path);
 	},
@@ -228,7 +233,7 @@ router.post(
 
 			const post = await Post.findById(postID);
 			if (!post) {
-				return res.status(400).json({
+				return res.status(200).json({
 					success: false,
 					statusText: "Post nof found",
 				});
@@ -256,7 +261,7 @@ router.delete(
 
 			const post = await Post.findById(postID);
 			if (!post) {
-				return res.status(400).json({
+				return res.status(200).json({
 					success: false,
 					statusText: "Post nof found",
 				});

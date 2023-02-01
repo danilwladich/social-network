@@ -22,7 +22,7 @@ export function Chat(props: IProps) {
 	const contentRef = props.contentRef;
 	const chatWith = props.chatWith;
 	const readMessages =
-		localStorage.getItem("readMessages") === "true" ? true : false;
+		localStorage.getItem("readMessages") === "false" ? false : true;
 
 	// first render scroll bottom
 	useLayoutEffect(() => {

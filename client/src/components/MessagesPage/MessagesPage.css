@@ -283,7 +283,7 @@ html[theme=light] .messages__message_content {
   text-align: center;
 }
 .messages__chat {
-  height: calc(100vh - 65px);
+  height: calc(100% - 65px);
   margin: -10px 0px -5px 0px;
   position: relative;
   display: -webkit-box;
@@ -514,7 +514,7 @@ html[theme=light] .messages__message_content {
     height: 12px;
   }
   .messages__chat {
-    height: calc(100vh - 112px);
+    height: calc(100% - 112px);
     margin: 0;
   }
   .messages__message_footer {

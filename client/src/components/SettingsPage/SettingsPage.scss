@@ -191,4 +191,9 @@ html[theme="light"] {
 			text-transform: capitalize;
 		}
 	}
+	&__copy{
+		line-height: 150%;
+		font-size: 18px;
+		margin: 15px 0 0 0;
+	}
 }

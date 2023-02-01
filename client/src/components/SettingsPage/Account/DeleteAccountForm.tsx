@@ -61,6 +61,7 @@ export function DeleteAccountForm(props: IProps) {
 										{...input}
 										id="passwordInput"
 										autoFocus
+										autoComplete="off"
 										tabIndex={1}
 										type="password"
 										className="settings__delete_input"
@@ -89,6 +90,7 @@ export function DeleteAccountForm(props: IProps) {
 										{...input}
 										id="confirmPasswordInput"
 										tabIndex={2}
+										autoComplete="off"
 										type="password"
 										className="settings__delete_input"
 										placeholder="Confirm password"
