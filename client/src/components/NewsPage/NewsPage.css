@@ -24,6 +24,12 @@ html[theme=light] .news__post_like:hover {
   background-color: var(--light-button-bg-active);
 }
 
+.news__loading_post {
+  height: 100px;
+}
+.news__loading_post:not(:first-child) {
+  margin: 15px 0px 0px 0px;
+}
 .news__posts_loading {
   margin: 30px 0px 0px 0px;
   height: 30px;

@@ -7,6 +7,7 @@ import { NewsPage } from "./NewsPage";
 import { likePostTC, unlikePostTC } from "./../../redux/profileReducer";
 import { NewsPostData } from "../../models/News/NewsPostData";
 import { getNewsTC } from "./../../redux/newsReducer";
+import { NewsPageLoading } from "./NewsPageLoading";
 
 interface IProps {
 	postsData: NewsPostData[];
@@ -58,8 +59,7 @@ function NewsPageAPI(props: IProps) {
 	}, [currentPage, props.pageSize]);
 
 	if (isLoading && currentPage === 1) {
-		// return <NewsPageLoading />;
-		return <>Loading...</>; // TODO
+		return <NewsPageLoading />;
 	}
 	return (
 		<>

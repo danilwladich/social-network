@@ -36,6 +36,14 @@ html[theme="light"] {
 }
 
 .news {
+	&__loading {
+		&_post {
+			&:not(:first-child) {
+				margin: 15px 0px 0px 0px;
+			}
+			height: 100px;
+		}
+	}
 	&__posts {
 		&_loading {
 			margin: 30px 0px 0px 0px;
