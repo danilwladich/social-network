@@ -3,6 +3,13 @@ import { Server } from "socket.io";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 
+let baseURL: string;
+if (process.env.NODE_ENV === "production") {
+	baseURL = "/api/";
+} else {
+	baseURL = "http://localhost:80/api/";
+}
+
 export default (io: Server) => {
 	let connectedSockets: { socketID: string; userID: string }[] = [];
 
@@ -19,19 +26,17 @@ export default (io: Server) => {
 					socketID: socket.id,
 					userID: decoded.userID,
 				};
+
+				console.log(connectedSockets);
+
+				console.log("Online: " + Object.keys(connectedSockets).length);
 			} catch (e) {}
 		});
 
 		// send message
 		socket.on("sendMessage", async (data) => {
 			if (connectedSockets[data.from]) {
-				let apiUri;
-				if (process.env.NODE_ENV === "production") {
-					apiUri = "/api/messages";
-				} else {
-					apiUri = "http://localhost:80/api/messages";
-				}
-				const res = await axios.post(apiUri, {
+				const res = await axios.post(baseURL + "messages", {
 					fromUserID: connectedSockets[data.from].userID,
 					toUserNickname: data.to,
 					message: data.message,
@@ -76,13 +81,7 @@ export default (io: Server) => {
 		// read message
 		socket.on("readMessages", async (data) => {
 			if (connectedSockets[data.who]) {
-				let apiUri;
-				if (process.env.NODE_ENV === "production") {
-					apiUri = "/api/messages/read";
-				} else {
-					apiUri = "http://localhost:80/api/messages/read";
-				}
-				const res = await axios.put(apiUri, {
+				const res = await axios.put(baseURL + "messages/read", {
 					whoUserID: connectedSockets[data.who].userID,
 					whomUserNickname: data.whom,
 				});
@@ -102,7 +101,19 @@ export default (io: Server) => {
 				}
 			}
 		});
+
+		// nickname changed
+		socket.on("nicknameChanged", (data) => {
+			if (connectedSockets[data.nickname]) {
+				delete connectedSockets[data.nickname];
+			}
+		});
+
+		// disconnect
+		socket.on("disconnect", (data) => {
+			connectedSockets = connectedSockets.filter(
+				(u) => u.socketID !== socket.id
+			);
+		});
 	});
 };
-
-// TODO disconect

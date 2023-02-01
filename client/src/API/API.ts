@@ -1,10 +1,16 @@
 import axios from "axios";
 import FormData from "form-data";
 
+let baseURL;
+if (process.env.NODE_ENV === "production") {
+	baseURL = "/api/";
+} else {
+	baseURL = "http://localhost:80/api/";
+}
+
 const instance = axios.create({
 	withCredentials: true,
-
-	baseURL: "http://localhost:80/api/",
+	baseURL,
 	headers: {
 		"Content-Type": "application/json",
 	},

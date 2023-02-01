@@ -36,7 +36,14 @@ const SettingsPageContainer = React.lazy(
 	() => import("./components/SettingsPage/SettingsPageContainer")
 );
 
-export const socket = io.connect("http://localhost:80", { autoConnect: false });
+let baseURL;
+if (process.env.NODE_ENV === "production") {
+	baseURL = "http://46.41.137.197";
+} else {
+	baseURL = "http://localhost:80";
+}
+
+export const socket = io.connect(baseURL, { autoConnect: false });
 
 interface IProps {
 	authUser: {

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 import { useNavigate } from "react-router-dom";
+import { socket } from "./../../../App";
 
 interface IProps {
 	authID: string;
@@ -43,7 +44,13 @@ export function EditForm(props: IProps) {
 		const image = v.image ? v.image[0] : undefined;
 		props
 			.editProfileTC(image, v.id, v.country, v.city)
-			.then(() => navigate("/"))
+			.then(() => {
+				if (!!v.id) {
+					socket.emit("nicknameChanged", { nickname: props.authID });
+				}
+
+				navigate("/");
+			})
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));
 	}
@@ -203,7 +210,7 @@ export function EditForm(props: IProps) {
 										id="countryInput"
 										type="text"
 										className="profile__edit_input"
-										placeholder={props.location.country || "Select country"}
+										placeholder={props.location.country || "Your country..."}
 									/>
 									{meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>
@@ -224,7 +231,7 @@ export function EditForm(props: IProps) {
 										id="cityInput"
 										type="text"
 										className="profile__edit_input"
-										placeholder={props.location.city || "Select city"}
+										placeholder={props.location.city || "Your city..."}
 									/>
 									{meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>
