@@ -13,14 +13,14 @@ import bodyParser from "body-parser";
 import { Server } from "socket.io";
 import http from "http";
 import socket from "./socket";
+import cors from "cors";
+import path from "path";
 
 const app: Application = express();
 
-// dev
-import cors from "cors";
-import path from "path";
-app.use(cors({ credentials: true, origin: true }));
-// /dev
+if (process.env.NODE_ENV === "development") {
+	app.use(cors({ credentials: true, origin: true }));
+}
 
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(cookieParser());
@@ -33,9 +33,9 @@ app.use("/api/users", usersRoutes);
 app.use("/api/follow", followRoutes);
 
 if (process.env.NODE_ENV === "production") {
-	app.use("/", express.static(path.join(__dirname, "./client/build")));
+	app.use("/", express.static(path.join(__dirname, "../client/build")));
 	app.use((req, res, next) => {
-		res.sendFile(path.join(__dirname, "./client/build/index.html"));
+		res.sendFile(path.join(__dirname, "../client/build/index.html"));
 	});
 }
 

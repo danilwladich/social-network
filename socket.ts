@@ -9,16 +9,17 @@ export default (io: Server) => {
 	io.sockets.on("connection", (socket) => {
 		// connected
 		socket.on("connected", (data) => {
-			const decoded = jwt.verify(
-				data.token,
-				config.get("jwtSecret")
-			) as jwt.JwtPayload;
+			try {
+				const decoded = jwt.verify(
+					data.token,
+					config.get("jwtSecret")
+				) as jwt.JwtPayload;
 
-			connectedSockets[data.nickname] = {
-				socketID: socket.id,
-				userID: decoded.userID,
-			};
-			console.log(connectedSockets);
+				connectedSockets[data.nickname] = {
+					socketID: socket.id,
+					userID: decoded.userID,
+				};
+			} catch (e) {}
 		});
 
 		// send message

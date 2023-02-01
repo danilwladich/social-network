@@ -69,6 +69,15 @@ html[theme="light"] {
 		gap: 5px;
 		border-radius: 4px;
 		height: 28px;
+		position: relative;
+		&_beta {
+			font-size: 14px;
+			opacity: 0.7;
+			position: absolute;
+			right: -5px;
+			bottom: 0;
+			transform: translateX(100%);
+		}
 		svg {
 			margin: -5px 0;
 			width: 23px;
