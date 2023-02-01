@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 let baseURL: string;
 if (process.env.NODE_ENV === "production") {
-	baseURL = "/api/";
+	baseURL = "http://46.41.137.197/api/";
 } else {
 	baseURL = "http://localhost:80/api/";
 }
