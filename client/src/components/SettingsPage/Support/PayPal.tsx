@@ -26,6 +26,7 @@ export function PayPal(props: IProps) {
 			},
 		});
 		button.render(`#payPalButton`);
+		// eslint-disable-next-line
 	}, []);
 
 	return (

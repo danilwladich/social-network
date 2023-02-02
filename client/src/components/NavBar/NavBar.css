@@ -78,7 +78,7 @@ html[theme=light] .navbar__link:hover {
     transition: all 0.4s;
   }
   .navbar__menu.active {
-    top: 65px;
+    top: 55px;
   }
   .navbar__link {
     position: relative;

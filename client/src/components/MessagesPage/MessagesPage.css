@@ -1,3 +1,6 @@
+html[theme=dark] .messages__loading_chat {
+  background-color: var(--dark-subsection-bg);
+}
 html[theme=dark] .messages__loading_chat_header {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
@@ -6,6 +9,9 @@ html[theme=dark] .messages__user.unread {
 }
 html[theme=dark] .messages__user:hover {
   background-color: var(--dark-button-bg-active);
+}
+html[theme=dark] .messages__chat {
+  background-color: var(--dark-subsection-bg);
 }
 html[theme=dark] .messages__header {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
@@ -30,6 +36,9 @@ html[theme=dark] .messages__message_content {
   background-color: var(--dark-main-bg);
 }
 
+html[theme=light] .messages__loading_chat {
+  background-color: var(--light-subsection-bg);
+}
 html[theme=light] .messages__loading_chat_header {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
@@ -38,6 +47,9 @@ html[theme=light] .messages__user.unread {
 }
 html[theme=light] .messages__user:hover {
   background-color: var(--light-button-bg-active);
+}
+html[theme=light] .messages__chat {
+  background-color: var(--light-subsection-bg);
 }
 html[theme=light] .messages__header {
   border-bottom: var(--light-items-border-bottom) solid 1px;
@@ -131,8 +143,13 @@ html[theme=light] .messages__message_content {
   height: 14px;
 }
 .messages__loading_chat {
-  margin: -10px 0px -5px 0px;
-  height: calc(100vh - 65px);
+  padding: 5px calc(10px + env(safe-area-inset-right)) 5px calc(10px + env(safe-area-inset-left));
+  z-index: 250;
+  position: absolute;
+  left: -10px;
+  top: -50px;
+  height: 100vh;
+  width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -152,9 +169,10 @@ html[theme=light] .messages__message_content {
       -ms-flex-align: center;
           align-items: center;
   padding: 0px 0px 5px 0px;
+  height: 40px;
 }
 .messages__loading_chat_back {
-  width: 75px;
+  width: 74px;
   height: 28px;
 }
 .messages__loading_chat_name {
@@ -283,9 +301,13 @@ html[theme=light] .messages__message_content {
   text-align: center;
 }
 .messages__chat {
-  height: calc(100vh - 65px);
-  margin: -10px 0px -5px 0px;
-  position: relative;
+  padding: calc(5px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) calc(5px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
+  z-index: 250;
+  position: absolute;
+  left: -10px;
+  top: -50px;
+  height: 100vh;
+  width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -307,6 +329,7 @@ html[theme=light] .messages__message_content {
           align-items: center;
   padding: 0px 0px 5px 0px;
   gap: 5px;
+  height: 40px;
 }
 .messages__header_back {
   display: -webkit-box;
@@ -514,8 +537,10 @@ html[theme=light] .messages__message_content {
     height: 12px;
   }
   .messages__chat {
+    position: static;
     height: calc(100vh - 112px);
-    margin: 0;
+    padding: 0;
+    width: 100%;
   }
   .messages__message_footer {
     font-size: 12px;

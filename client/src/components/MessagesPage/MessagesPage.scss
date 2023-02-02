@@ -2,6 +2,7 @@ html[theme="dark"] {
 	.messages {
 		&__loading {
 			&_chat {
+				background-color: var(--dark-subsection-bg);
 				&_header {
 					border-bottom: var(--dark-items-border-bottom) solid 1px;
 				}
@@ -14,6 +15,9 @@ html[theme="dark"] {
 			&:hover {
 				background-color: var(--dark-button-bg-active);
 			}
+		}
+		&__chat {
+			background-color: var(--dark-subsection-bg);
 		}
 		&__header {
 			border-bottom: var(--dark-items-border-bottom) solid 1px;
@@ -49,6 +53,7 @@ html[theme="light"] {
 	.messages {
 		&__loading {
 			&_chat {
+				background-color: var(--light-subsection-bg);
 				&_header {
 					border-bottom: var(--light-items-border-bottom) solid 1px;
 				}
@@ -61,6 +66,9 @@ html[theme="light"] {
 			&:hover {
 				background-color: var(--light-button-bg-active);
 			}
+		}
+		&__chat {
+			background-color: var(--light-subsection-bg);
 		}
 		&__header {
 			border-bottom: var(--light-items-border-bottom) solid 1px;
@@ -140,8 +148,14 @@ html[theme="light"] {
 			}
 		}
 		&_chat {
-			margin: -10px 0px -5px 0px;
-			height: calc(100vh - 65px);
+			padding: 5px calc(10px + env(safe-area-inset-right)) 5px
+				calc(10px + env(safe-area-inset-left));
+			z-index: 250;
+			position: absolute;
+			left: -10px;
+			top: -50px;
+			height: 100vh;
+			width: 100vw;
 			display: flex;
 			flex-direction: column;
 			&_header {
@@ -149,9 +163,10 @@ html[theme="light"] {
 				justify-content: space-between;
 				align-items: center;
 				padding: 0px 0px 5px 0px;
+				height: 40px;
 			}
 			&_back {
-				width: 75px;
+				width: 74px;
 				height: 28px;
 			}
 			&_name {
@@ -255,9 +270,16 @@ html[theme="light"] {
 		text-align: center;
 	}
 	&__chat {
-		height: calc(100vh - 65px);
-		margin: -10px 0px -5px 0px;
-		position: relative;
+		padding: calc(5px + env(safe-area-inset-top))
+			calc(10px + env(safe-area-inset-right))
+			calc(5px + env(safe-area-inset-bottom))
+			calc(10px + env(safe-area-inset-left));
+		z-index: 250;
+		position: absolute;
+		left: -10px;
+		top: -50px;
+		height: 100vh;
+		width: 100vw;
 		display: flex;
 		flex-direction: column;
 	}
@@ -268,6 +290,7 @@ html[theme="light"] {
 		align-items: center;
 		padding: 0px 0px 5px 0px;
 		gap: 5px;
+		height: 40px;
 		&_back {
 			display: flex;
 			gap: 2px;
@@ -448,8 +471,10 @@ html[theme="light"] {
 			}
 		}
 		&__chat {
+			position: static;
 			height: calc(100vh - 112px);
-			margin: 0;
+			padding: 0;
+			width: 100%;
 		}
 		&__message {
 			&_footer {

@@ -2,51 +2,54 @@ html[theme=dark] .header {
   background-color: var(--dark-subsection-bg);
   border-bottom: 1px solid var(--dark-text-color);
 }
-@media (max-width: 766px) {
-  html[theme=dark] .header__burger:before, html[theme=dark] .header__burger:after {
-    content: "";
-    background-color: var(--dark-text-color);
-  }
-  html[theme=dark] .header__burger span {
-    background-color: var(--dark-text-color);
-  }
+html[theme=dark] .header__burger:before, html[theme=dark] .header__burger:after {
+  content: "";
+  background-color: var(--dark-text-color);
+}
+html[theme=dark] .header__burger span {
+  background-color: var(--dark-text-color);
 }
 
 html[theme=light] .header {
   background-color: var(--light-subsection-bg);
   border-bottom: 1px solid var(--light-text-color);
 }
-@media (max-width: 766px) {
-  html[theme=light] .header__burger:before, html[theme=light] .header__burger:after {
-    content: "";
-    background-color: var(--light-text-color);
-  }
-  html[theme=light] .header__burger span {
-    background-color: var(--light-text-color);
-  }
+html[theme=light] .header__burger:before, html[theme=light] .header__burger:after {
+  content: "";
+  background-color: var(--light-text-color);
+}
+html[theme=light] .header__burger span {
+  background-color: var(--light-text-color);
 }
 
 .header {
+  -webkit-transition: background-color 0s;
+  -o-transition: background-color 0s;
+  transition: background-color 0s;
   -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
           box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   z-index: 50;
   position: fixed;
   width: 100%;
   padding: 5px env(safe-area-inset-right) 5px env(safe-area-inset-left);
-  height: 50px;
+  height: 40px;
   display: grid;
   grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
 }
 .header__menu {
+  height: 30px;
   grid-column: 2/3;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   position: relative;
-  padding: 0 15px;
+  padding: 0 10px;
 }
 .header__user img {
   pointer-events: none;
@@ -54,8 +57,8 @@ html[theme=light] .header {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
@@ -66,96 +69,93 @@ html[theme=light] .header {
   line-height: 40px;
 }
 .header__logo {
-  font-size: 24px;
+  font-size: 22px;
   letter-spacing: 2px;
   font-weight: 700;
-  line-height: 40px;
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
 }
-.header__button {
-  display: none;
-  background-color: transparent;
+.header__burger {
+  z-index: 50;
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 10px;
+  width: 30px;
+  height: 24px;
 }
-.header__button img {
-  width: 40px;
-  pointer-events: none;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+.header__burger:before, .header__burger:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  border-radius: 8px;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
-@media (max-width: 766px) {
-  .header__burger {
-    z-index: 50;
-    display: block;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-    right: 15px;
-    width: 30px;
-    height: 24px;
-  }
-  .header__burger:before, .header__burger:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    left: 0;
-    border-radius: 8px;
-    -webkit-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-  }
-  .header__burger:before {
-    top: 0;
-  }
-  .header__burger:after {
-    bottom: 0;
-  }
-  .header__burger span {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    left: 0;
-    border-radius: 8px;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-    -webkit-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-  }
-  .header__burger.active:before {
-    -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
-    top: 11px;
-  }
-  .header__burger.active:after {
-    -webkit-transform: rotate(-45deg);
-        -ms-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-    bottom: 11px;
-  }
-  .header__burger.active span {
-    -webkit-transform: scale(0);
-        -ms-transform: scale(0);
-            transform: scale(0);
-  }
+.header__burger:before {
+  top: 0;
+}
+.header__burger:after {
+  bottom: 0;
+}
+.header__burger span {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  border-radius: 8px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+.header__burger.active:before {
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+  top: 11px;
+}
+.header__burger.active:after {
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  bottom: 11px;
+}
+.header__burger.active span {
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
 }
 @media (min-width: 767px) {
+  .header {
+    height: 50px;
+  }
   .header__logo {
+    font-size: 24px;
     letter-spacing: 4px;
   }
-  .header__button {
-    display: block;
+  .header__burger {
+    display: none;
+  }
+  .header__menu {
+    height: 40px;
+    padding: 0 15px;
+  }
+  .header__user img {
+    width: 40px;
+    height: 40px;
   }
 }
