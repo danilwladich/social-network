@@ -20,6 +20,12 @@ html[theme="dark"] {
 				background-color: var(--dark-button-bg);
 			}
 		}
+		&__donation {
+			background-color: var(--dark-button-bg);
+			&:hover {
+				background-color: var(--dark-button-bg-active);
+			}
+		}
 	}
 }
 
@@ -45,12 +51,24 @@ html[theme="light"] {
 				background-color: var(--light-button-bg);
 			}
 		}
+		&__donation {
+			background-color: var(--light-button-bg);
+			&:hover {
+				background-color: var(--light-button-bg-active);
+			}
+		}
 	}
 }
 
 .settings {
 	&__item {
 		padding: 10px 0;
+		&:first-child {
+			padding: 0px 0px 10px 0px;
+		}
+		&:last-child {
+			padding: 10px 0px 0px 0px;
+		}
 	}
 	&__category {
 		font-size: 20px;
@@ -114,8 +132,6 @@ html[theme="light"] {
 		&_title {
 			line-height: 1;
 			font-size: 22px;
-			text-align: center;
-			font-weight: 700;
 		}
 		&_close {
 			position: absolute;
@@ -191,9 +207,54 @@ html[theme="light"] {
 			text-transform: capitalize;
 		}
 	}
-	&__copy{
+	&__copy {
 		line-height: 150%;
 		font-size: 18px;
 		margin: 15px 0 0 0;
+	}
+	&__donation {
+		border-radius: 4px;
+		margin: 15px 0px 0px 0px;
+		background-color: transparent;
+		img {
+			height: 60px;
+		}
+	}
+	&__topdonations {
+		&_title {
+			font-size: 18px;
+			margin: 15px 0px 0px 0px;
+		}
+		&_items {
+			max-width: 280px;
+			margin: 10px 0px 0px 0px;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		&_item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		&_image {
+			flex: 0 0 30px;
+			img {
+				width: 100%;
+				height: 30px;
+				border-radius: 50%;
+			}
+		}
+		&_name {
+			flex: 1 1 auto;
+			font-weight: 700;
+			font-size: 14px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		&_value {
+			white-space: nowrap;
+		}
 	}
 }

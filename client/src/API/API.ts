@@ -171,4 +171,14 @@ export const API = {
 			.delete(`follow/${userID}`)
 			.then((response) => response.data);
 	},
+
+	// donations
+	getDonations() {
+		return instance.get(`donations`).then((response) => response.data);
+	},
+	newDonation(value: number) {
+		return instance
+			.post(`donations`, { value })
+			.then((response) => response.data);
+	},
 };

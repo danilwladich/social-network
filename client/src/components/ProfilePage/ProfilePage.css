@@ -238,8 +238,6 @@ html[theme=light] .profile__post_delete:hover {
 .profile__edit_title {
   line-height: 1;
   font-size: 22px;
-  text-align: center;
-  font-weight: 700;
 }
 .profile__edit_close {
   position: absolute;

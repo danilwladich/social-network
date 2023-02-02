@@ -16,6 +16,12 @@ html[theme=dark] .settings__delete_input:focus {
 html[theme=dark] .settings__delete_button {
   background-color: var(--dark-button-bg);
 }
+html[theme=dark] .settings__donation {
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .settings__donation:hover {
+  background-color: var(--dark-button-bg-active);
+}
 
 html[theme=light] .settings__item:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
@@ -35,9 +41,21 @@ html[theme=light] .settings__delete_input:focus {
 html[theme=light] .settings__delete_button {
   background-color: var(--light-button-bg);
 }
+html[theme=light] .settings__donation {
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .settings__donation:hover {
+  background-color: var(--light-button-bg-active);
+}
 
 .settings__item {
   padding: 10px 0;
+}
+.settings__item:first-child {
+  padding: 0px 0px 10px 0px;
+}
+.settings__item:last-child {
+  padding: 10px 0px 0px 0px;
 }
 .settings__category {
   font-size: 20px;
@@ -109,8 +127,6 @@ html[theme=light] .settings__delete_button {
 .settings__delete_title {
   line-height: 1;
   font-size: 22px;
-  text-align: center;
-  font-weight: 700;
 }
 .settings__delete_close {
   position: absolute;
@@ -195,4 +211,61 @@ html[theme=light] .settings__delete_button {
   line-height: 150%;
   font-size: 18px;
   margin: 15px 0 0 0;
+}
+.settings__donation {
+  border-radius: 4px;
+  margin: 15px 0px 0px 0px;
+  background-color: transparent;
+}
+.settings__donation img {
+  height: 60px;
+}
+.settings__topdonations_title {
+  font-size: 18px;
+  margin: 15px 0px 0px 0px;
+}
+.settings__topdonations_items {
+  max-width: 280px;
+  margin: 10px 0px 0px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+.settings__topdonations_item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+.settings__topdonations_image {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30px;
+          flex: 0 0 30px;
+}
+.settings__topdonations_image img {
+  width: 100%;
+  height: 30px;
+  border-radius: 50%;
+}
+.settings__topdonations_name {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
+.settings__topdonations_value {
+  white-space: nowrap;
 }

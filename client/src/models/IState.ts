@@ -1,6 +1,6 @@
 import { IProfile } from "./Profile/IProfile";
 import { IMessages } from "./Messages/IMessages";
-import { ISettings } from "./ISettings";
+import { ISettings } from "./Settings/ISettings";
 import { IUsers } from "./Users/IUsers";
 import { IAuth } from "./IAuth";
 import { IApp } from "./IApp";

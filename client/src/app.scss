@@ -243,9 +243,9 @@ body {
 	overflow-y: overlay;
 	position: fixed;
 	width: 260px;
-	top: 15px;
+	top: 50%;
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translate(-50%, -50%);
 	z-index: 100;
 	padding: 15px 10px;
 	border-radius: 8px;

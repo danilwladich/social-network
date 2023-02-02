@@ -9,6 +9,7 @@ import messagesRoutes from "./routes/messagesRoutes";
 import friendsRoutes from "./routes/friendsRoutes";
 import usersRoutes from "./routes/usersRoutes";
 import followRoutes from "./routes/followRoutes";
+import donationsRoutes from "./routes/donationsRoutes";
 import bodyParser from "body-parser";
 import { Server } from "socket.io";
 import http from "http";
@@ -31,6 +32,7 @@ app.use("/api/messages", messagesRoutes);
 app.use("/api/friends", friendsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/follow", followRoutes);
+app.use("/api/donations", donationsRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use("/", express.static(path.join(__dirname, "../client/build")));

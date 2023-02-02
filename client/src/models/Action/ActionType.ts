@@ -49,4 +49,5 @@ export enum ActionType {
 
 	// settings
 	SET_THEME = "settings/SET_THEME",
+	SET_DONATIONS = "settings/SET_DONATIONS",
 }

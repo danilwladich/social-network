@@ -4,6 +4,7 @@ import { AccountContainer } from "./Account/AccountContainer";
 import "./SettingsPage.css";
 import { Copyright } from "./Copyright/Copyright";
 import { Messages } from "./Messages/Messages";
+import { SupportContainer } from "./Support/SupportContainer";
 
 export function SettingsPage() {
 	document.title = `Settings`;
@@ -20,6 +21,8 @@ export function SettingsPage() {
 						<AccountContainer />
 
 						<Copyright />
+
+						<SupportContainer />
 					</div>
 				</div>
 			</section>

@@ -10,6 +10,7 @@ import { MessagesUserData } from "../Messages/MessagesUserData";
 import { ChatWith } from "../Messages/ChatWith";
 import { MessagesMessageData } from "../Messages/MessagesMessageData";
 import { NewsPostData } from "./../News/NewsPostData";
+import { DonationData } from "./../Settings/DonationData";
 
 // APP
 interface setInitializationd {
@@ -162,6 +163,12 @@ interface setUsersTotalCount {
 	value: number;
 }
 
+// SETTINGS
+interface setDonations {
+	type: ActionType.SET_DONATIONS;
+	value: DonationData[];
+}
+
 export type IAction =
 	| setInitializationd
 	| setAuthUser
@@ -192,5 +199,6 @@ export type IAction =
 	| setProfile
 	| likePost
 	| unlikePost
+	| setDonations
 	| setBurger
 	| setHeaderImage;
