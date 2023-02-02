@@ -132,11 +132,11 @@ html[theme=dark] ::-webkit-scrollbar-thumb:hover {
   background: rgb(155, 155, 155);
 }
 html[theme=dark] body {
-  background-color: var(--dark-main-bg);
+  background-color: var(--dark-subsection-bg);
 }
-@media (max-width: 766px) {
+@media (min-width: 767px) {
   html[theme=dark] body {
-    background-color: var(--dark-subsection-bg);
+    background-color: var(--dark-main-bg);
   }
 }
 html[theme=dark] * {
@@ -161,9 +161,6 @@ html[theme=dark] .modal {
 }
 html[theme=dark] .loading_element {
   background-color: var(--dark-main-bg);
-}
-html[theme=dark] .app_loading div {
-  border: 4px solid #fff;
 }
 html[theme=dark] option {
   color: #fff;
@@ -195,11 +192,11 @@ html[theme=light] ::-webkit-scrollbar-thumb:hover {
   background: rgb(85, 85, 85);
 }
 html[theme=light] body {
-  background-color: var(--light-main-bg);
+  background-color: var(--light-subsection-bg);
 }
-@media (max-width: 766px) {
+@media (min-width: 767px) {
   html[theme=light] body {
-    background-color: var(--light-subsection-bg);
+    background-color: var(--light-main-bg);
   }
 }
 html[theme=light] * {
@@ -224,9 +221,6 @@ html[theme=light] .modal {
 }
 html[theme=light] .loading_element {
   background-color: var(--light-main-bg);
-}
-html[theme=light] .app_loading div {
-  border: 4px solid #000;
 }
 html[theme=light] option {
   color: #000;
@@ -366,91 +360,22 @@ body.lock {
 }
 
 .app_loading {
-  display: inline-block;
   position: fixed;
   left: 50vw;
   top: 50vh;
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 80px;
-  height: 80px;
   -webkit-animation: app_loading_delay 4s;
           animation: app_loading_delay 4s;
 }
-.app_loading div {
-  position: absolute;
-  opacity: 1;
-  border-radius: 50%;
-  -webkit-animation: app_loading 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-          animation: app_loading 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+.app_loading_balls g:nth-child(odd) circle {
+  fill: var(--dark-text-color);
 }
-.app_loading div:nth-child(2) {
-  -webkit-animation-delay: -0.5s;
-          animation-delay: -0.5s;
+.app_loading_balls g:nth-child(even) circle {
+  fill: var(--light-text-color);
 }
 
-@-webkit-keyframes app_loading {
-  0% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-  4.9% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-  5% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    top: 0px;
-    left: 0px;
-    width: 72px;
-    height: 72px;
-    opacity: 0;
-  }
-}
-
-@keyframes app_loading {
-  0% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-  4.9% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-  5% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    top: 0px;
-    left: 0px;
-    width: 72px;
-    height: 72px;
-    opacity: 0;
-  }
-}
 @-webkit-keyframes app_loading_delay {
   0% {
     opacity: 0;
@@ -462,6 +387,7 @@ body.lock {
     opacity: 1;
   }
 }
+
 @keyframes app_loading_delay {
   0% {
     opacity: 0;

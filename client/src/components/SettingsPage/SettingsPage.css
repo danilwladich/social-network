@@ -58,6 +58,7 @@ html[theme=light] .settings__donation:hover {
   padding: 10px 0px 0px 0px;
 }
 .settings__category {
+  line-height: 150%;
   font-size: 20px;
   font-weight: 700;
 }

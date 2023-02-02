@@ -39,11 +39,11 @@ html[theme="light"] {
 	position: fixed;
 	width: 100%;
 	padding: 5px env(safe-area-inset-right) 5px env(safe-area-inset-left);
-	height: 40px;
+	height: 45px;
 	display: grid;
 	grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
 	&__menu {
-		height: 30px;
+		height: 35px;
 		grid-column: 2/3;
 		display: flex;
 		align-items: center;
@@ -55,8 +55,8 @@ html[theme="light"] {
 		img {
 			pointer-events: none;
 			user-select: none;
-			width: 30px;
-			height: 30px;
+			width: 35px;
+			height: 35px;
 			border-radius: 50%;
 			object-fit: cover;
 		}

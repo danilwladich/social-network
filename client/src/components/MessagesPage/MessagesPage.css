@@ -147,7 +147,7 @@ html[theme=light] .messages__message_content {
   z-index: 250;
   position: absolute;
   left: -10px;
-  top: -50px;
+  top: -40px;
   height: 100vh;
   width: 100vw;
   display: -webkit-box;
@@ -305,7 +305,7 @@ html[theme=light] .messages__message_content {
   z-index: 250;
   position: absolute;
   left: -10px;
-  top: -50px;
+  top: -40px;
   height: 100vh;
   width: 100vw;
   display: -webkit-box;
@@ -509,8 +509,10 @@ html[theme=light] .messages__message_content {
     height: 60px;
   }
   .messages__loading_chat {
+    position: static;
     height: calc(100vh - 112px);
-    margin: 0;
+    padding: 0;
+    width: 100%;
   }
   .messages__user {
     border-radius: 0;
