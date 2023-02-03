@@ -278,7 +278,7 @@ html[theme="light"] {
 		position: fixed;
 		left: 0;
 		top: 0;
-		height: 100vh;
+		height: var(--chat-height);
 		width: 100vw;
 		display: flex;
 		flex-direction: column;

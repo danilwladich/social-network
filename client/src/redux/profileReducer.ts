@@ -360,6 +360,7 @@ export const editProfileTC = (
 					if (!!id) {
 						await dispatch(authMeTC());
 					}
+					await dispatch(getProfileTC(getState().auth.user.id));
 				} else {
 					return Promise.reject(data.statusText);
 				}

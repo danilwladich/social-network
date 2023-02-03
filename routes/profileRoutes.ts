@@ -286,24 +286,28 @@ router.put(
 	upload,
 	[
 		check("id", "Invalid new id length")
+			.trim()
 			.isLength({ min: 4, max: 15 })
 			.optional({ nullable: true, checkFalsy: true }),
 		check("id", "Id must be alphanumeric")
+			.trim()
 			.matches(/[\w]/g)
 			.optional({ nullable: true, checkFalsy: true }),
-		check("id", "Not allowed new id").not().equals("login"),
-		check("id", "Not allowed new id").not().equals("register"),
-		check("id", "Not allowed new id").not().equals("messages"),
-		check("id", "Not allowed new id").not().equals("friends"),
-		check("id", "Not allowed new id").not().equals("users"),
-		check("id", "Not allowed new id").not().equals("settings"),
-		check("id", "Not allowed new id").not().equals("images"),
-		check("id", "Not allowed new id").not().equals("news"),
+		check("id", "Not allowed new id").trim().not().equals("login"),
+		check("id", "Not allowed new id").trim().not().equals("register"),
+		check("id", "Not allowed new id").trim().not().equals("messages"),
+		check("id", "Not allowed new id").trim().not().equals("friends"),
+		check("id", "Not allowed new id").trim().not().equals("users"),
+		check("id", "Not allowed new id").trim().not().equals("settings"),
+		check("id", "Not allowed new id").trim().not().equals("images"),
+		check("id", "Not allowed new id").trim().not().equals("news"),
 		check("country", "Country must be alpha")
+			.trim()
 			.matches(/[a-zA-Z-]+/g)
 			.isLength({ min: 2, max: 25 })
 			.optional({ nullable: true, checkFalsy: true }),
 		check("city", "City must be alpha")
+			.trim()
 			.matches(/[a-zA-Z-]+/g)
 			.isLength({ min: 2, max: 25 })
 			.optional({ nullable: true, checkFalsy: true }),
@@ -320,7 +324,10 @@ router.put(
 			}
 
 			const authID = req.user!.userID as string;
-			const { id, country, city } = req.body;
+			
+			const id = req.body.id.trim();
+			const country = req.body.country.trim();
+			const city = req.body.city.trim();
 			const image = req.file;
 
 			const user = await User.findById(authID);

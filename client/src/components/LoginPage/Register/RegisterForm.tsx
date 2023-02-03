@@ -46,6 +46,7 @@ export function RegisterForm(props: IProps) {
 			})
 			.finally(() => setSubmitting(false));
 	}
+
 	function validate(e: {
 		phoneNumber: string;
 		password: string;
@@ -82,6 +83,9 @@ export function RegisterForm(props: IProps) {
 			if (!e.password.match(/[0-9]/g)) {
 				errors.password = "Must contain number!";
 			}
+			if (e.password.match(/\s/)) {
+				errors.password = "Cannot contain spaces!";
+			}
 		}
 		if (!e.password) {
 			errors.password = "Reguired";
@@ -102,20 +106,25 @@ export function RegisterForm(props: IProps) {
 
 		// first name
 		if (e.firstName) {
-			if (e.firstName.length < 2) {
-				errors.firstName = "Too short!";
-			}
-			if (e.firstName.length > 15) {
-				errors.firstName = "Too long!";
-			}
-			if (e.firstName[0].toUpperCase() !== e.firstName[0]) {
-				errors.firstName = "Must be capitalized!";
-			}
-			if (e.firstName.slice(1).toLowerCase() !== e.firstName.slice(1)) {
-				errors.firstName = "Must be capitalized!";
-			}
-			if (e.firstName.match(/[^a-zA-Z-]+/g)) {
-				errors.firstName = "Only latin letters allowed!";
+			if (e.firstName.trim()) {
+				if (e.firstName.trim().length < 2) {
+					errors.firstName = "Too short!";
+				}
+				if (e.firstName.trim().length > 15) {
+					errors.firstName = "Too long!";
+				}
+				if (e.firstName.trim()[0].toUpperCase() !== e.firstName.trim()[0]) {
+					errors.firstName = "Must be capitalized!";
+				}
+				if (
+					e.firstName.trim().slice(1).toLowerCase() !==
+					e.firstName.trim().slice(1)
+				) {
+					errors.firstName = "Must be capitalized!";
+				}
+				if (e.firstName.trim().match(/[^a-zA-Z-]+/g)) {
+					errors.firstName = "Only latin letters allowed!";
+				}
 			}
 		}
 		if (!e.firstName) {
@@ -124,20 +133,25 @@ export function RegisterForm(props: IProps) {
 
 		// last name
 		if (e.lastName) {
-			if (e.lastName.length < 2) {
-				errors.lastName = "Too short!";
-			}
-			if (e.lastName.length > 20) {
-				errors.lastName = "Too long!";
-			}
-			if (e.lastName[0].toUpperCase() !== e.lastName[0]) {
-				errors.lastName = "Must be capitalized!";
-			}
-			if (e.lastName.slice(1).toLowerCase() !== e.lastName.slice(1)) {
-				errors.lastName = "Must be capitalized!";
-			}
-			if (e.lastName.match(/[^a-zA-Z-]+/g)) {
-				errors.lastName = "Only latin letters allowed!";
+			if (e.lastName.trim()) {
+				if (e.lastName.trim().length < 2) {
+					errors.lastName = "Too short!";
+				}
+				if (e.lastName.trim().length > 20) {
+					errors.lastName = "Too long!";
+				}
+				if (e.lastName.trim()[0].toUpperCase() !== e.lastName.trim()[0]) {
+					errors.lastName = "Must be capitalized!";
+				}
+				if (
+					e.lastName.trim().slice(1).toLowerCase() !==
+					e.lastName.trim().slice(1)
+				) {
+					errors.lastName = "Must be capitalized!";
+				}
+				if (e.lastName.trim().match(/[^a-zA-Z-]+/g)) {
+					errors.lastName = "Only latin letters allowed!";
+				}
 			}
 		}
 		if (!e.lastName) {

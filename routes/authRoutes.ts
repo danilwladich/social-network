@@ -21,6 +21,7 @@ router.post(
 		check("phoneNumber", "Phone number required").exists(),
 		check("password", "Password required").exists(),
 		check("password", "Password too short").isLength({ min: 8 }),
+		check("password", "Password cannot contain spaces").not().matches(/\s/),
 		check("firstName", "First name required").exists(),
 		check("firstName", "First name must be alpha").matches(/[a-zA-Z-]+/g),
 		check("lastName", "Last name required").exists(),
@@ -38,8 +39,9 @@ router.post(
 				});
 			}
 
-			const { phoneNumber, password, firstName, lastName, recaptcha } =
-				req.body;
+			const { phoneNumber, password, recaptcha } = req.body;
+			const firstName = req.body.firstName.trim();
+			const lastName = req.body.lastName.trim();
 
 			const secretKey = config.get("recaptchaSecretKey");
 

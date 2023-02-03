@@ -306,7 +306,7 @@ html[theme=light] .messages__message_content {
   position: fixed;
   left: 0;
   top: 0;
-  height: 100vh;
+  height: var(--chat-height);
   width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;

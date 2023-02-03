@@ -38,8 +38,24 @@ export function Chat(props: IProps) {
 		}
 
 		window.addEventListener("keydown", keyDownHandler);
-		return () => window.removeEventListener("keydown", keyDownHandler);
+		return () => {
+			window.removeEventListener("keydown", keyDownHandler);
+		};
 	});
+
+	// set chat height
+	useEffect(() => {
+		window.addEventListener("resize", chatHeight);
+		return () => {
+			window.removeEventListener("resize", chatHeight);
+		};
+	});
+
+	function chatHeight() {
+		const doc = document.documentElement;
+		doc.style.setProperty("--chat-height", `${window.innerHeight}px`);
+	}
+	chatHeight();
 
 	// scroll bottom after get and send messages + read messages socket
 	useEffect(() => {

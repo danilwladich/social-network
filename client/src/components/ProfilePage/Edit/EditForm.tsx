@@ -34,6 +34,7 @@ export function EditForm(props: IProps) {
 			};
 		}
 	}
+
 	function onSubmit(v: {
 		image?: FileList;
 		id?: string;
@@ -43,17 +44,17 @@ export function EditForm(props: IProps) {
 		setSubmitting(true);
 		const image = v.image ? v.image[0] : undefined;
 		props
-			.editProfileTC(image, v.id, v.country, v.city)
+			.editProfileTC(image, v.id?.trim(), v.country?.trim(), v.city?.trim())
 			.then(() => {
 				if (!!v.id) {
 					socket.emit("nicknameChanged", { nickname: props.authID });
+					navigate("/" + v.id.trim());
 				}
-
-				navigate("/");
 			})
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));
 	}
+
 	function validate(e: {
 		image?: FileList;
 		id?: string;
@@ -75,55 +76,61 @@ export function EditForm(props: IProps) {
 
 		// id
 		if (e.id) {
-			if (e.id.length < 4) {
-				errors.id = "Too short!";
-			}
-			if (e.id.length > 15) {
-				errors.id = "Too long!";
-			}
-			if (
-				e.id === "login" ||
-				e.id === "register" ||
-				e.id === "messages" ||
-				e.id === "friends" ||
-				e.id === "users" ||
-				e.id === "settings" ||
-				e.id === "news" ||
-				e.id === "images"
-			) {
-				errors.id = "Not allowed!";
-			}
-			if (e.id === props.authID) {
-				errors.id = "It's already your nickname";
-			}
-			if (e.id.match(/[^\w]/g)) {
-				errors.id = "Allow only alphanumeric!";
+			if (e.id.trim()) {
+				if (e.id.trim().length < 4) {
+					errors.id = "Too short!";
+				}
+				if (e.id.trim().length > 15) {
+					errors.id = "Too long!";
+				}
+				if (
+					e.id.trim() === "login" ||
+					e.id.trim() === "register" ||
+					e.id.trim() === "messages" ||
+					e.id.trim() === "friends" ||
+					e.id.trim() === "users" ||
+					e.id.trim() === "settings" ||
+					e.id.trim() === "news" ||
+					e.id.trim() === "images"
+				) {
+					errors.id = "Not allowed!";
+				}
+				if (e.id.trim() === props.authID) {
+					errors.id = "It's already your nickname";
+				}
+				if (e.id.trim().match(/[^\w]/g)) {
+					errors.id = "Allow only alphanumeric!";
+				}
 			}
 		}
 
 		// country
 		if (e.country) {
-			if (e.country.length < 2) {
-				errors.country = "Too short!";
-			}
-			if (e.country.length > 25) {
-				errors.country = "Too short!";
-			}
-			if (e.country.match(/[^a-zA-Z-]+/g)) {
-				errors.country = "Allow only latin letters!";
+			if (e.country.trim()) {
+				if (e.country.trim().length < 2) {
+					errors.country = "Too short!";
+				}
+				if (e.country.trim().length > 25) {
+					errors.country = "Too short!";
+				}
+				if (e.country.trim().match(/[^a-zA-Z-]+/g)) {
+					errors.country = "Allow only latin letters!";
+				}
 			}
 		}
 
 		// city
 		if (e.city) {
-			if (e.city.length < 2) {
-				errors.city = "Too short!";
-			}
-			if (e.city.length > 25) {
-				errors.city = "Too short!";
-			}
-			if (e.city.match(/[^a-zA-Z-]+/g)) {
-				errors.city = "Allow only latin letters!";
+			if (e.city.trim()) {
+				if (e.city.trim().length < 2) {
+					errors.city = "Too short!";
+				}
+				if (e.city.trim().length > 25) {
+					errors.city = "Too short!";
+				}
+				if (e.city.trim().match(/[^a-zA-Z-]+/g)) {
+					errors.city = "Allow only latin letters!";
+				}
 			}
 		}
 
@@ -180,7 +187,7 @@ export function EditForm(props: IProps) {
 										<p>
 											socnet.com/
 											{values.id
-												? values.id.slice(0, 14).replace(/[^\w]/g, "")
+												? values.id.trim().slice(0, 14).replace(/[^\w]/g, "")
 												: props.authID}
 										</p>
 									</label>
@@ -191,7 +198,7 @@ export function EditForm(props: IProps) {
 										className="profile__edit_input"
 										placeholder="New nickname"
 									/>
-									{meta.error && (
+									{meta.touched && meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>
 									)}
 								</div>
@@ -212,7 +219,7 @@ export function EditForm(props: IProps) {
 										className="profile__edit_input"
 										placeholder={props.location.country || "Your country"}
 									/>
-									{meta.error && (
+									{meta.touched && meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>
 									)}
 								</div>
@@ -233,7 +240,7 @@ export function EditForm(props: IProps) {
 										className="profile__edit_input"
 										placeholder={props.location.city || "Your city"}
 									/>
-									{meta.error && (
+									{meta.touched && meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>
 									)}
 								</div>
