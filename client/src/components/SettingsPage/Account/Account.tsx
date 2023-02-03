@@ -27,7 +27,7 @@ export function Account(props: IProps) {
 					Log Out
 				</button>
 
-				<button onClick={() => modalOn()} className="settings__button delete">
+				<button onClick={() => modalOn()} className="settings__button">
 					Delete account
 				</button>
 

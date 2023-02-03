@@ -9,15 +9,17 @@
 	--dark-text-color: rgba(255, 255, 255, 0.87);
 	--dark-subsection-bg: rgb(26, 26, 26);
 	--dark-main-bg: rgb(37, 37, 37);
-	--dark-button-bg: rgb(37, 37, 37);
-	--dark-button-bg-active: rgb(60, 60, 60);
+	--dark-button-text-color: #fff;
+	--dark-button-bg: #326273;
+	--dark-button-bg-active: #5c9ead;
 	--dark-items-border-bottom: rgba(255, 255, 255, 0.3);
 
-	--light-text-color: rgb(0, 0, 0);
-	--light-subsection-bg: rgb(255, 255, 255);
-	--light-main-bg: rgb(235, 235, 235);
-	--light-button-bg: rgb(235, 235, 235);
-	--light-button-bg-active: rgb(210, 210, 210);
+	--light-text-color: #000;
+	--light-subsection-bg: #ffffff;
+	--light-main-bg: #eeeeee;
+	--light-button-text-color: #fff;
+	--light-button-bg: #326273;
+	--light-button-bg-active: #5c9ead;
 	--light-items-border-bottom: rgba(0, 0, 0, 0.3);
 
 	--chat-height: 100vh;
@@ -45,47 +47,45 @@ html[theme="dark"] {
 	.subsection {
 		background-color: var(--dark-subsection-bg);
 		&:not(:empty) {
-			@media (max-width: 766px) {
-				&:not(:first-child) {
-					border-top: 1px solid var(--dark-text-color);
-				}
+			&:not(:first-child) {
+				border-top: 1px solid var(--dark-button-bg);
 			}
 			@media (min-width: 767px) {
-				border: 1px solid var(--dark-text-color);
+				border: 1px solid var(--dark-button-bg);
 			}
 		}
 	}
 	.modal {
 		background-color: var(--dark-subsection-bg);
-		border: 1px solid var(--dark-text-color);
+		border: 1px solid var(--dark-button-bg);
 	}
 	.loading_element {
 		background-color: var(--dark-main-bg);
 	}
 	option {
-		color: #fff;
-		background-color: #000;
+		color: var(--dark-text-color);
+		background-color: var(--dark-subsection-bg);
 	}
 	.loadingCircle {
 		circle {
-			stroke: #fff;
+			stroke: var(--dark-button-text-color);
 		}
 	}
 	.closeX {
 		path {
-			stroke: #fff;
+			stroke: var(--dark-text-color);
 		}
 	}
 	.likeHeart {
 		path {
-			stroke: var(--dark-text-color);
+			stroke: var(--dark-button-text-color);
 		}
 		&.likedMe {
-			fill: var(--dark-text-color);
+			fill: var(--dark-button-text-color);
 		}
 	}
 	.checkMark {
-		fill: var(--dark-text-color);
+		fill: var(--dark-button-text-color);
 	}
 }
 
@@ -111,47 +111,45 @@ html[theme="light"] {
 	.subsection {
 		background-color: var(--light-subsection-bg);
 		&:not(:empty) {
-			@media (max-width: 766px) {
-				&:not(:first-child) {
-					border-top: 1px solid var(--light-text-color);
-				}
+			&:not(:first-child) {
+				border-top: 1px solid var(--light-button-bg);
 			}
 			@media (min-width: 767px) {
-				border: 1px solid var(--light-text-color);
+				border: 1px solid var(--light-button-bg);
 			}
 		}
 	}
 	.modal {
 		background-color: var(--light-subsection-bg);
-		border: 1px solid var(--light-text-color);
+		border: 1px solid var(--light-button-bg);
 	}
 	.loading_element {
 		background-color: var(--light-main-bg);
 	}
 	option {
-		color: #000;
-		background-color: #fff;
+		color: var(--light-text-color);
+		background-color: var(--light-subsection-bg);
 	}
 	.loadingCircle {
 		circle {
-			stroke: #000;
+			stroke: var(--light-button-text-color);
 		}
 	}
 	.closeX {
 		path {
-			stroke: #000;
+			stroke: var(--light-text-color);
 		}
 	}
 	.likeHeart {
 		path {
-			stroke: var(--light-text-color);
+			stroke: var(--light-button-text-color);
 		}
 		&.likedMe {
-			fill: var(--light-text-color);
+			fill: var(--light-button-text-color);
 		}
 	}
 	.checkMark {
-		fill: var(--light-text-color);
+		fill: var(--light-button-text-color);
 	}
 }
 
@@ -203,7 +201,7 @@ body {
 			margin: 15px 0px 0px 0px;
 		}
 		border-radius: 8px;
-		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 		padding: 15px;
 	}
 }

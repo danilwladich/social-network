@@ -5,10 +5,19 @@ html[theme=dark] .messages__loading_chat_header {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .messages__user.unread {
-  background-color: var(--dark-button-bg);
+  background-color: var(--dark-button-bg-active);
+}
+html[theme=dark] .messages__user.unread * {
+  color: var(--dark-button-text-color);
 }
 html[theme=dark] .messages__user:hover {
-  background-color: var(--dark-button-bg-active);
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .messages__user:hover * {
+  color: var(--dark-button-text-color);
+}
+html[theme=dark] .messages__user:hover .messages__user_lastmessage_status:not(.read) svg {
+  fill: var(--dark-button-text-color);
 }
 html[theme=dark] .messages__chat {
   background-color: var(--dark-subsection-bg);
@@ -17,23 +26,32 @@ html[theme=dark] .messages__header {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .messages__header_back {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .messages__header_back:hover {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .messages__header_back svg {
-  fill: var(--dark-text-color);
+  fill: var(--dark-button-text-color);
 }
 html[theme=dark] .messages__field_input {
-  border: 2px solid var(--dark-text-color);
-  background-color: var(--dark-button-bg);
+  border: 2px solid var(--dark-button-bg);
 }
 html[theme=dark] .messages__field_send:not(:disabled):hover {
   background-color: var(--dark-button-bg-active);
 }
+html[theme=dark] .messages__field_send:not(:disabled):hover path {
+  fill: var(--dark-button-text-color);
+}
 html[theme=dark] .messages__message_content {
   background-color: var(--dark-main-bg);
+}
+html[theme=dark] .messages__message.out .messages__message_content {
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .messages__message.out .messages__message_content * {
+  color: var(--dark-button-text-color);
 }
 
 html[theme=light] .messages__loading_chat {
@@ -43,10 +61,19 @@ html[theme=light] .messages__loading_chat_header {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .messages__user.unread {
-  background-color: var(--light-button-bg);
+  background-color: var(--light-button-bg-active);
+}
+html[theme=light] .messages__user.unread * {
+  color: var(--light-button-text-color);
 }
 html[theme=light] .messages__user:hover {
-  background-color: var(--light-button-bg-active);
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .messages__user:hover * {
+  color: var(--light-button-text-color);
+}
+html[theme=light] .messages__user:hover .messages__user_lastmessage_status:not(.read) svg {
+  fill: var(--light-button-text-color);
 }
 html[theme=light] .messages__chat {
   background-color: var(--light-subsection-bg);
@@ -55,23 +82,32 @@ html[theme=light] .messages__header {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .messages__header_back {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .messages__header_back:hover {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .messages__header_back svg {
-  fill: var(--light-text-color);
+  fill: var(--light-button-text-color);
 }
 html[theme=light] .messages__field_input {
-  border: 2px solid var(--light-text-color);
-  background-color: var(--light-button-bg);
+  border: 2px solid var(--light-button-bg);
 }
 html[theme=light] .messages__field_send:not(:disabled):hover {
   background-color: var(--light-button-bg-active);
 }
+html[theme=light] .messages__field_send:not(:disabled):hover path {
+  fill: var(--light-button-text-color);
+}
 html[theme=light] .messages__message_content {
   background-color: var(--light-main-bg);
+}
+html[theme=light] .messages__message.out .messages__message_content {
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .messages__message.out .messages__message_content * {
+  color: var(--light-button-text-color);
 }
 
 .messages__loading_users {
@@ -259,6 +295,9 @@ html[theme=light] .messages__message_content {
   white-space: nowrap;
 }
 .messages__user_name {
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
   font-size: 16px;
   font-weight: 700;
   overflow: hidden;
@@ -277,6 +316,9 @@ html[theme=light] .messages__message_content {
   gap: 5px;
 }
 .messages__user_lastmessage_text {
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;

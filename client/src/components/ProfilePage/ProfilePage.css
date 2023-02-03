@@ -1,5 +1,6 @@
 html[theme=dark] .profile__actions > a,
 html[theme=dark] .profile__actions > button {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .profile__actions > a:hover,
@@ -13,20 +14,26 @@ html[theme=dark] .profile__edit_input:focus {
   border-bottom: 1px solid var(--dark-text-color);
 }
 html[theme=dark] .profile__edit_button {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .profile__edit_button:not(:disabled):hover {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .profile__posts_input {
-  border: 2px solid var(--dark-text-color);
-  background-color: var(--dark-main-bg);
+  border: 2px solid var(--dark-button-bg);
 }
 html[theme=dark] .profile__posts_send circle {
   stroke: var(--dark-text-color);
 }
 html[theme=dark] .profile__posts_send:not(:disabled):hover {
   background-color: var(--dark-button-bg-active);
+}
+html[theme=dark] .profile__posts_send:not(:disabled):hover circle {
+  stroke: var(--dark-button-text-color);
+}
+html[theme=dark] .profile__posts_send:not(:disabled):hover path {
+  fill: var(--dark-button-text-color);
 }
 html[theme=dark] .profile__post:not(:last-child) {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
@@ -35,6 +42,7 @@ html[theme=dark] .profile__post_more {
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .profile__post_like {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .profile__post_like:hover {
@@ -46,9 +54,10 @@ html[theme=dark] .profile__post_showactions {
 html[theme=dark] .profile__post_showactions span,
 html[theme=dark] .profile__post_showactions span:before,
 html[theme=dark] .profile__post_showactions span:after {
-  background-color: var(--dark-text-color);
+  background-color: var(--dark-button-bg);
 }
 html[theme=dark] .profile__post_delete {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .profile__post_delete:hover {
@@ -57,6 +66,7 @@ html[theme=dark] .profile__post_delete:hover {
 
 html[theme=light] .profile__actions > a,
 html[theme=light] .profile__actions > button {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .profile__actions > a:hover,
@@ -70,20 +80,26 @@ html[theme=light] .profile__edit_input:focus {
   border-bottom: 1px solid var(--light-text-color);
 }
 html[theme=light] .profile__edit_button {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .profile__edit_button:not(:disabled):hover {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .profile__posts_input {
-  border: 2px solid var(--light-text-color);
-  background-color: var(--light-main-bg);
+  border: 2px solid var(--light-button-bg);
 }
 html[theme=light] .profile__posts_send circle {
   stroke: var(--light-text-color);
 }
 html[theme=light] .profile__posts_send:not(:disabled):hover {
   background-color: var(--light-button-bg-active);
+}
+html[theme=light] .profile__posts_send:not(:disabled):hover circle {
+  stroke: var(--light-button-text-color);
+}
+html[theme=light] .profile__posts_send:not(:disabled):hover path {
+  fill: var(--light-button-text-color);
 }
 html[theme=light] .profile__post:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
@@ -92,6 +108,7 @@ html[theme=light] .profile__post_more {
   background-color: var(--light-button-bg);
 }
 html[theme=light] .profile__post_like {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .profile__post_like:hover {
@@ -103,9 +120,10 @@ html[theme=light] .profile__post_showactions {
 html[theme=light] .profile__post_showactions span,
 html[theme=light] .profile__post_showactions span:before,
 html[theme=light] .profile__post_showactions span:after {
-  background-color: var(--light-text-color);
+  background-color: var(--light-button-bg);
 }
 html[theme=light] .profile__post_delete {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .profile__post_delete:hover {
@@ -187,10 +205,32 @@ html[theme=light] .profile__post_delete:hover {
      object-fit: cover;
   border-radius: 50%;
 }
+.profile__user_info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
 .profile__user_name {
   font-size: 22px;
   line-height: 150%;
   font-weight: 700;
+}
+.profile__user_location {
+  font-size: 14px;
+  line-height: 150%;
+  opacity: 0.7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 5px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .profile__actions {
   margin: 15px 0px 0px 0px;
@@ -216,23 +256,22 @@ html[theme=light] .profile__post_delete:hover {
   height: 23px;
 }
 .profile__about {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  gap: 10px;
+}
+.profile__about_link {
+  text-align: center;
+  border-radius: 4px;
+  display: inline-block;
+  text-transform: capitalize;
   font-size: 16px;
   line-height: 150%;
-  text-transform: capitalize;
 }
-.profile__about_more {
-  font-size: 16px;
-  background-color: transparent;
-  padding: 5px 10px;
-  margin: 0px 0px -5px 0px;
-}
-.profile__about_more:hover {
-  text-decoration: underline;
-}
-.profile__about a {
-  padding: 3px 0;
-}
-.profile__about a:hover {
+.profile__about_link:hover {
   text-decoration: underline;
 }
 .profile__edit_title {
@@ -568,15 +607,18 @@ html[theme=light] .profile__post_delete:hover {
   .profile__user_name {
     font-size: 24px;
   }
+  .profile__user_location {
+    font-size: 16px;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+  }
   .profile__actions {
     gap: 15px;
   }
   .profile__actions a,
 .profile__actions button:not(.profile__edit_close) {
     width: 175px;
-  }
-  .profile__edit_label span {
-    margin: 0px 15px 0px 0px;
   }
   .profile__post_date {
     font-size: 14px;

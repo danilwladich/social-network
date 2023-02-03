@@ -3,6 +3,7 @@ html[theme="dark"] {
 		&__actions {
 			& > a,
 			> button {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:hover {
 					background-color: var(--dark-button-bg-active);
@@ -17,6 +18,7 @@ html[theme="dark"] {
 				}
 			}
 			&_button {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:not(:disabled):hover {
 					background-color: var(--dark-button-bg-active);
@@ -25,14 +27,19 @@ html[theme="dark"] {
 		}
 		&__posts {
 			&_input {
-				border: 2px solid var(--dark-text-color);
-				background-color: var(--dark-main-bg);
+				border: 2px solid var(--dark-button-bg);
 			}
 			&_send {
 				circle {
 					stroke: var(--dark-text-color);
 				}
 				&:not(:disabled):hover {
+					circle {
+						stroke: var(--dark-button-text-color);
+					}
+					path {
+						fill: var(--dark-button-text-color);
+					}
 					background-color: var(--dark-button-bg-active);
 				}
 			}
@@ -45,6 +52,7 @@ html[theme="dark"] {
 				background-color: var(--dark-button-bg);
 			}
 			&_like {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:hover {
 					background-color: var(--dark-button-bg-active);
@@ -55,10 +63,11 @@ html[theme="dark"] {
 				span,
 				span:before,
 				span:after {
-					background-color: var(--dark-text-color);
+					background-color: var(--dark-button-bg);
 				}
 			}
 			&_delete {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:hover {
 					background-color: var(--dark-button-bg-active);
@@ -72,6 +81,7 @@ html[theme="light"] {
 		&__actions {
 			& > a,
 			> button {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:hover {
 					background-color: var(--light-button-bg-active);
@@ -86,6 +96,7 @@ html[theme="light"] {
 				}
 			}
 			&_button {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:not(:disabled):hover {
 					background-color: var(--light-button-bg-active);
@@ -94,14 +105,19 @@ html[theme="light"] {
 		}
 		&__posts {
 			&_input {
-				border: 2px solid var(--light-text-color);
-				background-color: var(--light-main-bg);
+				border: 2px solid var(--light-button-bg);
 			}
 			&_send {
 				circle {
 					stroke: var(--light-text-color);
 				}
 				&:not(:disabled):hover {
+					circle {
+						stroke: var(--light-button-text-color);
+					}
+					path {
+						fill: var(--light-button-text-color);
+					}
 					background-color: var(--light-button-bg-active);
 				}
 			}
@@ -114,6 +130,7 @@ html[theme="light"] {
 				background-color: var(--light-button-bg);
 			}
 			&_like {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:hover {
 					background-color: var(--light-button-bg-active);
@@ -124,10 +141,11 @@ html[theme="light"] {
 				span,
 				span:before,
 				span:after {
-					background-color: var(--light-text-color);
+					background-color: var(--light-button-bg);
 				}
 			}
 			&_delete {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:hover {
 					background-color: var(--light-button-bg-active);
@@ -207,10 +225,23 @@ html[theme="light"] {
 				border-radius: 50%;
 			}
 		}
+		&_info {
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+		}
 		&_name {
 			font-size: 22px;
 			line-height: 150%;
 			font-weight: 700;
+		}
+		&_location {
+			font-size: 14px;
+			line-height: 150%;
+			opacity: 0.7;
+			display: flex;
+			gap: 5px;
+			justify-content: center;
 		}
 	}
 	&__actions {
@@ -225,7 +256,6 @@ html[theme="light"] {
 			background-color: transparent;
 			font-size: 20px;
 			border-radius: 4px;
-
 			width: 100%;
 			text-align: center;
 		}
@@ -238,20 +268,16 @@ html[theme="light"] {
 		}
 	}
 	&__about {
-		font-size: 16px;
-		line-height: 150%;
-		text-transform: capitalize;
-		&_more {
+		display: flex;
+		justify-content: space-around;
+		gap: 10px;
+		&_link {
+			text-align: center;
+			border-radius: 4px;
+			display: inline-block;
+			text-transform: capitalize;
 			font-size: 16px;
-			background-color: transparent;
-			padding: 5px 10px;
-			margin: 0px 0px -5px 0px;
-			&:hover {
-				text-decoration: underline;
-			}
-		}
-		a {
-			padding: 3px 0;
+			line-height: 150%;
 			&:hover {
 				text-decoration: underline;
 			}
@@ -559,19 +585,16 @@ html[theme="light"] {
 			&_name {
 				font-size: 24px;
 			}
+			&_location {
+				font-size: 16px;
+				justify-content: start;
+			}
 		}
 		&__actions {
 			gap: 15px;
 			a,
 			button:not(.profile__edit_close) {
 				width: 175px;
-			}
-		}
-		&__edit {
-			&_label {
-				span {
-					margin: 0px 15px 0px 0px;
-				}
 			}
 		}
 		&__post {

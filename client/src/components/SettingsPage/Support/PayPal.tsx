@@ -16,7 +16,7 @@ export function PayPal(props: IProps) {
 			env: "production",
 			hosted_button_id: "VRPNAEV6SJZHN",
 			image: {
-				src: "https://pics.paypal.com/00/s/N2I2MjBjNjEtNzQ0Mi00YmUwLWE2ZDQtNTNlMTYwZjM2ZTU0/file.PNG",
+				src: "/images/paypal.jpg",
 				alt: "Donate with PayPal button",
 				title: "PayPal - The safer, easier way to pay online!",
 			},

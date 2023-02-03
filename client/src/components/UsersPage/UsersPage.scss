@@ -14,10 +14,11 @@ html[theme="dark"] {
 				span,
 				span:before,
 				span:after {
-					background-color: var(--dark-text-color);
+					background-color: var(--dark-button-bg);
 				}
 			}
 			&_follow {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:hover {
 					background-color: var(--dark-button-bg-active);
@@ -26,6 +27,10 @@ html[theme="dark"] {
 		}
 		&__pagination {
 			button {
+				svg {
+					fill: var(--dark-button-text-color);
+				}
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:not(:disabled):hover {
 					background-color: var(--dark-button-bg-active);
@@ -34,7 +39,7 @@ html[theme="dark"] {
 			&_page {
 				&.active {
 					&:after {
-						background-color: var(--dark-text-color);
+						background-color: var(--dark-button-text-color);
 					}
 				}
 			}
@@ -57,10 +62,11 @@ html[theme="light"] {
 				span,
 				span:before,
 				span:after {
-					background-color: var(--light-text-color);
+					background-color: var(--light-button-bg);
 				}
 			}
 			&_follow {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:hover {
 					background-color: var(--light-button-bg-active);
@@ -69,6 +75,10 @@ html[theme="light"] {
 		}
 		&__pagination {
 			button {
+				svg {
+					fill: var(--light-button-text-color);
+				}
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:not(:disabled):hover {
 					background-color: var(--light-button-bg-active);
@@ -77,7 +87,7 @@ html[theme="light"] {
 			&_page {
 				&.active {
 					&:after {
-						background-color: var(--light-text-color);
+						background-color: var(--light-button-text-color);
 					}
 				}
 			}
@@ -87,7 +97,7 @@ html[theme="light"] {
 
 .users {
 	&__loading {
-		&_items{
+		&_items {
 			margin: -10px 0px 0px 0px;
 		}
 		&_item {

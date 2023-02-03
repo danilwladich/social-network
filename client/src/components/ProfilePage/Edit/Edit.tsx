@@ -1,14 +1,11 @@
 import React, { useState } from "react";
+import { ProfileUserData } from "../../../models/Profile/ProfileUserData";
 import { CloseX } from "../../assets/CloseX";
 import { EditForm } from "./EditForm";
 
 interface IProps {
+	userData: ProfileUserData;
 	authID: string;
-	image?: string;
-	location: {
-		country?: string;
-		city?: string;
-	};
 	editProfileTC: (
 		image?: File,
 		id?: string,
@@ -19,7 +16,7 @@ interface IProps {
 
 export function Edit(props: IProps) {
 	const [showModal, setShowModal] = useState(false);
-	
+
 	const bodyLock = document.querySelector("body");
 	function modalOn() {
 		bodyLock?.classList.add("lock");
@@ -29,7 +26,7 @@ export function Edit(props: IProps) {
 		bodyLock?.classList.remove("lock");
 		setShowModal(false);
 	}
-	
+
 	return (
 		<>
 			<button onClick={() => modalOn()} className="profile__actions_edit">
@@ -46,7 +43,7 @@ export function Edit(props: IProps) {
 						<button className="profile__edit_close" onClick={() => modalOff()}>
 							<CloseX />
 						</button>
-						<EditForm {...props} />
+						<EditForm {...props} modalOff={modalOff} />
 					</div>
 				</>
 			)}

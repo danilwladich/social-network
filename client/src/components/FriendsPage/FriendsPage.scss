@@ -7,6 +7,7 @@ html[theme="dark"] {
 		}
 		&__categories {
 			&_button {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:not(.active) {
 					&:hover {
@@ -27,10 +28,11 @@ html[theme="dark"] {
 				span,
 				span:before,
 				span:after {
-					background-color: var(--dark-text-color);
+					background-color: var(--dark-button-bg);
 				}
 			}
 			&_follow {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:hover {
 					background-color: var(--dark-button-bg-active);
@@ -48,6 +50,7 @@ html[theme="light"] {
 		}
 		&__categories {
 			&_button {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:not(.active) {
 					&:hover {
@@ -68,10 +71,11 @@ html[theme="light"] {
 				span,
 				span:before,
 				span:after {
-					background-color: var(--light-text-color);
+					background-color: var(--light-button-bg);
 				}
 			}
 			&_follow {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:hover {
 					background-color: var(--light-button-bg-active);

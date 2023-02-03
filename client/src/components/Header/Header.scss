@@ -1,7 +1,7 @@
 html[theme="dark"] {
 	.header {
 		background-color: var(--dark-subsection-bg);
-		border-bottom: 1px solid var(--dark-text-color);
+		border-bottom: 1px solid var(--dark-button-bg);
 		&__burger {
 			&:before,
 			&:after {
@@ -18,7 +18,7 @@ html[theme="dark"] {
 html[theme="light"] {
 	.header {
 		background-color: var(--light-subsection-bg);
-		border-bottom: 1px solid var(--light-text-color);
+		border-bottom: 1px solid var(--light-button-bg);
 		&__burger {
 			&:before,
 			&:after {
@@ -34,7 +34,7 @@ html[theme="light"] {
 
 .header {
 	transition: background-color 0s;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 	z-index: 50;
 	position: fixed;
 	width: 100%;

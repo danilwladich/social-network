@@ -4,6 +4,8 @@ html[theme="dark"] {
 			border-bottom: var(--dark-items-border-bottom) solid 1px;
 		}
 		&__button {
+			stroke: var(--dark-button-text-color);
+			color: var(--dark-button-text-color);
 			background-color: var(--dark-button-bg);
 			&:hover {
 				background-color: var(--dark-button-bg-active);
@@ -35,6 +37,8 @@ html[theme="light"] {
 			border-bottom: var(--light-items-border-bottom) solid 1px;
 		}
 		&__button {
+			stroke: var(--light-button-text-color);
+			color: var(--light-button-text-color);
 			background-color: var(--light-button-bg);
 			&:hover {
 				background-color: var(--light-button-bg-active);
@@ -111,22 +115,6 @@ html[theme="light"] {
 		}
 		&.disabled {
 			opacity: 0.7;
-		}
-		&.delete {
-			line-height: 100%;
-			&:hover {
-				color: #fff;
-				background-color: red !important;
-				svg {
-					circle {
-						stroke: #fff;
-					}
-				}
-			}
-			svg {
-				width: 125px;
-				height: 20px;
-			}
 		}
 	}
 	&__delete {
@@ -218,7 +206,9 @@ html[theme="light"] {
 		margin: 15px 0px 0px 0px;
 		background-color: transparent;
 		img {
-			height: 60px;
+			margin: 3px;
+			height: 45px;
+			border-radius: 4px;
 		}
 	}
 	&__topdonations {

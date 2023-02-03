@@ -10,22 +10,27 @@ html[theme=dark] .users__user_showactions {
 html[theme=dark] .users__user_showactions span,
 html[theme=dark] .users__user_showactions span:before,
 html[theme=dark] .users__user_showactions span:after {
-  background-color: var(--dark-text-color);
+  background-color: var(--dark-button-bg);
 }
 html[theme=dark] .users__user_follow {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .users__user_follow:hover {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .users__pagination button {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
+}
+html[theme=dark] .users__pagination button svg {
+  fill: var(--dark-button-text-color);
 }
 html[theme=dark] .users__pagination button:not(:disabled):hover {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .users__pagination_page.active:after {
-  background-color: var(--dark-text-color);
+  background-color: var(--dark-button-text-color);
 }
 
 html[theme=light] .users__loading_item:not(:last-child) {
@@ -40,22 +45,27 @@ html[theme=light] .users__user_showactions {
 html[theme=light] .users__user_showactions span,
 html[theme=light] .users__user_showactions span:before,
 html[theme=light] .users__user_showactions span:after {
-  background-color: var(--light-text-color);
+  background-color: var(--light-button-bg);
 }
 html[theme=light] .users__user_follow {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .users__user_follow:hover {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .users__pagination button {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
+}
+html[theme=light] .users__pagination button svg {
+  fill: var(--light-button-text-color);
 }
 html[theme=light] .users__pagination button:not(:disabled):hover {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .users__pagination_page.active:after {
-  background-color: var(--light-text-color);
+  background-color: var(--light-button-text-color);
 }
 
 .users__loading_items {

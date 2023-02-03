@@ -2,59 +2,57 @@ import React, { useState } from "react";
 import { EditContainer } from "../Edit/EditContainer";
 import { NavLink } from "react-router-dom";
 import { LoadingCircle } from "../../assets/LoadingCircle";
+import { ProfileUserData } from "../../../models/Profile/ProfileUserData";
 
 interface IProps {
 	authID: string;
-	userID: string;
-	follower?: boolean;
-	followed?: boolean;
+	userData: ProfileUserData;
 	setFollowTC: (userID: string) => Promise<void>;
 	setUnfollowTC: (userID: string) => Promise<void>;
 }
 
 export function Actions(props: IProps) {
+	const userData = props.userData;
 	const [followButtonInProgress, setFollowButtonInProgress] = useState(false);
 
 	function setFollow() {
 		setFollowButtonInProgress(true);
-		props
-			.setFollowTC(props.userID)
-			.then(() => setFollowButtonInProgress(false));
+		props.setFollowTC(userData.id).then(() => setFollowButtonInProgress(false));
 	}
 	function setUnfollow() {
 		setFollowButtonInProgress(true);
 		props
-			.setUnfollowTC(props.userID)
+			.setUnfollowTC(userData.id)
 			.then(() => setFollowButtonInProgress(false));
 	}
 	return (
 		<>
 			<div className="profile__actions">
-				{props.authID === props.userID ? (
+				{props.authID === userData.id ? (
 					<EditContainer />
 				) : (
 					<>
 						<NavLink
 							draggable="false"
-							to={"/messages/" + props.userID}
+							to={"/messages/" + userData.id}
 							className="profile__actions_message"
 						>
 							Message
 						</NavLink>
 						<button
 							onClick={() => {
-								props.followed ? setUnfollow() : setFollow();
+								userData.followed ? setUnfollow() : setFollow();
 							}}
 							disabled={followButtonInProgress}
 							className="profile__actions_follow"
 						>
 							{followButtonInProgress ? (
 								<LoadingCircle />
-							) : props.follower && props.followed ? (
+							) : userData.follower && userData.followed ? (
 								"Unfriend"
-							) : props.followed ? (
+							) : userData.followed ? (
 								"Followed"
-							) : props.follower ? (
+							) : userData.follower ? (
 								"Accept request"
 							) : (
 								"Add friend"

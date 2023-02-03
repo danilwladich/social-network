@@ -5,6 +5,7 @@ html[theme=dark] .news__post_more {
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .news__post_like {
+  color: var(--light-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .news__post_like:hover {
@@ -18,6 +19,7 @@ html[theme=light] .news__post_more {
   background-color: var(--light-button-bg);
 }
 html[theme=light] .news__post_like {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .news__post_like:hover {

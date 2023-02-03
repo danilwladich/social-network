@@ -2,6 +2,7 @@ html[theme=dark] .friends__loading_item:not(:last-child) {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .friends__categories_button {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .friends__categories_button:not(.active):hover {
@@ -19,9 +20,10 @@ html[theme=dark] .friends__user_showactions {
 html[theme=dark] .friends__user_showactions span,
 html[theme=dark] .friends__user_showactions span:before,
 html[theme=dark] .friends__user_showactions span:after {
-  background-color: var(--dark-text-color);
+  background-color: var(--dark-button-bg);
 }
 html[theme=dark] .friends__user_follow {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .friends__user_follow:hover {
@@ -32,6 +34,7 @@ html[theme=light] .friends__loading_item:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .friends__categories_button {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .friends__categories_button:not(.active):hover {
@@ -49,9 +52,10 @@ html[theme=light] .friends__user_showactions {
 html[theme=light] .friends__user_showactions span,
 html[theme=light] .friends__user_showactions span:before,
 html[theme=light] .friends__user_showactions span:after {
-  background-color: var(--light-text-color);
+  background-color: var(--light-button-bg);
 }
 html[theme=light] .friends__user_follow {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .friends__user_follow:hover {

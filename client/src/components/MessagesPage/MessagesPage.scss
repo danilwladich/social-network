@@ -10,10 +10,21 @@ html[theme="dark"] {
 		}
 		&__user {
 			&.unread {
-				background-color: var(--dark-button-bg);
+				* {
+					color: var(--dark-button-text-color);
+				}
+				background-color: var(--dark-button-bg-active);
 			}
 			&:hover {
-				background-color: var(--dark-button-bg-active);
+				* {
+					color: var(--dark-button-text-color);
+				}
+				.messages__user_lastmessage_status:not(.read) {
+					svg {
+						fill: var(--dark-button-text-color);
+					}
+				}
+				background-color: var(--dark-button-bg);
 			}
 		}
 		&__chat {
@@ -22,22 +33,25 @@ html[theme="dark"] {
 		&__header {
 			border-bottom: var(--dark-items-border-bottom) solid 1px;
 			&_back {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:hover {
 					background-color: var(--dark-button-bg-active);
 				}
 				svg {
-					fill: var(--dark-text-color);
+					fill: var(--dark-button-text-color);
 				}
 			}
 		}
 		&__field {
 			&_input {
-				border: 2px solid var(--dark-text-color);
-				background-color: var(--dark-button-bg);
+				border: 2px solid var(--dark-button-bg);
 			}
 			&_send {
 				&:not(:disabled):hover {
+					path {
+						fill: var(--dark-button-text-color);
+					}
 					background-color: var(--dark-button-bg-active);
 				}
 			}
@@ -45,6 +59,14 @@ html[theme="dark"] {
 		&__message {
 			&_content {
 				background-color: var(--dark-main-bg);
+			}
+			&.out {
+				.messages__message_content {
+					* {
+						color: var(--dark-button-text-color);
+					}
+					background-color: var(--dark-button-bg);
+				}
 			}
 		}
 	}
@@ -61,10 +83,21 @@ html[theme="light"] {
 		}
 		&__user {
 			&.unread {
-				background-color: var(--light-button-bg);
+				* {
+					color: var(--light-button-text-color);
+				}
+				background-color: var(--light-button-bg-active);
 			}
 			&:hover {
-				background-color: var(--light-button-bg-active);
+				* {
+					color: var(--light-button-text-color);
+				}
+				.messages__user_lastmessage_status:not(.read) {
+					svg {
+						fill: var(--light-button-text-color);
+					}
+				}
+				background-color: var(--light-button-bg);
 			}
 		}
 		&__chat {
@@ -73,22 +106,25 @@ html[theme="light"] {
 		&__header {
 			border-bottom: var(--light-items-border-bottom) solid 1px;
 			&_back {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:hover {
 					background-color: var(--light-button-bg-active);
 				}
 				svg {
-					fill: var(--light-text-color);
+					fill: var(--light-button-text-color);
 				}
 			}
 		}
 		&__field {
 			&_input {
-				border: 2px solid var(--light-text-color);
-				background-color: var(--light-button-bg);
+				border: 2px solid var(--light-button-bg);
 			}
 			&_send {
 				&:not(:disabled):hover {
+					path {
+						fill: var(--light-button-text-color);
+					}
 					background-color: var(--light-button-bg-active);
 				}
 			}
@@ -96,6 +132,14 @@ html[theme="light"] {
 		&__message {
 			&_content {
 				background-color: var(--light-main-bg);
+			}
+			&.out {
+				.messages__message_content {
+					* {
+						color: var(--light-button-text-color);
+					}
+					background-color: var(--light-button-bg);
+				}
 			}
 		}
 	}
@@ -233,6 +277,7 @@ html[theme="light"] {
 			white-space: nowrap;
 		}
 		&_name {
+			transition: all 0.2s;
 			font-size: 16px;
 			font-weight: 700;
 			overflow: hidden;
@@ -245,6 +290,7 @@ html[theme="light"] {
 			align-items: center;
 			gap: 5px;
 			&_text {
+				transition: all 0.2s;
 				flex: 1 1 auto;
 				overflow-x: hidden;
 				text-overflow: ellipsis;

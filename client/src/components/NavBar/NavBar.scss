@@ -3,7 +3,7 @@ html[theme="dark"] {
 		&__link {
 			&:hover {
 				background-color: var(--dark-subsection-bg);
-				border: 1px solid var(--dark-text-color);
+				border: 1px solid var(--dark-button-bg);
 			}
 		}
 		@media (max-width: 766px) {
@@ -17,7 +17,7 @@ html[theme="light"] {
 		&__link {
 			&:hover {
 				background-color: var(--light-subsection-bg);
-				border: 1px solid var(--light-text-color);
+				border: 1px solid var(--light-button-bg);
 			}
 		}
 		@media (max-width: 766px) {
@@ -41,7 +41,7 @@ html[theme="light"] {
 		margin: 1px;
 		&:hover {
 			margin: 0;
-			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 		}
 		&.active {
 			font-weight: 700;

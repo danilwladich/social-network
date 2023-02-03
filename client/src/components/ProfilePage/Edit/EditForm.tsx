@@ -2,21 +2,19 @@ import React, { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 import { useNavigate } from "react-router-dom";
-import { socket } from "./../../../App";
+import { socket } from "../../../App";
+import { ProfileUserData } from "../../../models/Profile/ProfileUserData";
 
 interface IProps {
+	userData: ProfileUserData;
 	authID: string;
-	image?: string;
-	location: {
-		country?: string;
-		city?: string;
-	};
 	editProfileTC: (
 		image?: File,
 		id?: string,
 		country?: string,
 		city?: string
 	) => Promise<void>;
+	modalOff: () => void;
 }
 
 export function EditForm(props: IProps) {
@@ -34,7 +32,6 @@ export function EditForm(props: IProps) {
 			};
 		}
 	}
-
 	function onSubmit(v: {
 		image?: FileList;
 		id?: string;
@@ -50,11 +47,11 @@ export function EditForm(props: IProps) {
 					socket.emit("nicknameChanged", { nickname: props.authID });
 					navigate("/" + v.id.trim());
 				}
+				props.modalOff();
 			})
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));
 	}
-
 	function validate(e: {
 		image?: FileList;
 		id?: string;
@@ -136,7 +133,6 @@ export function EditForm(props: IProps) {
 
 		return errors;
 	}
-
 	return (
 		<>
 			<Form
@@ -156,7 +152,7 @@ export function EditForm(props: IProps) {
 										<span>Update profile image</span>
 										<img
 											ref={newImageRef}
-											src={props.image || "/images/user.jpg"}
+											src={props.userData.image || "/images/user.jpg"}
 											alt={props.authID}
 										/>
 									</label>
@@ -217,7 +213,9 @@ export function EditForm(props: IProps) {
 										id="countryInput"
 										type="text"
 										className="profile__edit_input"
-										placeholder={props.location.country || "Your country"}
+										placeholder={
+											props.userData.location.country || "Your country"
+										}
 									/>
 									{meta.touched && meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>
@@ -238,7 +236,7 @@ export function EditForm(props: IProps) {
 										id="cityInput"
 										type="text"
 										className="profile__edit_input"
-										placeholder={props.location.city || "Your city"}
+										placeholder={props.userData.location.city || "Your city"}
 									/>
 									{meta.touched && meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>

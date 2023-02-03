@@ -48,6 +48,10 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			image: user.avatar,
+			location: {
+				country: user.location?.country,
+				city: user.location?.city,
+			},
 			follower:
 				!!authID && authNickname !== nickname
 					? user.following.some((id) => id === authID)
@@ -62,14 +66,10 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 			user.following.filter((id) => user.followers.includes(id)).length || 0;
 
 		const aboutData = {
-			friends,
 			follow: {
+				friends,
 				followers: user.followers.length - friends,
 				following: user.following.length - friends,
-			},
-			location: {
-				country: user.location?.country,
-				city: user.location?.city,
 			},
 		};
 
@@ -324,10 +324,8 @@ router.put(
 			}
 
 			const authID = req.user!.userID as string;
-			
-			const id = req.body.id.trim();
-			const country = req.body.country.trim();
-			const city = req.body.city.trim();
+
+			const { id, country, city } = req.body;
 			const image = req.file;
 
 			const user = await User.findById(authID);
@@ -343,15 +341,17 @@ router.put(
 			}
 
 			if (!!country) {
-				await user.updateOne({ "location.country": country });
+				await user.updateOne({ "location.country": country.trim() });
 			}
 
 			if (!!city) {
-				await user.updateOne({ "location.city": city });
+				await user.updateOne({ "location.city": city.trim() });
 			}
 
 			if (!!id) {
-				const nicknameAlreadyExist = await User.findOne({ nickname: id });
+				const nicknameAlreadyExist = await User.findOne({
+					nickname: id.trim(),
+				});
 
 				if (!!nicknameAlreadyExist) {
 					return res.status(200).json({
@@ -360,11 +360,11 @@ router.put(
 					});
 				}
 
-				await user.updateOne({ nickname: id });
+				await user.updateOne({ nickname: id.trim() });
 
 				return res
 					.status(201)
-					.cookie("nickname", id, {
+					.cookie("nickname", id.trim(), {
 						maxAge: 2419000000,
 						httpOnly: true,
 						path: "/api",

@@ -2,6 +2,8 @@ html[theme=dark] .settings__item:not(:last-child) {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .settings__button {
+  stroke: var(--dark-button-text-color);
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .settings__button:hover {
@@ -27,6 +29,8 @@ html[theme=light] .settings__item:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .settings__button {
+  stroke: var(--light-button-text-color);
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .settings__button:hover {
@@ -110,20 +114,6 @@ html[theme=light] .settings__donation:hover {
 }
 .settings__button.disabled {
   opacity: 0.7;
-}
-.settings__button.delete {
-  line-height: 100%;
-}
-.settings__button.delete:hover {
-  color: #fff;
-  background-color: red !important;
-}
-.settings__button.delete:hover svg circle {
-  stroke: #fff;
-}
-.settings__button.delete svg {
-  width: 125px;
-  height: 20px;
 }
 .settings__delete_title {
   line-height: 1;
@@ -219,7 +209,9 @@ html[theme=light] .settings__donation:hover {
   background-color: transparent;
 }
 .settings__donation img {
-  height: 60px;
+  margin: 3px;
+  height: 45px;
+  border-radius: 4px;
 }
 .settings__topdonations_title {
   font-size: 18px;

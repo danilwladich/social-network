@@ -39,9 +39,7 @@ router.post(
 				});
 			}
 
-			const { phoneNumber, password, recaptcha } = req.body;
-			const firstName = req.body.firstName.trim();
-			const lastName = req.body.lastName.trim();
+			const { phoneNumber, password, firstName, lastName, recaptcha } = req.body;
 
 			const secretKey = config.get("recaptchaSecretKey");
 
@@ -71,8 +69,8 @@ router.post(
 				nickname,
 				phoneNumber,
 				password: hashedPassword,
-				firstName,
-				lastName,
+				firstName: firstName.trim(),
+				lastName: lastName.trim(),
 			});
 			await user.save();
 

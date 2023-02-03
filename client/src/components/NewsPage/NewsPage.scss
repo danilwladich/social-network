@@ -8,6 +8,7 @@ html[theme="dark"] {
 				background-color: var(--dark-button-bg);
 			}
 			&_like {
+				color: var(--light-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:hover {
 					background-color: var(--dark-button-bg-active);
@@ -26,6 +27,7 @@ html[theme="light"] {
 				background-color: var(--light-button-bg);
 			}
 			&_like {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:hover {
 					background-color: var(--light-button-bg-active);

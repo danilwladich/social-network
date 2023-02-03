@@ -18,16 +18,16 @@ const initialState: IProfile = {
 		firstName: "",
 		lastName: "",
 		image: "",
-	},
-	aboutData: {
-		friends: 0,
-		follow: {
-			followers: 0,
-			following: 0,
-		},
 		location: {
 			country: "",
 			city: "",
+		},
+	},
+	aboutData: {
+		follow: {
+			friends: 0,
+			followers: 0,
+			following: 0,
 		},
 	},
 	postsData: [],
@@ -110,9 +110,9 @@ export function profileReducer(
 				aboutData: state.userData.follower
 					? {
 							...state.aboutData,
-							friends: state.aboutData.friends + 1,
 							follow: {
 								...state.aboutData.follow,
+								friends: state.aboutData.follow.friends + 1,
 								following: state.aboutData.follow.following - 1,
 							},
 					  }
@@ -132,9 +132,9 @@ export function profileReducer(
 				aboutData: state.userData.follower
 					? {
 							...state.aboutData,
-							friends: state.aboutData.friends - 1,
 							follow: {
 								...state.aboutData.follow,
+								friends: state.aboutData.follow.friends - 1,
 								following: state.aboutData.follow.following + 1,
 							},
 					  }
@@ -221,16 +221,16 @@ export const getProfileTC = (userID: string) => {
 								firstName: "",
 								lastName: "",
 								image: "",
-							},
-							{
-								friends: 0,
-								follow: {
-									followers: 0,
-									following: 0,
-								},
 								location: {
 									country: "",
 									city: "",
+								},
+							},
+							{
+								follow: {
+									friends: 0,
+									followers: 0,
+									following: 0,
 								},
 							}
 						)

@@ -5,9 +5,8 @@ import { editProfileTC } from "../../../redux/profileReducer";
 
 function mapStateToProps(state: IState) {
 	return {
+		userData: state.profile.userData,
 		authID: state.auth.user.id,
-		image: state.profile.userData.image,
-		location: state.profile.aboutData.location,
 	};
 }
 
