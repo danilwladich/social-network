@@ -169,6 +169,7 @@ router.post(
 			const { post } = req.body;
 
 			const newPost = new Post({
+				date: new Date().toString().split(" ").slice(1, 5).join(" "),
 				post,
 				owner: authID,
 			});
