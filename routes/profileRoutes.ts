@@ -13,7 +13,7 @@ const store = multer.diskStorage({
 	destination(req: IGetUserAuthRequest, file, cb) {
 		let path;
 		if (process.env.NODE_ENV === "production") {
-			path = "./client/build/images/" + req.user!.userID;
+			path = "./client/production/images/" + req.user!.userID;
 		} else {
 			path = "./client/public/images/" + req.user!.userID;
 		}

@@ -35,9 +35,9 @@ app.use("/api/follow", followRoutes);
 app.use("/api/donations", donationsRoutes);
 
 if (process.env.NODE_ENV === "production") {
-	app.use("/", express.static(path.join(__dirname, "../client/build")));
+	app.use("/", express.static(path.join(__dirname, "../client/production")));
 	app.use((req, res, next) => {
-		res.sendFile(path.join(__dirname, "../client/build/index.html"));
+		res.sendFile(path.join(__dirname, "../client/production/index.html"));
 	});
 }
 

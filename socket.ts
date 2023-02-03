@@ -27,8 +27,8 @@ export default (io: Server) => {
 					userID: decoded.userID,
 				};
 
+				console.log(" ");
 				console.log("Users: " + Object.keys(connectedSockets).join(" , "));
-
 				console.log("Online: " + Object.keys(connectedSockets).length);
 			} catch (e) {}
 		});

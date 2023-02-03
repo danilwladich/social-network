@@ -151,9 +151,9 @@ html[theme="light"] {
 			padding: 5px calc(10px + env(safe-area-inset-right)) 5px
 				calc(10px + env(safe-area-inset-left));
 			z-index: 250;
-			position: absolute;
-			left: -10px;
-			top: -40px;
+			position: fixed;
+			left: 0;
+			top: 0;
 			height: 100vh;
 			width: 100vw;
 			display: flex;
@@ -275,9 +275,9 @@ html[theme="light"] {
 			calc(5px + env(safe-area-inset-bottom))
 			calc(10px + env(safe-area-inset-left));
 		z-index: 250;
-		position: absolute;
-		left: -10px;
-		top: -40px;
+		position: fixed;
+		left: 0;
+		top: 0;
 		height: 100vh;
 		width: 100vw;
 		display: flex;

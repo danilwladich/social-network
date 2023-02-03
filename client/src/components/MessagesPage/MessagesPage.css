@@ -145,9 +145,9 @@ html[theme=light] .messages__message_content {
 .messages__loading_chat {
   padding: 5px calc(10px + env(safe-area-inset-right)) 5px calc(10px + env(safe-area-inset-left));
   z-index: 250;
-  position: absolute;
-  left: -10px;
-  top: -40px;
+  position: fixed;
+  left: 0;
+  top: 0;
   height: 100vh;
   width: 100vw;
   display: -webkit-box;
@@ -303,9 +303,9 @@ html[theme=light] .messages__message_content {
 .messages__chat {
   padding: calc(5px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right)) calc(5px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
   z-index: 250;
-  position: absolute;
-  left: -10px;
-  top: -40px;
+  position: fixed;
+  left: 0;
+  top: 0;
   height: 100vh;
   width: 100vw;
   display: -webkit-box;
