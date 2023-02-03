@@ -46,14 +46,24 @@ export function Chat(props: IProps) {
 	// set chat height
 	useEffect(() => {
 		window.addEventListener("resize", chatHeight);
+		window.addEventListener("orientationchange", chatHeight);
 		return () => {
 			window.removeEventListener("resize", chatHeight);
+			window.removeEventListener("orientationchange", chatHeight);
 		};
 	});
 
 	function chatHeight() {
 		const doc = document.documentElement;
-		doc.style.setProperty("--chat-height", `${window.innerHeight}px`);
+		doc.style.setProperty(
+			"--chat-height",
+			`${Math.min(
+				window.visualViewport
+					? window.visualViewport.height
+					: window.innerHeight,
+				document.documentElement.clientHeight
+			)}px`
+		);
 	}
 	chatHeight();
 
