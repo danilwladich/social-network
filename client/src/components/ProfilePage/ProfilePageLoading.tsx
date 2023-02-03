@@ -8,7 +8,10 @@ export function ProfilePageLoading() {
 					<div className="profile__loading">
 						<div className="profile__loading_user">
 							<div className="profile__loading_image loading_element"></div>
-							<div className="profile__loading_name loading_element"></div>
+							<div className="profile__loading_info">
+								<div className="profile__loading_name loading_element"></div>
+								<div className="profile__loading_location loading_element"></div>
+							</div>
 						</div>
 
 						<div className="profile__loading_actions">
@@ -20,7 +23,6 @@ export function ProfilePageLoading() {
 
 				<div className="subsection">
 					<div className="profile__loading_about">
-						<p className="loading_element"></p>
 						<p className="loading_element"></p>
 						<p className="loading_element"></p>
 						<p className="loading_element"></p>
