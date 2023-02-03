@@ -26,9 +26,9 @@ export function ChatInput(props: IProps) {
 			fieldRef.current!.style.height = "50px";
 		}
 	}
-
 	function sendMessage() {
 		if (newMessageValue.trim() !== "") {
+			fieldRef.current?.focus();
 			updateNewMessageValue("");
 
 			const from = props.authID;
@@ -54,7 +54,6 @@ export function ChatInput(props: IProps) {
 			props.sendMessage(newMessageValue.trim(), id);
 		}
 	}
-
 	function onKeyDownHandler(e: React.KeyboardEvent<HTMLSpanElement>) {
 		if (!e.shiftKey && e.key === "Enter") {
 			e.preventDefault();
