@@ -43,32 +43,6 @@ export function Chat(props: IProps) {
 		};
 	});
 
-	// set chat height
-	useEffect(() => {
-		window.addEventListener("resize", chatHeight);
-		window.addEventListener("orientationchange", chatHeight);
-		window.visualViewport?.addEventListener("resize", chatHeight);
-		return () => {
-			window.removeEventListener("resize", chatHeight);
-			window.removeEventListener("orientationchange", chatHeight);
-			window.visualViewport?.removeEventListener("resize", chatHeight);
-		};
-	});
-
-	function chatHeight() {
-		const doc = document.documentElement;
-		doc.style.setProperty(
-			"--chat-height",
-			`${Math.min(
-				window.visualViewport
-					? window.visualViewport.height
-					: window.innerHeight,
-				document.documentElement.clientHeight
-			)}px`
-		);
-	}
-	chatHeight();
-
 	// scroll bottom after get and send messages + read messages socket
 	useEffect(() => {
 		if (!!props.messagesData.length) {
@@ -85,10 +59,46 @@ export function Chat(props: IProps) {
 		}
 		// eslint-disable-next-line
 	}, [props.messagesData]);
-
 	function scrollBottom() {
 		messagesEnd.current?.scrollIntoView();
 	}
+
+	// set chat height
+	useEffect(() => {
+		window.addEventListener("scroll", handleScroll);
+		window.addEventListener("resize", chatHeight);
+		window.addEventListener("orientationchange", chatHeight);
+		window.visualViewport?.addEventListener("resize", chatHeight);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("resize", chatHeight);
+			window.removeEventListener("orientationchange", chatHeight);
+			window.visualViewport?.removeEventListener("resize", chatHeight);
+		};
+	});
+	function chatHeight() {
+		const bodyLock = document.querySelector("body");
+		if (window.innerWidth < 767) {
+			bodyLock?.classList.add("lock");
+		} else {
+			bodyLock?.classList.remove("lock");
+		}
+
+		const doc = document.documentElement;
+		doc.style.setProperty(
+			"--chat-height",
+			`${Math.min(
+				window.visualViewport
+					? window.visualViewport.height
+					: window.innerHeight,
+				document.documentElement.clientHeight
+			)}px`
+		);
+	}
+	const handleScroll = () => {
+		window.scrollTo(0, 0);
+	};
+	chatHeight();
 
 	return (
 		<>
