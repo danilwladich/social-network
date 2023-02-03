@@ -78,13 +78,6 @@ export function Chat(props: IProps) {
 		// eslint-disable-next-line
 	}, []);
 	function chatHeight() {
-		const bodyLock = document.querySelector("body");
-		if (window.innerWidth < 767) {
-			bodyLock?.classList.add("lock");
-		} else {
-			bodyLock?.classList.remove("lock");
-		}
-
 		const doc = document.documentElement;
 		doc.style.setProperty(
 			"--chat-height",

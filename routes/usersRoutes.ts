@@ -7,7 +7,7 @@ router.get("", async (req: Request, res: Response) => {
 	try {
 		const page = parseInt((req.query.page as string) || "");
 		const count = parseInt((req.query.count as string) || "");
-		const lastUserID = req.query.lastUserID;
+		const lastUserNickname = req.query.lastUserID;
 		if (!page || !count || page < 1 || count > 100) {
 			return res.status(400).json({
 				success: false,
@@ -19,9 +19,15 @@ router.get("", async (req: Request, res: Response) => {
 		const authUser = await User.findOne({ nickname: authNickname }, { _id: 1 });
 		const authID = authUser?._id.toString();
 
-		const filter = !lastUserID
+		const filter = !lastUserNickname
 			? { _id: { $ne: authID } }
-			: { _id: { $ne: authID, $gt: lastUserID } };
+			: {
+					_id: {
+						$ne: authID,
+						$gt: (await User.findOne({ nickname: lastUserNickname }, { _id: 1 }))
+							?._id,
+					},
+			  };
 		const users = await User.find(filter).sort({ _id: 1 }).limit(count);
 
 		const usersData = users.map((u) => {
