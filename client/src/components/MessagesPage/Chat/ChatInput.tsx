@@ -44,6 +44,7 @@ export function ChatInput(props: IProps) {
 			});
 
 			if (!props.readMessages) {
+				// TODO when message sent
 				socket.emit("readMessages", {
 					who: props.authID,
 					whom: props.userID,

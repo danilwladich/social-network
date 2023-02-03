@@ -27,7 +27,7 @@ export default (io: Server) => {
 					userID: decoded.userID,
 				};
 
-				console.log(connectedSockets);
+				console.log("Users: " + Object.keys(connectedSockets).join(" , "));
 
 				console.log("Online: " + Object.keys(connectedSockets).length);
 			} catch (e) {}
@@ -110,10 +110,6 @@ export default (io: Server) => {
 		});
 
 		// disconnect
-		socket.on("disconnect", (data) => {
-			connectedSockets = connectedSockets.filter(
-				(u) => u.socketID !== socket.id
-			);
-		});
+		socket.on("disconnect", (data) => {});
 	});
 };

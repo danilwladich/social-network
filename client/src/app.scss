@@ -176,7 +176,7 @@ body {
 
 .content {
 	flex: 1 1 auto;
-	padding: 40px calc(10px + env(safe-area-inset-right)) 0
+	padding: 45px calc(10px + env(safe-area-inset-right)) 0
 		calc(10px + env(safe-area-inset-left));
 	@media (min-width: 767px) {
 		padding: 65px calc(15px + env(safe-area-inset-right)) 0
@@ -195,7 +195,7 @@ body {
 .subsection:not(:empty) {
 	transition: background-color 0s;
 	position: relative;
-	padding: 15px 0px;
+	padding: 10px 0px;
 	@media (min-width: 767px) {
 		&:not(:first-child) {
 			margin: 15px 0px 0px 0px;

@@ -210,7 +210,7 @@ export function EditForm(props: IProps) {
 										id="countryInput"
 										type="text"
 										className="profile__edit_input"
-										placeholder={props.location.country || "Your country..."}
+										placeholder={props.location.country || "Your country"}
 									/>
 									{meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>
@@ -231,7 +231,7 @@ export function EditForm(props: IProps) {
 										id="cityInput"
 										type="text"
 										className="profile__edit_input"
-										placeholder={props.location.city || "Your city..."}
+										placeholder={props.location.city || "Your city"}
 									/>
 									{meta.error && (
 										<div className="profile__edit_incorrect">{meta.error}</div>

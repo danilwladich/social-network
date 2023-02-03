@@ -70,7 +70,7 @@ html[theme=light] .navbar__link:hover {
     width: 100%;
     position: fixed;
     overflow-y: overlay;
-    max-height: calc(100vh - 80px);
+    max-height: calc(100vh - 65px);
     z-index: 40;
     top: -100vh;
     -webkit-transition: all 0.4s;

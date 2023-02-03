@@ -19,7 +19,7 @@ export function AppLoading() {
 						y="-100%"
 						width="300%"
 						height="300%"
-						color-interpolation-filters="sRGB"
+						colorInterpolationFilters="sRGB"
 					>
 						<feGaussianBlur
 							in="SourceGraphic"
