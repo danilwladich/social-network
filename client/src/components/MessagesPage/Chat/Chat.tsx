@@ -31,17 +31,17 @@ export function Chat(props: IProps) {
 
 	// go to all chats when esc pressed
 	useEffect(() => {
-		function keyDownHandler(e: KeyboardEvent) {
-			if (e.key === "Escape") {
-				navigate("/messages");
-			}
-		}
-
 		window.addEventListener("keydown", keyDownHandler);
 		return () => {
 			window.removeEventListener("keydown", keyDownHandler);
 		};
-	});
+		// eslint-disable-next-line
+	}, []);
+	function keyDownHandler(e: KeyboardEvent) {
+		if (e.key === "Escape") {
+			navigate("/messages");
+		}
+	}
 
 	// scroll bottom after get and send messages + read messages socket
 	useEffect(() => {
@@ -75,7 +75,8 @@ export function Chat(props: IProps) {
 			window.removeEventListener("orientationchange", chatHeight);
 			window.visualViewport?.removeEventListener("resize", chatHeight);
 		};
-	});
+		// eslint-disable-next-line
+	}, []);
 	function chatHeight() {
 		const bodyLock = document.querySelector("body");
 		if (window.innerWidth < 767) {

@@ -35,26 +35,25 @@ export function PostsContainerAPI(props: IProps) {
 		pages.push(i);
 	}
 
+	// pagination
 	useEffect(() => {
-		function scrollHandler() {
-			if (
-				pagesCount > 0 &&
-				currentPage !== pagesCount &&
-				!isLoading &&
-				window.pageYOffset >=
-					document.documentElement.scrollHeight -
-						Math.max(
-							window.innerHeight,
-							document.documentElement.clientHeight
-						) *
-							2
-			) {
-				setCurrentPage((prev) => prev + 1);
-			}
-		}
 		window.addEventListener("scroll", scrollHandler);
 		return () => window.removeEventListener("scroll", scrollHandler);
-	});
+		// eslint-disable-next-line
+	}, []);
+	function scrollHandler() {
+		if (
+			pagesCount > 0 &&
+			currentPage !== pagesCount &&
+			!isLoading &&
+			window.pageYOffset >=
+				document.documentElement.scrollHeight -
+					Math.max(window.innerHeight, document.documentElement.clientHeight) *
+						2
+		) {
+			setCurrentPage((prev) => prev + 1);
+		}
+	}
 
 	useLayoutEffect(() => {
 		if (pagesCount > 0 && currentPage !== 1) {

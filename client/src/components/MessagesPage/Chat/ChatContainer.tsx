@@ -32,42 +32,43 @@ export function ChatContainerAPI(props: IProps) {
 		pages.push(i);
 	}
 
+	// pagination and scroll lock
 	useEffect(() => {
-		function scrollHandler() {
-			if (contentRef.current !== null) {
-				// set current page based on scrollTop
-				if (
-					pagesCount > 0 &&
-					currentPage !== pagesCount &&
-					!isLoading &&
-					contentRef.current.scrollTop <= contentRef.current.clientHeight
-				) {
-					setCurrentPage((prev) => prev + 1);
-				}
-
-				// set content lock based on scrollTop
-				if (
-					contentRef.current.scrollHeight -
-						(contentRef.current.scrollTop + contentRef.current.clientHeight) >
-					50
-				) {
-					setContentLock(false);
-				} else if (
-					contentRef.current.scrollHeight -
-						(contentRef.current.scrollTop + contentRef.current.clientHeight) ===
-					0
-				) {
-					setContentLock(true);
-				}
-			}
-		}
-
 		contentRef.current?.addEventListener("scroll", scrollHandler);
 		return () => {
 			// eslint-disable-next-line
 			contentRef.current?.removeEventListener("scroll", scrollHandler);
 		};
-	});
+		// eslint-disable-next-line
+	}, []);
+	function scrollHandler() {
+		if (contentRef.current !== null) {
+			// set current page based on scrollTop
+			if (
+				pagesCount > 0 &&
+				currentPage !== pagesCount &&
+				!isLoading &&
+				contentRef.current.scrollTop <= contentRef.current.clientHeight
+			) {
+				setCurrentPage((prev) => prev + 1);
+			}
+
+			// set content lock based on scrollTop
+			if (
+				contentRef.current.scrollHeight -
+					(contentRef.current.scrollTop + contentRef.current.clientHeight) >
+				50
+			) {
+				setContentLock(false);
+			} else if (
+				contentRef.current.scrollHeight -
+					(contentRef.current.scrollTop + contentRef.current.clientHeight) ===
+				0
+			) {
+				setContentLock(true);
+			}
+		}
+	}
 
 	useLayoutEffect(() => {
 		if (!!userID) {

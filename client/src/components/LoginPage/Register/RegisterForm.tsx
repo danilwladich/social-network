@@ -46,7 +46,6 @@ export function RegisterForm(props: IProps) {
 			})
 			.finally(() => setSubmitting(false));
 	}
-
 	function validate(e: {
 		phoneNumber: string;
 		password: string;
