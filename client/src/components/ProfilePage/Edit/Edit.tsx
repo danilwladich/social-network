@@ -43,7 +43,7 @@ export function Edit(props: IProps) {
 						<button className="profile__edit_close" onClick={() => modalOff()}>
 							<CloseX />
 						</button>
-						<EditForm {...props} modalOff={modalOff} />
+						<EditForm {...props} />
 					</div>
 				</>
 			)}

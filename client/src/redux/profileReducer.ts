@@ -352,7 +352,7 @@ export const editProfileTC = (
 	country?: string,
 	city?: string
 ) => {
-	return async (dispatch: Dispatch<any>, getState: () => IState) => {
+	return async (dispatch: Dispatch<any>) => {
 		try {
 			dispatch(setErrorMessage(""));
 			await API.editProfile(image, id, country, city).then(async (data) => {
@@ -360,7 +360,6 @@ export const editProfileTC = (
 					if (!!id) {
 						await dispatch(authMeTC());
 					}
-					await dispatch(getProfileTC(getState().auth.user.id));
 				} else {
 					return Promise.reject(data.statusText);
 				}
