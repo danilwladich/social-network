@@ -47,9 +47,11 @@ export function Chat(props: IProps) {
 	useEffect(() => {
 		window.addEventListener("resize", chatHeight);
 		window.addEventListener("orientationchange", chatHeight);
+		window.visualViewport?.addEventListener("resize", chatHeight);
 		return () => {
 			window.removeEventListener("resize", chatHeight);
 			window.removeEventListener("orientationchange", chatHeight);
+			window.visualViewport?.removeEventListener("resize", chatHeight);
 		};
 	});
 
