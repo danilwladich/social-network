@@ -16,6 +16,12 @@ interface IProps {
 	sendMessage: (message: string, id: string) => void;
 }
 
+function chatHeight() {
+	const doc = document.documentElement;
+	doc.style.setProperty("--app-height", `${window.innerHeight}px`);
+}
+chatHeight();
+
 export function Chat(props: IProps) {
 	const navigate = useNavigate();
 	const messagesEnd = useRef<HTMLDivElement>(null);
@@ -71,11 +77,6 @@ export function Chat(props: IProps) {
 		};
 		// eslint-disable-next-line
 	}, []);
-	function chatHeight() {
-		const doc = document.documentElement;
-		doc.style.setProperty("--chat-height", `${window.innerHeight}px`);
-	}
-	chatHeight();
 
 	return (
 		<>

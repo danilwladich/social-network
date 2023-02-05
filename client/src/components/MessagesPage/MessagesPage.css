@@ -350,7 +350,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   position: fixed;
   left: 0;
   top: 0;
-  height: var(--chat-height);
+  height: var(--app-height);
   width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;
