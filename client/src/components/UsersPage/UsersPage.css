@@ -120,6 +120,20 @@ html[theme=light] .users__pagination_page.active:after {
           flex: 0 0 30px;
   height: 10px;
 }
+.users__items_loading {
+  margin: 30px 0px 0px 0px;
+  height: 30px;
+}
+.users__items_loading svg {
+  position: absolute;
+  left: 50%;
+  bottom: 15px;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+}
 .users__user {
   display: -webkit-box;
   display: -ms-flexbox;

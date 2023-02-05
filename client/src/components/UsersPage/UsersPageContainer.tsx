@@ -8,7 +8,7 @@ import { compose } from "redux";
 import { IState } from "../../models/IState";
 import { UsersUserData } from "../../models/Users/UsersUserData";
 import { UsersPage } from "./UsersPage";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { AuthRedirect } from "../../hoc/AuthRedirect";
 import { UsersPageLoading } from "./UsersPageLoading";
 
@@ -26,7 +26,33 @@ function UsersPageAPI(props: IProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 
+	const pagesCount = Math.ceil(props.totalCount / props.pageSize);
+	const pages: number[] = [];
+	for (let i = 1; i <= pagesCount; i++) {
+		pages.push(i);
+	}
+
+	// pagination
 	useEffect(() => {
+		window.addEventListener("scroll", scrollHandler);
+		return () => window.removeEventListener("scroll", scrollHandler);
+		// eslint-disable-next-line
+	}, [isLoading, currentPage, pagesCount]);
+	function scrollHandler() {
+		if (
+			pagesCount > 0 &&
+			currentPage !== pagesCount &&
+			!isLoading &&
+			window.pageYOffset >=
+				document.documentElement.scrollHeight -
+					Math.max(window.innerHeight, document.documentElement.clientHeight) *
+						2
+		) {
+			setCurrentPage((prev) => prev + 1);
+		}
+	}
+
+	useLayoutEffect(() => {
 		setIsLoading(true);
 		props
 			.getUsersTC(currentPage, props.pageSize)
@@ -34,21 +60,12 @@ function UsersPageAPI(props: IProps) {
 		// eslint-disable-next-line
 	}, [currentPage, props.pageSize]);
 
-	function pageChanged(page: number) {
-		window.scrollTo(0, 0);
-		setCurrentPage(page);
-	}
-
-	if (isLoading) {
+	if (isLoading && currentPage === 1) {
 		return <UsersPageLoading />;
 	}
 	return (
 		<>
-			<UsersPage
-				{...props}
-				currentPage={currentPage}
-				pageChanged={pageChanged}
-			/>
+			<UsersPage {...props} isLoading={isLoading} />
 		</>
 	);
 }

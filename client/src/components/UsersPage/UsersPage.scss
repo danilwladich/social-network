@@ -133,6 +133,20 @@ html[theme="light"] {
 			height: 10px;
 		}
 	}
+	&__items {
+		&_loading {
+			margin: 30px 0px 0px 0px;
+			height: 30px;
+			svg {
+				position: absolute;
+				left: 50%;
+				bottom: 15px;
+				transform: translateX(-50%);
+				width: 30px;
+				height: 30px;
+			}
+		}
+	}
 	&__user {
 		&:first-child:not(:last-child) {
 			padding: 0px 0px 10px 0px;

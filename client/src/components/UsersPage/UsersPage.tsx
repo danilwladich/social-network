@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import { User } from "./Users/User";
 import "./UsersPage.css";
 import { UsersUserData } from "../../models/Users/UsersUserData";
-import { UsersPagination } from "./Users/UsersPagination";
+import { LoadingCircle } from "../assets/LoadingCircle";
 
 interface IProps {
 	usersData: UsersUserData[];
-	pageSize: number;
-	totalCount: number;
-	currentPage: number;
-	pageChanged: (page: number) => void;
+	isLoading: boolean;
 	setFollowTC: (userID: string) => Promise<void>;
 	setUnfollowTC: (userID: string) => Promise<void>;
 }
@@ -41,6 +38,7 @@ export function UsersPage(props: IProps) {
 			<section className="users">
 				<div className="subsection">
 					<h2 className="users__title title">Find users</h2>
+
 					<div className="users__items">
 						{props.usersData.map((u) => (
 							<User
@@ -55,12 +53,11 @@ export function UsersPage(props: IProps) {
 						))}
 					</div>
 
-					<UsersPagination
-						pageSize={props.pageSize}
-						totalCount={props.totalCount}
-						currentPage={props.currentPage}
-						pageChanged={props.pageChanged}
-					/>
+					{props.isLoading && (
+						<div className="users__items_loading">
+							<LoadingCircle />
+						</div>
+					)}
 				</div>
 			</section>
 		</>

@@ -40,7 +40,7 @@ export function ChatContainerAPI(props: IProps) {
 			contentRef.current?.removeEventListener("scroll", scrollHandler);
 		};
 		// eslint-disable-next-line
-	}, []);
+	}, [isLoading, currentPage, pagesCount]);
 	function scrollHandler() {
 		if (contentRef.current !== null) {
 			// set current page based on scrollTop

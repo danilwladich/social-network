@@ -7,6 +7,7 @@ html[theme="dark"] {
 			}
 		}
 		&__button {
+			color: var(--dark-button-text-color);
 			background-color: var(--dark-button-bg);
 			&:not(:disabled):hover {
 				background-color: var(--dark-button-bg-active);
@@ -23,6 +24,7 @@ html[theme="light"] {
 			}
 		}
 		&__button {
+			color: var(--light-button-text-color);
 			background-color: var(--light-button-bg);
 			&:not(:disabled):hover {
 				background-color: var(--light-button-bg-active);

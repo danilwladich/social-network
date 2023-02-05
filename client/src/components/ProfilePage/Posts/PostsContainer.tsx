@@ -40,7 +40,7 @@ export function PostsContainerAPI(props: IProps) {
 		window.addEventListener("scroll", scrollHandler);
 		return () => window.removeEventListener("scroll", scrollHandler);
 		// eslint-disable-next-line
-	}, []);
+	}, [isLoading, currentPage, pagesCount]);
 	function scrollHandler() {
 		if (
 			pagesCount > 0 &&

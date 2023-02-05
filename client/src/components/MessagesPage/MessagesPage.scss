@@ -31,6 +31,7 @@ html[theme="dark"] {
 			background-color: var(--dark-subsection-bg);
 		}
 		&__header {
+			background-color: var(--dark-subsection-bg);
 			border-bottom: var(--dark-items-border-bottom) solid 1px;
 			&_back {
 				color: var(--dark-button-text-color);
@@ -104,6 +105,7 @@ html[theme="light"] {
 			background-color: var(--light-subsection-bg);
 		}
 		&__header {
+			background-color: var(--dark-subsection-bg);
 			border-bottom: var(--light-items-border-bottom) solid 1px;
 			&_back {
 				color: var(--light-button-text-color);
@@ -350,7 +352,7 @@ html[theme="light"] {
 			}
 		}
 		&_name {
-			font-size: 18px;
+			font-size: 16px;
 			font-weight: 700;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -523,6 +525,11 @@ html[theme="light"] {
 			height: calc(100vh - 112px);
 			padding: 0;
 			width: 100%;
+		}
+		&__header {
+			&_name {
+				font-size: 18px;
+			}
 		}
 		&__message {
 			&_footer {

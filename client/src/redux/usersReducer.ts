@@ -19,7 +19,10 @@ export function usersReducer(state: IUsers = initialState, action: IAction) {
 		case ActionType.SET_USERS:
 			return {
 				...state,
-				usersData: action.value,
+				usersData:
+					action.page === 1
+						? [...action.value]
+						: [...state.usersData, ...action.value],
 			};
 
 		case ActionType.SET_USERS_TOTAL_COUNT:
@@ -56,11 +59,13 @@ export function usersReducer(state: IUsers = initialState, action: IAction) {
 }
 
 // action
-export const setUsers: (usersData: UsersUserData[]) => IAction = (
-	usersData
+export const setUsers: (usersData: UsersUserData[], page: number) => IAction = (
+	usersData,
+	page
 ) => ({
 	type: ActionType.SET_USERS,
 	value: usersData,
+	page,
 });
 
 export const setUsersTotalCount: (count: number) => IAction = (count) => ({
@@ -90,10 +95,10 @@ export const getUsersTC = (page: number, pageSize: number) => {
 
 			await API.getUsers(page, pageSize, lastUserID).then((data) => {
 				if (data.success === true) {
-					dispatch(setUsers(data.usersData));
+					dispatch(setUsers(data.usersData, page));
 					dispatch(setUsersTotalCount(data.totalCount));
 				} else {
-					dispatch(setUsers([]));
+					dispatch(setUsers([], 1));
 					dispatch(setUsersTotalCount(0));
 					dispatch(setErrorMessage("Get users: " + data.statusText));
 				}

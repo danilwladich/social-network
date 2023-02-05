@@ -65,7 +65,7 @@ export function RegisterForm(props: IProps) {
 			errors.phoneNumber = "Invalid format";
 		}
 		if (!e.phoneNumber) {
-			errors.phoneNumber = "Reguired";
+			errors.phoneNumber = "Required";
 		}
 
 		// password
@@ -87,7 +87,7 @@ export function RegisterForm(props: IProps) {
 			}
 		}
 		if (!e.password) {
-			errors.password = "Reguired";
+			errors.password = "Required";
 		}
 
 		// confirm password
@@ -100,7 +100,7 @@ export function RegisterForm(props: IProps) {
 			}
 		}
 		if (!e.confirmPassword) {
-			errors.confirmPassword = "Reguired";
+			errors.confirmPassword = "Required";
 		}
 
 		// first name
@@ -127,7 +127,7 @@ export function RegisterForm(props: IProps) {
 			}
 		}
 		if (!e.firstName) {
-			errors.firstName = "Reguired";
+			errors.firstName = "Required";
 		}
 
 		// last name
@@ -154,7 +154,7 @@ export function RegisterForm(props: IProps) {
 			}
 		}
 		if (!e.lastName) {
-			errors.lastName = "Reguired";
+			errors.lastName = "Required";
 		}
 		return errors;
 	}

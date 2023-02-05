@@ -157,6 +157,7 @@ interface setFriendsTotalCount {
 interface setUsers {
 	type: ActionType.SET_USERS;
 	value: UsersUserData[];
+	page: number;
 }
 interface setUsersTotalCount {
 	type: ActionType.SET_USERS_TOTAL_COUNT;

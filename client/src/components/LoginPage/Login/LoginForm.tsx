@@ -40,12 +40,12 @@ export function LoginForm(props: IProps) {
 			errors.phoneNumber = "Invalid format";
 		}
 		if (!e.phoneNumber) {
-			errors.phoneNumber = "Reguired";
+			errors.phoneNumber = "Required";
 		}
 
 		// password
 		if (!e.password) {
-			errors.password = "Reguired";
+			errors.password = "Required";
 		}
 		return errors;
 	}

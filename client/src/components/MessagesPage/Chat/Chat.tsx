@@ -65,33 +65,16 @@ export function Chat(props: IProps) {
 
 	// set chat height
 	useEffect(() => {
-		window.addEventListener("scroll", handleScroll);
 		window.addEventListener("resize", chatHeight);
-		window.addEventListener("orientationchange", chatHeight);
-		window.visualViewport?.addEventListener("resize", chatHeight);
 		return () => {
-			window.removeEventListener("scroll", handleScroll);
 			window.removeEventListener("resize", chatHeight);
-			window.removeEventListener("orientationchange", chatHeight);
-			window.visualViewport?.removeEventListener("resize", chatHeight);
 		};
 		// eslint-disable-next-line
 	}, []);
 	function chatHeight() {
 		const doc = document.documentElement;
-		doc.style.setProperty(
-			"--chat-height",
-			`${Math.min(
-				window.visualViewport
-					? window.visualViewport.height
-					: window.innerHeight,
-				document.documentElement.clientHeight
-			)}px`
-		);
+		doc.style.setProperty("--chat-height", `${window.innerHeight}px`);
 	}
-	const handleScroll = () => {
-		window.scrollTo(0, 0);
-	};
 	chatHeight();
 
 	return (

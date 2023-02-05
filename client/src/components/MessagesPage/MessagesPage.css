@@ -23,6 +23,7 @@ html[theme=dark] .messages__chat {
   background-color: var(--dark-subsection-bg);
 }
 html[theme=dark] .messages__header {
+  background-color: var(--dark-subsection-bg);
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .messages__header_back {
@@ -79,6 +80,7 @@ html[theme=light] .messages__chat {
   background-color: var(--light-subsection-bg);
 }
 html[theme=light] .messages__header {
+  background-color: var(--dark-subsection-bg);
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .messages__header_back {
@@ -390,7 +392,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   height: 12px;
 }
 .messages__header_name {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   -o-text-overflow: ellipsis;
      text-overflow: ellipsis;
@@ -585,6 +587,9 @@ html[theme=light] .messages__message.out .messages__message_content * {
     height: calc(100vh - 112px);
     padding: 0;
     width: 100%;
+  }
+  .messages__header_name {
+    font-size: 18px;
   }
   .messages__message_footer {
     font-size: 12px;

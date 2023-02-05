@@ -5,6 +5,7 @@ html[theme=dark] .login__input:focus {
   border-bottom: 1px solid var(--dark-text-color);
 }
 html[theme=dark] .login__button {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .login__button:not(:disabled):hover {
@@ -18,6 +19,7 @@ html[theme=light] .login__input:focus {
   border-bottom: 1px solid var(--light-text-color);
 }
 html[theme=light] .login__button {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .login__button:not(:disabled):hover {

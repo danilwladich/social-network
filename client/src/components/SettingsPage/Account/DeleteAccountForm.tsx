@@ -24,7 +24,7 @@ export function DeleteAccountForm(props: IProps) {
 		const errors: { password?: string; confirmPassword?: string } = {};
 		// password
 		if (!e.password) {
-			errors.password = "Reguired";
+			errors.password = "Required";
 		}
 
 		// confirm password
@@ -34,7 +34,7 @@ export function DeleteAccountForm(props: IProps) {
 			}
 		}
 		if (!e.confirmPassword) {
-			errors.confirmPassword = "Reguired";
+			errors.confirmPassword = "Required";
 		}
 
 		return errors;
