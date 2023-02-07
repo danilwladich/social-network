@@ -281,17 +281,21 @@ body.lock {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  min-height: 100vh;
 }
 
 .content {
+  position: relative;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  padding: 45px calc(10px + env(safe-area-inset-right)) 0 calc(10px + env(safe-area-inset-left));
+  margin: 45px 0px 0px 0px;
+  padding: 0px calc(10px + env(safe-area-inset-right)) 0px calc(10px + env(safe-area-inset-left));
 }
 @media (min-width: 767px) {
   .content {
-    padding: 65px calc(15px + env(safe-area-inset-right)) 0 calc(15px + env(safe-area-inset-left));
+    margin: 50px 0px 0px 0px;
+    padding: 15px calc(15px + env(safe-area-inset-right)) 0px calc(15px + env(safe-area-inset-left));
     display: grid;
     grid-template-columns: 0.667fr 200px minmax(537px, 1000px) 1fr;
   }

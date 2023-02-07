@@ -29,7 +29,7 @@ export function Header(props: IProps) {
 						</NavLink>
 					)}
 					<div className="header__logo">
-						<h1>SocNet</h1>
+						<h1>Blo<span>xx</span></h1>
 					</div>
 					{props.isAuth && (
 						<div

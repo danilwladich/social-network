@@ -71,12 +71,16 @@ html[theme=light] .header__burger span {
 .header__logo {
   font-size: 22px;
   letter-spacing: 2px;
+  line-height: 150%;
   font-weight: 700;
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+}
+.header__logo span {
+  opacity: 0.7;
 }
 .header__burger {
   z-index: 50;

@@ -24,7 +24,7 @@ html[theme=light] .login__button:not(:disabled):hover {
   grid-column: span 2 !important;
   position: absolute;
   width: 260px;
-  top: 45px;
+  top: 0;
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
@@ -114,7 +114,7 @@ html[theme=light] .login__button:not(:disabled):hover {
 }
 @media (min-width: 767px) {
   .login {
-    top: 65px;
+    top: 15px;
     width: 280px;
   }
   .login__input {

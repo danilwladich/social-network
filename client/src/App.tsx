@@ -54,11 +54,12 @@ interface IProps {
 }
 
 function App(props: IProps) {
-	document.title = `SocNet`;
+	document.title = `Bloxx`;
 	const [initializationSuccess, setInitializationSuccess] = useState(false);
 
 	const authUser = props.authUser;
 
+	// initialization
 	useLayoutEffect(() => {
 		props.initializationTC().finally(() => setInitializationSuccess(true));
 

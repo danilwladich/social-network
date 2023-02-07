@@ -31,7 +31,7 @@ html[theme="light"] {
 	grid-column: span 2 !important;
 	position: absolute;
 	width: 260px;
-	top: 45px;
+	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
 	overflow: hidden;
@@ -109,7 +109,7 @@ html[theme="light"] {
 		opacity: 0.7;
 	}
 	@media (min-width: 767px) {
-		top: 65px;
+		top: 15px;
 		width: 280px;
 		&__input {
 			font-size: 20px;

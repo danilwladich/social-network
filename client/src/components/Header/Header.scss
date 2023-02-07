@@ -69,10 +69,14 @@ html[theme="light"] {
 	&__logo {
 		font-size: 22px;
 		letter-spacing: 2px;
+		line-height: 150%;
 		font-weight: 700;
 		position: absolute;
 		left: 50%;
 		transform: translateX(-50%);
+		span {
+			opacity: 0.7;
+		}
 	}
 	&__burger {
 		z-index: 50;
