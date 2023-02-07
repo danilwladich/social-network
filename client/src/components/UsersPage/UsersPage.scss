@@ -153,6 +153,7 @@ html[theme="light"] {
 		font-size: 20px;
 	}
 	&__items {
+		margin: -10px 0;
 		&_loading {
 			margin: 30px 0px 0px 0px;
 			height: 30px;
@@ -167,15 +168,7 @@ html[theme="light"] {
 		}
 	}
 	&__user {
-		&:first-child:not(:last-child) {
-			padding: 0px 0px 10px 0px;
-		}
-		&:last-child:not(:first-child) {
-			padding: 10px 0px 0px 0px;
-		}
-		&:not(:last-child):not(:first-child) {
-			padding: 10px 0px 10px 0px;
-		}
+		padding: 10px 0px 10px 0px;
 		display: flex;
 		align-items: center;
 		gap: 10px;

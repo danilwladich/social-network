@@ -159,6 +159,9 @@ html[theme=light] .users__user_follow:hover {
   text-align: center;
   font-size: 20px;
 }
+.users__items {
+  margin: -10px 0;
+}
 .users__items_loading {
   margin: 30px 0px 0px 0px;
   height: 30px;
@@ -174,6 +177,7 @@ html[theme=light] .users__user_follow:hover {
   height: 30px;
 }
 .users__user {
+  padding: 10px 0px 10px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -183,15 +187,6 @@ html[theme=light] .users__user_follow:hover {
   gap: 10px;
   position: relative;
   line-height: 150%;
-}
-.users__user:first-child:not(:last-child) {
-  padding: 0px 0px 10px 0px;
-}
-.users__user:last-child:not(:first-child) {
-  padding: 10px 0px 0px 0px;
-}
-.users__user:not(:last-child):not(:first-child) {
-  padding: 10px 0px 10px 0px;
 }
 .users__user_image {
   -webkit-box-flex: 0;

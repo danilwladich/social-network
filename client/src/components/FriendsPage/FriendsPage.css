@@ -280,7 +280,7 @@ html[theme=light] .friends__user_follow:hover {
   font-size: 18px;
 }
 .friends__items {
-  margin: 15px 0px 0px 0px;
+  margin: 5px 0px -10px 0px;
 }
 .friends__items_loading {
   margin: 30px 0px 0px 0px;
@@ -297,6 +297,7 @@ html[theme=light] .friends__user_follow:hover {
   height: 30px;
 }
 .friends__user {
+  padding: 10px 0px 10px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -306,15 +307,6 @@ html[theme=light] .friends__user_follow:hover {
   gap: 10px;
   position: relative;
   line-height: 150%;
-}
-.friends__user:first-child:not(:last-child) {
-  padding: 0px 0px 10px 0px;
-}
-.friends__user:last-child:not(:first-child) {
-  padding: 10px 0px 0px 0px;
-}
-.friends__user:not(:last-child):not(:first-child) {
-  padding: 10px 0px 10px 0px;
 }
 .friends__user_image {
   -webkit-box-flex: 0;
