@@ -73,12 +73,10 @@ html[theme=light] .navbar__link:hover {
     max-height: calc(100vh - 65px);
     z-index: 40;
     top: -100vh;
+    top: 55px;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     transition: all 0.4s;
-  }
-  .navbar__menu.active {
-    top: 55px;
   }
   .navbar__link {
     position: relative;

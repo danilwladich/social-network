@@ -68,10 +68,8 @@ html[theme="light"] {
 			max-height: calc(100vh - 65px);
 			z-index: 40;
 			top: -100vh;
+			top: 55px;
 			transition: all 0.4s;
-			&.active {
-				top: 55px;
-			}
 		}
 		&__link {
 			position: relative;

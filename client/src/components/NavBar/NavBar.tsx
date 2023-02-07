@@ -14,7 +14,7 @@ export function NavBar(props: IProps) {
 		<>
 			{props.isAuth && (
 				<aside className={"navbar " + (props.burger ? "active" : "")}>
-					<nav className={"navbar__menu " + (props.burger ? "active" : "")}>
+					<nav className="navbar__menu">
 						<NavLink
 							draggable="false"
 							to={"/" + props.authID}
