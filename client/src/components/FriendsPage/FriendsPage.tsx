@@ -5,7 +5,7 @@ import { WhoseFriends } from "../../models/Friends/WhoseFriends";
 import { LoadingCircle } from "../assets/LoadingCircle";
 import { Categories } from "./Categories/Categories";
 import "./FriendsPage.css";
-import { FriendsSearch } from "./FriendsSearch";
+import { FriendsSearch } from "./Search/FriendsSearch";
 import { User } from "./Users/User";
 
 interface IProps {

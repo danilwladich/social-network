@@ -3,7 +3,7 @@ import { User } from "./Users/User";
 import "./UsersPage.css";
 import { UsersUserData } from "../../models/Users/UsersUserData";
 import { LoadingCircle } from "../assets/LoadingCircle";
-import { UsersSearch } from "./UsersSearch";
+import { UsersSearch } from "./Search/UsersSearch";
 
 interface IProps {
 	usersData: UsersUserData[];

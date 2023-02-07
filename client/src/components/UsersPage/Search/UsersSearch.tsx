@@ -21,13 +21,15 @@ export function UsersSearch(props: IProps) {
 	}, [searchValue]);
 	function keyDownHandler(e: KeyboardEvent) {
 		if (e.key === "Enter") {
-			navigate(!!searchValue ? "/users?search=" + searchValue : "/users");
+			navigate(
+				!!searchValue.trim() ? "/users?search=" + searchValue.trim() : "/users"
+			);
 		}
 	}
 
 	// set search value
 	function onChangeHandler(v: string) {
-		if (v.length < 255 && !v.match(/[^A-Za-z]+/g)) {
+		if (v.length < 255 && !v.match(/[^A-Za-z ]+/g)) {
 			setSearchValue(v);
 		}
 	}
@@ -45,7 +47,11 @@ export function UsersSearch(props: IProps) {
 					className="users__search_input"
 				/>
 				<NavLink
-					to={!!searchValue ? "/users?search=" + searchValue : "/users"}
+					to={
+						!!searchValue.trim()
+							? "/users?search=" + searchValue.trim()
+							: "/users"
+					}
 					className="users__search_button"
 				>
 					Find

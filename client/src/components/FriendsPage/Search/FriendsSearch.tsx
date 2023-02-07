@@ -24,13 +24,13 @@ export function FriendsSearch(props: IProps) {
 	function keyDownHandler(e: KeyboardEvent) {
 		if (e.key === "Enter") {
 			navigate(
-				!!searchValue
+				!!searchValue.trim()
 					? "/friends/" +
 							props.id +
 							"/" +
 							props.category +
 							"?search=" +
-							searchValue
+							searchValue.trim()
 					: "/friends/" + props.id + "/" + props.category
 			);
 		}
@@ -38,7 +38,7 @@ export function FriendsSearch(props: IProps) {
 
 	// set search value
 	function onChangeHandler(v: string) {
-		if (v.length < 255 && !v.match(/[^A-Za-z]+/g)) {
+		if (v.length < 255 && !v.match(/[^A-Za-z ]+/g)) {
 			setSearchValue(v);
 		}
 	}
@@ -55,13 +55,13 @@ export function FriendsSearch(props: IProps) {
 				/>
 				<NavLink
 					to={
-						!!searchValue
+						!!searchValue.trim()
 							? "/friends/" +
 							  props.id +
 							  "/" +
 							  props.category +
 							  "?search=" +
-							  searchValue
+							  searchValue.trim()
 							: "/friends/" + props.id + "/" + props.category
 					}
 					className="friends__search_button"
