@@ -36,8 +36,6 @@ export function NewsPage(props: IProps) {
 		<>
 			<section className="news">
 				<div className="subsection">
-					<h2 className="news__title title">News</h2>
-
 					<div className="news__posts">
 						{!!props.postsData.length ? (
 							props.postsData.map((p) => (

@@ -16,7 +16,7 @@ router.post(
 
 			const user = await User.findOne({ nickname }).sort({ _id: 1 });
 			if (!user) {
-				return res.status(400).json({
+				return res.status(200).json({
 					success: false,
 					statusText: "User not found",
 				});
@@ -24,7 +24,7 @@ router.post(
 			const userID = user._id.toString();
 
 			if (authID === userID) {
-				return res.status(400).json({
+				return res.status(200).json({
 					success: false,
 					statusText: "User can't follow yourself",
 				});
@@ -58,7 +58,7 @@ router.delete(
 
 			const user = await User.findOne({ nickname }).sort({ _id: 1 });
 			if (!user) {
-				return res.status(400).json({
+				return res.status(200).json({
 					success: false,
 					statusText: "User not found",
 				});
@@ -66,7 +66,7 @@ router.delete(
 			const userID = user._id.toString();
 
 			if (authID === userID) {
-				return res.status(400).json({
+				return res.status(200).json({
 					success: false,
 					statusText: "User can't unfollow yourself",
 				});

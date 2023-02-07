@@ -7,17 +7,10 @@ import { authMeTC } from "./authReducer";
 
 const initialState: IApp = {
 	errorMessage: "",
-	initializationSuccess: false,
 };
 
 export function appReducer(state: IApp = initialState, action: IAction) {
 	switch (action.type) {
-		case ActionType.SET_INITIALIZATION:
-			return {
-				...state,
-				initializationSuccess: true,
-			};
-
 		case ActionType.SET_ERROR_MESSAGE:
 			return {
 				...state,
@@ -30,10 +23,6 @@ export function appReducer(state: IApp = initialState, action: IAction) {
 }
 
 // action
-export const setInitialization: () => IAction = () => ({
-	type: ActionType.SET_INITIALIZATION,
-});
-
 export const setErrorMessage: (v: string) => IAction = (v) => ({
 	type: ActionType.SET_ERROR_MESSAGE,
 	value: v,
@@ -45,7 +34,6 @@ export const initializationTC = () => {
 		try {
 			dispatch(setErrorMessage(""));
 			await dispatch(authMeTC());
-			dispatch(setInitialization());
 		} catch (e: unknown) {
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Initialization: " + error.message));

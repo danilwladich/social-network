@@ -251,7 +251,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
           flex-direction: column;
   gap: 5px;
 }
-.messages__users_nousers {
+.messages__users_no_users {
   font-size: 18px;
   text-align: center;
 }
@@ -420,7 +420,8 @@ html[theme=light] .messages__message.out .messages__message_content * {
   overflow-y: overlay;
   position: relative;
 }
-.messages__content_nocontent {
+.messages__content_no_content {
+  opacity: 0.7;
   text-align: center;
   width: 66.667%;
   font-size: 20px;

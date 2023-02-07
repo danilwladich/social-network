@@ -3,10 +3,12 @@ import { User } from "./Users/User";
 import "./UsersPage.css";
 import { UsersUserData } from "../../models/Users/UsersUserData";
 import { LoadingCircle } from "../assets/LoadingCircle";
+import { UsersSearch } from "./UsersSearch";
 
 interface IProps {
 	usersData: UsersUserData[];
 	isLoading: boolean;
+	search?: string;
 	setFollowTC: (userID: string) => Promise<void>;
 	setUnfollowTC: (userID: string) => Promise<void>;
 }
@@ -37,21 +39,27 @@ export function UsersPage(props: IProps) {
 		<>
 			<section className="users">
 				<div className="subsection">
-					<h2 className="users__title title">Find users</h2>
+					<UsersSearch search={props.search} />
 
-					<div className="users__items">
-						{props.usersData.map((u) => (
-							<User
-								key={u.id}
-								userData={u}
-								setFollow={() => setFollow(u.id)}
-								setUnfollow={() => setUnfollow(u.id)}
-								followButtonInProgress={followButtonsInProgress.some(
-									(id) => id === u.id
-								)}
-							/>
-						))}
-					</div>
+					{!!props.usersData.length ? (
+						<div className="users__items">
+							{props.usersData.map((u) => (
+								<User
+									key={u.id}
+									userData={u}
+									setFollow={() => setFollow(u.id)}
+									setUnfollow={() => setUnfollow(u.id)}
+									followButtonInProgress={followButtonsInProgress.some(
+										(id) => id === u.id
+									)}
+								/>
+							))}
+						</div>
+					) : (
+						<div className="users__no_items">
+							Your search returned no results
+						</div>
+					)}
 
 					{props.isLoading && (
 						<div className="users__items_loading">

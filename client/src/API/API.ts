@@ -143,22 +143,30 @@ export const API = {
 		category: string,
 		page: number,
 		pageSize: number,
-		lastUserID: string | null
+		lastUserID: string | null = null,
+		search: string | null = null
 	) {
 		return instance
 			.get(
 				`friends/${userID}?category=${category}&page=${page}&count=${pageSize}` +
-					(!!lastUserID ? `&lastUserID=${lastUserID}` : "")
+					(!!lastUserID ? `&lastUserID=${lastUserID}` : "") +
+					(!!search ? `&search=${search}` : "")
 			)
 			.then((response) => response.data);
 	},
 
 	// users
-	getUsers(page: number, pageSize: number, lastUserID: string | null) {
+	getUsers(
+		page: number,
+		pageSize: number,
+		lastUserID: string | null = null,
+		search: string | null = null
+	) {
 		return instance
 			.get(
 				`users?page=${page}&count=${pageSize}` +
-					(!!lastUserID ? `&lastUserID=${lastUserID}` : "")
+					(!!lastUserID ? `&lastUserID=${lastUserID}` : "") +
+					(!!search ? `&search=${search}` : "")
 			)
 			.then((response) => response.data);
 	},

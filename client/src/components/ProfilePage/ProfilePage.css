@@ -8,10 +8,7 @@ html[theme=dark] .profile__actions > button:hover {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .profile__edit_input {
-  border-bottom: 1px solid var(--dark-items-border-bottom);
-}
-html[theme=dark] .profile__edit_input:focus {
-  border-bottom: 1px solid var(--dark-text-color);
+  background-color: var(--dark-input-bg);
 }
 html[theme=dark] .profile__edit_button {
   color: var(--dark-button-text-color);
@@ -74,10 +71,7 @@ html[theme=light] .profile__actions > button:hover {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .profile__edit_input {
-  border-bottom: 1px solid var(--light-items-border-bottom);
-}
-html[theme=light] .profile__edit_input:focus {
-  border-bottom: 1px solid var(--light-text-color);
+  background-color: var(--light-input-bg);
 }
 html[theme=light] .profile__edit_button {
   color: var(--light-button-text-color);
@@ -273,7 +267,7 @@ html[theme=light] .profile__post_delete:hover {
   text-align: center;
 }
 .profile__actions_follow svg {
-  margin: 0px 0px -6px 0px;
+  margin: -1px 0px -5px 0px;
   width: 85px;
   height: 23px;
 }
@@ -347,13 +341,14 @@ html[theme=light] .profile__post_delete:hover {
   font-size: 16px;
 }
 .profile__edit_input {
+  padding: 5px 10px;
+  border-radius: 4px;
   width: 100%;
   line-height: 150%;
-  font-size: 20px;
+  font-size: 18px;
   background-color: transparent;
   max-width: 250px;
   cursor: pointer;
-  border-radius: 0px;
 }
 .profile__edit_incorrect {
   color: rgba(255, 0, 0, 0.87) !important;
@@ -650,6 +645,9 @@ html[theme=light] .profile__post_delete:hover {
   .profile__actions a,
 .profile__actions button:not(.profile__edit_close) {
     width: 175px;
+  }
+  .profile__edit_input {
+    font-size: 20px;
   }
   .profile__post_date {
     font-size: 14px;

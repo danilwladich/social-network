@@ -8,7 +8,7 @@ export function UsersPageLoading() {
 	return (
 		<section className="users">
 			<div className="subsection">
-				<h2 className="users__title title">Find users</h2>
+			<div className="users__loading_search loading_element"></div>
 				<div className="users__loading_items">{loadingElements}</div>
 			</div>
 		</section>

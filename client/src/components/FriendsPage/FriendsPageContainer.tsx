@@ -21,7 +21,8 @@ interface IProps {
 		userID: string,
 		category: string,
 		page: number,
-		pageSize: number
+		pageSize: number,
+		search?: string
 	) => Promise<void>;
 	setFollowTC: (userID: string) => Promise<void>;
 	setUnfollowTC: (userID: string) => Promise<void>;
@@ -31,9 +32,13 @@ function FriendsPageAPI(props: IProps) {
 	const whoseFriends = props.whoseFriends;
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	let userID = useParams().id;
-	let category = useParams().category;
-	let location = useLocation().pathname;
+
+	const userID = useParams().id;
+	const category = useParams().category;
+	const location = useLocation().pathname;
+
+	const query = useLocation().search.slice(1).replaceAll("&", " ").split(" ");
+	const search = query.find((q) => q.split("=")[0] === "search")?.split("=")[1];
 
 	const pagesCount = Math.ceil(props.totalCount / props.pageSize);
 	const pages: number[] = [];
@@ -70,11 +75,11 @@ function FriendsPageAPI(props: IProps) {
 		) {
 			setIsLoading(true);
 			props
-				.getFriendsTC(userID, category, currentPage, props.pageSize)
+				.getFriendsTC(userID, category, currentPage, props.pageSize, search)
 				.finally(() => setIsLoading(false));
 		}
 		// eslint-disable-next-line
-	}, [userID, category, currentPage, props.pageSize]);
+	}, [userID, category, currentPage, props.pageSize, search]);
 
 	if (!userID) {
 		return <Navigate to={"/friends/" + props.authID + "/all"} />;
@@ -107,7 +112,12 @@ function FriendsPageAPI(props: IProps) {
 	}`;
 	return (
 		<>
-			<FriendsPage isLoading={isLoading} category={category!} {...props} />
+			<FriendsPage
+				{...props}
+				isLoading={isLoading}
+				category={category!}
+				search={search}
+			/>
 		</>
 	);
 }

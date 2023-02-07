@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import "./app.css";
 import { Route, Routes } from "react-router-dom";
 import { HeaderContainer } from "./components/Header/HeaderContainer";
@@ -50,17 +50,17 @@ interface IProps {
 		id: string;
 		token: string;
 	};
-	initializationSuccess: boolean;
 	initializationTC: () => Promise<void>;
 }
 
 function App(props: IProps) {
 	document.title = `SocNet`;
+	const [initializationSuccess, setInitializationSuccess] = useState(false);
 
 	const authUser = props.authUser;
 
 	useLayoutEffect(() => {
-		props.initializationTC();
+		props.initializationTC().finally(() => setInitializationSuccess(true));
 
 		if (!!authUser.id && !!authUser.token) {
 			socket.connect();
@@ -72,7 +72,7 @@ function App(props: IProps) {
 		// eslint-disable-next-line
 	}, [authUser.id]);
 
-	if (!props.initializationSuccess) {
+	if (!initializationSuccess) {
 		return <AppLoading />;
 	}
 	return (
@@ -156,7 +156,6 @@ function App(props: IProps) {
 function mapStateToProps(state: IState) {
 	return {
 		authUser: state.auth.user,
-		initializationSuccess: state.app.initializationSuccess,
 	};
 }
 

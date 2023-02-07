@@ -13,9 +13,6 @@ import { NewsPostData } from "./../News/NewsPostData";
 import { DonationData } from "./../Settings/DonationData";
 
 // APP
-interface setInitializationd {
-	type: ActionType.SET_INITIALIZATION;
-}
 interface setErrorMessage {
 	type: ActionType.SET_ERROR_MESSAGE;
 	value: string;
@@ -171,7 +168,6 @@ interface setDonations {
 }
 
 export type IAction =
-	| setInitializationd
 	| setAuthUser
 	| setErrorMessage
 	| notAuthUser

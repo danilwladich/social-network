@@ -1,8 +1,5 @@
 html[theme=dark] .login__input {
-  border-bottom: 1px solid var(--dark-items-border-bottom);
-}
-html[theme=dark] .login__input:focus {
-  border-bottom: 1px solid var(--dark-text-color);
+  background-color: var(--dark-input-bg);
 }
 html[theme=dark] .login__button {
   color: var(--dark-button-text-color);
@@ -13,10 +10,7 @@ html[theme=dark] .login__button:not(:disabled):hover {
 }
 
 html[theme=light] .login__input {
-  border-bottom: 1px solid var(--light-items-border-bottom);
-}
-html[theme=light] .login__input:focus {
-  border-bottom: 1px solid var(--light-text-color);
+  background-color: var(--light-input-bg);
 }
 html[theme=light] .login__button {
   color: var(--light-button-text-color);
@@ -49,13 +43,14 @@ html[theme=light] .login__button:not(:disabled):hover {
   position: relative;
 }
 .login__input {
+  padding: 5px 10px;
+  border-radius: 4px;
   width: 100%;
   line-height: 150%;
-  font-size: 20px;
+  font-size: 18px;
   background-color: transparent;
   max-width: 250px;
   cursor: pointer;
-  border-radius: 0px;
 }
 .login__incorrect {
   color: rgba(255, 0, 0, 0.87) !important;
@@ -122,6 +117,9 @@ html[theme=light] .login__button:not(:disabled):hover {
     top: 65px;
     width: 280px;
   }
+  .login__input {
+    font-size: 20px;
+  }
 }
 
 .PhoneInput {
@@ -132,7 +130,7 @@ html[theme=light] .login__button:not(:disabled):hover {
 .PhoneInputInput {
   width: 100%;
   line-height: 150%;
-  font-size: 20px;
+  font-size: 18px;
   background-color: transparent;
 }
 .PhoneInputCountryIcon {
@@ -198,4 +196,9 @@ html[theme=light] .login__button:not(:disabled):hover {
   -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
           transform: rotate(45deg);
+}
+@media (min-width: 767px) {
+  .PhoneInputInput {
+    font-size: 20px;
+  }
 }

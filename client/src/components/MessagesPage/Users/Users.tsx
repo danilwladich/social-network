@@ -9,7 +9,6 @@ interface IProps {
 export function Users(props: IProps) {
 	return (
 		<>
-			<h2 className="messages__title title">Your chats</h2>
 			{!!props.usersData.length ? (
 				<div className="messages__users">
 					{props.usersData.map((u) => (
@@ -17,7 +16,7 @@ export function Users(props: IProps) {
 					))}
 				</div>
 			) : (
-				<div className="messages__users_nousers">You don't have chats yet</div>
+				<div className="messages__users_no_users">You don't have chats yet</div>
 			)}
 		</>
 	);

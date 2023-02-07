@@ -84,7 +84,7 @@ export const setUnfollow: (userID: string) => IAction = (userID) => ({
 });
 
 // thunk
-export const getUsersTC = (page: number, pageSize: number) => {
+export const getUsersTC = (page: number, pageSize: number, search?: string) => {
 	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
@@ -93,7 +93,7 @@ export const getUsersTC = (page: number, pageSize: number) => {
 					? getState().users.usersData[getState().users.usersData.length - 1].id
 					: null;
 
-			await API.getUsers(page, pageSize, lastUserID).then((data) => {
+			await API.getUsers(page, pageSize, lastUserID, search).then((data) => {
 				if (data.success === true) {
 					dispatch(setUsers(data.usersData, page));
 					dispatch(setUsersTotalCount(data.totalCount));
@@ -117,6 +117,8 @@ export const setFollowTC = (id: string) => {
 			await API.followUser(id).then((data) => {
 				if (data.success === true) {
 					dispatch(setFollow(id));
+				} else {
+					dispatch(setErrorMessage("Follow: " + data.statusText));
 				}
 			});
 		} catch (e: unknown) {
@@ -133,6 +135,8 @@ export const setUnfollowTC = (id: string) => {
 			await API.unfollowUser(id).then((data) => {
 				if (data.success === true) {
 					dispatch(setUnfollow(id));
+				} else {
+					dispatch(setErrorMessage("Unfollow: " + data.statusText));
 				}
 			});
 		} catch (e: unknown) {

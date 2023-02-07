@@ -96,7 +96,7 @@ export function Chat(props: IProps) {
 							></div>
 						</>
 					) : (
-						<div className="messages__content_nocontent">
+						<div className="messages__content_no_content">
 							{`You haven't had chat with ${chatWith.firstName} ${chatWith.lastName} yet`}
 						</div>
 					)}

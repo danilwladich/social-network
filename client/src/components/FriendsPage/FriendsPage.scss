@@ -19,6 +19,16 @@ html[theme="dark"] {
 				}
 			}
 		}
+		&__search {
+			background-color: var(--dark-input-bg);
+			&_button {
+				color: var(--dark-button-text-color);
+				background-color: var(--dark-button-bg);
+				&:hover {
+					background-color: var(--dark-button-bg-active);
+				}
+			}
+		}
 		&__user {
 			&:not(:last-child) {
 				border-bottom: var(--dark-items-border-bottom) solid 1px;
@@ -58,6 +68,16 @@ html[theme="light"] {
 					}
 				}
 				&.active {
+					background-color: var(--light-button-bg-active);
+				}
+			}
+		}
+		&__search {
+			background-color: var(--light-input-bg);
+			&_button {
+				color: var(--light-button-text-color);
+				background-color: var(--light-button-bg);
+				&:hover {
 					background-color: var(--light-button-bg-active);
 				}
 			}
@@ -139,9 +159,14 @@ html[theme="light"] {
 				height: 26px;
 			}
 		}
+		&_search {
+			height: 40px;
+			width: 100%;
+			margin: 0px 0px 15px 0px;
+		}
 		&_total {
 			width: 125px;
-			height: 20px;
+			height: 27px;
 		}
 		&_items {
 			margin: 5px 0px 0px 0px;
@@ -196,14 +221,40 @@ html[theme="light"] {
 			text-align: center;
 		}
 	}
+	&__search {
+		padding: 5px 10px;
+		border-radius: 4px;
+		margin: 15px 0px 0px 0px;
+		display: flex;
+		gap: 10px;
+		height: 40px;
+		&_input {
+			flex: 1 1 auto;
+			line-height: 150%;
+			font-size: 16px;
+			background-color: transparent;
+			cursor: pointer;
+			border-radius: 0px;
+			overflow: hidden;
+		}
+		&_button {
+			flex: 0 0 70px;
+			display: inline-block;
+			font-size: 20px;
+			background-color: transparent;
+			padding: 5px 15px;
+			border-radius: 4px;
+			transition: all 0.2s;
+		}
+	}
 	&__total {
-		padding: 15px 0px 0px 0px;
+		margin: 15px 0px 0px 0px;
+		opacity: 0.7;
+		line-height: 150%;
 		font-size: 18px;
 	}
 	&__items {
-		&:not(:empty) {
-			padding: 15px 0px 0px 0px;
-		}
+		margin: 15px 0px 0px 0px;
 		&_loading {
 			margin: 30px 0px 0px 0px;
 			height: 30px;
@@ -322,7 +373,7 @@ html[theme="light"] {
 			background-color: transparent;
 			padding: 5px 10px;
 			svg {
-				margin: 0px 0px -5px 0px;
+				margin: 0px 0px -4px 0px;
 				width: 85px;
 				height: 18px;
 			}
@@ -374,6 +425,13 @@ html[theme="light"] {
 			&_button {
 				font-size: 18px;
 				padding: 5px 15px;
+			}
+		}
+		&__search {
+			padding: 5px 15px;
+			gap: 15px;
+			&_input {
+				font-size: 18px;
 			}
 		}
 		&__user {

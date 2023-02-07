@@ -13,10 +13,7 @@ html[theme="dark"] {
 		}
 		&__delete {
 			&_input {
-				border-bottom: 1px solid var(--dark-items-border-bottom);
-				&:focus {
-					border-bottom: 1px solid var(--dark-text-color);
-				}
+				background-color: var(--dark-input-bg);
 			}
 			&_button {
 				background-color: var(--dark-button-bg);
@@ -46,10 +43,7 @@ html[theme="light"] {
 		}
 		&__delete {
 			&_input {
-				border-bottom: 1px solid var(--light-items-border-bottom);
-				&:focus {
-					border-bottom: 1px solid var(--light-text-color);
-				}
+				background-color: var(--light-input-bg);
 			}
 			&_button {
 				background-color: var(--light-button-bg);
@@ -146,9 +140,11 @@ html[theme="light"] {
 			position: relative;
 		}
 		&_input {
+			padding: 5px 10px;
+			border-radius: 4px;
 			width: 100%;
 			line-height: 150%;
-			font-size: 20px;
+			font-size: 18px;
 			background-color: transparent;
 			max-width: 250px;
 			cursor: pointer;
@@ -246,6 +242,13 @@ html[theme="light"] {
 		}
 		&_value {
 			white-space: nowrap;
+		}
+	}
+	@media (min-width: 767px) {
+		&__delete {
+			&_input {
+				font-size: 20px;
+			}
 		}
 	}
 }

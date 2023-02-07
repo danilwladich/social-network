@@ -5,6 +5,7 @@ import { WhoseFriends } from "../../models/Friends/WhoseFriends";
 import { LoadingCircle } from "../assets/LoadingCircle";
 import { Categories } from "./Categories/Categories";
 import "./FriendsPage.css";
+import { FriendsSearch } from "./FriendsSearch";
 import { User } from "./Users/User";
 
 interface IProps {
@@ -14,16 +15,18 @@ interface IProps {
 	whoseFriends: WhoseFriends;
 	usersData: FriendsUserData[];
 	totalCount: number;
+	search?: string;
 	setFollowTC: (userID: string) => Promise<void>;
 	setUnfollowTC: (userID: string) => Promise<void>;
 }
 
 export function FriendsPage(props: IProps) {
-	const whoseFriends = props.whoseFriends;
-	const usersData = props.usersData;
 	const [followButtonsInProgress, setFollowButtonsInProgress] = useState<
 		string[]
 	>([]);
+
+	const whoseFriends = props.whoseFriends;
+	const usersData = props.usersData;
 
 	function setFollow(userID: string) {
 		setFollowButtonsInProgress((prev) => [...prev, userID]);
@@ -53,6 +56,7 @@ export function FriendsPage(props: IProps) {
 								alt={whoseFriends.id}
 							/>
 						</NavLink>
+
 						<NavLink draggable="false" to={"/" + whoseFriends.id}>
 							<h2>
 								{`${whoseFriends.firstName} ${whoseFriends.lastName} ${
@@ -67,32 +71,48 @@ export function FriendsPage(props: IProps) {
 
 					<Categories id={whoseFriends.id} />
 
+					{(props.usersData.length > 10 || !!props.search) && (
+						<FriendsSearch
+							id={whoseFriends.id}
+							category={props.category}
+							search={props.search}
+						/>
+					)}
+
 					<div className="friends__total">
-						<strong>Total count:</strong>{" "}
-						{usersData.length ||
-							`${
-								whoseFriends.id === props.authID
-									? "You"
-									: whoseFriends.firstName
-							} don't have any ${
-								props.category === "all" ? "friends" : props.category
-							} yet`}
+						{!props.search || !!props.usersData.length ? (
+							<>
+								<strong>Total count</strong>{" "}
+								{usersData.length ||
+									`${
+										whoseFriends.id === props.authID
+											? "You"
+											: whoseFriends.firstName
+									} don't have any ${
+										props.category === "all" ? "friends" : props.category
+									} yet`}
+							</>
+						) : (
+							!props.usersData.length && <>Your search returned no results</>
+						)}
 					</div>
 
-					<div className="friends__items">
-						{props.usersData.map((u) => (
-							<User
-								key={u.id}
-								itsMe={u.id === props.authID}
-								userData={u}
-								setFollow={() => setFollow(u.id)}
-								setUnfollow={() => setUnfollow(u.id)}
-								followButtonInProgress={followButtonsInProgress.some(
-									(id) => id === u.id
-								)}
-							/>
-						))}
-					</div>
+					{!!props.usersData.length && (
+						<div className="friends__items">
+							{props.usersData.map((u) => (
+								<User
+									key={u.id}
+									itsMe={u.id === props.authID}
+									userData={u}
+									setFollow={() => setFollow(u.id)}
+									setUnfollow={() => setUnfollow(u.id)}
+									followButtonInProgress={followButtonsInProgress.some(
+										(id) => id === u.id
+									)}
+								/>
+							))}
+						</div>
+					)}
 
 					{props.isLoading && (
 						<div className="friends__items_loading">

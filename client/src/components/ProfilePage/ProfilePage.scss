@@ -12,10 +12,7 @@ html[theme="dark"] {
 		}
 		&__edit {
 			&_input {
-				border-bottom: 1px solid var(--dark-items-border-bottom);
-				&:focus {
-					border-bottom: 1px solid var(--dark-text-color);
-				}
+				background-color: var(--dark-input-bg);
 			}
 			&_button {
 				color: var(--dark-button-text-color);
@@ -90,10 +87,7 @@ html[theme="light"] {
 		}
 		&__edit {
 			&_input {
-				border-bottom: 1px solid var(--light-items-border-bottom);
-				&:focus {
-					border-bottom: 1px solid var(--light-text-color);
-				}
+				background-color: var(--light-input-bg);
 			}
 			&_button {
 				color: var(--light-button-text-color);
@@ -271,7 +265,7 @@ html[theme="light"] {
 		}
 		&_follow {
 			svg {
-				margin: 0px 0px -6px 0px;
+				margin: -1px 0px -5px 0px;
 				width: 85px;
 				height: 23px;
 			}
@@ -341,13 +335,14 @@ html[theme="light"] {
 			}
 		}
 		&_input {
+			padding: 5px 10px;
+			border-radius: 4px;
 			width: 100%;
 			line-height: 150%;
-			font-size: 20px;
+			font-size: 18px;
 			background-color: transparent;
 			max-width: 250px;
 			cursor: pointer;
-			border-radius: 0px;
 		}
 		&_incorrect {
 			color: rgba(255, 0, 0, 0.87) !important;
@@ -580,7 +575,7 @@ html[theme="light"] {
 				width: 220px;
 				margin: 0;
 			}
-			&_location{
+			&_location {
 				height: 24px;
 			}
 			&_post {
@@ -612,6 +607,11 @@ html[theme="light"] {
 			a,
 			button:not(.profile__edit_close) {
 				width: 175px;
+			}
+		}
+		&__edit {
+			&_input {
+				font-size: 20px;
 			}
 		}
 		&__post {

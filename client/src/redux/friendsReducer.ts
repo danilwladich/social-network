@@ -101,7 +101,8 @@ export const getFriendsTC = (
 	userID: string,
 	category: string,
 	page: number,
-	pageSize: number
+	pageSize: number,
+	search?: string
 ) => {
 	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
@@ -113,7 +114,7 @@ export const getFriendsTC = (
 					  ].id
 					: null;
 
-			await API.getFriends(userID, category, page, pageSize, lastUserID).then(
+			await API.getFriends(userID, category, page, pageSize, lastUserID, search).then(
 				(data) => {
 					if (data.success === true) {
 						if (page === 1) {

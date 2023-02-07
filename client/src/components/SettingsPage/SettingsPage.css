@@ -10,10 +10,7 @@ html[theme=dark] .settings__button:hover {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .settings__delete_input {
-  border-bottom: 1px solid var(--dark-items-border-bottom);
-}
-html[theme=dark] .settings__delete_input:focus {
-  border-bottom: 1px solid var(--dark-text-color);
+  background-color: var(--dark-input-bg);
 }
 html[theme=dark] .settings__delete_button {
   background-color: var(--dark-button-bg);
@@ -37,10 +34,7 @@ html[theme=light] .settings__button:hover {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .settings__delete_input {
-  border-bottom: 1px solid var(--light-items-border-bottom);
-}
-html[theme=light] .settings__delete_input:focus {
-  border-bottom: 1px solid var(--light-text-color);
+  background-color: var(--light-input-bg);
 }
 html[theme=light] .settings__delete_button {
   background-color: var(--light-button-bg);
@@ -143,9 +137,11 @@ html[theme=light] .settings__donation:hover {
   position: relative;
 }
 .settings__delete_input {
+  padding: 5px 10px;
+  border-radius: 4px;
   width: 100%;
   line-height: 150%;
-  font-size: 20px;
+  font-size: 18px;
   background-color: transparent;
   max-width: 250px;
   cursor: pointer;
@@ -261,4 +257,9 @@ html[theme=light] .settings__donation:hover {
 }
 .settings__topdonations_value {
   white-space: nowrap;
+}
+@media (min-width: 767px) {
+  .settings__delete_input {
+    font-size: 20px;
+  }
 }

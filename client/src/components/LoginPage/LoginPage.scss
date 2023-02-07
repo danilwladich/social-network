@@ -1,10 +1,7 @@
 html[theme="dark"] {
 	.login {
 		&__input {
-			border-bottom: 1px solid var(--dark-items-border-bottom);
-			&:focus {
-				border-bottom: 1px solid var(--dark-text-color);
-			}
+			background-color: var(--dark-input-bg);
 		}
 		&__button {
 			color: var(--dark-button-text-color);
@@ -18,10 +15,7 @@ html[theme="dark"] {
 html[theme="light"] {
 	.login {
 		&__input {
-			border-bottom: 1px solid var(--light-items-border-bottom);
-			&:focus {
-				border-bottom: 1px solid var(--light-text-color);
-			}
+			background-color: var(--light-input-bg);
 		}
 		&__button {
 			color: var(--light-button-text-color);
@@ -53,13 +47,14 @@ html[theme="light"] {
 		position: relative;
 	}
 	&__input {
+		padding: 5px 10px;
+		border-radius: 4px;
 		width: 100%;
 		line-height: 150%;
-		font-size: 20px;
+		font-size: 18px;
 		background-color: transparent;
 		max-width: 250px;
 		cursor: pointer;
-		border-radius: 0px;
 	}
 	&__incorrect {
 		color: rgba(255, 0, 0, 0.87) !important;
@@ -116,6 +111,9 @@ html[theme="light"] {
 	@media (min-width: 767px) {
 		top: 65px;
 		width: 280px;
+		&__input {
+			font-size: 20px;
+		}
 	}
 }
 
@@ -124,7 +122,7 @@ html[theme="light"] {
 	&Input {
 		width: 100%;
 		line-height: 150%;
-		font-size: 20px;
+		font-size: 18px;
 		background-color: transparent;
 	}
 	&CountryIcon {
@@ -183,5 +181,10 @@ html[theme="light"] {
 		border-left-width: 0;
 		border-right-width: 1px;
 		transform: rotate(45deg);
+	}
+	@media (min-width: 767px) {
+		&Input {
+			font-size: 20px;
+		}
 	}
 }

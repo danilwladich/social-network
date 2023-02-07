@@ -7,7 +7,6 @@ export function UsersLoading() {
 	}
 	return (
 		<>
-			<h2 className="messages__title title">Your chats</h2>
 			<div className="messages__loading_users">{loadingElements}</div>
 		</>
 	);

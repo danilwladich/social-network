@@ -1,6 +1,5 @@
 export enum ActionType {
 	// app
-	SET_INITIALIZATION = "app/SET_INITIALIZATION",
 	SET_ERROR_MESSAGE = "app/SET_ERROR_MESSAGE",
 
 	// header

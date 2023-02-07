@@ -5,6 +5,16 @@ html[theme="dark"] {
 				border-bottom: var(--dark-items-border-bottom) solid 1px;
 			}
 		}
+		&__search {
+			background-color: var(--dark-input-bg);
+			&_button {
+				color: var(--dark-button-text-color);
+				background-color: var(--dark-button-bg);
+				&:hover {
+					background-color: var(--dark-button-bg-active);
+				}
+			}
+		}
 		&__user {
 			&:not(:last-child) {
 				border-bottom: var(--dark-items-border-bottom) solid 1px;
@@ -34,6 +44,16 @@ html[theme="light"] {
 				border-bottom: var(--light-items-border-bottom) solid 1px;
 			}
 		}
+		&__search {
+			background-color: var(--light-input-bg);
+			&_button {
+				color: var(--light-button-text-color);
+				background-color: var(--light-button-bg);
+				&:hover {
+					background-color: var(--light-button-bg-active);
+				}
+			}
+		}
 		&__user {
 			&:not(:last-child) {
 				border-bottom: var(--light-items-border-bottom) solid 1px;
@@ -59,6 +79,11 @@ html[theme="light"] {
 
 .users {
 	&__loading {
+		&_search {
+			height: 40px;
+			width: 100%;
+			margin: 0px 0px 15px 0px;
+		}
 		&_items {
 			margin: -10px 0px 0px 0px;
 		}
@@ -94,6 +119,38 @@ html[theme="light"] {
 			flex: 0 0 30px;
 			height: 10px;
 		}
+	}
+	&__search {
+		padding: 5px 10px;
+		border-radius: 4px;
+		margin: 0px 0px 15px 0px;
+		display: flex;
+		gap: 10px;
+		height: 40px;
+		&_input {
+			flex: 1 1 auto;
+			line-height: 150%;
+			font-size: 16px;
+			background-color: transparent;
+			cursor: pointer;
+			border-radius: 0px;
+			overflow: hidden;
+		}
+		&_button {
+			flex: 0 0 70px;
+			display: inline-block;
+			font-size: 20px;
+			background-color: transparent;
+			padding: 5px 15px;
+			border-radius: 4px;
+			transition: all 0.2s;
+		}
+	}
+	&__no_items {
+		opacity: 0.7;
+		line-height: 150%;
+		text-align: center;
+		font-size: 20px;
 	}
 	&__items {
 		&_loading {
@@ -214,7 +271,7 @@ html[theme="light"] {
 			background-color: transparent;
 			padding: 5px 10px;
 			svg {
-				margin: 0px 0px -5px 0px;
+				margin: 0px 0px -4px 0px;
 				width: 85px;
 				height: 18px;
 			}
@@ -243,6 +300,13 @@ html[theme="light"] {
 				display: block;
 				width: 100px;
 				height: 13px;
+			}
+		}
+		&__search {
+			padding: 5px 15px;
+			gap: 15px;
+			&_input {
+				font-size: 18px;
 			}
 		}
 		&__user {

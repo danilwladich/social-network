@@ -11,12 +11,17 @@ import { UsersPage } from "./UsersPage";
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import { AuthRedirect } from "../../hoc/AuthRedirect";
 import { UsersPageLoading } from "./UsersPageLoading";
+import { useLocation } from "react-router-dom";
 
 interface IProps {
 	usersData: UsersUserData[];
 	pageSize: number;
 	totalCount: number;
-	getUsersTC: (page: number, pageSize: number) => Promise<void>;
+	getUsersTC: (
+		page: number,
+		pageSize: number,
+		search?: string
+	) => Promise<void>;
 	setFollowTC: (userID: string) => Promise<void>;
 	setUnfollowTC: (userID: string) => Promise<void>;
 }
@@ -25,6 +30,9 @@ function UsersPageAPI(props: IProps) {
 	document.title = `Find users`;
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
+
+	const query = useLocation().search.slice(1).replaceAll("&", " ").split(" ");
+	const search = query.find((q) => q.split("=")[0] === "search")?.split("=")[1];
 
 	const pagesCount = Math.ceil(props.totalCount / props.pageSize);
 	const pages: number[] = [];
@@ -55,17 +63,17 @@ function UsersPageAPI(props: IProps) {
 	useLayoutEffect(() => {
 		setIsLoading(true);
 		props
-			.getUsersTC(currentPage, props.pageSize)
+			.getUsersTC(currentPage, props.pageSize, search)
 			.finally(() => setIsLoading(false));
 		// eslint-disable-next-line
-	}, [currentPage, props.pageSize]);
+	}, [currentPage, props.pageSize, search]);
 
 	if (isLoading && currentPage === 1) {
 		return <UsersPageLoading />;
 	}
 	return (
 		<>
-			<UsersPage {...props} isLoading={isLoading} />
+			<UsersPage {...props} isLoading={isLoading} search={search} />
 		</>
 	);
 }

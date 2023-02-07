@@ -2,14 +2,15 @@ import { Router, Request, Response } from "express";
 import User from "../models/User";
 const router = Router();
 
-// /friends/:nickname?category=:category&page=:page&count=:count&lastUserID=:lastUserID
+// /friends/:nickname?category=:category&page=:page&count=:count&lastUserID=:lastUserNickname&search=:search
 router.get("/:nickname", async (req: Request, res: Response) => {
 	try {
 		const nickname = req.params.nickname;
 		const category = req.query.category;
 		const page = req.query.page as number | undefined;
 		const count = req.query.count as number | undefined;
-		const lastUserID = req.query.lastUserID;
+		const lastUserNickname = req.query.lastUserID;
+		const search = req.query.search;
 		if (
 			!category ||
 			(category !== "all"
@@ -49,45 +50,289 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 
 		let totalCount: number;
 		let users;
+		let filter;
+		let totalCountFilter;
 
+		// set users and total count based on category
 		if (category === "all") {
 			const friends = user.following.filter((id) =>
 				user.followers.includes(id)
 			);
 
-			const filter = !lastUserID
-				? { _id: { $in: friends } }
-				: { _id: { $in: friends, $gt: lastUserID } };
+			// users filter with pagination
+			if (!search) {
+				if (!lastUserNickname) {
+					filter = {
+						_id: { $in: friends },
+					};
+				} else {
+					filter = {
+						_id: {
+							$in: friends,
+							$gt: (
+								await User.findOne({ nickname: lastUserNickname }, { _id: 1 })
+							)?._id,
+						},
+					};
+				}
+			} else {
+				if (!lastUserNickname) {
+					filter = {
+						$and: [
+							{ _id: { $in: friends } },
+							{
+								$expr: {
+									$regexMatch: {
+										input: { $concat: ["$firstName", " ", "$lastName"] },
+										regex: search,
+										options: "i",
+									},
+								},
+							},
+						],
+					};
+				} else {
+					filter = {
+						$and: [
+							{
+								_id: {
+									$in: friends,
+									$gt: (
+										await User.findOne(
+											{ nickname: lastUserNickname },
+											{ _id: 1 }
+										)
+									)?._id,
+								},
+							},
+							{
+								$expr: {
+									$regexMatch: {
+										input: { $concat: ["$firstName", " ", "$lastName"] },
+										regex: search,
+										options: "i",
+									},
+								},
+							},
+						],
+					};
+				}
+			}
 
 			users = await User.find(filter).sort({ _id: 1 }).limit(count);
 
-			totalCount = await User.find({ _id: { $in: friends } }).count();
+			// total count filter
+			if (!search) {
+				totalCountFilter = {
+					_id: {
+						$in: friends,
+					},
+				};
+			} else {
+				totalCountFilter = {
+					$and: [
+						{ _id: { $in: friends } },
+						{
+							$expr: {
+								$regexMatch: {
+									input: { $concat: ["$firstName", " ", "$lastName"] },
+									regex: search,
+									options: "i",
+								},
+							},
+						},
+					],
+				};
+			}
+
+			totalCount = await User.find(totalCountFilter).count();
 		} else if (category === "followers") {
 			const followers = user.followers.filter(
 				(id) => !user.following.includes(id)
 			);
 
-			const filter = !lastUserID
-				? { _id: { $in: followers } }
-				: { _id: { $in: followers, $gt: lastUserID } };
+			// users filter with pagination
+			if (!search) {
+				if (!lastUserNickname) {
+					filter = {
+						_id: { $in: followers },
+					};
+				} else {
+					filter = {
+						_id: {
+							$in: followers,
+							$gt: (
+								await User.findOne({ nickname: lastUserNickname }, { _id: 1 })
+							)?._id,
+						},
+					};
+				}
+			} else {
+				if (!lastUserNickname) {
+					filter = {
+						$and: [
+							{ _id: { $in: followers } },
+							{
+								$expr: {
+									$regexMatch: {
+										input: { $concat: ["$firstName", " ", "$lastName"] },
+										regex: search,
+										options: "i",
+									},
+								},
+							},
+						],
+					};
+				} else {
+					filter = {
+						$and: [
+							{
+								_id: {
+									$in: followers,
+									$gt: (
+										await User.findOne(
+											{ nickname: lastUserNickname },
+											{ _id: 1 }
+										)
+									)?._id,
+								},
+							},
+							{
+								$expr: {
+									$regexMatch: {
+										input: { $concat: ["$firstName", " ", "$lastName"] },
+										regex: search,
+										options: "i",
+									},
+								},
+							},
+						],
+					};
+				}
+			}
 
 			users = await User.find(filter).sort({ _id: 1 }).limit(count);
 
-			totalCount = await User.find({ _id: { $in: followers } }).count();
+			// total count filter
+			if (!search) {
+				totalCountFilter = {
+					_id: {
+						$in: followers,
+					},
+				};
+			} else {
+				totalCountFilter = {
+					$and: [
+						{ _id: { $in: followers } },
+						{
+							$expr: {
+								$regexMatch: {
+									input: { $concat: ["$firstName", " ", "$lastName"] },
+									regex: search,
+									options: "i",
+								},
+							},
+						},
+					],
+				};
+			}
+
+			totalCount = await User.find(totalCountFilter).count();
 		} else {
 			const following = user.following.filter(
 				(id) => !user.followers.includes(id)
 			);
 
-			const filter = !lastUserID
-				? { _id: { $in: following } }
-				: { _id: { $in: following, $gt: lastUserID } };
+			// users filter with pagination
+			if (!search) {
+				if (!lastUserNickname) {
+					filter = {
+						_id: { $in: following },
+					};
+				} else {
+					filter = {
+						_id: {
+							$in: following,
+							$gt: (
+								await User.findOne({ nickname: lastUserNickname }, { _id: 1 })
+							)?._id,
+						},
+					};
+				}
+			} else {
+				if (!lastUserNickname) {
+					filter = {
+						$and: [
+							{ _id: { $in: following } },
+							{
+								$expr: {
+									$regexMatch: {
+										input: { $concat: ["$firstName", " ", "$lastName"] },
+										regex: search,
+										options: "i",
+									},
+								},
+							},
+						],
+					};
+				} else {
+					filter = {
+						$and: [
+							{
+								_id: {
+									$in: following,
+									$gt: (
+										await User.findOne(
+											{ nickname: lastUserNickname },
+											{ _id: 1 }
+										)
+									)?._id,
+								},
+							},
+							{
+								$expr: {
+									$regexMatch: {
+										input: { $concat: ["$firstName", " ", "$lastName"] },
+										regex: search,
+										options: "i",
+									},
+								},
+							},
+						],
+					};
+				}
+			}
 
 			users = await User.find(filter).sort({ _id: 1 }).limit(count);
 
-			totalCount = await User.find({ _id: { $in: following } }).count();
+			// total count filter
+			if (!search) {
+				totalCountFilter = {
+					_id: {
+						$in: following,
+					},
+				};
+			} else {
+				totalCountFilter = {
+					$and: [
+						{ _id: { $in: following } },
+						{
+							$expr: {
+								$regexMatch: {
+									input: { $concat: ["$firstName", " ", "$lastName"] },
+									regex: search,
+									options: "i",
+								},
+							},
+						},
+					],
+				};
+			}
+
+			totalCount = await User.find(totalCountFilter).count();
 		}
 
+		// mapping users
 		const usersData = users.map((u) => {
 			return {
 				id: u.nickname,
