@@ -76,6 +76,21 @@ function App(props: IProps) {
 				nickname: authUser.id,
 				token: authUser.token,
 			});
+
+			// try to reconnect
+			socket.on("disconnect", () => {
+				setInitializationSuccess(false);
+				props.initializationTC();
+
+				setTimeout(() => {
+					socket.connect();
+					socket.emit("connected", {
+						nickname: authUser.id,
+						token: authUser.token,
+					});
+					setInitializationSuccess(true);
+				}, 1000);
+			});
 		}
 		// eslint-disable-next-line
 	}, [authUser.id]);

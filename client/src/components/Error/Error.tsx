@@ -16,7 +16,7 @@ export function Error(props: IProps) {
 
 		socket.on("disconnect", (reason) => {
 			props.setErrorMessage(
-				"Connection: " + reason + ". Try to refresh page"
+				"Connection error. Try to refresh page"
 			);
 		});
 
