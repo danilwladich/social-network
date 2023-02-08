@@ -29,6 +29,29 @@ export function Chat(props: IProps) {
 	const chatWith = props.chatWith;
 	const readMessages =
 		localStorage.getItem("readMessages") === "false" ? false : true;
+	const reverseMessageData = [...props.messagesData].reverse();
+
+	// return date if message before has a different date or this is the first message
+	function checkMessageDate(index: number) {
+		const date = reverseMessageData[index].date.split(" ");
+		const dateBefore = reverseMessageData[index - 1]?.date.split(" ");
+		const dateNow = new Date().toString().split(" ").slice(1, 5);
+
+		if (
+			(dateBefore &&
+				date.slice(0, 3).join(" ") !== dateBefore.slice(0, 3).join(" ")) ||
+			index === 0
+		) {
+			const dateToShow =
+				date[0] === dateNow[0] && date[2] === dateNow[2]
+					? date[1] === dateNow[1]
+						? "Today"
+						: date[0] + " " + date[1]
+					: date[1] + " " + date[0] + " " + date[2];
+
+			return dateToShow;
+		}
+	}
 
 	// first render scroll bottom
 	useLayoutEffect(() => {
@@ -86,8 +109,13 @@ export function Chat(props: IProps) {
 				<div className="messages__content" ref={contentRef}>
 					{!!props.messagesData.length ? (
 						<>
-							{[...props.messagesData].reverse().map((m) => (
-								<Message key={m.id} messageData={m} />
+							{reverseMessageData.map((m, index) => (
+								<Message
+									key={m.id}
+									messageData={m}
+									index={index}
+									checkMessageDate={checkMessageDate}
+								/>
 							))}
 
 							<div

@@ -4,6 +4,8 @@ import { CheckMark } from "../../assets/CheckMark";
 
 interface IProps {
 	messageData: MessagesMessageData;
+	index: number;
+	checkMessageDate: (index: number) => string | undefined;
 }
 
 export function Message(props: IProps) {
@@ -12,9 +14,14 @@ export function Message(props: IProps) {
 
 	return (
 		<>
+			<div className="messages__date">
+				{props.checkMessageDate(props.index)}
+			</div>
+
 			<div className={"messages__message " + (messageData.out ? "out" : "")}>
 				<div className="messages__message_content">
 					<span className="messages__message_text">{messageData.message}</span>
+
 					<div className="messages__message_footer">
 						{messageData.out && (
 							<div
@@ -32,6 +39,7 @@ export function Message(props: IProps) {
 								)}
 							</div>
 						)}
+
 						<span className="messages__message_date">{time}</span>
 					</div>
 				</div>

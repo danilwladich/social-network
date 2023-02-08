@@ -129,10 +129,12 @@ html[theme="light"] {
 			}
 		}
 		&_label {
+			line-height: 150%;
+			opacity: 0.8;
 			cursor: pointer;
 			display: block;
 			font-size: 18px;
-			padding: 0px 0px 10px 0px;
+			padding: 0px 0px 5px 0px;
 		}
 		&_field {
 			padding: 0 5px 5px 5px;

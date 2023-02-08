@@ -179,9 +179,9 @@ export function EditForm(props: IProps) {
 									<label htmlFor="idInput" className="profile__edit_label">
 										Nickname
 										<p>
-											Bloxx.com/
+											bloxx.com.pl/
 											{values.id
-												? values.id.trim().slice(0, 14).replace(/[^\w]/g, "")
+												? values.id.trim().slice(0, 15).replace(/[^\w]/g, "")
 												: props.authID}
 										</p>
 									</label>

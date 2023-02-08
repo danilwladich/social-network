@@ -467,6 +467,13 @@ html[theme=light] .messages__message.out .messages__message_content * {
 .messages__field_send:not(:disabled) {
   opacity: 1;
 }
+.messages__date {
+  opacity: 0.7;
+  margin: 0px 0px 10px 0px;
+  text-align: center;
+  line-height: 150%;
+  font-size: 14px;
+}
 .messages__message {
   display: -webkit-box;
   display: -ms-flexbox;

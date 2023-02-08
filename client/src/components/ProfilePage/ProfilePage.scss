@@ -310,11 +310,14 @@ html[theme="light"] {
 			position: relative;
 		}
 		&_label {
+			line-height: 150%;
+			opacity: 0.8;
 			cursor: pointer;
 			display: block;
 			font-size: 18px;
-			padding: 0px 0px 10px 0px;
+			padding: 0px 0px 5px 0px;
 			&.row {
+				opacity: 1;
 				display: flex;
 				justify-content: space-between;
 				padding: 0;
@@ -329,7 +332,7 @@ html[theme="light"] {
 				border-radius: 50%;
 			}
 			p {
-				margin: 5px 0px 0px 0px;
+				margin: -5px 0px 0px 0px;
 				opacity: 0.5;
 				font-size: 16px;
 			}

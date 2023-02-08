@@ -2,7 +2,7 @@ import React from "react";
 
 export function UsersLoading() {
 	const loadingElements: JSX.Element[] = [];
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 15; i++) {
 		loadingElements.push(<UserLoading key={i} />);
 	}
 	return (

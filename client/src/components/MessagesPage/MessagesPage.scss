@@ -422,6 +422,13 @@ html[theme="light"] {
 			}
 		}
 	}
+	&__date {
+		opacity: 0.7;
+		margin: 0px 0px 10px 0px;
+		text-align: center;
+		line-height: 150%;
+		font-size: 14px;
+	}
 	&__message {
 		&:not(:last-child) {
 			margin: 0px 0px 10px 0px;

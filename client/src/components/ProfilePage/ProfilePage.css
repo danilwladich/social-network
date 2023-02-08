@@ -312,12 +312,15 @@ html[theme=light] .profile__post_delete:hover {
   position: relative;
 }
 .profile__edit_label {
+  line-height: 150%;
+  opacity: 0.8;
   cursor: pointer;
   display: block;
   font-size: 18px;
-  padding: 0px 0px 10px 0px;
+  padding: 0px 0px 5px 0px;
 }
 .profile__edit_label.row {
+  opacity: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -336,7 +339,7 @@ html[theme=light] .profile__post_delete:hover {
   border-radius: 50%;
 }
 .profile__edit_label p {
-  margin: 5px 0px 0px 0px;
+  margin: -5px 0px 0px 0px;
   opacity: 0.5;
   font-size: 16px;
 }
@@ -643,7 +646,7 @@ html[theme=light] .profile__post_delete:hover {
     gap: 15px;
   }
   .profile__actions a,
-.profile__actions button:not(.profile__edit_close) {
+  .profile__actions button:not(.profile__edit_close) {
     width: 175px;
   }
   .profile__edit_input {
