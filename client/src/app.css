@@ -188,7 +188,7 @@ html[theme=dark] .likeHeart.likedMe {
   fill: var(--dark-button-text-color);
 }
 html[theme=dark] .checkMark {
-  fill: var(--dark-button-text-color);
+  fill: var(--dark-text-color);
 }
 
 html[theme=light] ::-webkit-scrollbar-track {
@@ -252,7 +252,7 @@ html[theme=light] .likeHeart.likedMe {
   fill: var(--light-button-text-color);
 }
 html[theme=light] .checkMark {
-  fill: var(--light-button-text-color);
+  fill: var(--light-text-color);
 }
 
 html {
@@ -273,7 +273,7 @@ body.lock {
 
 .wrapper {
   position: relative;
-  font-family: "Asap", sans-serif;
+  font-family: -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Inter", "Helvetica Neue", sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

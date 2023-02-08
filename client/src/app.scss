@@ -101,7 +101,7 @@ html[theme="dark"] {
 		}
 	}
 	.checkMark {
-		fill: var(--dark-button-text-color);
+		fill: var(--dark-text-color);
 	}
 }
 
@@ -179,7 +179,7 @@ html[theme="light"] {
 		}
 	}
 	.checkMark {
-		fill: var(--light-button-text-color);
+		fill: var(--light-text-color);
 	}
 }
 
@@ -199,7 +199,7 @@ body {
 
 .wrapper {
 	position: relative;
-	font-family: "Asap", sans-serif;
+	font-family: -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", 'Inter', "Helvetica Neue", sans-serif;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;

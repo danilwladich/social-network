@@ -31,7 +31,6 @@ html[theme="dark"] {
 			background-color: var(--dark-subsection-bg);
 		}
 		&__header {
-			background-color: var(--dark-subsection-bg);
 			border-bottom: var(--dark-items-border-bottom) solid 1px;
 			&_back {
 				color: var(--dark-button-text-color);
@@ -60,6 +59,11 @@ html[theme="dark"] {
 		&__message {
 			&_content {
 				background-color: var(--dark-main-bg);
+				.messages__message_status:not(.read) {
+					svg {
+						fill: var(--dark-button-text-color);
+					}
+				}
 			}
 			&.out {
 				.messages__message_content {
@@ -105,7 +109,6 @@ html[theme="light"] {
 			background-color: var(--light-subsection-bg);
 		}
 		&__header {
-			background-color: var(--dark-subsection-bg);
 			border-bottom: var(--light-items-border-bottom) solid 1px;
 			&_back {
 				color: var(--light-button-text-color);
@@ -134,6 +137,11 @@ html[theme="light"] {
 		&__message {
 			&_content {
 				background-color: var(--light-main-bg);
+				.messages__message_status:not(.read) {
+					svg {
+						fill: var(--light-button-text-color);
+					}
+				}
 			}
 			&.out {
 				.messages__message_content {
