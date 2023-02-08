@@ -8,6 +8,7 @@ function mapStateToProps(state: IState) {
 		isAuth: state.auth.isAuth,
 		authID: state.auth.user.id,
 		burger: state.header.burger,
+		countOfUnreadMessages: state.messages.countOfUnreadMessages,
 	};
 }
 

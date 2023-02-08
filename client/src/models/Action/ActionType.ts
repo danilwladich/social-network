@@ -1,6 +1,7 @@
 export enum ActionType {
 	// app
 	SET_ERROR_MESSAGE = "app/SET_ERROR_MESSAGE",
+	SET_COUNT_OF_UNREAD_MESSAGES = "app/SET_COUNT_OF_UNREAD_MESSAGES",
 
 	// header
 	SET_HEADER_IMAGE = "header/SET_HEADER_IMAGE",
@@ -32,6 +33,7 @@ export enum ActionType {
 	MESSAGE_SENT = "messages/MESSAGE_SENT",
 	RECEIVE_MESSAGE = "messages/RECEIVE_MESSAGE",
 	MESSAGES_READ = "messages/MESSAGES_READ",
+	READ_MESSAGES = "messages/READ_MESSAGES",
 
 	// friends
 	SET_WHOSE_FRIENDS = "friends/SET_WHOSE_FRIENDS",

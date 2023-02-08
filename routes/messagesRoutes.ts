@@ -7,9 +7,9 @@ import { check, validationResult } from "express-validator";
 import Message from "../models/Message";
 const router = Router();
 
-// /messages
+// /messages/chats
 router.get(
-	"",
+	"/chats",
 	authMiddleware,
 	async (req: IGetUserAuthRequest, res: Response) => {
 		try {
@@ -99,6 +99,7 @@ router.get(
 	}
 );
 
+// /messages
 router.post(
 	"",
 	[
@@ -160,9 +161,84 @@ router.post(
 	}
 );
 
-// /messages/:nickname
+// /messages/read
 router.get(
-	"/:nickname",
+	"/read",
+	authMiddleware,
+	async (req: IGetUserAuthRequest, res: Response) => {
+		try {
+			const authID = req.user!.userID as string;
+
+			const fromUsers = await Message.distinct("from", {
+				to: authID,
+				read: false,
+			});
+
+			const count = await Promise.all(
+				fromUsers.map(async (id) => {
+					return (await User.findById(id, { _id: 0, nickname: 1 }))
+						?.nickname;
+				})
+			);
+
+			res.status(200).json({
+				success: true,
+				statusText: "Count of unread messages sent successfully",
+				count,
+			});
+		} catch (e) {
+			res.status(500).json({ success: false, statusText: "Server error" });
+		}
+	}
+);
+
+router.put(
+	"/read",
+	[
+		check("whoUserID", "Who user ID required").exists(),
+		check("whomUserNickname", "Whom user nickname required").exists(),
+	],
+	async (req: Request, res: Response) => {
+		try {
+			const errors = validationResult(req);
+
+			if (!errors.isEmpty()) {
+				return res.status(200).json({
+					success: false,
+					statusText: errors.array(),
+				});
+			}
+
+			const { whoUserID, whomUserNickname } = req.body;
+
+			const whoUser = await User.findById(whoUserID, { _id: 1 });
+			const whomUser = await User.findOne({ nickname: whomUserNickname });
+			if (!whoUser || !whomUser) {
+				return res.status(200).json({
+					success: false,
+					statusText: "User not found",
+				});
+			}
+			const whomUserID = whomUser._id;
+
+			await Message.updateMany(
+				{ from: whomUserID, to: whoUserID, read: false },
+				{ read: true }
+			);
+
+			res.status(200).json({
+				success: true,
+				statusText: "Messages read successfully",
+			});
+		} catch (e) {
+			res.status(500).json({ success: false, statusText: "Server error" });
+		}
+	}
+);
+
+// /messages/chat/:nickname
+router.get(
+	"/chat/:nickname",
 	authMiddleware,
 	async (req: IGetUserAuthRequest, res: Response) => {
 		try {
@@ -247,51 +323,6 @@ router.get(
 				statusText: "Chat sent successfully",
 				chatWith,
 				messagesData,
-			});
-		} catch (e) {
-			res.status(500).json({ success: false, statusText: "Server error" });
-		}
-	}
-);
-
-// /messages/read
-router.put(
-	"/read",
-	[
-		check("whoUserID", "Who user ID required").exists(),
-		check("whomUserNickname", "Whom user nickname required").exists(),
-	],
-	async (req: Request, res: Response) => {
-		try {
-			const errors = validationResult(req);
-
-			if (!errors.isEmpty()) {
-				return res.status(200).json({
-					success: false,
-					statusText: errors.array(),
-				});
-			}
-
-			const { whoUserID, whomUserNickname } = req.body;
-
-			const whoUser = await User.findById(whoUserID, { _id: 1 });
-			const whomUser = await User.findOne({ nickname: whomUserNickname });
-			if (!whoUser || !whomUser) {
-				return res.status(200).json({
-					success: false,
-					statusText: "User not found",
-				});
-			}
-			const whomUserID = whomUser._id;
-
-			await Message.updateMany(
-				{ from: whomUserID, to: whoUserID, read: false },
-				{ read: true }
-			);
-
-			res.status(200).json({
-				success: true,
-				statusText: "Messages read successfully",
 			});
 		} catch (e) {
 			res.status(500).json({ success: false, statusText: "Server error" });

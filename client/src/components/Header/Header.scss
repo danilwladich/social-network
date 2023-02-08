@@ -9,7 +9,7 @@ html[theme="dark"] {
 				background-color: var(--dark-text-color);
 			}
 			span {
-				background-color: var(--dark-text-color);
+				background-color: var(--dark-button-bg-active);
 			}
 		}
 	}
@@ -26,7 +26,7 @@ html[theme="light"] {
 				background-color: var(--light-text-color);
 			}
 			span {
-				background-color: var(--light-text-color);
+				background-color: var(--light-button-bg-active);
 			}
 		}
 	}
@@ -79,6 +79,7 @@ html[theme="light"] {
 		}
 	}
 	&__burger {
+		background-color: transparent;
 		z-index: 50;
 		display: block;
 		cursor: pointer;
@@ -124,6 +125,12 @@ html[theme="light"] {
 		}
 		&.active span {
 			transform: scale(0);
+		}
+		.countOfUnreadMessages {
+			position: absolute;
+			left: -8px;
+			bottom: -8px;
+			z-index: 1;
 		}
 	}
 	@media (min-width: 767px) {

@@ -26,8 +26,8 @@ const store = multer.diskStorage({
 });
 const upload = multer({ storage: store }).single("image");
 
-// /profile/:nickname
-router.get("/:nickname", async (req: Request, res: Response) => {
+// /profile/user/:nickname
+router.get("/user/:nickname", async (req: Request, res: Response) => {
 	try {
 		const authNickname = req.cookies.nickname;
 		const authUser = await User.findOne({ nickname: authNickname }, { _id: 1 });

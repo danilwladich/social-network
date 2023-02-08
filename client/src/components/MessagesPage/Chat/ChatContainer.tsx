@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IState } from "../../../models/IState";
 import { connect } from "react-redux";
 import { Chat } from "./Chat";
-import { sendMessage } from "../../../redux/messagesReducer";
+import { readMessages, sendMessage } from "../../../redux/messagesReducer";
 import { useParams } from "react-router-dom";
 import { MessagesMessageData } from "../../../models/Messages/MessagesMessageData";
 import { ChatWith } from "../../../models/Messages/ChatWith";
@@ -17,6 +17,7 @@ interface IProps {
 	totalCount: number;
 	getChatTC: (userID: string, page: number, pageSize: number) => Promise<void>;
 	sendMessage: (message: string, id: string) => void;
+	readMessages: (userID: string) => void
 }
 
 export function ChatContainerAPI(props: IProps) {
@@ -106,4 +107,5 @@ function mapStateToProps(state: IState) {
 export const ChatContainer = connect(mapStateToProps, {
 	getChatTC,
 	sendMessage,
+	readMessages,
 })(ChatContainerAPI);

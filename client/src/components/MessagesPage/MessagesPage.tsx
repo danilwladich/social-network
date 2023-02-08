@@ -4,16 +4,11 @@ import { UsersContainer } from "./Users/UsersContainer";
 import { ChatContainer } from "./Chat/ChatContainer";
 import { useParams } from "react-router-dom";
 import { socket } from "../../App";
-import { MessagesMessageData } from "../../models/Messages/MessagesMessageData";
-import { MessagesUserData } from "../../models/Messages/MessagesUserData";
 
 interface IProps {
 	messageSent: (oldID: string, newID: string) => void;
-	receiveMessage: (
-		messageData: MessagesMessageData,
-		fromUser: MessagesUserData
-	) => void;
 	messagesRead: (userID: string) => void;
+	readMessages: (userID: string) => void;
 }
 
 export function MessagesPage(props: IProps) {
@@ -22,10 +17,6 @@ export function MessagesPage(props: IProps) {
 
 	// sockets
 	useEffect(() => {
-		socket.on("receiveMessage", (data) => {
-			props.receiveMessage(data.messageData, data.fromUser);
-		});
-
 		socket.on("messageSent", (data) => {
 			props.messageSent(data.oldID, data.newID);
 		});
@@ -33,11 +24,15 @@ export function MessagesPage(props: IProps) {
 		socket.on("messagesRead", (data) => {
 			props.messagesRead(data.userID);
 		});
-		
+
+		socket.on("readMessages", (data) => {
+			props.readMessages(data.userID);
+		});
+
 		return () => {
-			socket.off("receiveMessage").off();
-			socket.off("messageSent").off();
-			socket.off("messagesRead").off();
+			socket.off("messageSent");
+			socket.off("messagesRead");
+			socket.off("readMessages");
 		};
 		// eslint-disable-next-line
 	}, []);

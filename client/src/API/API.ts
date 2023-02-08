@@ -55,7 +55,7 @@ export const API = {
 
 	// profile
 	getProfile(userID: string) {
-		return instance.get(`profile/${userID}`).then((response) => response.data);
+		return instance.get(`profile/user/${userID}`).then((response) => response.data);
 	},
 	getPosts(
 		userID: string,
@@ -121,7 +121,7 @@ export const API = {
 
 	// messages
 	getChats() {
-		return instance.get(`messages`).then((response) => response.data);
+		return instance.get(`messages/chats`).then((response) => response.data);
 	},
 	getChat(
 		userID: string,
@@ -131,10 +131,13 @@ export const API = {
 	) {
 		return instance
 			.get(
-				`messages/${userID}?page=${page}&count=${pageSize}` +
+				`messages/chat/${userID}?page=${page}&count=${pageSize}` +
 					(!!lastMessageID ? `&lastMessageID=${lastMessageID}` : "")
 			)
 			.then((response) => response.data);
+	},
+	getCountOfUnreadMessages() {
+		return instance.get(`messages/read`).then((response) => response.data);
 	},
 
 	// friends

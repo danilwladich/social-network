@@ -14,6 +14,7 @@ interface IProps {
 	contentRef: React.RefObject<HTMLDivElement>;
 	contentLock: boolean;
 	sendMessage: (message: string, id: string) => void;
+	readMessages: (userID: string) => void;
 }
 
 function chatHeight() {
@@ -27,7 +28,7 @@ export function Chat(props: IProps) {
 	const messagesEnd = useRef<HTMLDivElement>(null);
 	const contentRef = props.contentRef;
 	const chatWith = props.chatWith;
-	const readMessages =
+	const readMessagesOption =
 		localStorage.getItem("readMessages") === "false" ? false : true;
 	const reverseMessageData = [...props.messagesData].reverse();
 
@@ -79,11 +80,13 @@ export function Chat(props: IProps) {
 				scrollBottom();
 			}
 
-			if (readMessages && !props.messagesData[0].read) {
+			if (readMessagesOption && !props.messagesData[0].read) {
 				socket.emit("readMessages", {
 					who: props.authID,
 					whom: chatWith.id,
 				});
+
+				props.readMessages(chatWith.id)
 			}
 		}
 		// eslint-disable-next-line
@@ -131,11 +134,12 @@ export function Chat(props: IProps) {
 				</div>
 
 				<ChatInput
-					sendMessage={props.sendMessage}
 					authID={props.authID}
 					userID={chatWith.id}
-					readMessages={readMessages}
-				/>
+					readMessagesOption={readMessagesOption}
+					sendMessage={props.sendMessage}
+					readMessages={props.readMessages}
+					/>
 			</div>
 		</>
 	);

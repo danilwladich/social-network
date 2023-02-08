@@ -14,8 +14,15 @@ export function Error(props: IProps) {
 			props.setErrorMessage(data.statusText);
 		});
 
+		socket.on("disconnect", (reason) => {
+			props.setErrorMessage(
+				"Connection: " + reason + ". Try to refresh page"
+			);
+		});
+
 		return () => {
-			socket.off("error").off();
+			socket.off("error");
+			socket.off("disconnect");
 		};
 		// eslint-disable-next-line
 	}, []);

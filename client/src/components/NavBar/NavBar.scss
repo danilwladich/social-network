@@ -46,6 +46,12 @@ html[theme="light"] {
 		&.active {
 			font-weight: 700;
 		}
+		&.messages {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
 	}
 	@media (max-width: 766px) {
 		z-index: 10;
@@ -81,6 +87,9 @@ html[theme="light"] {
 			}
 			text-align: center;
 			width: 220px;
+			&.messages {
+				justify-content: space-around;
+			}
 		}
 	}
 	@media (min-width: 767px) {

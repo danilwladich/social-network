@@ -134,6 +134,14 @@ interface messagesRead {
 	type: ActionType.MESSAGES_READ;
 	value: string;
 }
+interface readMessages {
+	type: ActionType.READ_MESSAGES;
+	value: string;
+}
+interface setCountOfUnreadMessages {
+	type: ActionType.SET_COUNT_OF_UNREAD_MESSAGES;
+	value: string[];
+}
 
 // FRIENDS
 interface setWhoseFriends {
@@ -169,6 +177,7 @@ interface setDonations {
 
 export type IAction =
 	| setAuthUser
+	| setCountOfUnreadMessages
 	| setErrorMessage
 	| notAuthUser
 	| setTheme
@@ -196,6 +205,7 @@ export type IAction =
 	| setProfile
 	| likePost
 	| unlikePost
+	| readMessages
 	| setDonations
 	| setBurger
 	| setHeaderImage;

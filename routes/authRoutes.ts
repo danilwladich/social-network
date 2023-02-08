@@ -39,7 +39,8 @@ router.post(
 				});
 			}
 
-			const { phoneNumber, password, firstName, lastName, recaptcha } = req.body;
+			const { phoneNumber, password, firstName, lastName, recaptcha } =
+				req.body;
 
 			const secretKey = config.get("recaptchaSecretKey");
 

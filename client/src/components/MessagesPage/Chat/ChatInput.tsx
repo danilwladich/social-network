@@ -5,8 +5,9 @@ import { socket } from "../../../App";
 interface IProps {
 	authID: string;
 	userID: string;
-	readMessages: boolean;
+	readMessagesOption: boolean;
 	sendMessage: (message: string, id: string) => void;
+	readMessages: (userID: string) => void;
 }
 
 export function ChatInput(props: IProps) {
@@ -43,12 +44,13 @@ export function ChatInput(props: IProps) {
 				id,
 			});
 
-			if (!props.readMessages) {
-				// TODO when message sent
+			if (!props.readMessagesOption) {
 				socket.emit("readMessages", {
 					who: props.authID,
 					whom: props.userID,
 				});
+
+				props.readMessages(props.userID);
 			}
 
 			props.sendMessage(newMessageValue.trim(), id);

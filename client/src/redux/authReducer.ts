@@ -5,6 +5,7 @@ import { ActionType } from "../models/Action/ActionType";
 import { IAction } from "../models/Action/IAction";
 import { IAuth } from "../models/IAuth";
 import { setErrorMessage } from "./appReducer";
+import { getCountOfUnreadMessagesTC } from "./messagesReducer";
 
 const initialState: IAuth = {
 	user: {
@@ -47,12 +48,14 @@ export const notAuthUser: () => IAction = () => ({
 
 // thunk
 export const authMeTC = () => {
-	return async (dispatch: Dispatch<IAction>) => {
+	return async (dispatch: Dispatch<any>) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.authMe().then((data) => {
+			await API.authMe().then(async (data) => {
 				if (data.success === true) {
 					dispatch(setAuthUser(data.user));
+
+					await dispatch(getCountOfUnreadMessagesTC());
 				} else {
 					dispatch(notAuthUser());
 				}

@@ -376,6 +376,18 @@ body.lock {
   }
 }
 
+.countOfUnreadMessages {
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: red;
+  color: #fff;
+  padding: 0 5px;
+  line-height: 20px;
+  height: 20px;
+  min-width: 20px;
+}
+
 .app_loading {
   position: fixed;
   left: 50vw;

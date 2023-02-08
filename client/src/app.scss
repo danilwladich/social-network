@@ -199,7 +199,9 @@ body {
 
 .wrapper {
 	position: relative;
-	font-family: -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", 'Inter', "Helvetica Neue", sans-serif;
+	font-family: -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+		"Cantarell", "Fira Sans", "Droid Sans", "Inter", "Helvetica Neue",
+		sans-serif;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
@@ -280,6 +282,18 @@ body {
 		width: 280px;
 		padding: 15px;
 	}
+}
+
+.countOfUnreadMessages {
+	border-radius: 20px;
+	font-size: 14px;
+	font-weight: 700;
+	background-color: red;
+	color: #fff;
+	padding: 0 5px;
+	line-height: 20px;
+	height: 20px;
+	min-width: 20px;
 }
 
 .app_loading {

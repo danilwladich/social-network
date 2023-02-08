@@ -21,6 +21,7 @@ const initialState: IMessages = {
 	messagesData: [],
 	pageSize: 50,
 	totalCount: 0,
+	countOfUnreadMessages: [],
 };
 
 export function messagesReducer(
@@ -82,25 +83,35 @@ export function messagesReducer(
 		case ActionType.RECEIVE_MESSAGE:
 			return {
 				...state,
+
 				usersData: [
 					{ ...action.fromUser, lastMessage: action.messageData },
 					...state.usersData.filter((u) => u.id !== action.fromUser.id),
 				],
+
 				messagesData:
 					action.fromUser.id === state.chatWith.id
 						? [action.messageData, ...state.messagesData]
 						: state.messagesData,
+
+				countOfUnreadMessages: state.countOfUnreadMessages.includes(
+					action.fromUser.id
+				)
+					? [...state.countOfUnreadMessages]
+					: [...state.countOfUnreadMessages, action.fromUser.id],
 			};
 
 		case ActionType.MESSAGES_READ:
 			return {
 				...state,
+
 				usersData: state.usersData.map((u) => {
 					if (u.lastMessage.out) {
 						return { ...u, lastMessage: { ...u.lastMessage, read: true } };
 					}
 					return u;
 				}),
+
 				messagesData:
 					action.value === state.chatWith.id
 						? state.messagesData.map((m) => {
@@ -110,6 +121,20 @@ export function messagesReducer(
 								return m;
 						  })
 						: state.messagesData,
+			};
+
+		case ActionType.READ_MESSAGES:
+			return {
+				...state,
+				countOfUnreadMessages: state.countOfUnreadMessages.filter(
+					(id) => id !== action.value
+				),
+			};
+
+		case ActionType.SET_COUNT_OF_UNREAD_MESSAGES:
+			return {
+				...state,
+				countOfUnreadMessages: action.value,
 			};
 
 		default:
@@ -176,6 +201,18 @@ export const messagesRead: (userID: string) => IAction = (userID) => ({
 	value: userID,
 });
 
+export const readMessages: (userID: string) => IAction = (userID) => ({
+	type: ActionType.READ_MESSAGES,
+	value: userID,
+});
+
+export const setCountOfUnreadMessages: (count: string[]) => IAction = (
+	count
+) => ({
+	type: ActionType.SET_COUNT_OF_UNREAD_MESSAGES,
+	value: count,
+});
+
 // thunk
 export const getChatsTC = () => {
 	return async (dispatch: Dispatch<IAction>) => {
@@ -229,6 +266,29 @@ export const getChatTC = (userID: string, page: number, pageSize: number) => {
 		} catch (e: unknown) {
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Get chat: " + error.message));
+		}
+	};
+};
+
+export const getCountOfUnreadMessagesTC = () => {
+	return async (dispatch: Dispatch<any>) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.getCountOfUnreadMessages().then((data) => {
+				if (data.success === true) {
+					dispatch(setCountOfUnreadMessages(data.count));
+				} else {
+					dispatch(setCountOfUnreadMessages([]));
+					dispatch(
+						setErrorMessage("Get count of unread mesages: " + data.statusText)
+					);
+				}
+			});
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(
+				setErrorMessage("Get count of unread mesages: " + error.message)
+			);
 		}
 	};
 };

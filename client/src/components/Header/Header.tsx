@@ -7,10 +7,12 @@ interface IProps {
 	authID: string;
 	headerImage: string;
 	burger: boolean;
+	countOfUnreadMessages: string[];
 	setBurger: (b: boolean) => void;
 }
 
 export function Header(props: IProps) {
+	const countOfUnreadMessages = props.countOfUnreadMessages.length;
 	return (
 		<>
 			<header className="header">
@@ -28,18 +30,28 @@ export function Header(props: IProps) {
 							login
 						</NavLink>
 					)}
+
 					<div className="header__logo">
-						<h1>Blo<span>xx</span></h1>
+						<h1>
+							Blo<span>xx</span>
+						</h1>
 					</div>
+
 					{props.isAuth && (
-						<div
+						<button
 							onClick={() => {
 								props.burger ? props.setBurger(false) : props.setBurger(true);
 							}}
 							className={"header__burger " + (props.burger ? "active" : "")}
 						>
+							{!props.burger && !!countOfUnreadMessages && (
+								<div className="countOfUnreadMessages">
+									{!!countOfUnreadMessages &&
+										(countOfUnreadMessages > 9 ? "9+" : countOfUnreadMessages)}
+								</div>
+							)}
 							<span></span>
-						</div>
+						</button>
 					)}
 				</nav>
 			</header>

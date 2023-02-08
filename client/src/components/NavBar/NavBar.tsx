@@ -6,10 +6,12 @@ interface IProps {
 	isAuth: boolean;
 	authID: string;
 	burger: boolean;
+	countOfUnreadMessages: string[];
 	setBurger: (b: boolean) => void;
 }
 
 export function NavBar(props: IProps) {
+	const countOfUnreadMessages = props.countOfUnreadMessages.length;
 	return (
 		<>
 			{props.isAuth && (
@@ -35,9 +37,14 @@ export function NavBar(props: IProps) {
 							draggable="false"
 							to="/messages"
 							onClick={() => props.setBurger(false)}
-							className="navbar__link"
+							className="navbar__link messages"
 						>
 							Messages
+							{!!countOfUnreadMessages && (
+								<span className="countOfUnreadMessages">
+									{countOfUnreadMessages > 9 ? "9+" : countOfUnreadMessages}
+								</span>
+							)}
 						</NavLink>
 						<NavLink
 							draggable="false"

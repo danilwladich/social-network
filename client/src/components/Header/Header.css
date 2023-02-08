@@ -7,7 +7,7 @@ html[theme=dark] .header__burger:before, html[theme=dark] .header__burger:after 
   background-color: var(--dark-text-color);
 }
 html[theme=dark] .header__burger span {
-  background-color: var(--dark-text-color);
+  background-color: var(--dark-button-bg-active);
 }
 
 html[theme=light] .header {
@@ -19,7 +19,7 @@ html[theme=light] .header__burger:before, html[theme=light] .header__burger:afte
   background-color: var(--light-text-color);
 }
 html[theme=light] .header__burger span {
-  background-color: var(--light-text-color);
+  background-color: var(--light-button-bg-active);
 }
 
 .header {
@@ -83,6 +83,7 @@ html[theme=light] .header__burger span {
   opacity: 0.7;
 }
 .header__burger {
+  background-color: transparent;
   z-index: 50;
   display: block;
   cursor: pointer;
@@ -142,6 +143,12 @@ html[theme=light] .header__burger span {
   -webkit-transform: scale(0);
       -ms-transform: scale(0);
           transform: scale(0);
+}
+.header__burger .countOfUnreadMessages {
+  position: absolute;
+  left: -8px;
+  bottom: -8px;
+  z-index: 1;
 }
 @media (min-width: 767px) {
   .header {

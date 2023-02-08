@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./app.css";
 import { Route, Routes } from "react-router-dom";
 import { HeaderContainer } from "./components/Header/HeaderContainer";
@@ -10,6 +10,9 @@ import { ErrorContainer } from "./components/Error/ErrorContainer";
 import { NotExist } from "./components/NotExist/NotExist";
 import { AppLoading } from "./components/assets/AppLoading";
 import * as io from "socket.io-client";
+import { MessagesMessageData } from "./models/Messages/MessagesMessageData";
+import { MessagesUserData } from "./models/Messages/MessagesUserData";
+import { receiveMessage } from "./redux/messagesReducer";
 
 const LoginPageContainer = React.lazy(
 	() => import("./components/LoginPage/Login/LoginPageContainer")
@@ -51,6 +54,10 @@ interface IProps {
 		token: string;
 	};
 	initializationTC: () => Promise<void>;
+	receiveMessage: (
+		messageData: MessagesMessageData,
+		fromUser: MessagesUserData
+	) => void;
 }
 
 function App(props: IProps) {
@@ -72,6 +79,18 @@ function App(props: IProps) {
 		}
 		// eslint-disable-next-line
 	}, [authUser.id]);
+
+	// receive message socket
+	useEffect(() => {
+		socket.on("receiveMessage", (data) => {
+			props.receiveMessage(data.messageData, data.fromUser);
+		});
+
+		return () => {
+			socket.off("receiveMessage");
+		};
+		// eslint-disable-next-line
+	}, []);
 
 	if (!initializationSuccess) {
 		return <AppLoading />;
@@ -162,4 +181,5 @@ function mapStateToProps(state: IState) {
 
 export default connect(mapStateToProps, {
 	initializationTC,
+	receiveMessage,
 })(App);

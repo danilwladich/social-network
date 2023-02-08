@@ -9,6 +9,7 @@ function mapStateToProps(state: IState) {
 		authID: state.auth.user.id,
 		headerImage: state.header.headerImage,
 		burger: state.header.burger,
+		countOfUnreadMessages: state.messages.countOfUnreadMessages,
 	};
 }
 
