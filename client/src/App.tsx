@@ -76,8 +76,13 @@ function App(props: IProps) {
 				nickname: authUser.id,
 				token: authUser.token,
 			});
+		}
+		// eslint-disable-next-line
+	}, [authUser.id]);
 
-			// try to reconnect
+	// try to reconnect
+	useEffect(() => {
+		if (!!authUser.id && !!authUser.token) {
 			socket.on("disconnect", () => {
 				setInitializationSuccess(false);
 				props.initializationTC();
@@ -92,8 +97,7 @@ function App(props: IProps) {
 				}, 1000);
 			});
 		}
-		// eslint-disable-next-line
-	}, [authUser.id]);
+	}, [authUser.id, initializationSuccess]);
 
 	// receive message socket
 	useEffect(() => {
