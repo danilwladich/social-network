@@ -5,6 +5,7 @@ import authMiddleware, {
 } from "../middleware/authMiddleware";
 import { check, validationResult } from "express-validator";
 import Message from "../models/Message";
+import { connectedSockets } from "../socket";
 const router = Router();
 
 // /messages/chats
@@ -85,6 +86,7 @@ router.get(
 					firstName: u.firstName,
 					image: u.avatar,
 					lastMessage: u.lastMessage,
+					online: u.nickname in connectedSockets,
 				};
 			});
 
@@ -176,8 +178,7 @@ router.get(
 
 			const count = await Promise.all(
 				fromUsers.map(async (id) => {
-					return (await User.findById(id, { _id: 0, nickname: 1 }))
-						?.nickname;
+					return (await User.findById(id, { _id: 0, nickname: 1 }))?.nickname;
 				})
 			);
 
@@ -298,6 +299,7 @@ router.get(
 				firstName: user.firstName,
 				lastName: user.lastName,
 				image: user.avatar,
+				online: user.nickname in connectedSockets,
 			};
 
 			// sent total count if page === 1

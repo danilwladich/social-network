@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import User from "../models/User";
+import { connectedSockets } from "../socket";
 const router = Router();
 
 // /friends/:nickname?category=:category&page=:page&count=:count&lastUserID=:lastUserNickname&search=:search
@@ -351,6 +352,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 					!!authID && authNickname !== u.nickname
 						? u.followers.some((id) => id === authID)
 						: undefined,
+				online: u.nickname in connectedSockets,
 			};
 		});
 

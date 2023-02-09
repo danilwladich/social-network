@@ -271,6 +271,11 @@ html[theme="light"] {
 				border-radius: 50%;
 				object-fit: cover;
 			}
+			&.online {
+				img {
+					border: 2px solid rgba(0, 255, 0, 0.7);
+				}
+			}
 		}
 		&_info {
 			flex: 1 1 auto;
@@ -383,6 +388,11 @@ html[theme="light"] {
 					height: 35px;
 					border-radius: 50%;
 					object-fit: cover;
+				}
+				&.online {
+					img {
+						border: 2px solid rgba(0, 255, 0, 0.7);
+					}
 				}
 			}
 		}

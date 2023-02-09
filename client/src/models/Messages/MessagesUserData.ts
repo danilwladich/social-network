@@ -6,4 +6,5 @@ export interface MessagesUserData {
 	lastName: string;
 	image?: string;
 	lastMessage: MessagesMessageData;
+	online: boolean;
 }

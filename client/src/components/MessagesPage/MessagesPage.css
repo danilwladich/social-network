@@ -275,6 +275,9 @@ html[theme=light] .messages__message.out .messages__message_content * {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.messages__user_image.online img {
+  border: 2px solid rgba(0, 255, 0, 0.7);
+}
 .messages__user_info {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
@@ -423,6 +426,9 @@ html[theme=light] .messages__message.out .messages__message_content * {
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+.messages__chat_header_image.online img {
+  border: 2px solid rgba(0, 255, 0, 0.7);
 }
 .messages__chat_content {
   -webkit-box-flex: 1;

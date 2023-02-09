@@ -17,6 +17,7 @@ const initialState: IMessages = {
 		firstName: "",
 		lastName: "",
 		image: "",
+		online: false,
 	},
 	messagesData: [],
 	pageSize: 50,
@@ -258,6 +259,7 @@ export const getChatTC = (userID: string, page: number, pageSize: number) => {
 							firstName: "",
 							lastName: "",
 							image: "",
+							online: false,
 						})
 					);
 					dispatch(setMessages([], 1));

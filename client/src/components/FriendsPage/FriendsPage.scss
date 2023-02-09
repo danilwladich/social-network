@@ -287,6 +287,11 @@ html[theme="light"] {
 				height: 100%;
 				object-fit: cover;
 			}
+			&.online {
+				img {
+					border: 2px solid rgba(0, 255, 0, 0.7);
+				}
+			}
 		}
 		&_info {
 			flex: 1 1 auto;

@@ -7,6 +7,7 @@ import authMiddleware, {
 import { check, validationResult } from "express-validator";
 import multer from "multer";
 import fs from "fs";
+import { connectedSockets } from "../socket";
 const router = Router();
 
 const store = multer.diskStorage({
@@ -60,6 +61,7 @@ router.get("/user/:nickname", async (req: Request, res: Response) => {
 				!!authID && authNickname !== nickname
 					? user.followers.some((id) => id === authID)
 					: undefined,
+			online: nickname in connectedSockets,
 		};
 
 		const friends: number =

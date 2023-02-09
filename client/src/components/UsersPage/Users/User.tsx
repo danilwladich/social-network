@@ -19,7 +19,7 @@ export function User(props: IProps) {
 				<NavLink
 					to={"/" + userData.id}
 					draggable="false"
-					className="users__user_image"
+					className={"users__user_image " + (userData.online ? "online" : "")}
 				>
 					<img
 						loading="lazy"
@@ -27,6 +27,7 @@ export function User(props: IProps) {
 						alt={userData.id}
 					/>
 				</NavLink>
+
 				<div className="users__user_info">
 					<div className="users__user_name">
 						<NavLink draggable="false" to={"/" + userData.id}>

@@ -10,9 +10,9 @@ if (process.env.NODE_ENV === "production") {
 	baseURL = "http://localhost:80/api/";
 }
 
-export default (io: Server) => {
-	let connectedSockets: { socketID: string; userID: string }[] = [];
+export let connectedSockets: { socketID: string; userID: string }[] = [];
 
+export default (io: Server) => {
 	io.sockets.on("connection", (socket) => {
 		// connected
 		socket.on("connected", (data) => {
@@ -27,6 +27,7 @@ export default (io: Server) => {
 					userID: decoded.userID,
 				};
 
+				console.log(" ");
 				console.log(" ");
 				console.log("Users: " + Object.keys(connectedSockets).join(" , "));
 				console.log("Online: " + Object.keys(connectedSockets).length);
@@ -110,6 +111,12 @@ export default (io: Server) => {
 		});
 
 		// disconnect
-		socket.on("disconnect", (data) => {});
+		socket.on("disconnect", (data) => {
+			for (let key in connectedSockets) {
+				if (connectedSockets[key].socketID === socket.id) {
+					delete connectedSockets[key];
+				}
+			}
+		});
 	});
 };

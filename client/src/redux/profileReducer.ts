@@ -22,6 +22,7 @@ const initialState: IProfile = {
 			country: "",
 			city: "",
 		},
+		online: false,
 	},
 	aboutData: {
 		follow: {
@@ -225,6 +226,7 @@ export const getProfileTC = (userID: string) => {
 									country: "",
 									city: "",
 								},
+								online: false,
 							},
 							{
 								follow: {

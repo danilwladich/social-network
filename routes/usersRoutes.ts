@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import User from "../models/User";
+import { connectedSockets } from "../socket";
 const router = Router();
 
 // /users?page=:page&count=:count&lastUserID=:lastUserID&search=:search
@@ -93,6 +94,7 @@ router.get("", async (req: Request, res: Response) => {
 				},
 				follower: u.following.some((id) => id === authID?.toString()),
 				followed: u.followers.some((id) => id === authID?.toString()),
+				online: u.nickname in connectedSockets,
 			};
 		});
 

@@ -30,7 +30,11 @@ export function User(props: IProps) {
 					(!lastMessage.read && !lastMessage.out ? "unread" : "")
 				}
 			>
-				<div className="messages__user_image">
+				<div
+					className={
+						"messages__user_image " + (userData.online ? "online" : "")
+					}
+				>
 					<img
 						loading="lazy"
 						src={userData.image || "/images/user.jpg"}
@@ -51,7 +55,8 @@ export function User(props: IProps) {
 						{lastMessage.out && (
 							<div
 								className={
-									"messages__user_lastmessage_status " + (lastMessage.read ? "read" : "")
+									"messages__user_lastmessage_status " +
+									(lastMessage.read ? "read" : "")
 								}
 							>
 								{lastMessage.id.includes("temporaryid") ? (

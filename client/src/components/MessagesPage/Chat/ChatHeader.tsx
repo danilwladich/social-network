@@ -30,7 +30,9 @@ export function ChatHeader(props: IProps) {
 				<NavLink
 					to={"/" + chatWith.id}
 					draggable="false"
-					className="messages__chat_header_image"
+					className={
+						"messages__chat_header_image " + (chatWith.online ? "online" : "")
+					}
 				>
 					<img src={chatWith.image || "/images/user.jpg"} alt={chatWith.id} />
 				</NavLink>

@@ -221,6 +221,9 @@ html[theme=light] .profile__post_delete:hover {
      object-fit: cover;
   border-radius: 50%;
 }
+.profile__user_image.online img {
+  border: 2px solid rgba(0, 255, 0, 0.7);
+}
 .profile__user_info {
   display: -webkit-box;
   display: -ms-flexbox;

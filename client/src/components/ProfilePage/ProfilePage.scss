@@ -228,6 +228,11 @@ html[theme="light"] {
 				object-fit: cover;
 				border-radius: 50%;
 			}
+			&.online {
+				img {
+					border: 2px solid rgba(0, 255, 0, 0.7);
+				}
+			}
 		}
 		&_info {
 			display: flex;

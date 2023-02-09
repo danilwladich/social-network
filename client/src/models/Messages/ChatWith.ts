@@ -3,4 +3,5 @@ export interface ChatWith {
 	firstName: string;
 	lastName: string;
 	image?: string;
+	online: boolean;
 }

@@ -9,4 +9,5 @@ export interface UsersUserData {
 	};
 	follower: boolean;
 	followed: boolean;
+	online: boolean;
 }
