@@ -17,12 +17,6 @@ interface IProps {
 	readMessages: (userID: string) => void;
 }
 
-function chatHeight() {
-	const doc = document.documentElement;
-	doc.style.setProperty("--app-height", `${window.innerHeight}px`);
-}
-chatHeight();
-
 export function Chat(props: IProps) {
 	const navigate = useNavigate();
 	const messagesEnd = useRef<HTMLDivElement>(null);
@@ -86,7 +80,7 @@ export function Chat(props: IProps) {
 					whom: chatWith.id,
 				});
 
-				props.readMessages(chatWith.id)
+				props.readMessages(chatWith.id);
 			}
 		}
 		// eslint-disable-next-line
@@ -95,21 +89,12 @@ export function Chat(props: IProps) {
 		messagesEnd.current?.scrollIntoView();
 	}
 
-	// set chat height
-	useEffect(() => {
-		window.addEventListener("resize", chatHeight);
-		return () => {
-			window.removeEventListener("resize", chatHeight);
-		};
-		// eslint-disable-next-line
-	}, []);
-
 	return (
 		<>
 			<div className="messages__chat">
 				<ChatHeader chatWith={chatWith} />
 
-				<div className="messages__content" ref={contentRef}>
+				<div className="messages__chat_content" ref={contentRef}>
 					{!!props.messagesData.length ? (
 						<>
 							{reverseMessageData.map((m, index) => (
@@ -127,7 +112,7 @@ export function Chat(props: IProps) {
 							></div>
 						</>
 					) : (
-						<div className="messages__content_no_content">
+						<div className="messages__chat_content_no_content">
 							{`You haven't had chat with ${chatWith.firstName} ${chatWith.lastName} yet`}
 						</div>
 					)}
@@ -139,7 +124,7 @@ export function Chat(props: IProps) {
 					readMessagesOption={readMessagesOption}
 					sendMessage={props.sendMessage}
 					readMessages={props.readMessages}
-					/>
+				/>
 			</div>
 		</>
 	);

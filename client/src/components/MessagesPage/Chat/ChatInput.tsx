@@ -66,7 +66,7 @@ export function ChatInput(props: IProps) {
 	}
 	return (
 		<>
-			<div className="messages__field">
+			<div className="messages__chat_input">
 				<textarea
 					ref={fieldRef}
 					autoFocus
@@ -74,13 +74,13 @@ export function ChatInput(props: IProps) {
 					onChange={(e) => updateNewMessageValue(e.target.value)}
 					value={newMessageValue}
 					placeholder="Write new message..."
-					className="messages__field_input"
+					className="messages__chat_input_field"
 				/>
 
 				<button
 					onClick={() => sendMessage()}
 					disabled={newMessageValue.trim() === ""}
-					className="messages__field_send"
+					className="messages__chat_input_send"
 				>
 					<Arrow />
 				</button>

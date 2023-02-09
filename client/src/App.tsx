@@ -13,6 +13,7 @@ import * as io from "socket.io-client";
 import { MessagesMessageData } from "./models/Messages/MessagesMessageData";
 import { MessagesUserData } from "./models/Messages/MessagesUserData";
 import { receiveMessage } from "./redux/messagesReducer";
+import { useAppHeight } from "./hooks/useAppHeight";
 
 const LoginPageContainer = React.lazy(
 	() => import("./components/LoginPage/Login/LoginPageContainer")
@@ -39,13 +40,13 @@ const SettingsPageContainer = React.lazy(
 	() => import("./components/SettingsPage/SettingsPageContainer")
 );
 
+// connect socket
 let baseURL;
 if (process.env.NODE_ENV === "production") {
 	baseURL = "http://46.41.137.197";
 } else {
 	baseURL = "http://localhost:80";
 }
-
 export const socket = io.connect(baseURL, { autoConnect: false });
 
 interface IProps {
@@ -97,6 +98,7 @@ function App(props: IProps) {
 				}, 1000);
 			});
 		}
+		// eslint-disable-next-line
 	}, [authUser.id, initializationSuccess]);
 
 	// receive message socket
@@ -110,6 +112,9 @@ function App(props: IProps) {
 		};
 		// eslint-disable-next-line
 	}, []);
+
+	// set app height
+	useAppHeight();
 
 	if (!initializationSuccess) {
 		return <AppLoading />;

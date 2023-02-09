@@ -22,26 +22,20 @@ html[theme=dark] .messages__user:hover .messages__user_lastmessage_status:not(.r
 html[theme=dark] .messages__chat {
   background-color: var(--dark-subsection-bg);
 }
-html[theme=dark] .messages__header {
+html[theme=dark] .messages__chat_header {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
-html[theme=dark] .messages__header_back {
-  color: var(--dark-button-text-color);
-  background-color: var(--dark-button-bg);
+html[theme=dark] .messages__chat_header_back::before {
+  border-bottom: 2px solid var(--dark-text-color);
+  border-left: 2px solid var(--dark-text-color);
 }
-html[theme=dark] .messages__header_back:hover {
-  background-color: var(--dark-button-bg-active);
-}
-html[theme=dark] .messages__header_back svg {
-  fill: var(--dark-button-text-color);
-}
-html[theme=dark] .messages__field_input {
+html[theme=dark] .messages__chat_input_field {
   border: 2px solid var(--dark-button-bg);
 }
-html[theme=dark] .messages__field_send:not(:disabled):hover {
+html[theme=dark] .messages__chat_input_send:not(:disabled):hover {
   background-color: var(--dark-button-bg-active);
 }
-html[theme=dark] .messages__field_send:not(:disabled):hover path {
+html[theme=dark] .messages__chat_input_send:not(:disabled):hover path {
   fill: var(--dark-button-text-color);
 }
 html[theme=dark] .messages__message_content {
@@ -81,26 +75,20 @@ html[theme=light] .messages__user:hover .messages__user_lastmessage_status:not(.
 html[theme=light] .messages__chat {
   background-color: var(--light-subsection-bg);
 }
-html[theme=light] .messages__header {
+html[theme=light] .messages__chat_header {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
-html[theme=light] .messages__header_back {
-  color: var(--light-button-text-color);
-  background-color: var(--light-button-bg);
+html[theme=light] .messages__chat_header_back::before {
+  border-bottom: 2px solid var(--light-text-color);
+  border-left: 2px solid var(--light-text-color);
 }
-html[theme=light] .messages__header_back:hover {
-  background-color: var(--light-button-bg-active);
-}
-html[theme=light] .messages__header_back svg {
-  fill: var(--light-button-text-color);
-}
-html[theme=light] .messages__field_input {
+html[theme=light] .messages__chat_input_field {
   border: 2px solid var(--light-button-bg);
 }
-html[theme=light] .messages__field_send:not(:disabled):hover {
+html[theme=light] .messages__chat_input_send:not(:disabled):hover {
   background-color: var(--light-button-bg-active);
 }
-html[theme=light] .messages__field_send:not(:disabled):hover path {
+html[theme=light] .messages__chat_input_send:not(:disabled):hover path {
   fill: var(--light-button-text-color);
 }
 html[theme=light] .messages__message_content {
@@ -212,14 +200,20 @@ html[theme=light] .messages__message.out .messages__message_content * {
           align-items: center;
   padding: 0px 0px 5px 0px;
   height: 40px;
+  position: relative;
 }
 .messages__loading_chat_back {
-  width: 74px;
-  height: 28px;
+  width: 49px;
+  height: 24px;
 }
 .messages__loading_chat_name {
-  width: 125px;
-  height: 18px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 140px;
+  height: 24px;
 }
 .messages__loading_chat_image {
   width: 35px;
@@ -364,7 +358,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
       -ms-flex-direction: column;
           flex-direction: column;
 }
-.messages__header {
+.messages__chat_header {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -379,23 +373,42 @@ html[theme=light] .messages__message.out .messages__message_content * {
   gap: 5px;
   height: 40px;
 }
-.messages__header_back {
+.messages__chat_header_back {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 2px;
-  font-size: 18px;
-  padding: 5px 10px;
+  font-size: 16px;
+  line-height: 150%;
+  padding: 0px 0px 0px 16px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   border-radius: 4px;
+  opacity: 0.8;
 }
-.messages__header_back svg {
+.messages__chat_header_back::before {
+  content: "";
+  position: absolute;
   width: 12px;
   height: 12px;
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+  left: 4px;
 }
-.messages__header_name {
+.messages__chat_header_back:hover {
+  opacity: 1;
+}
+.messages__chat_header_name {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: calc(100% - 110px);
+  text-align: center;
+  line-height: 150%;
   font-size: 16px;
   font-weight: 700;
   -o-text-overflow: ellipsis;
@@ -403,10 +416,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   white-space: nowrap;
   overflow: hidden;
 }
-.messages__header_name a:hover {
-  text-decoration: underline;
-}
-.messages__header_image img {
+.messages__chat_header_image img {
   pointer-events: none;
   width: 35px;
   height: 35px;
@@ -414,7 +424,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   -o-object-fit: cover;
      object-fit: cover;
 }
-.messages__content {
+.messages__chat_content {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
@@ -424,7 +434,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   overflow-y: overlay;
   position: relative;
 }
-.messages__content_no_content {
+.messages__chat_content_no_content {
   opacity: 0.7;
   text-align: center;
   width: 66.667%;
@@ -436,11 +446,11 @@ html[theme=light] .messages__message.out .messages__message_content * {
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
-.messages__field {
+.messages__chat_input {
   position: relative;
   width: 100%;
 }
-.messages__field_input {
+.messages__chat_input_field {
   border-radius: 4px;
   resize: none;
   display: inline-block;
@@ -452,7 +462,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   overflow: auto;
   height: 50px;
 }
-.messages__field_send {
+.messages__chat_input_send {
   position: absolute;
   top: 5px;
   right: 0;
@@ -461,14 +471,14 @@ html[theme=light] .messages__message.out .messages__message_content * {
   border-radius: 4px;
   background-color: transparent;
 }
-.messages__field_send svg {
+.messages__chat_input_send svg {
   -webkit-transform: rotate(-90deg);
       -ms-transform: rotate(-90deg);
           transform: rotate(-90deg);
   width: 40px;
   height: 40px;
 }
-.messages__field_send:not(:disabled) {
+.messages__chat_input_send:not(:disabled) {
   opacity: 1;
 }
 .messages__date {
@@ -570,6 +580,17 @@ html[theme=light] .messages__message.out .messages__message_content * {
     padding: 0;
     width: 100%;
   }
+  .messages__loading_chat_header {
+    height: 40px;
+  }
+  .messages__loading_chat_name {
+    width: 150px;
+    height: 27px;
+  }
+  .messages__loading_chat_image {
+    width: 35px;
+    height: 35px;
+  }
   .messages__user {
     border-radius: 0;
     margin: 0 -15px 0 -15px;
@@ -600,8 +621,10 @@ html[theme=light] .messages__message.out .messages__message_content * {
     padding: 0;
     width: 100%;
   }
-  .messages__header_name {
+  .messages__chat_header_name {
     font-size: 18px;
+    max-width: calc(100% - 110px);
+    width: auto;
   }
   .messages__message_footer {
     font-size: 12px;

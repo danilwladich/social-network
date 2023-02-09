@@ -29,30 +29,26 @@ html[theme="dark"] {
 		}
 		&__chat {
 			background-color: var(--dark-subsection-bg);
-		}
-		&__header {
-			border-bottom: var(--dark-items-border-bottom) solid 1px;
-			&_back {
-				color: var(--dark-button-text-color);
-				background-color: var(--dark-button-bg);
-				&:hover {
-					background-color: var(--dark-button-bg-active);
-				}
-				svg {
-					fill: var(--dark-button-text-color);
-				}
-			}
-		}
-		&__field {
-			&_input {
-				border: 2px solid var(--dark-button-bg);
-			}
-			&_send {
-				&:not(:disabled):hover {
-					path {
-						fill: var(--dark-button-text-color);
+			&_header {
+				border-bottom: var(--dark-items-border-bottom) solid 1px;
+				&_back {
+					&::before {
+						border-bottom: 2px solid var(--dark-text-color);
+						border-left: 2px solid var(--dark-text-color);
 					}
-					background-color: var(--dark-button-bg-active);
+				}
+			}
+			&_input {
+				&_field {
+					border: 2px solid var(--dark-button-bg);
+				}
+				&_send {
+					&:not(:disabled):hover {
+						path {
+							fill: var(--dark-button-text-color);
+						}
+						background-color: var(--dark-button-bg-active);
+					}
 				}
 			}
 		}
@@ -107,30 +103,26 @@ html[theme="light"] {
 		}
 		&__chat {
 			background-color: var(--light-subsection-bg);
-		}
-		&__header {
-			border-bottom: var(--light-items-border-bottom) solid 1px;
-			&_back {
-				color: var(--light-button-text-color);
-				background-color: var(--light-button-bg);
-				&:hover {
-					background-color: var(--light-button-bg-active);
-				}
-				svg {
-					fill: var(--light-button-text-color);
-				}
-			}
-		}
-		&__field {
-			&_input {
-				border: 2px solid var(--light-button-bg);
-			}
-			&_send {
-				&:not(:disabled):hover {
-					path {
-						fill: var(--light-button-text-color);
+			&_header {
+				border-bottom: var(--light-items-border-bottom) solid 1px;
+				&_back {
+					&::before {
+						border-bottom: 2px solid var(--light-text-color);
+						border-left: 2px solid var(--light-text-color);
 					}
-					background-color: var(--light-button-bg-active);
+				}
+			}
+			&_input {
+				&_field {
+					border: 2px solid var(--light-button-bg);
+				}
+				&_send {
+					&:not(:disabled):hover {
+						path {
+							fill: var(--light-button-text-color);
+						}
+						background-color: var(--light-button-bg-active);
+					}
 				}
 			}
 		}
@@ -218,14 +210,18 @@ html[theme="light"] {
 				align-items: center;
 				padding: 0px 0px 5px 0px;
 				height: 40px;
+				position: relative;
 			}
 			&_back {
-				width: 74px;
-				height: 28px;
+				width: 49px;
+				height: 24px;
 			}
 			&_name {
-				width: 125px;
-				height: 18px;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 140px;
+				height: 24px;
 			}
 			&_image {
 				width: 35px;
@@ -338,95 +334,107 @@ html[theme="light"] {
 		width: 100vw;
 		display: flex;
 		flex-direction: column;
-	}
-	&__header {
-		position: relative;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0px 0px 5px 0px;
-		gap: 5px;
-		height: 40px;
-		&_back {
+		&_header {
+			position: relative;
 			display: flex;
-			gap: 2px;
-			font-size: 18px;
-			padding: 5px 10px;
+			justify-content: space-between;
 			align-items: center;
-			border-radius: 4px;
-			svg {
-				width: 12px;
-				height: 12px;
+			padding: 0px 0px 5px 0px;
+			gap: 5px;
+			height: 40px;
+			&_back {
+				display: flex;
+				gap: 2px;
+				font-size: 16px;
+				line-height: 150%;
+				padding: 0px 0px 0px 16px;
+				align-items: center;
+				border-radius: 4px;
+				&::before {
+					content: "";
+					position: absolute;
+					width: 12px;
+					height: 12px;
+					transform: rotate(45deg);
+					left: 4px;
+				}
+				opacity: 0.8;
+				&:hover {
+					opacity: 1;
+				}
+			}
+			&_name {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				width: calc(100% - 110px);
+				text-align: center;
+				line-height: 150%;
+				font-size: 16px;
+				font-weight: 700;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+			&_image {
+				img {
+					pointer-events: none;
+					width: 35px;
+					height: 35px;
+					border-radius: 50%;
+					object-fit: cover;
+				}
 			}
 		}
-		&_name {
-			font-size: 16px;
-			font-weight: 700;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-			a:hover {
-				text-decoration: underline;
+		&_content {
+			flex: 1 1 auto;
+			margin: 0px -7px 0px 0px;
+			padding: 10px 12px 10px 0px;
+			max-height: 100%;
+			overflow-y: overlay;
+			position: relative;
+			&_no_content {
+				opacity: 0.7;
+				text-align: center;
+				width: 66.667%;
+				font-size: 20px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
 			}
 		}
-		&_image {
-			img {
-				pointer-events: none;
-				width: 35px;
-				height: 35px;
-				border-radius: 50%;
-				object-fit: cover;
-			}
-		}
-	}
-	&__content {
-		flex: 1 1 auto;
-		margin: 0px -7px 0px 0px;
-		padding: 10px 12px 10px 0px;
-		max-height: 100%;
-		overflow-y: overlay;
-		position: relative;
-		&_no_content {
-			opacity: 0.7;
-			text-align: center;
-			width: 66.667%;
-			font-size: 20px;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
-	}
-	&__field {
-		position: relative;
-		width: 100%;
 		&_input {
-			border-radius: 4px;
-			resize: none;
-			display: inline-block;
-			font-size: 16px;
-			line-height: 26px;
-			background-color: transparent;
-			padding: 10px;
-			width: calc(100% - 50px);
-			overflow: auto;
-			height: 50px;
-		}
-		&_send {
-			position: absolute;
-			top: 5px;
-			right: 0;
-			font-size: 0;
-			opacity: 0.3;
-			border-radius: 4px;
-			background-color: transparent;
-			svg {
-				transform: rotate(-90deg);
-				width: 40px;
-				height: 40px;
+			position: relative;
+			width: 100%;
+			&_field {
+				border-radius: 4px;
+				resize: none;
+				display: inline-block;
+				font-size: 16px;
+				line-height: 26px;
+				background-color: transparent;
+				padding: 10px;
+				width: calc(100% - 50px);
+				overflow: auto;
+				height: 50px;
 			}
-			&:not(:disabled) {
-				opacity: 1;
+			&_send {
+				position: absolute;
+				top: 5px;
+				right: 0;
+				font-size: 0;
+				opacity: 0.3;
+				border-radius: 4px;
+				background-color: transparent;
+				svg {
+					transform: rotate(-90deg);
+					width: 40px;
+					height: 40px;
+				}
+				&:not(:disabled) {
+					opacity: 1;
+				}
 			}
 		}
 	}
@@ -508,6 +516,17 @@ html[theme="light"] {
 				height: calc(100vh - 112px);
 				padding: 0;
 				width: 100%;
+				&_header {
+					height: 40px;
+				}
+				&_name {
+					width: 150px;
+					height: 27px;
+				}
+				&_image {
+					width: 35px;
+					height: 35px;
+				}
 			}
 		}
 		&__user {
@@ -541,10 +560,12 @@ html[theme="light"] {
 			height: calc(100vh - 112px);
 			padding: 0;
 			width: 100%;
-		}
-		&__header {
-			&_name {
-				font-size: 18px;
+			&_header {
+				&_name {
+					font-size: 18px;
+					max-width: calc(100% - 110px);
+					width: auto;
+				}
 			}
 		}
 		&__message {
