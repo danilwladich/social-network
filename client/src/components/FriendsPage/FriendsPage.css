@@ -328,6 +328,7 @@ html[theme=light] .friends__user_follow:hover {
      object-fit: cover;
 }
 .friends__user_image.online img {
+  padding: 2px;
   border: 2px solid rgba(0, 255, 0, 0.7);
 }
 .friends__user_info {

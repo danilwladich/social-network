@@ -222,6 +222,7 @@ html[theme=light] .profile__post_delete:hover {
   border-radius: 50%;
 }
 .profile__user_image.online img {
+  padding: 2px;
   border: 2px solid rgba(0, 255, 0, 0.7);
 }
 .profile__user_info {

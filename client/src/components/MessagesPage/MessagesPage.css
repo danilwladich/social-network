@@ -276,6 +276,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
      object-fit: cover;
 }
 .messages__user_image.online img {
+  padding: 2px;
   border: 2px solid rgba(0, 255, 0, 0.7);
 }
 .messages__user_info {

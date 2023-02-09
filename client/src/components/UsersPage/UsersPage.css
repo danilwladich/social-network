@@ -208,6 +208,7 @@ html[theme=light] .users__user_follow:hover {
      object-fit: cover;
 }
 .users__user_image.online img {
+  padding: 2px;
   border: 2px solid rgba(0, 255, 0, 0.7);
 }
 .users__user_info {
