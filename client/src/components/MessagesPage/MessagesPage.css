@@ -264,7 +264,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   height: 35px;
 }
 .messages__users {
-  margin: 0px -10px 0px -10px;
+  margin: -5px -10px -5px -10px;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -663,7 +663,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
     height: 35px;
   }
   .messages__users {
-    margin: 0 -15px 0 -15px;
+    margin: -5px -15px -5px -15px;
   }
   .messages__user {
     padding: 5px 15px;
