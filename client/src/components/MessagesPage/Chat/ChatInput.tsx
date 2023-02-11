@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { Arrow } from "../../assets/Arrow";
 import { socket } from "../../../App";
 
@@ -10,20 +10,59 @@ interface IProps {
 	readMessages: (userNickname: string) => void;
 }
 
+const newMessagesDraft: {
+	[key: string]: string;
+} = JSON.parse(sessionStorage.getItem("newMessagesDraft") || "{}");
+
 export function ChatInput(props: IProps) {
-	const [newMessageValue, setNewMessageValue] = useState("");
+	const [newMessageValue, setNewMessageValue] = useState(
+		newMessagesDraft[props.userNickname + "\\value"] || ""
+	);
 	const fieldRef = useRef<HTMLTextAreaElement>(null);
+	const newMessageHeight =
+		newMessagesDraft[props.userNickname + "\\height"] || "50px";
+
+	// first render scroll bottom
+	useLayoutEffect(() => {
+		fieldRef.current?.scrollTo(0, fieldRef.current.scrollHeight);
+	}, []);
 
 	function updateNewMessageValue(v: string) {
 		if (v.length <= 5000) {
+			newMessagesDraft[props.userNickname + "\\value"] = v;
+
+			sessionStorage.setItem(
+				"newMessagesDraft",
+				JSON.stringify(newMessagesDraft)
+			);
+
 			setNewMessageValue(v);
 		}
+
 		if (fieldRef.current!.scrollHeight + 4 < 300) {
 			fieldRef.current!.style.height = "50px";
+
 			fieldRef.current!.style.height =
 				fieldRef.current!.scrollHeight + 4 + "px";
+
+			newMessagesDraft[props.userNickname + "\\height"] =
+				fieldRef.current!.scrollHeight + 4 + "px";
+
+			sessionStorage.setItem(
+				"newMessagesDraft",
+				JSON.stringify(newMessagesDraft)
+			);
 		}
+
 		if (v === "") {
+			delete newMessagesDraft[props.userNickname + "\\value"];
+			delete newMessagesDraft[props.userNickname + "\\height"];
+
+			sessionStorage.setItem(
+				"newMessagesDraft",
+				JSON.stringify(newMessagesDraft)
+			);
+
 			fieldRef.current!.style.height = "50px";
 		}
 	}
@@ -64,6 +103,7 @@ export function ChatInput(props: IProps) {
 			}
 		}
 	}
+	
 	return (
 		<>
 			<div className="messages__chat_input">
@@ -73,6 +113,7 @@ export function ChatInput(props: IProps) {
 					onKeyDown={(e) => onKeyDownHandler(e)}
 					onChange={(e) => updateNewMessageValue(e.target.value)}
 					value={newMessageValue}
+					style={{ height: newMessageHeight }}
 					placeholder="Write new message..."
 					className="messages__chat_input_field"
 				/>
