@@ -328,7 +328,6 @@ body.lock {
 }
 
 .subsection:not(:empty) {
-  overflow: hidden;
   -webkit-transition: background-color 0s;
   -o-transition: background-color 0s;
   transition: background-color 0s;

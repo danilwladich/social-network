@@ -24,7 +24,7 @@ export function Actions(props: IProps) {
 					) : !confirm ? (
 						<DeleteBin />
 					) : (
-						"Confirm"
+						"Confirm \n delete"
 					)}
 				</button>
 			</div>

@@ -47,6 +47,7 @@ export function User(props: IProps) {
 				bounds={{ left: maxLeftPosition, right: 0, top: 0, bottom: 0 }}
 				onStop={(e, position) => onStopHander(e, position)}
 				position={position}
+				cancel=".messages__user_actions"
 			>
 				<NavLink
 					onClick={(e) => onClickHandler(e)}
