@@ -5,7 +5,7 @@ import { RegisterForm } from "./RegisterForm";
 
 interface IProps {
 	isAuth: boolean;
-	authID: string;
+	authNickname: string;
 	bodyTheme: string;
 	registerTC: (
 		phoneNumber: string,
@@ -19,7 +19,7 @@ interface IProps {
 export function RegisterPage(props: IProps) {
 	document.title = `Register`;
 	if (props.isAuth) {
-		return <Navigate to={"/" + props.authID} />;
+		return <Navigate to={"/" + props.authNickname} />;
 	}
 	return (
 		<>

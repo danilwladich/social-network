@@ -10,14 +10,18 @@ import { getChatTC } from "./../../../redux/messagesReducer";
 import { ChatLoading } from "./ChatLoading";
 
 interface IProps {
-	authID: string;
+	authNickname: string;
 	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
 	pageSize: number;
 	totalCount: number;
-	getChatTC: (userID: string, page: number, pageSize: number) => Promise<void>;
+	getChatTC: (
+		userNickname: string,
+		page: number,
+		pageSize: number
+	) => Promise<void>;
 	sendMessage: (message: string, id: string) => void;
-	readMessages: (userID: string) => void
+	readMessages: (userNickname: string) => void;
 }
 
 export function ChatContainerAPI(props: IProps) {
@@ -25,7 +29,7 @@ export function ChatContainerAPI(props: IProps) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [contentLock, setContentLock] = useState(true);
 	const contentRef = useRef<HTMLDivElement>(null);
-	const userID = useParams().id;
+	const userNickname = useParams().nickname;
 
 	const pagesCount = Math.ceil(props.totalCount / props.pageSize);
 	const pages: number[] = [];
@@ -72,9 +76,9 @@ export function ChatContainerAPI(props: IProps) {
 	}
 
 	useLayoutEffect(() => {
-		if (!!userID) {
+		if (!!userNickname) {
 			setIsLoading(true);
-			props.getChatTC(userID, currentPage, props.pageSize).finally(() => {
+			props.getChatTC(userNickname, currentPage, props.pageSize).finally(() => {
 				setIsLoading(false);
 			});
 		}
@@ -84,7 +88,7 @@ export function ChatContainerAPI(props: IProps) {
 	if (isLoading && currentPage === 1) {
 		return <ChatLoading />;
 	}
-	if (!props.chatWith.id) {
+	if (!props.chatWith.nickname) {
 		return <div className="messages__not_found">User not found</div>;
 	}
 	return (
@@ -96,7 +100,7 @@ export function ChatContainerAPI(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
-		authID: state.auth.user.id,
+		authNickname: state.auth.user.nickname,
 		chatWith: state.messages.chatWith,
 		messagesData: state.messages.messagesData,
 		pageSize: state.messages.pageSize,

@@ -5,10 +5,10 @@ import { LoadingCircle } from "../../assets/LoadingCircle";
 import { ProfileUserData } from "../../../models/Profile/ProfileUserData";
 
 interface IProps {
-	authID: string;
+	authNickname: string;
 	userData: ProfileUserData;
-	setFollowTC: (userID: string) => Promise<void>;
-	setUnfollowTC: (userID: string) => Promise<void>;
+	setFollowTC: (userNickname: string) => Promise<void>;
+	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
 
 export function Actions(props: IProps) {
@@ -17,24 +17,26 @@ export function Actions(props: IProps) {
 
 	function setFollow() {
 		setFollowButtonInProgress(true);
-		props.setFollowTC(userData.id).then(() => setFollowButtonInProgress(false));
+		props
+			.setFollowTC(userData.nickname)
+			.then(() => setFollowButtonInProgress(false));
 	}
 	function setUnfollow() {
 		setFollowButtonInProgress(true);
 		props
-			.setUnfollowTC(userData.id)
+			.setUnfollowTC(userData.nickname)
 			.then(() => setFollowButtonInProgress(false));
 	}
 	return (
 		<>
 			<div className="profile__actions">
-				{props.authID === userData.id ? (
+				{props.authNickname === userData.nickname ? (
 					<EditContainer />
 				) : (
 					<>
 						<NavLink
 							draggable="false"
-							to={"/messages/" + userData.id}
+							to={"/messages/" + userData.nickname}
 							className="profile__actions_message"
 						>
 							Message

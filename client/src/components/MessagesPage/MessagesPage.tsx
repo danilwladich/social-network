@@ -7,13 +7,13 @@ import { socket } from "../../App";
 
 interface IProps {
 	messageSent: (oldID: string, newID: string) => void;
-	messagesRead: (userID: string) => void;
-	readMessages: (userID: string) => void;
+	messagesRead: (userNickname: string) => void;
+	readMessages: (userNickname: string) => void;
 }
 
 export function MessagesPage(props: IProps) {
 	document.title = `Messages`;
-	const userID = useParams().id;
+	const userNickname = useParams().nickname;
 
 	// sockets
 	useEffect(() => {
@@ -22,11 +22,11 @@ export function MessagesPage(props: IProps) {
 		});
 
 		socket.on("messagesRead", (data) => {
-			props.messagesRead(data.userID);
+			props.messagesRead(data.userNickname);
 		});
 
 		socket.on("readMessages", (data) => {
-			props.readMessages(data.userID);
+			props.readMessages(data.userNickname);
 		});
 
 		return () => {
@@ -41,7 +41,7 @@ export function MessagesPage(props: IProps) {
 		<>
 			<section className="messages">
 				<div className="subsection">
-					{userID ? <ChatContainer /> : <UsersContainer />}
+					{userNickname ? <ChatContainer /> : <UsersContainer />}
 				</div>
 			</section>
 		</>

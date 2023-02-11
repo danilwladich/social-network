@@ -5,10 +5,10 @@ import { EditForm } from "./EditForm";
 
 interface IProps {
 	userData: ProfileUserData;
-	authID: string;
+	authNickname: string;
 	editProfileTC: (
 		image?: File,
-		id?: string,
+		nickname?: string,
 		country?: string,
 		city?: string
 	) => Promise<void>;

@@ -7,10 +7,10 @@ import { ProfileUserData } from "../../../models/Profile/ProfileUserData";
 
 interface IProps {
 	userData: ProfileUserData;
-	authID: string;
+	authNickname: string;
 	editProfileTC: (
 		image?: File,
-		id?: string,
+		nickname?: string,
 		country?: string,
 		city?: string
 	) => Promise<void>;
@@ -33,17 +33,22 @@ export function EditForm(props: IProps) {
 	}
 	function onSubmit(v: {
 		image?: FileList;
-		id?: string;
+		nickname?: string;
 		country?: string;
 		city?: string;
 	}) {
 		setSubmitting(true);
 		const image = v.image ? v.image[0] : undefined;
 		props
-			.editProfileTC(image, v.id?.trim(), v.country?.trim(), v.city?.trim())
+			.editProfileTC(
+				image,
+				v.nickname?.trim(),
+				v.country?.trim(),
+				v.city?.trim()
+			)
 			.then(() => {
-				if (!!v.id) {
-					socket.emit("nicknameChanged", { nickname: props.authID });
+				if (!!v.nickname) {
+					socket.emit("nicknameChanged", { nickname: props.authNickname });
 				}
 				navigate("/");
 			})
@@ -52,13 +57,13 @@ export function EditForm(props: IProps) {
 	}
 	function validate(e: {
 		image?: FileList;
-		id?: string;
+		nickname?: string;
 		country?: string;
 		city?: string;
 	}) {
 		const errors: {
 			image?: string;
-			id?: string;
+			nickname?: string;
 			country?: string;
 			city?: string;
 		} = {};
@@ -69,32 +74,32 @@ export function EditForm(props: IProps) {
 			}
 		}
 
-		// id
-		if (e.id) {
-			if (e.id.trim()) {
-				if (e.id.trim().length < 4) {
-					errors.id = "Too short!";
+		// nickname
+		if (e.nickname) {
+			if (e.nickname.trim()) {
+				if (e.nickname.trim().length < 4) {
+					errors.nickname = "Too short!";
 				}
-				if (e.id.trim().length > 15) {
-					errors.id = "Too long!";
+				if (e.nickname.trim().length > 15) {
+					errors.nickname = "Too long!";
 				}
 				if (
-					e.id.trim() === "login" ||
-					e.id.trim() === "register" ||
-					e.id.trim() === "messages" ||
-					e.id.trim() === "friends" ||
-					e.id.trim() === "users" ||
-					e.id.trim() === "settings" ||
-					e.id.trim() === "news" ||
-					e.id.trim() === "images"
+					e.nickname.trim() === "login" ||
+					e.nickname.trim() === "register" ||
+					e.nickname.trim() === "messages" ||
+					e.nickname.trim() === "friends" ||
+					e.nickname.trim() === "users" ||
+					e.nickname.trim() === "settings" ||
+					e.nickname.trim() === "news" ||
+					e.nickname.trim() === "images"
 				) {
-					errors.id = "Not allowed!";
+					errors.nickname = "Not allowed!";
 				}
-				if (e.id.trim() === props.authID) {
-					errors.id = "It's already your nickname";
+				if (e.nickname.trim() === props.authNickname) {
+					errors.nickname = "It's already your nickname";
 				}
-				if (e.id.trim().match(/[^\w]/g)) {
-					errors.id = "Allow only alphanumeric!";
+				if (e.nickname.trim().match(/[^\w]/g)) {
+					errors.nickname = "Allow only alphanumeric!";
 				}
 			}
 		}
@@ -141,17 +146,17 @@ export function EditForm(props: IProps) {
 						<Field
 							name="image"
 							render={({ input: { onChange, value, ...input }, meta }) => (
-								<div className="profile__edit_field">
+								<div className="profile__edit_field form__field">
 									<label
 										htmlFor="imageInput"
 										id="imageInputLabel"
-										className="profile__edit_label row"
+										className="profile__edit_label form__label row"
 									>
 										<span>Update profile image</span>
 										<img
 											ref={newImageRef}
 											src={props.userData.image || "/images/user.jpg"}
-											alt={props.authID}
+											alt={props.authNickname}
 										/>
 									</label>
 									<input
@@ -166,34 +171,37 @@ export function EditForm(props: IProps) {
 										style={{ display: "none" }}
 									/>
 									{meta.error && (
-										<div className="profile__edit_incorrect">{meta.error}</div>
+										<div className="profile__edit_incorrect form__incorrect">{meta.error}</div>
 									)}
 								</div>
 							)}
 						/>
 
 						<Field
-							name="id"
+							name="nickname"
 							render={({ input, meta }) => (
-								<div className="profile__edit_field">
-									<label htmlFor="idInput" className="profile__edit_label">
+								<div className="profile__edit_field form__field">
+									<label htmlFor="idInput" className="profile__edit_label form__label">
 										Nickname
 										<p>
 											bloxx.com.pl/
-											{values.id
-												? values.id.trim().slice(0, 15).replace(/[^\w]/g, "")
-												: props.authID}
+											{values.nickname
+												? values.nickname
+														.trim()
+														.slice(0, 15)
+														.replace(/[^\w]/g, "")
+												: props.authNickname}
 										</p>
 									</label>
 									<input
 										{...input}
 										id="idInput"
 										type="text"
-										className="profile__edit_input"
+										className="profile__edit_input form__input"
 										placeholder="New nickname"
 									/>
 									{meta.touched && meta.error && (
-										<div className="profile__edit_incorrect">{meta.error}</div>
+										<div className="profile__edit_incorrect form__incorrect">{meta.error}</div>
 									)}
 								</div>
 							)}
@@ -202,21 +210,21 @@ export function EditForm(props: IProps) {
 						<Field
 							name="country"
 							render={({ input, meta }) => (
-								<div className="profile__edit_field">
-									<label htmlFor="countryInput" className="profile__edit_label">
+								<div className="profile__edit_field form__field">
+									<label htmlFor="countryInput" className="profile__edit_label form__label">
 										County
 									</label>
 									<input
 										{...input}
 										id="countryInput"
 										type="text"
-										className="profile__edit_input"
+										className="profile__edit_input form__input"
 										placeholder={
 											props.userData.location.country || "Your country"
 										}
 									/>
 									{meta.touched && meta.error && (
-										<div className="profile__edit_incorrect">{meta.error}</div>
+										<div className="profile__edit_incorrect form__incorrect">{meta.error}</div>
 									)}
 								</div>
 							)}
@@ -225,32 +233,32 @@ export function EditForm(props: IProps) {
 						<Field
 							name="city"
 							render={({ input, meta }) => (
-								<div className="profile__edit_field">
-									<label htmlFor="cityInput" className="profile__edit_label">
+								<div className="profile__edit_field form__field">
+									<label htmlFor="cityInput" className="profile__edit_label form__label">
 										City
 									</label>
 									<input
 										{...input}
 										id="cityInput"
 										type="text"
-										className="profile__edit_input"
+										className="profile__edit_input form__input"
 										placeholder={props.userData.location.city || "Your city"}
 									/>
 									{meta.touched && meta.error && (
-										<div className="profile__edit_incorrect">{meta.error}</div>
+										<div className="profile__edit_incorrect form__incorrect">{meta.error}</div>
 									)}
 								</div>
 							)}
 						/>
 
 						{errorMessage && (
-							<div className="profile__edit_error">{errorMessage}</div>
+							<div className="profile__edit_error form__error">{errorMessage}</div>
 						)}
 
 						<button
 							onClick={handleSubmit}
 							disabled={pristine || submitting}
-							className="profile__edit_button"
+							className="profile__edit_button form__button"
 						>
 							{submitting ? <LoadingCircle /> : "Save"}
 						</button>

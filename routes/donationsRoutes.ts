@@ -16,7 +16,7 @@ router.get("/", async (req: Request, res: Response) => {
 				const user = await User.findById(d.owner);
 
 				return {
-					id: user?.nickname,
+					nickname: user?.nickname,
 					firstName: user?.firstName,
 					lastName: user?.lastName,
 					image: user?.avatar,

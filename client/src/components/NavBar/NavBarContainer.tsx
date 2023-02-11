@@ -6,7 +6,7 @@ import { setBurger } from "./../../redux/headerReducer";
 function mapStateToProps(state: IState) {
 	return {
 		isAuth: state.auth.isAuth,
-		authID: state.auth.user.id,
+		authNickname: state.auth.user.nickname,
 		burger: state.header.burger,
 		countOfUnreadMessages: state.messages.countOfUnreadMessages,
 	};

@@ -22,7 +22,7 @@ export function Support(props: IProps) {
 						<p className="settings__topdonations_title">Top 3 donations</p>
 						<div className="settings__topdonations_items">
 							{props.donationsData.map((d) => (
-								<User key={d.id} donationData={d} />
+								<User key={d.nickname} donationData={d} />
 							))}
 						</div>
 					</div>

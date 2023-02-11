@@ -1,29 +1,9 @@
 html[theme="dark"] {
 	.login {
-		&__input {
-			background-color: var(--dark-input-bg);
-		}
-		&__button {
-			color: var(--dark-button-text-color);
-			background-color: var(--dark-button-bg);
-			&:not(:disabled):hover {
-				background-color: var(--dark-button-bg-active);
-			}
-		}
 	}
 }
 html[theme="light"] {
 	.login {
-		&__input {
-			background-color: var(--light-input-bg);
-		}
-		&__button {
-			color: var(--light-button-text-color);
-			background-color: var(--light-button-bg);
-			&:not(:disabled):hover {
-				background-color: var(--light-button-bg-active);
-			}
-		}
 	}
 }
 
@@ -35,66 +15,9 @@ html[theme="light"] {
 	left: 50%;
 	transform: translateX(-50%);
 	overflow: hidden;
-	&__label {
-		line-height: 150%;
-		opacity: 0.8;
-		cursor: pointer;
-		display: block;
-		font-size: 18px;
-		padding: 0px 0px 5px 0px;
-	}
-	&__field {
-		padding: 0 5px 5px 5px;
-		margin: 0px 0px 25px 0px;
-		position: relative;
-	}
-	&__input {
-		padding: 5px 10px;
-		border-radius: 4px;
-		width: 100%;
-		line-height: 150%;
-		font-size: 18px;
-		background-color: transparent;
-		max-width: 250px;
-		cursor: pointer;
-	}
-	&__incorrect {
-		color: rgba(255, 0, 0, 0.87) !important;
-		position: absolute;
-		bottom: -14px;
-	}
-	&__button {
-		display: block;
-		width: 175px;
-		font-size: 20px;
-		background-color: transparent;
-		padding: 10px 50px;
-		margin: 30px auto 15px auto;
-		border-radius: 4px;
-		opacity: 0.7;
-		transition: all 0.2s;
-		&:not(:disabled) {
-			opacity: 1;
-			&:hover {
-				transform: translate(-1px, -1px);
-			}
-			&:active {
-				transform: translate(0);
-			}
-		}
-		svg {
-			width: 62px;
-			height: 23px;
-			margin: 0px 0px -5px 0px;
-		}
-	}
-	&__error {
-		word-wrap: break-word;
-		text-align: center;
-		color: rgba(255, 0, 0, 0.87) !important;
-		text-transform: capitalize;
-	}
 	&__link {
+		display: block;
+		margin: 15px 0px 0px 0px;
 		line-height: 150%;
 		font-size: 14px;
 		opacity: 0.7;
@@ -113,9 +36,6 @@ html[theme="light"] {
 	@media (min-width: 767px) {
 		top: 15px;
 		width: 280px;
-		&__input {
-			font-size: 20px;
-		}
 	}
 }
 

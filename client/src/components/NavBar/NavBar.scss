@@ -1,7 +1,8 @@
 html[theme="dark"] {
 	.navbar {
 		&__link {
-			&:hover {
+			&:hover,
+			&:focus {
 				background-color: var(--dark-subsection-bg);
 				border: 1px solid var(--dark-button-bg);
 			}
@@ -39,7 +40,8 @@ html[theme="light"] {
 		border-radius: 4px;
 		transition: background-color 0.2s, box-shadow 0.2s;
 		margin: 1px;
-		&:hover {
+		&:hover,
+		&:focus {
 			margin: 0;
 			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 		}

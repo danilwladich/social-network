@@ -11,13 +11,14 @@ export function User(props: IProps) {
 	return (
 		<>
 			<NavLink
-				to={"/" + donationData.id}
+				draggable="false"
+				to={"/" + donationData.nickname}
 				className="settings__topdonations_item"
 			>
 				<div className="settings__topdonations_image">
 					<img
 						src={donationData.image || "/images/user.jpg"}
-						alt={donationData.id}
+						alt={donationData.nickname}
 					/>
 				</div>
 

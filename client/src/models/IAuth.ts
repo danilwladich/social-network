@@ -1,6 +1,6 @@
 export interface IAuth {
 	user: {
-		id: string;
+		nickname: string;
 		token: string;
 	};
 	isAuth: boolean;

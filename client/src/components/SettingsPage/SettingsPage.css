@@ -6,19 +6,7 @@ html[theme=dark] .settings__button {
   color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
-html[theme=dark] .settings__button:hover {
-  background-color: var(--dark-button-bg-active);
-}
-html[theme=dark] .settings__delete_input {
-  background-color: var(--dark-input-bg);
-}
-html[theme=dark] .settings__delete_button {
-  background-color: var(--dark-button-bg);
-}
-html[theme=dark] .settings__donation {
-  background-color: var(--dark-button-bg);
-}
-html[theme=dark] .settings__donation:hover {
+html[theme=dark] .settings__button:hover, html[theme=dark] .settings__button:focus {
   background-color: var(--dark-button-bg-active);
 }
 
@@ -30,19 +18,7 @@ html[theme=light] .settings__button {
   color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
-html[theme=light] .settings__button:hover {
-  background-color: var(--light-button-bg-active);
-}
-html[theme=light] .settings__delete_input {
-  background-color: var(--light-input-bg);
-}
-html[theme=light] .settings__delete_button {
-  background-color: var(--light-button-bg);
-}
-html[theme=light] .settings__donation {
-  background-color: var(--light-button-bg);
-}
-html[theme=light] .settings__donation:hover {
+html[theme=light] .settings__button:hover, html[theme=light] .settings__button:focus {
   background-color: var(--light-button-bg-active);
 }
 
@@ -125,76 +101,15 @@ html[theme=light] .settings__donation:hover {
   width: 30px;
   height: 30px;
 }
-.settings__delete_label {
-  line-height: 150%;
-  opacity: 0.8;
-  cursor: pointer;
-  display: block;
-  font-size: 18px;
-  padding: 0px 0px 5px 0px;
-}
-.settings__delete_field {
-  padding: 0 5px 5px 5px;
-  margin: 0px 0px 25px 0px;
-  position: relative;
-}
-.settings__delete_input {
-  padding: 5px 10px;
-  border-radius: 4px;
-  width: 100%;
-  line-height: 150%;
-  font-size: 18px;
-  background-color: transparent;
-  max-width: 250px;
-  cursor: pointer;
-}
-.settings__delete_incorrect {
-  color: rgba(255, 0, 0, 0.87) !important;
-  position: absolute;
-  bottom: -14px;
-}
 .settings__delete_button {
-  display: block;
-  width: 175px;
-  font-size: 20px;
-  background-color: transparent;
-  padding: 10px 50px;
-  margin: 30px auto 15px auto;
-  border-radius: 4px;
-  opacity: 0.7;
-  -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
   background-color: rgba(255, 0, 0, 0.6) !important;
   color: #fff !important;
 }
-.settings__delete_button:not(:disabled) {
-  opacity: 1;
-}
 .settings__delete_button:not(:disabled):hover {
-  -webkit-transform: translate(-1px, -1px);
-      -ms-transform: translate(-1px, -1px);
-          transform: translate(-1px, -1px);
   background-color: red !important;
-}
-.settings__delete_button:not(:disabled):active {
-  -webkit-transform: translate(0);
-      -ms-transform: translate(0);
-          transform: translate(0);
-}
-.settings__delete_button svg {
-  width: 62px;
-  height: 23px;
-  margin: 0px 0px -5px 0px;
 }
 .settings__delete_button svg circle {
   stroke: #fff !important;
-}
-.settings__delete_error {
-  word-wrap: break-word;
-  text-align: center;
-  color: rgba(255, 0, 0, 0.87) !important;
-  text-transform: capitalize;
 }
 .settings__copy {
   line-height: 150%;
@@ -205,18 +120,22 @@ html[theme=light] .settings__donation:hover {
   border-radius: 4px;
   margin: 15px 0px 0px 0px;
   background-color: transparent;
+  position: relative;
 }
 .settings__donation img {
-  margin: 3px;
-  height: 45px;
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
+  position: absolute;
+  opacity: 0;
 }
 .settings__topdonations_title {
+  line-height: 150%;
+  text-align: center;
   font-size: 18px;
   margin: 15px 0px 0px 0px;
 }
 .settings__topdonations_items {
-  max-width: 280px;
   margin: 10px 0px 0px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -242,11 +161,13 @@ html[theme=light] .settings__donation:hover {
           flex: 0 0 30px;
 }
 .settings__topdonations_image img {
+  pointer-events: none;
   width: 100%;
   height: 30px;
   border-radius: 50%;
 }
 .settings__topdonations_name {
+  text-align: center;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
@@ -258,10 +179,17 @@ html[theme=light] .settings__donation:hover {
      text-overflow: ellipsis;
 }
 .settings__topdonations_value {
+  text-align: right;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30px;
+          flex: 0 0 30px;
   white-space: nowrap;
 }
 @media (min-width: 767px) {
-  .settings__delete_input {
-    font-size: 20px;
+  .settings__topdonations {
+    max-width: 280px;
+  }
+  .settings__topdonations_items {
+    margin: 10px 0px 0px 0px;
   }
 }

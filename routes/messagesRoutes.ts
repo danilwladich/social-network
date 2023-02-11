@@ -81,7 +81,7 @@ router.get(
 			// mapping users
 			const usersData = users.map((u) => {
 				return {
-					id: u.nickname,
+					nickname: u.nickname,
 					lastName: u.lastName,
 					firstName: u.firstName,
 					image: u.avatar,
@@ -295,7 +295,7 @@ router.get(
 			});
 
 			const chatWith = {
-				id: user.nickname,
+				nickname: user.nickname,
 				firstName: user.firstName,
 				lastName: user.lastName,
 				image: user.avatar,
@@ -325,6 +325,40 @@ router.get(
 				statusText: "Chat sent successfully",
 				chatWith,
 				messagesData,
+			});
+		} catch (e) {
+			res.status(500).json({ success: false, statusText: "Server error" });
+		}
+	}
+);
+
+router.delete(
+	"/chat/:nickname",
+	authMiddleware,
+	async (req: IGetUserAuthRequest, res: Response) => {
+		try {
+			const authID = req.user!.userID as string;
+			const nickname = req.params.nickname;
+
+			const user = await User.findOne({ nickname });
+			if (!user) {
+				return res.status(200).json({
+					success: false,
+					statusText: "User not found",
+				});
+			}
+			const userID = user._id;
+
+			await Message.deleteMany({
+				$or: [
+					{ from: userID, to: authID },
+					{ to: userID, from: authID },
+				],
+			});
+
+			res.status(200).json({
+				success: true,
+				statusText: "Chat delete successfully",
 			});
 		} catch (e) {
 			res.status(500).json({ success: false, statusText: "Server error" });

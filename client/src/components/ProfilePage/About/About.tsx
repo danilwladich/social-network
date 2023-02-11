@@ -4,7 +4,7 @@ import { ProfileAboutData } from "../../../models/Profile/ProfileAboutData";
 
 interface IProps {
 	aboutData: ProfileAboutData;
-	userID: string;
+	userNickname: string;
 }
 
 export function About(props: IProps) {
@@ -17,7 +17,7 @@ export function About(props: IProps) {
 						key={kv[0]}
 						to={
 							"/friends/" +
-							props.userID +
+							props.userNickname +
 							"/" +
 							(kv[0] === "friends" ? "all" : kv[0])
 						}

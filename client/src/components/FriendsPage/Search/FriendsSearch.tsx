@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 
 interface IProps {
-	id: string;
+	nickname: string;
 	category: string;
 	search?: string;
 }
@@ -26,12 +26,12 @@ export function FriendsSearch(props: IProps) {
 			navigate(
 				!!searchValue.trim()
 					? "/friends/" +
-							props.id +
+							props.nickname +
 							"/" +
 							props.category +
 							"?search=" +
 							searchValue.trim()
-					: "/friends/" + props.id + "/" + props.category
+					: "/friends/" + props.nickname + "/" + props.category
 			);
 		}
 	}
@@ -57,12 +57,12 @@ export function FriendsSearch(props: IProps) {
 					to={
 						!!searchValue.trim()
 							? "/friends/" +
-							  props.id +
+							  props.nickname +
 							  "/" +
 							  props.category +
 							  "?search=" +
 							  searchValue.trim()
-							: "/friends/" + props.id + "/" + props.category
+							: "/friends/" + props.nickname + "/" + props.category
 					}
 					className="friends__search_button"
 				>

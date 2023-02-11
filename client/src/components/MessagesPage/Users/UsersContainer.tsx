@@ -5,10 +5,12 @@ import { Users } from "./Users";
 import { MessagesUserData } from "../../../models/Messages/MessagesUserData";
 import { getChatsTC } from "../../../redux/messagesReducer";
 import { UsersLoading } from "./UsersLoading";
+import { deleteChatTC } from "./../../../redux/messagesReducer";
 
 interface IProps {
 	usersData: MessagesUserData[];
 	getChatsTC: () => Promise<void>;
+	deleteChatTC: (userNickname: string) => Promise<void>;
 }
 
 export function UsersContainerAPI(props: IProps) {
@@ -25,7 +27,7 @@ export function UsersContainerAPI(props: IProps) {
 	}
 	return (
 		<>
-			<Users usersData={props.usersData} />
+			<Users {...props} />
 		</>
 	);
 }
@@ -38,4 +40,5 @@ function mapStateToProps(state: IState) {
 
 export const UsersContainer = connect(mapStateToProps, {
 	getChatsTC,
+	deleteChatTC,
 })(UsersContainerAPI);

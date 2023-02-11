@@ -80,7 +80,8 @@ export const getNewsTC = (page: number, pageSize: number) => {
 			dispatch(setErrorMessage(""));
 			const lastPostID =
 				page > 1
-					? getState().news.postsData[getState().news.postsData.length - 1].id
+					? getState().news.postsData[getState().news.postsData.length - 1]
+							.id
 					: null;
 
 			await API.getNews(page, pageSize, lastPostID).then((data) => {

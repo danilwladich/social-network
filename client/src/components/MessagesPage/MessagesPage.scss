@@ -15,7 +15,8 @@ html[theme="dark"] {
 				}
 				background-color: var(--dark-button-bg-active);
 			}
-			&:hover {
+			&:hover,
+			&:focus {
 				* {
 					color: var(--dark-button-text-color);
 				}
@@ -25,6 +26,22 @@ html[theme="dark"] {
 					}
 				}
 				background-color: var(--dark-button-bg);
+			}
+			&_actions {
+				&_showactions {
+					span,
+					span:before,
+					span:after {
+						background-color: var(--dark-button-bg);
+					}
+					&_follow {
+						color: var(--dark-button-text-color);
+						background-color: var(--dark-button-bg);
+						&:hover {
+							background-color: var(--dark-button-bg-active);
+						}
+					}
+				}
 			}
 		}
 		&__chat {
@@ -89,7 +106,8 @@ html[theme="light"] {
 				}
 				background-color: var(--light-button-bg-active);
 			}
-			&:hover {
+			&:hover,
+			&:focus {
 				* {
 					color: var(--light-button-text-color);
 				}
@@ -99,6 +117,22 @@ html[theme="light"] {
 					}
 				}
 				background-color: var(--light-button-bg);
+			}
+			&_actions {
+				&_showactions {
+					span,
+					span:before,
+					span:after {
+						background-color: var(--light-button-bg);
+					}
+					&_follow {
+						color: var(--light-button-text-color);
+						background-color: var(--light-button-bg);
+						&:hover {
+							background-color: var(--light-button-bg-active);
+						}
+					}
+				}
 			}
 		}
 		&__chat {
@@ -252,11 +286,14 @@ html[theme="light"] {
 		flex-direction: column;
 		gap: 5px;
 		&_no_users {
-			font-size: 18px;
+			line-height: 150%;
+			font-size: 20px;
 			text-align: center;
 		}
 	}
 	&__user {
+		transition: all 0.2s;
+		position: relative;
 		padding: 5px;
 		border-radius: 4px;
 		display: flex;
@@ -322,9 +359,35 @@ html[theme="light"] {
 				}
 			}
 		}
+		&_actions {
+			position: absolute;
+			right: -60px;
+			top: 0;
+			svg {
+				width: 35px;
+				height: 35px;
+			}
+			&_delete {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				font-weight: 700;
+				font-size: 14px;
+				opacity: 0.7;
+				&:hover,
+				&:focus {
+					opacity: 1;
+				}
+				width: 60px;
+				height: 60px;
+				background-color: red;
+			}
+		}
 	}
 	&__not_found {
-		font-size: 26px;
+		line-height: 150%;
+		font-size: 20px;
 		text-align: center;
 	}
 	&__chat {
@@ -563,6 +626,15 @@ html[theme="light"] {
 					svg {
 						height: 12px;
 					}
+				}
+			}
+			&_actions {
+				svg {
+					width: 40px;
+					height: 40px;
+				}
+				&_delete {
+					height: 70px;
 				}
 			}
 		}

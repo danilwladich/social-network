@@ -59,8 +59,11 @@ export function LoginForm(props: IProps) {
 					<Field
 						name="phoneNumber"
 						render={({ input, meta }) => (
-							<div className="login__field">
-								<label htmlFor="phoneNumberInput" className="login__label">
+							<div className="login__field form__field">
+								<label
+									htmlFor="phoneNumberInput"
+									className="login__label form__label"
+								>
 									Phone number
 								</label>
 								<PhoneInput
@@ -69,11 +72,13 @@ export function LoginForm(props: IProps) {
 									tabIndex={1}
 									type="tel"
 									autoComplete="tel"
-									className="login__input"
+									className="login__input form__input"
 									placeholder="+1 XXX XXX XXX"
 								/>
 								{meta.touched && meta.error && (
-									<div className="login__incorrect">{meta.error}</div>
+									<div className="login__incorrect form__incorrect">
+										{meta.error}
+									</div>
 								)}
 							</div>
 						)}
@@ -82,8 +87,11 @@ export function LoginForm(props: IProps) {
 					<Field
 						name="password"
 						render={({ input, meta }) => (
-							<div className="login__field">
-								<label htmlFor="passwordInput" className="login__label">
+							<div className="login__field form__field">
+								<label
+									htmlFor="passwordInput"
+									className="login__label form__label"
+								>
 									Password
 								</label>
 								<input
@@ -91,11 +99,13 @@ export function LoginForm(props: IProps) {
 									id="passwordInput"
 									tabIndex={2}
 									type="password"
-									className="login__input"
+									className="login__input form__input"
 									placeholder="Your password"
 								/>
 								{meta.touched && meta.error && (
-									<div className="login__incorrect">{meta.error}</div>
+									<div className="login__incorrect form__incorrect">
+										{meta.error}
+									</div>
 								)}
 							</div>
 						)}
@@ -109,14 +119,16 @@ export function LoginForm(props: IProps) {
 						ref={recaptchaRef}
 					/>
 
-					{errorMessage && <div className="login__error">{errorMessage}</div>}
+					{errorMessage && (
+						<div className="login__error form__error">{errorMessage}</div>
+					)}
 
 					<button
 						tabIndex={3}
 						type="submit"
 						onClick={handleSubmit}
 						disabled={pristine || submitting}
-						className="login__button"
+						className="login__button form__button"
 					>
 						{submitting ? <LoadingCircle /> : "Log In"}
 					</button>

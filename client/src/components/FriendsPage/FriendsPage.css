@@ -5,7 +5,7 @@ html[theme=dark] .friends__categories_button {
   color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
-html[theme=dark] .friends__categories_button:not(.active):hover {
+html[theme=dark] .friends__categories_button:not(.active):hover, html[theme=dark] .friends__categories_button:not(.active):focus {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .friends__categories_button.active {
@@ -18,25 +18,25 @@ html[theme=dark] .friends__search_button {
   color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
-html[theme=dark] .friends__search_button:hover {
+html[theme=dark] .friends__search_button:hover, html[theme=dark] .friends__search_button:focus {
   background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .friends__user:not(:last-child) {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
-html[theme=dark] .friends__user_showactions {
+html[theme=dark] .friends__user_actions_show {
   background-color: var(--dark-subsection-bg);
 }
-html[theme=dark] .friends__user_showactions span,
-html[theme=dark] .friends__user_showactions span:before,
-html[theme=dark] .friends__user_showactions span:after {
+html[theme=dark] .friends__user_actions_show span,
+html[theme=dark] .friends__user_actions_show span:before,
+html[theme=dark] .friends__user_actions_show span:after {
   background-color: var(--dark-button-bg);
 }
-html[theme=dark] .friends__user_follow {
+html[theme=dark] .friends__user_actions_follow {
   color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
-html[theme=dark] .friends__user_follow:hover {
+html[theme=dark] .friends__user_actions_follow:hover, html[theme=dark] .friends__user_actions_follow:focus {
   background-color: var(--dark-button-bg-active);
 }
 
@@ -47,7 +47,7 @@ html[theme=light] .friends__categories_button {
   color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
-html[theme=light] .friends__categories_button:not(.active):hover {
+html[theme=light] .friends__categories_button:not(.active):hover, html[theme=light] .friends__categories_button:not(.active):focus {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .friends__categories_button.active {
@@ -60,25 +60,25 @@ html[theme=light] .friends__search_button {
   color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
-html[theme=light] .friends__search_button:hover {
+html[theme=light] .friends__search_button:hover, html[theme=light] .friends__search_button:focus {
   background-color: var(--light-button-bg-active);
 }
 html[theme=light] .friends__user:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
-html[theme=light] .friends__user_showactions {
+html[theme=light] .friends__user_actions_show {
   background-color: var(--light-subsection-bg);
 }
-html[theme=light] .friends__user_showactions span,
-html[theme=light] .friends__user_showactions span:before,
-html[theme=light] .friends__user_showactions span:after {
+html[theme=light] .friends__user_actions_show span,
+html[theme=light] .friends__user_actions_show span:before,
+html[theme=light] .friends__user_actions_show span:after {
   background-color: var(--light-button-bg);
 }
-html[theme=light] .friends__user_follow {
+html[theme=light] .friends__user_actions_follow {
   color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
-html[theme=light] .friends__user_follow:hover {
+html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friends__user_actions_follow:focus {
   background-color: var(--light-button-bg-active);
 }
 
@@ -106,6 +106,7 @@ html[theme=light] .friends__user_follow:hover {
      text-overflow: ellipsis;
 }
 .friends__title img {
+  pointer-events: none;
   width: 33px;
   height: 33px;
   -o-object-fit: cover;
@@ -362,7 +363,7 @@ html[theme=light] .friends__user_follow:hover {
   padding: 15px 0;
   width: 100%;
 }
-.friends__user_name a:hover {
+.friends__user_name a:hover, .friends__user_name a:focus {
   text-decoration: underline;
 }
 .friends__user_location {
@@ -373,7 +374,7 @@ html[theme=light] .friends__user_follow:hover {
       -ms-flex: 0 0 30px;
           flex: 0 0 30px;
 }
-.friends__user_showactions {
+.friends__user_actions_show {
   opacity: 0.7;
   width: 30px;
   height: 30px;
@@ -382,10 +383,10 @@ html[theme=light] .friends__user_follow:hover {
   z-index: 3;
   border-radius: 4px;
 }
-.friends__user_showactions:hover {
+.friends__user_actions_show:hover, .friends__user_actions_show:focus {
   opacity: 1;
 }
-.friends__user_showactions span {
+.friends__user_actions_show span {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -396,21 +397,21 @@ html[theme=light] .friends__user_follow:hover {
   height: 5px;
   border-radius: 50%;
 }
-.friends__user_showactions span:before,
-.friends__user_showactions span:after {
+.friends__user_actions_show span:before,
+.friends__user_actions_show span:after {
   content: "";
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%;
 }
-.friends__user_showactions span:before {
+.friends__user_actions_show span:before {
   left: -10px;
 }
-.friends__user_showactions span:after {
+.friends__user_actions_show span:after {
   right: -10px;
 }
-.friends__user_follow {
+.friends__user_actions_follow {
   z-index: 2;
   position: absolute;
   width: 150px;
@@ -420,22 +421,23 @@ html[theme=light] .friends__user_follow:hover {
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   font-size: 16px;
+  line-height: 150%;
   border-radius: 4px;
   background-color: transparent;
-  padding: 5px 10px;
+  padding: 2px 10px;
   opacity: 0;
   visibility: hidden;
 }
-.friends__user_follow svg {
+.friends__user_actions_follow svg {
   margin: 0px 0px -4px 0px;
   width: 85px;
   height: 18px;
 }
-.friends__user_follow.active {
+.friends__user_actions_follow.active {
   opacity: 1;
   visibility: visible;
 }
-.friends__user_itsme {
+.friends__user_actions_itsme {
   opacity: 0.7;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 20px;

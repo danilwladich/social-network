@@ -6,18 +6,18 @@ import { LoadingCircle } from "../assets/LoadingCircle";
 import { Categories } from "./Categories/Categories";
 import "./FriendsPage.css";
 import { FriendsSearch } from "./Search/FriendsSearch";
-import { User } from "./Users/User";
+import { User } from "./User/User";
 
 interface IProps {
 	isLoading: boolean;
 	category: string;
-	authID: string;
+	authNickname: string;
 	whoseFriends: WhoseFriends;
 	usersData: FriendsUserData[];
 	totalCount: number;
 	search?: string;
-	setFollowTC: (userID: string) => Promise<void>;
-	setUnfollowTC: (userID: string) => Promise<void>;
+	setFollowTC: (userNickname: string) => Promise<void>;
+	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
 
 export function FriendsPage(props: IProps) {
@@ -28,20 +28,24 @@ export function FriendsPage(props: IProps) {
 	const whoseFriends = props.whoseFriends;
 	const usersData = props.usersData;
 
-	function setFollow(userID: string) {
-		setFollowButtonsInProgress((prev) => [...prev, userID]);
+	function setFollow(userNickname: string) {
+		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
 		props
-			.setFollowTC(userID)
+			.setFollowTC(userNickname)
 			.finally(() =>
-				setFollowButtonsInProgress((prev) => prev.filter((id) => id !== userID))
+				setFollowButtonsInProgress((prev) =>
+					prev.filter((nickname) => nickname !== userNickname)
+				)
 			);
 	}
-	function setUnfollow(userID: string) {
-		setFollowButtonsInProgress((prev) => [...prev, userID]);
+	function setUnfollow(userNickname: string) {
+		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
 		props
-			.setUnfollowTC(userID)
+			.setUnfollowTC(userNickname)
 			.finally(() =>
-				setFollowButtonsInProgress((prev) => prev.filter((id) => id !== userID))
+				setFollowButtonsInProgress((prev) =>
+					prev.filter((nickname) => nickname !== userNickname)
+				)
 			);
 	}
 
@@ -50,14 +54,14 @@ export function FriendsPage(props: IProps) {
 			<section className="friends">
 				<div className="subsection">
 					<div className="friends__title title">
-						<NavLink draggable="false" to={"/" + whoseFriends.id}>
+						<NavLink draggable="false" to={"/" + whoseFriends.nickname}>
 							<img
 								src={whoseFriends.image || "/images/user.jpg"}
-								alt={whoseFriends.id}
+								alt={whoseFriends.nickname}
 							/>
 						</NavLink>
 
-						<NavLink draggable="false" to={"/" + whoseFriends.id}>
+						<NavLink draggable="false" to={"/" + whoseFriends.nickname}>
 							<h2>
 								{`${whoseFriends.firstName} ${whoseFriends.lastName} ${
 									props.category === "all"
@@ -69,11 +73,11 @@ export function FriendsPage(props: IProps) {
 						</NavLink>
 					</div>
 
-					<Categories id={whoseFriends.id} />
+					<Categories nickname={whoseFriends.nickname} />
 
 					{(props.usersData.length > 10 || !!props.search) && (
 						<FriendsSearch
-							id={whoseFriends.id}
+							nickname={whoseFriends.nickname}
 							category={props.category}
 							search={props.search}
 						/>
@@ -85,7 +89,7 @@ export function FriendsPage(props: IProps) {
 								<strong>Total count</strong>{" "}
 								{usersData.length ||
 									`${
-										whoseFriends.id === props.authID
+										whoseFriends.nickname === props.authNickname
 											? "You"
 											: whoseFriends.firstName
 									} don't have any ${
@@ -101,13 +105,13 @@ export function FriendsPage(props: IProps) {
 						<div className="friends__items">
 							{props.usersData.map((u) => (
 								<User
-									key={u.id}
-									itsMe={u.id === props.authID}
+									key={u.nickname}
+									itsMe={u.nickname === props.authNickname}
 									userData={u}
-									setFollow={() => setFollow(u.id)}
-									setUnfollow={() => setUnfollow(u.id)}
+									setFollow={() => setFollow(u.nickname)}
+									setUnfollow={() => setUnfollow(u.nickname)}
 									followButtonInProgress={followButtonsInProgress.some(
-										(id) => id === u.id
+										(nickname) => nickname === u.nickname
 									)}
 								/>
 							))}

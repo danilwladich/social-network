@@ -14,7 +14,10 @@ export function User(props: IProps) {
 				<div
 					className={"profile__user_image " + (userData.online ? "online" : "")}
 				>
-					<img src={userData.image || "/images/user.jpg"} alt={userData.id} />
+					<img
+						src={userData.image || "/images/user.jpg"}
+						alt={userData.nickname}
+					/>
 				</div>
 
 				<div className="profile__user_info">

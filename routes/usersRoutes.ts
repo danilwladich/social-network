@@ -3,12 +3,12 @@ import User from "../models/User";
 import { connectedSockets } from "../socket";
 const router = Router();
 
-// /users?page=:page&count=:count&lastUserID=:lastUserID&search=:search
+// /users?page=:page&count=:count&lastUserNickname=:lastUserNickname&search=:search
 router.get("", async (req: Request, res: Response) => {
 	try {
 		const page = parseInt((req.query.page as string) || "");
 		const count = parseInt((req.query.count as string) || "");
-		const lastUserNickname = req.query.lastUserID;
+		const lastUserNickname = req.query.lastUserNickname;
 		const search = req.query.search;
 		if (!page || !count || page < 1 || count > 100) {
 			return res.status(400).json({
@@ -84,7 +84,7 @@ router.get("", async (req: Request, res: Response) => {
 		// mapping users
 		const usersData = users.map((u) => {
 			return {
-				id: u.nickname,
+				nickname: u.nickname,
 				firstName: u.firstName,
 				lastName: u.lastName,
 				image: u.avatar,

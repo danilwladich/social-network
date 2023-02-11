@@ -54,18 +54,20 @@ export const API = {
 	},
 
 	// profile
-	getProfile(userID: string) {
-		return instance.get(`profile/user/${userID}`).then((response) => response.data);
+	getProfile(userNickname: string) {
+		return instance
+			.get(`profile/user/${userNickname}`)
+			.then((response) => response.data);
 	},
 	getPosts(
-		userID: string,
+		userNickname: string,
 		page: number,
 		pageSize: number,
 		lastPostID: string | null
 	) {
 		return instance
 			.get(
-				`profile/posts/${userID}?page=${page}&count=${pageSize}` +
+				`profile/posts/${userNickname}?page=${page}&count=${pageSize}` +
 					(!!lastPostID ? `&lastPostID=${lastPostID}` : "")
 			)
 			.then((response) => response.data);
@@ -92,13 +94,13 @@ export const API = {
 	},
 	editProfile(
 		image: File | null = null,
-		id: string | null = null,
+		nickname: string | null = null,
 		country: string | null = null,
 		city: string | null = null
 	) {
 		const formData = new FormData();
 		image && formData.append("image", image, "avatar.jpg");
-		id && formData.append("id", id);
+		nickname && formData.append("nickname", nickname);
 		country && formData.append("country", country);
 		city && formData.append("city", city);
 
@@ -124,16 +126,21 @@ export const API = {
 		return instance.get(`messages/chats`).then((response) => response.data);
 	},
 	getChat(
-		userID: string,
+		userNickname: string,
 		page: number,
 		pageSize: number,
 		lastMessageID: string | null
 	) {
 		return instance
 			.get(
-				`messages/chat/${userID}?page=${page}&count=${pageSize}` +
+				`messages/chat/${userNickname}?page=${page}&count=${pageSize}` +
 					(!!lastMessageID ? `&lastMessageID=${lastMessageID}` : "")
 			)
+			.then((response) => response.data);
+	},
+	deleteChat(userNickname: string) {
+		return instance
+			.delete(`messages/chat/${userNickname}`)
 			.then((response) => response.data);
 	},
 	getCountOfUnreadMessages() {
@@ -142,17 +149,17 @@ export const API = {
 
 	// friends
 	getFriends(
-		userID: string,
+		userNickname: string,
 		category: string,
 		page: number,
 		pageSize: number,
-		lastUserID: string | null = null,
+		lastUserNickname: string | null = null,
 		search: string | null = null
 	) {
 		return instance
 			.get(
-				`friends/${userID}?category=${category}&page=${page}&count=${pageSize}` +
-					(!!lastUserID ? `&lastUserID=${lastUserID}` : "") +
+				`friends/${userNickname}?category=${category}&page=${page}&count=${pageSize}` +
+					(!!lastUserNickname ? `&lastUserNickname=${lastUserNickname}` : "") +
 					(!!search ? `&search=${search}` : "")
 			)
 			.then((response) => response.data);
@@ -162,25 +169,27 @@ export const API = {
 	getUsers(
 		page: number,
 		pageSize: number,
-		lastUserID: string | null = null,
+		lastUserNickname: string | null = null,
 		search: string | null = null
 	) {
 		return instance
 			.get(
 				`users?page=${page}&count=${pageSize}` +
-					(!!lastUserID ? `&lastUserID=${lastUserID}` : "") +
+					(!!lastUserNickname ? `&lastUserNickname=${lastUserNickname}` : "") +
 					(!!search ? `&search=${search}` : "")
 			)
 			.then((response) => response.data);
 	},
 
 	// general
-	followUser(userID: string) {
-		return instance.post(`follow/${userID}`).then((response) => response.data);
-	},
-	unfollowUser(userID: string) {
+	followUser(userNickname: string) {
 		return instance
-			.delete(`follow/${userID}`)
+			.post(`follow/${userNickname}`)
+			.then((response) => response.data);
+	},
+	unfollowUser(userNickname: string) {
+		return instance
+			.delete(`follow/${userNickname}`)
 			.then((response) => response.data);
 	},
 

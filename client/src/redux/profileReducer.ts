@@ -14,7 +14,7 @@ import { authMeTC } from "./authReducer";
 
 const initialState: IProfile = {
 	userData: {
-		id: "",
+		nickname: "",
 		firstName: "",
 		lastName: "",
 		image: "",
@@ -75,7 +75,7 @@ export function profileReducer(
 				postsData: [newPost, ...state.postsData],
 			};
 
-		case ActionType.DELTE_POST:
+		case ActionType.DELETE_POST:
 			return {
 				...state,
 				postsData: state.postsData.filter((p) => p.id !== action.value),
@@ -177,48 +177,53 @@ export const setPostsTotalCount: (count: number) => IAction = (count) => ({
 	value: count,
 });
 
-export const addPost: (post: string, id: string) => IAction = (post, id) => ({
+export const addPost: (post: string, id: string) => IAction = (
+	post,
+	id
+) => ({
 	type: ActionType.ADD_POST,
 	value: post,
 	id,
 });
 
 export const deletePost: (postID: string) => IAction = (postID) => ({
-	type: ActionType.DELTE_POST,
+	type: ActionType.DELETE_POST,
 	value: postID,
 });
 
-export const likePost: (id: string) => IAction = (id) => ({
+export const likePost: (postID: string) => IAction = (postID) => ({
 	type: ActionType.LIKE_POST,
-	value: id,
+	value: postID,
 });
 
-export const unlikePost: (id: string) => IAction = (id) => ({
+export const unlikePost: (postID: string) => IAction = (postID) => ({
 	type: ActionType.UNLIKE_POST,
-	value: id,
+	value: postID,
 });
 
 // thunk
-export const getProfileTC = (userID: string) => {
+export const getProfileTC = (userNickname: string) => {
 	return async (dispatch: Dispatch<any>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.getProfile(userID).then(async (data) => {
+			await API.getProfile(userNickname).then(async (data) => {
 				if (data.success === true) {
 					dispatch(setProfile(data.userData, data.aboutData));
-					if (data.userData.id === getState().auth.user.id) {
+					if (data.userData.nickname === getState().auth.user.nickname) {
 						if (data.userData.image) {
 							dispatch(setHeaderImage(data.userData.image));
 						} else {
 							dispatch(setHeaderImage(""));
 						}
 					}
-					await dispatch(getPostsTC(userID, 1, getState().profile.pageSize));
+					await dispatch(
+						getPostsTC(userNickname, 1, getState().profile.pageSize)
+					);
 				} else {
 					dispatch(
 						setProfile(
 							{
-								id: "",
+								nickname: "",
 								firstName: "",
 								lastName: "",
 								image: "",
@@ -246,7 +251,11 @@ export const getProfileTC = (userID: string) => {
 	};
 };
 
-export const getPostsTC = (userID: string, page: number, pageSize: number) => {
+export const getPostsTC = (
+	userNickname: string,
+	page: number,
+	pageSize: number
+) => {
 	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
@@ -257,18 +266,20 @@ export const getPostsTC = (userID: string, page: number, pageSize: number) => {
 					  ].id
 					: null;
 
-			await API.getPosts(userID, page, pageSize, lastPostID).then((data) => {
-				if (data.success === true) {
-					dispatch(setPosts(data.postsData, page));
-					if (page === 1) {
-						dispatch(setPostsTotalCount(data.totalCount));
+			await API.getPosts(userNickname, page, pageSize, lastPostID).then(
+				(data) => {
+					if (data.success === true) {
+						dispatch(setPosts(data.postsData, page));
+						if (page === 1) {
+							dispatch(setPostsTotalCount(data.totalCount));
+						}
+					} else {
+						dispatch(setPosts([], 1));
+						dispatch(setPostsTotalCount(0));
+						dispatch(setErrorMessage("Get posts: " + data.statusText));
 					}
-				} else {
-					dispatch(setPosts([], 1));
-					dispatch(setPostsTotalCount(0));
-					dispatch(setErrorMessage("Get posts: " + data.statusText));
 				}
-			});
+			);
 		} catch (e: unknown) {
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Get posts: " + error.message));
@@ -350,22 +361,24 @@ export const unlikePostTC = (postID: string) => {
 
 export const editProfileTC = (
 	image?: File,
-	id?: string,
+	nickname?: string,
 	country?: string,
 	city?: string
 ) => {
 	return async (dispatch: Dispatch<any>) => {
 		try {
 			dispatch(setErrorMessage(""));
-			await API.editProfile(image, id, country, city).then(async (data) => {
-				if (data.success === true) {
-					if (!!id) {
-						await dispatch(authMeTC());
+			await API.editProfile(image, nickname, country, city).then(
+				async (data) => {
+					if (data.success === true) {
+						if (!!nickname) {
+							await dispatch(authMeTC());
+						}
+					} else {
+						return Promise.reject(data.statusText);
 					}
-				} else {
-					return Promise.reject(data.statusText);
 				}
-			});
+			);
 		} catch (e: unknown) {
 			if (typeof e === "string") {
 				return Promise.reject(e);

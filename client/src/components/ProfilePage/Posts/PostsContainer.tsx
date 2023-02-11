@@ -13,12 +13,16 @@ import { ProfilePostData } from "../../../models/Profile/ProfilePostData";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 
 interface IProps {
-	authID: string;
-	userID: string;
+	authNickname: string;
+	userNickname: string;
 	postsData: ProfilePostData[];
 	pageSize: number;
 	totalCount: number;
-	getPostsTC: (userID: string, page: number, pageSize: number) => Promise<void>;
+	getPostsTC: (
+		userNickname: string,
+		page: number,
+		pageSize: number
+	) => Promise<void>;
 	addPostTC: (post: string) => Promise<void>;
 	deletePostTC: (postID: string) => Promise<void>;
 	likePostTC: (postID: string) => Promise<void>;
@@ -59,7 +63,7 @@ export function PostsContainerAPI(props: IProps) {
 		if (pagesCount > 0 && currentPage !== 1) {
 			setIsLoading(true);
 			props
-				.getPostsTC(props.userID, currentPage, props.pageSize)
+				.getPostsTC(props.userNickname, currentPage, props.pageSize)
 				.finally(() => setIsLoading(false));
 		}
 		// eslint-disable-next-line
@@ -80,8 +84,8 @@ export function PostsContainerAPI(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
-		authID: state.auth.user.id,
-		userID: state.profile.userData.id,
+		authNickname: state.auth.user.nickname,
+		userNickname: state.profile.userData.nickname,
 		postsData: state.profile.postsData,
 		pageSize: state.profile.pageSize,
 		totalCount: state.profile.totalCount,

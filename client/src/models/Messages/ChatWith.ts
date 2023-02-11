@@ -1,5 +1,5 @@
 export interface ChatWith {
-	id: string;
+	nickname: string;
 	firstName: string;
 	lastName: string;
 	image?: string;

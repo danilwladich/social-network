@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 interface IProps {
 	isAuth: boolean;
-	authID: string;
+	authNickname: string;
 	headerImage: string;
 	burger: boolean;
 	countOfUnreadMessages: string[];
@@ -19,7 +19,7 @@ export function Header(props: IProps) {
 				<nav className="header__menu">
 					{props.isAuth ? (
 						<NavLink
-							to={"/" + props.authID}
+							to={"/" + props.authNickname}
 							draggable="false"
 							className="header__user"
 						>

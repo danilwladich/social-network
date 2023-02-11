@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NewsPostData } from "../../models/News/NewsPostData";
 import { LoadingCircle } from "../assets/LoadingCircle";
 import "./NewsPage.css";
-import { Post } from "./Posts/Post";
+import { Post } from "./Post/Post";
 import { NavLink } from "react-router-dom";
 
 interface IProps {

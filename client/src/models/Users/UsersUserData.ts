@@ -1,5 +1,5 @@
 export interface UsersUserData {
-	id: string;
+	nickname: string;
 	firstName: string;
 	lastName: string;
 	image?: string;

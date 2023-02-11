@@ -50,10 +50,10 @@ export function DeleteAccountForm(props: IProps) {
 						<Field
 							name="password"
 							render={({ input, meta }) => (
-								<div className="settings__delete_field">
+								<div className="settings__delete_field form__field">
 									<label
 										htmlFor="passwordInput"
-										className="settings__delete_label"
+										className="settings__delete_label form__label"
 									>
 										Password
 									</label>
@@ -64,11 +64,11 @@ export function DeleteAccountForm(props: IProps) {
 										autoComplete="off"
 										tabIndex={1}
 										type="password"
-										className="settings__delete_input"
+										className="settings__delete_input form__input"
 										placeholder="Password"
 									/>
 									{meta.touched && meta.error && (
-										<div className="settings__delete_incorrect">
+										<div className="settings__delete_incorrect form__incorrect">
 											{meta.error}
 										</div>
 									)}
@@ -79,10 +79,10 @@ export function DeleteAccountForm(props: IProps) {
 						<Field
 							name="confirmPassword"
 							render={({ input, meta }) => (
-								<div className="settings__delete_field">
+								<div className="settings__delete_field form__field">
 									<label
 										htmlFor="confirmPasswordInput"
-										className="settings__delete_label"
+										className="settings__delete_label form__label"
 									>
 										Confirm password
 									</label>
@@ -92,11 +92,11 @@ export function DeleteAccountForm(props: IProps) {
 										tabIndex={2}
 										autoComplete="off"
 										type="password"
-										className="settings__delete_input"
+										className="settings__delete_input form__input"
 										placeholder="Confirm password"
 									/>
 									{meta.touched && meta.error && (
-										<div className="settings__delete_incorrect">
+										<div className="settings__delete_incorrect form__incorrect">
 											{meta.error}
 										</div>
 									)}
@@ -105,13 +105,15 @@ export function DeleteAccountForm(props: IProps) {
 						/>
 
 						{errorMessage && (
-							<div className="settings__delete_error">{errorMessage}</div>
+							<div className="settings__delete_error form__error">
+								{errorMessage}
+							</div>
 						)}
 
 						<button
 							onClick={handleSubmit}
 							disabled={pristine || submitting}
-							className="settings__delete_button"
+							className="settings__delete_button form__button"
 						>
 							{submitting ? <LoadingCircle /> : "Delete"}
 						</button>

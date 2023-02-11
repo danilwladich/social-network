@@ -59,37 +59,39 @@ export function PostsInput(props: IProps) {
 
 	return (
 		<>
-			<textarea
-				ref={fieldRef}
-				disabled={addPostInProgress}
-				onKeyDown={(e) =>
-					onKeyDownHandler(e, newPostValue.trim() === "" || addPostInProgress)
-				}
-				onChange={(e) => updateNewPostValue(e.target.value)}
-				value={newPostValue}
-				placeholder="Write new post..."
-				style={{ height: newPostHeight }}
-				className="profile__posts_input"
-			/>
+			<div className="profile__posts_input">
+				<textarea
+					ref={fieldRef}
+					disabled={addPostInProgress}
+					onKeyDown={(e) =>
+						onKeyDownHandler(e, newPostValue.trim() === "" || addPostInProgress)
+					}
+					onChange={(e) => updateNewPostValue(e.target.value)}
+					value={newPostValue}
+					placeholder="Write new post..."
+					style={{ height: newPostHeight }}
+					className="profile__posts_input_field"
+				/>
 
-			<button
-				onClick={() => addPost()}
-				disabled={newPostValue.trim() === "" || addPostInProgress}
-				className="profile__posts_send"
-			>
-				{addPostInProgress ? <LoadingCircle /> : <Arrow id="addPostArrow" />}
-			</button>
-
-			{newPostValue && (
 				<button
-					onClick={() => {
-						updateNewPostValue("");
-					}}
-					className="profile__posts_cancel"
+					onClick={() => addPost()}
+					disabled={newPostValue.trim() === "" || addPostInProgress}
+					className="profile__posts_input_send"
 				>
-					<CloseX />
+					{addPostInProgress ? <LoadingCircle /> : <Arrow id="addPostArrow" />}
 				</button>
-			)}
+
+				{newPostValue && (
+					<button
+						onClick={() => {
+							updateNewPostValue("");
+						}}
+						className="profile__posts_input_cancel"
+					>
+						<CloseX />
+					</button>
+				)}
+			</div>
 		</>
 	);
 }

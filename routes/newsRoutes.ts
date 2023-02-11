@@ -51,7 +51,7 @@ router.get(
 
 					return {
 						owner: {
-							id: user?.nickname,
+							nickname: user?.nickname,
 							firstName: user?.firstName,
 							lastName: user?.lastName,
 							image: user?.avatar,

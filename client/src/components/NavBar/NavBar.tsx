@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 interface IProps {
 	isAuth: boolean;
-	authID: string;
+	authNickname: string;
 	burger: boolean;
 	countOfUnreadMessages: string[];
 	setBurger: (b: boolean) => void;
@@ -19,7 +19,7 @@ export function NavBar(props: IProps) {
 					<nav className="navbar__menu">
 						<NavLink
 							draggable="false"
-							to={"/" + props.authID}
+							to={"/" + props.authNickname}
 							onClick={() => props.setBurger(false)}
 							className="navbar__link"
 						>
@@ -48,7 +48,7 @@ export function NavBar(props: IProps) {
 						</NavLink>
 						<NavLink
 							draggable="false"
-							to={"/friends/" + props.authID}
+							to={"/friends/" + props.authNickname}
 							onClick={() => props.setBurger(false)}
 							className="navbar__link"
 						>

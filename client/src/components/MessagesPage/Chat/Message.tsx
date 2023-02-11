@@ -14,9 +14,11 @@ export function Message(props: IProps) {
 
 	return (
 		<>
-			{!!props.checkMessageDate(props.index) && <div className="messages__date">
-				{props.checkMessageDate(props.index)}
-			</div>}
+			{!!props.checkMessageDate(props.index) && (
+				<div className="messages__date">
+					{props.checkMessageDate(props.index)}
+				</div>
+			)}
 
 			<div className={"messages__message " + (messageData.out ? "out" : "")}>
 				<div className="messages__message_content">

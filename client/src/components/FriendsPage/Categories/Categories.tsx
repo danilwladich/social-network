@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 interface IProps {
-	id: string;
+	nickname: string;
 }
 
 export function Categories(props: IProps) {
@@ -11,21 +11,21 @@ export function Categories(props: IProps) {
 			<div className="friends__categories">
 				<NavLink
 					draggable="false"
-					to={"/friends/" + props.id + "/all"}
+					to={"/friends/" + props.nickname + "/all"}
 					className="friends__categories_button"
 				>
 					Friends
 				</NavLink>
 				<NavLink
 					draggable="false"
-					to={"/friends/" + props.id + "/followers"}
+					to={"/friends/" + props.nickname + "/followers"}
 					className="friends__categories_button"
 				>
 					Followers
 				</NavLink>
 				<NavLink
 					draggable="false"
-					to={"/friends/" + props.id + "/following"}
+					to={"/friends/" + props.nickname + "/following"}
 					className="friends__categories_button"
 				>
 					Following

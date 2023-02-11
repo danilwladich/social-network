@@ -5,7 +5,7 @@ import { About } from "./About";
 function mapStateToProps(state: IState) {
 	return {
 		aboutData: state.profile.aboutData,
-		userID: state.profile.userData.id,
+		userNickname: state.profile.userData.nickname,
 	};
 }
 

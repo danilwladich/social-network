@@ -11,7 +11,7 @@ import { IState } from "./../models/IState";
 
 const initialState: IFriends = {
 	whoseFriends: {
-		id: "",
+		nickname: "",
 		firstName: "",
 		lastName: "",
 		image: "",
@@ -51,7 +51,7 @@ export function friendsReducer(
 			return {
 				...state,
 				usersData: state.usersData.map((u) => {
-					if (u.id === action.value) {
+					if (u.nickname === action.value) {
 						return { ...u, followed: true };
 					}
 					return u;
@@ -62,7 +62,7 @@ export function friendsReducer(
 			return {
 				...state,
 				usersData: state.usersData.map((u) => {
-					if (u.id === action.value) {
+					if (u.nickname === action.value) {
 						return { ...u, followed: false };
 					}
 					return u;
@@ -98,7 +98,7 @@ export const setFriendsTotalCount: (count: number) => IAction = (count) => ({
 
 // thunk
 export const getFriendsTC = (
-	userID: string,
+	userNickname: string,
 	category: string,
 	page: number,
 	pageSize: number,
@@ -107,36 +107,41 @@ export const getFriendsTC = (
 	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
-			const lastUserID =
+			const lastUserNickname =
 				page > 1
 					? getState().friends.usersData[
 							getState().friends.usersData.length - 1
-					  ].id
+					  ].nickname
 					: null;
 
-			await API.getFriends(userID, category, page, pageSize, lastUserID, search).then(
-				(data) => {
-					if (data.success === true) {
-						if (page === 1) {
-							dispatch(setWhoseFriends(data.whoseFriends));
-						}
-						dispatch(setFriends(data.usersData, page));
-						dispatch(setFriendsTotalCount(data.totalCount));
-					} else {
-						dispatch(
-							setWhoseFriends({
-								id: "",
-								firstName: "",
-								lastName: "",
-								image: "",
-							})
-						);
-						dispatch(setFriends([], 1));
-						dispatch(setFriendsTotalCount(0));
-						dispatch(setErrorMessage("Get friends: " + data.statusText));
+			await API.getFriends(
+				userNickname,
+				category,
+				page,
+				pageSize,
+				lastUserNickname,
+				search
+			).then((data) => {
+				if (data.success === true) {
+					if (page === 1) {
+						dispatch(setWhoseFriends(data.whoseFriends));
 					}
+					dispatch(setFriends(data.usersData, page));
+					dispatch(setFriendsTotalCount(data.totalCount));
+				} else {
+					dispatch(
+						setWhoseFriends({
+							nickname: "",
+							firstName: "",
+							lastName: "",
+							image: "",
+						})
+					);
+					dispatch(setFriends([], 1));
+					dispatch(setFriendsTotalCount(0));
+					dispatch(setErrorMessage("Get friends: " + data.statusText));
 				}
-			);
+			});
 		} catch (e: unknown) {
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Get friends: " + error.message));

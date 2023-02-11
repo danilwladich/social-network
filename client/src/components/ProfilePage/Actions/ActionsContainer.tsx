@@ -5,7 +5,7 @@ import { setFollowTC, setUnfollowTC } from "../../../redux/usersReducer";
 
 function mapStateToProps(state: IState) {
 	return {
-		authID: state.auth.user.id,
+		authNickname: state.auth.user.nickname,
 		userData: state.profile.userData,
 	};
 }

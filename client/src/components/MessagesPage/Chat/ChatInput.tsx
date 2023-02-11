@@ -3,11 +3,11 @@ import { Arrow } from "../../assets/Arrow";
 import { socket } from "../../../App";
 
 interface IProps {
-	authID: string;
-	userID: string;
+	authNickname: string;
+	userNickname: string;
 	readMessagesOption: boolean;
 	sendMessage: (message: string, id: string) => void;
-	readMessages: (userID: string) => void;
+	readMessages: (userNickname: string) => void;
 }
 
 export function ChatInput(props: IProps) {
@@ -32,8 +32,8 @@ export function ChatInput(props: IProps) {
 			fieldRef.current?.focus();
 			updateNewMessageValue("");
 
-			const from = props.authID;
-			const to = props.userID;
+			const from = props.authNickname;
+			const to = props.userNickname;
 
 			const id = "temporaryid//" + Math.round(Math.random() * 1000000000);
 
@@ -46,11 +46,11 @@ export function ChatInput(props: IProps) {
 
 			if (!props.readMessagesOption) {
 				socket.emit("readMessages", {
-					who: props.authID,
-					whom: props.userID,
+					who: props.authNickname,
+					whom: props.userNickname,
 				});
 
-				props.readMessages(props.userID);
+				props.readMessages(props.userNickname);
 			}
 
 			props.sendMessage(newMessageValue.trim(), id);

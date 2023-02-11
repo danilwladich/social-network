@@ -55,7 +55,7 @@ interface addPost {
 	id: string;
 }
 interface deletePost {
-	type: ActionType.DELTE_POST;
+	type: ActionType.DELETE_POST;
 	value: string;
 }
 interface setPosts {
@@ -114,6 +114,10 @@ interface setMessages {
 interface setMessagesTotalCount {
 	type: ActionType.SET_MESSAGES_TOTAL_COUNT;
 	value: number;
+}
+interface deleteChat {
+	type: ActionType.DELETE_CHAT;
+	value: string;
 }
 interface sendMessage {
 	type: ActionType.SEND_MESSAGE;
@@ -194,6 +198,7 @@ export type IAction =
 	| setNewsTotalCount
 	| deletePost
 	| unfollowUser
+	| deleteChat
 	| setUsers
 	| setChatWith
 	| setMessages

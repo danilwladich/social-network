@@ -9,15 +9,15 @@ import { compose } from "redux";
 import { ProfilePageLoading } from "./ProfilePageLoading";
 
 interface IProps {
-	authID: string;
-	userID: string;
+	authNickname: string;
+	userNickname: string;
 	getProfileTC: (profileID: string) => Promise<void>;
 }
 
 function ProfilePageAPI(props: IProps) {
 	document.title = `Bloxx`;
 	const [isLoading, setIsLoading] = useState(false);
-	const profileID = useParams().id;
+	const profileID = useParams().nickname;
 
 	useLayoutEffect(() => {
 		if (profileID) {
@@ -28,12 +28,12 @@ function ProfilePageAPI(props: IProps) {
 	}, [profileID]);
 
 	if (!profileID) {
-		return <Navigate to={"/" + props.authID} />;
+		return <Navigate to={"/" + props.authNickname} />;
 	}
 	if (isLoading) {
 		return <ProfilePageLoading />;
 	}
-	if (!props.userID) {
+	if (!props.userNickname) {
 		return (
 			<section className="profile">
 				<div className="subsection">
@@ -51,8 +51,8 @@ function ProfilePageAPI(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
-		authID: state.auth.user.id,
-		userID: state.profile.userData.id,
+		authNickname: state.auth.user.nickname,
+		userNickname: state.profile.userData.nickname,
 	};
 }
 

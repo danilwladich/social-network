@@ -19,8 +19,6 @@ html[theme=light] .not-exist:before {
 }
 .not-exist a {
   font-size: 24px;
-}
-.not-exist a:hover {
   text-decoration: underline;
 }
 .not-exist:before {

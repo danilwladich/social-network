@@ -6,7 +6,7 @@ import { LoginPage } from "./LoginPage";
 function mapStateToProps(state: IState) {
 	return {
 		isAuth: state.auth.isAuth,
-		authID: state.auth.user.id,
+		authNickname: state.auth.user.nickname,
 		bodyTheme: state.settings.bodyTheme,
 	};
 }

@@ -31,7 +31,9 @@ export function PayPal(props: IProps) {
 
 	return (
 		<>
-			<button id="payPalButton" className="settings__donation"></button>
+			<button id="payPalButton" className="settings__donation settings__button">
+				PayPal
+			</button>
 		</>
 	);
 }

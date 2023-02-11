@@ -9,7 +9,7 @@ import { getCountOfUnreadMessagesTC } from "./messagesReducer";
 
 const initialState: IAuth = {
 	user: {
-		id: "",
+		nickname: "",
 		token: "",
 	},
 	isAuth: false,

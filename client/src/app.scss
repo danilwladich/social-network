@@ -103,6 +103,18 @@ html[theme="dark"] {
 	.checkMark {
 		fill: var(--dark-text-color);
 	}
+	.form {
+		&__input {
+			background-color: var(--dark-input-bg);
+		}
+		&__button {
+			color: var(--dark-button-text-color);
+			background-color: var(--dark-button-bg);
+			&:not(:disabled):hover {
+				background-color: var(--dark-button-bg-active);
+			}
+		}
+	}
 }
 
 html[theme="light"] {
@@ -181,6 +193,18 @@ html[theme="light"] {
 	.checkMark {
 		fill: var(--light-text-color);
 	}
+	.form {
+		&__input {
+			background-color: var(--light-input-bg);
+		}
+		&__button {
+			color: var(--light-button-text-color);
+			background-color: var(--light-button-bg);
+			&:not(:disabled):hover {
+				background-color: var(--light-button-bg-active);
+			}
+		}
+	}
 }
 
 html {
@@ -229,6 +253,7 @@ body {
 }
 
 .subsection:not(:empty) {
+	overflow: hidden;
 	transition: background-color 0s;
 	position: relative;
 	padding: 10px 0px;
@@ -302,6 +327,74 @@ body {
 	top: 50vh;
 	transform: translate(-50%, -50%);
 	animation: app_loading_delay 4s;
+}
+
+.form {
+	&__label {
+		line-height: 150%;
+		opacity: 0.8;
+		cursor: pointer;
+		display: block;
+		font-size: 18px;
+		padding: 0px 0px 5px 0px;
+	}
+	&__field {
+		padding: 0 5px 5px 5px;
+		margin: 0px 0px 25px 0px;
+		position: relative;
+	}
+	&__input {
+		padding: 5px 10px;
+		border-radius: 4px;
+		width: 100%;
+		line-height: 150%;
+		font-size: 18px;
+		background-color: transparent;
+		max-width: 250px;
+		cursor: pointer;
+	}
+	&__incorrect {
+		color: rgba(255, 0, 0, 0.87) !important;
+		position: absolute;
+		bottom: -14px;
+	}
+	&__button {
+		display: block;
+		width: 100%;
+		font-size: 20px;
+		line-height: 150%;
+		background-color: transparent;
+		padding: 10px 50px;
+		margin: 30px 0px 0px 0px;
+		border-radius: 4px;
+		opacity: 0.7;
+		transition: all 0.2s;
+		&:not(:disabled) {
+			opacity: 1;
+			&:hover {
+				transform: translate(-1px, -1px);
+			}
+			&:active {
+				transform: translate(0);
+			}
+		}
+		svg {
+			width: 62px;
+			height: 23px;
+			margin: 0px 0px -5px 0px;
+		}
+	}
+	&__error {
+		word-wrap: break-word;
+		text-align: center;
+		color: rgba(255, 0, 0, 0.87) !important;
+		text-transform: capitalize;
+	}
+	@media (min-width: 767px) {
+		&__input {
+			font-size: 20px;
+		}
+	}
 }
 
 @keyframes app_loading_delay {

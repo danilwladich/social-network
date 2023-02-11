@@ -57,7 +57,7 @@ export default (io: Server) => {
 									out: false,
 								},
 								fromUser: {
-									id: data.from,
+									nickname: data.from,
 									firstName: fromUser.firstName,
 									lastName: fromUser.lastName,
 									image: fromUser.avatar,
@@ -93,7 +93,7 @@ export default (io: Server) => {
 					if (connectedSockets[data.whom]) {
 						io.sockets
 							.to(connectedSockets[data.whom].socketID)
-							.emit("messagesRead", { userID: data.who });
+							.emit("messagesRead", { userNickname: data.who });
 					}
 				} else {
 					io.sockets.to(connectedSockets[data.who].socketID).emit("error", {

@@ -3,14 +3,14 @@ import User from "../models/User";
 import { connectedSockets } from "../socket";
 const router = Router();
 
-// /friends/:nickname?category=:category&page=:page&count=:count&lastUserID=:lastUserNickname&search=:search
+// /friends/:nickname?category=:category&page=:page&count=:count&lastUserNickname=:lastUserNickname&search=:search
 router.get("/:nickname", async (req: Request, res: Response) => {
 	try {
 		const nickname = req.params.nickname;
 		const category = req.query.category;
 		const page = req.query.page as number | undefined;
 		const count = req.query.count as number | undefined;
-		const lastUserNickname = req.query.lastUserID;
+		const lastUserNickname = req.query.lastUserNickname;
 		const search = req.query.search;
 		if (
 			!category ||
@@ -39,7 +39,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 		}
 
 		const whoseFriends = {
-			id: user.nickname,
+			nickname: user.nickname,
 			firstName: user.firstName,
 			lastName: user.lastName,
 			image: user.avatar,
@@ -336,7 +336,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 		// mapping users
 		const usersData = users.map((u) => {
 			return {
-				id: u.nickname,
+				nickname: u.nickname,
 				firstName: u.firstName,
 				lastName: u.lastName,
 				image: u.avatar,

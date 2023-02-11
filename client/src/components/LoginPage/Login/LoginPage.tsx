@@ -5,22 +5,26 @@ import { LoginForm } from "./LoginForm";
 
 interface IProps {
 	isAuth: boolean;
-	authID: string;
+	authNickname: string;
 	bodyTheme: string;
-	loginTC: (phoneNumber: string, password: string, recaptcha: string) => Promise<void>;
+	loginTC: (
+		phoneNumber: string,
+		password: string,
+		recaptcha: string
+	) => Promise<void>;
 }
 
 export function LoginPage(props: IProps) {
 	document.title = `Login`;
 	if (props.isAuth) {
-		return <Navigate to={"/" + props.authID} />;
+		return <Navigate to={"/" + props.authNickname} />;
 	}
 	return (
 		<>
 			<section className="login">
 				<div className="subsection">
 					<h2 className="login__title title">Login</h2>
-					<LoginForm loginTC={props.loginTC} bodyTheme={props.bodyTheme}/>
+					<LoginForm loginTC={props.loginTC} bodyTheme={props.bodyTheme} />
 					<NavLink to="/register" className="login__link">
 						Don`t have an account yet?
 					</NavLink>

@@ -13,7 +13,7 @@ import { IState } from "./../models/IState";
 const initialState: IMessages = {
 	usersData: [],
 	chatWith: {
-		id: "",
+		nickname: "",
 		firstName: "",
 		lastName: "",
 		image: "",
@@ -57,6 +57,12 @@ export function messagesReducer(
 				totalCount: action.value,
 			};
 
+		case ActionType.DELETE_CHAT:
+			return {
+				...state,
+				usersData: state.usersData.filter((u) => u.nickname !== action.value),
+			};
+
 		case ActionType.SEND_MESSAGE:
 			const newMessage = {
 				id: action.id,
@@ -87,19 +93,21 @@ export function messagesReducer(
 
 				usersData: [
 					{ ...action.fromUser, lastMessage: action.messageData },
-					...state.usersData.filter((u) => u.id !== action.fromUser.id),
+					...state.usersData.filter(
+						(u) => u.nickname !== action.fromUser.nickname
+					),
 				],
 
 				messagesData:
-					action.fromUser.id === state.chatWith.id
+					action.fromUser.nickname === state.chatWith.nickname
 						? [action.messageData, ...state.messagesData]
 						: state.messagesData,
 
 				countOfUnreadMessages: state.countOfUnreadMessages.includes(
-					action.fromUser.id
+					action.fromUser.nickname
 				)
 					? [...state.countOfUnreadMessages]
-					: [...state.countOfUnreadMessages, action.fromUser.id],
+					: [...state.countOfUnreadMessages, action.fromUser.nickname],
 			};
 
 		case ActionType.MESSAGES_READ:
@@ -114,7 +122,7 @@ export function messagesReducer(
 				}),
 
 				messagesData:
-					action.value === state.chatWith.id
+					action.value === state.chatWith.nickname
 						? state.messagesData.map((m) => {
 								if (m.out) {
 									return { ...m, read: true };
@@ -128,7 +136,7 @@ export function messagesReducer(
 			return {
 				...state,
 				countOfUnreadMessages: state.countOfUnreadMessages.filter(
-					(id) => id !== action.value
+					(nickname) => nickname !== action.value
 				),
 			};
 
@@ -170,6 +178,13 @@ export const setMessagesTotalCount: (count: number) => IAction = (count) => ({
 	value: count,
 });
 
+export const deleteChat: (userNickname: string) => IAction = (
+	userNickname
+) => ({
+	type: ActionType.DELETE_CHAT,
+	value: userNickname,
+});
+
 export const sendMessage: (message: string, id: string) => IAction = (
 	message,
 	id
@@ -197,14 +212,18 @@ export const receiveMessage: (
 	fromUser,
 });
 
-export const messagesRead: (userID: string) => IAction = (userID) => ({
+export const messagesRead: (userNickname: string) => IAction = (
+	userNickname
+) => ({
 	type: ActionType.MESSAGES_READ,
-	value: userID,
+	value: userNickname,
 });
 
-export const readMessages: (userID: string) => IAction = (userID) => ({
+export const readMessages: (userNickname: string) => IAction = (
+	userNickname
+) => ({
 	type: ActionType.READ_MESSAGES,
-	value: userID,
+	value: userNickname,
 });
 
 export const setCountOfUnreadMessages: (count: string[]) => IAction = (
@@ -234,7 +253,11 @@ export const getChatsTC = () => {
 	};
 };
 
-export const getChatTC = (userID: string, page: number, pageSize: number) => {
+export const getChatTC = (
+	userNickname: string,
+	page: number,
+	pageSize: number
+) => {
 	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
@@ -245,29 +268,49 @@ export const getChatTC = (userID: string, page: number, pageSize: number) => {
 					  ].id
 					: null;
 
-			await API.getChat(userID, page, pageSize, lastMessageID).then((data) => {
-				if (data.success === true) {
-					dispatch(setMessages(data.messagesData, page));
-					if (page === 1) {
-						dispatch(setChatWith(data.chatWith));
-						dispatch(setMessagesTotalCount(data.totalCount));
+			await API.getChat(userNickname, page, pageSize, lastMessageID).then(
+				(data) => {
+					if (data.success === true) {
+						dispatch(setMessages(data.messagesData, page));
+						if (page === 1) {
+							dispatch(setChatWith(data.chatWith));
+							dispatch(setMessagesTotalCount(data.totalCount));
+						}
+					} else {
+						dispatch(
+							setChatWith({
+								nickname: "",
+								firstName: "",
+								lastName: "",
+								image: "",
+								online: false,
+							})
+						);
+						dispatch(setMessages([], 1));
 					}
+				}
+			);
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Get chat: " + error.message));
+		}
+	};
+};
+
+export const deleteChatTC = (userNickname: string) => {
+	return async (dispatch: Dispatch<IAction>) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.deleteChat(userNickname).then((data) => {
+				if (data.success === true) {
+					dispatch(deleteChat(userNickname));
 				} else {
-					dispatch(
-						setChatWith({
-							id: "",
-							firstName: "",
-							lastName: "",
-							image: "",
-							online: false,
-						})
-					);
-					dispatch(setMessages([], 1));
+					dispatch(setErrorMessage("Delete chat: " + data.statusText));
 				}
 			});
 		} catch (e: unknown) {
 			const error = e as AxiosError;
-			dispatch(setErrorMessage("Get chat: " + error.message));
+			dispatch(setErrorMessage("Delete chat: " + error.message));
 		}
 	};
 };

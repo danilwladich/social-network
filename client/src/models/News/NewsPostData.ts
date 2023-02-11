@@ -1,6 +1,6 @@
 export interface NewsPostData {
 	owner: {
-		id: string;
+		nickname: string;
 		firstName: string;
 		lastName: string;
 		image?: string;

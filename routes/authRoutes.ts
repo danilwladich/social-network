@@ -192,7 +192,7 @@ router.get("/me", async (req: Request, res: Response) => {
 		res.status(200).json({
 			success: true,
 			statusText: "Auth successful",
-			user: { id: nickname, token },
+			user: { nickname, token },
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });

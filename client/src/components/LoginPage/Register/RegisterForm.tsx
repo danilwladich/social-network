@@ -168,8 +168,11 @@ export function RegisterForm(props: IProps) {
 					<Field
 						name="phoneNumber"
 						render={({ input, meta }) => (
-							<div className="login__field">
-								<label htmlFor="phoneNumberInput" className="login__label">
+							<div className="login__field form__field">
+								<label
+									htmlFor="phoneNumberInput"
+									className="login__label form__label"
+								>
 									Phone number
 								</label>
 								<PhoneInput
@@ -178,11 +181,13 @@ export function RegisterForm(props: IProps) {
 									tabIndex={1}
 									type="tel"
 									autoComplete="tel"
-									className="login__input"
+									className="login__input form__input"
 									placeholder="+1 XXX XXX XXX"
 								/>
 								{meta.touched && meta.error && (
-									<div className="login__incorrect">{meta.error}</div>
+									<div className="login__incorrect form__incorrect">
+										{meta.error}
+									</div>
 								)}
 							</div>
 						)}
@@ -191,8 +196,11 @@ export function RegisterForm(props: IProps) {
 					<Field
 						name="password"
 						render={({ input, meta }) => (
-							<div className="login__field">
-								<label htmlFor="passwordInput" className="login__label">
+							<div className="login__field form__field">
+								<label
+									htmlFor="passwordInput"
+									className="login__label form__label"
+								>
 									Password
 								</label>
 								<input
@@ -200,11 +208,13 @@ export function RegisterForm(props: IProps) {
 									id="passwordInput"
 									tabIndex={2}
 									type="password"
-									className="login__input"
+									className="login__input form__input"
 									placeholder="New password"
 								/>
 								{meta.touched && meta.error && (
-									<div className="login__incorrect">{meta.error}</div>
+									<div className="login__incorrect form__incorrect">
+										{meta.error}
+									</div>
 								)}
 							</div>
 						)}
@@ -213,8 +223,11 @@ export function RegisterForm(props: IProps) {
 					<Field
 						name="confirmPassword"
 						render={({ input, meta }) => (
-							<div className="login__field">
-								<label htmlFor="confirmPasswordInput" className="login__label">
+							<div className="login__field form__field">
+								<label
+									htmlFor="confirmPasswordInput"
+									className="login__label form__label"
+								>
 									Confirm password
 								</label>
 								<input
@@ -222,11 +235,13 @@ export function RegisterForm(props: IProps) {
 									id="confirmPasswordInput"
 									tabIndex={3}
 									type="password"
-									className="login__input"
+									className="login__input form__input"
 									placeholder="Confirm password"
 								/>
 								{meta.touched && meta.error && (
-									<div className="login__incorrect">{meta.error}</div>
+									<div className="login__incorrect form__incorrect">
+										{meta.error}
+									</div>
 								)}
 							</div>
 						)}
@@ -235,8 +250,11 @@ export function RegisterForm(props: IProps) {
 					<Field
 						name="firstName"
 						render={({ input, meta }) => (
-							<div className="login__field">
-								<label htmlFor="firstNameInput" className="login__label">
+							<div className="login__field form__field">
+								<label
+									htmlFor="firstNameInput"
+									className="login__label form__label"
+								>
 									First name
 								</label>
 								<input
@@ -245,11 +263,13 @@ export function RegisterForm(props: IProps) {
 									tabIndex={4}
 									type="text"
 									autoComplete="given-name"
-									className="login__input"
+									className="login__input form__input"
 									placeholder="Bob"
 								/>
 								{meta.touched && meta.error && (
-									<div className="login__incorrect">{meta.error}</div>
+									<div className="login__incorrect form__incorrect">
+										{meta.error}
+									</div>
 								)}
 							</div>
 						)}
@@ -258,8 +278,11 @@ export function RegisterForm(props: IProps) {
 					<Field
 						name="lastName"
 						render={({ input, meta }) => (
-							<div className="login__field">
-								<label htmlFor="lastNameInput" className="login__label">
+							<div className="login__field form__field">
+								<label
+									htmlFor="lastNameInput"
+									className="login__label form__label"
+								>
 									Last name
 								</label>
 								<input
@@ -268,11 +291,13 @@ export function RegisterForm(props: IProps) {
 									tabIndex={5}
 									type="text"
 									autoComplete="family-name"
-									className="login__input"
+									className="login__input form__input"
 									placeholder="Dylan"
 								/>
 								{meta.touched && meta.error && (
-									<div className="login__incorrect">{meta.error}</div>
+									<div className="login__incorrect form__incorrect">
+										{meta.error}
+									</div>
 								)}
 							</div>
 						)}
@@ -286,13 +311,15 @@ export function RegisterForm(props: IProps) {
 						ref={recaptchaRef}
 					/>
 
-					{errorMessage && <div className="login__error">{errorMessage}</div>}
+					{errorMessage && (
+						<div className="login__error form__error">{errorMessage}</div>
+					)}
 
 					<button
 						tabIndex={6}
 						onClick={handleSubmit}
 						disabled={pristine || submitting}
-						className="login__button"
+						className="login__button form__button"
 					>
 						{submitting ? <LoadingCircle /> : "Sign up"}
 					</button>

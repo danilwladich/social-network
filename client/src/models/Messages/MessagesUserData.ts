@@ -1,7 +1,7 @@
 import { MessagesMessageData } from "./MessagesMessageData";
 
 export interface MessagesUserData {
-	id: string;
+	nickname: string;
 	firstName: string;
 	lastName: string;
 	image?: string;

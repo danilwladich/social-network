@@ -51,7 +51,7 @@ export const socket = io.connect(baseURL, { autoConnect: false });
 
 interface IProps {
 	authUser: {
-		id: string;
+		nickname: string;
 		token: string;
 	};
 	initializationTC: () => Promise<void>;
@@ -71,19 +71,19 @@ function App(props: IProps) {
 	useLayoutEffect(() => {
 		props.initializationTC().finally(() => setInitializationSuccess(true));
 
-		if (!!authUser.id && !!authUser.token) {
+		if (!!authUser.nickname && !!authUser.token) {
 			socket.connect();
 			socket.emit("connected", {
-				nickname: authUser.id,
+				nickname: authUser.nickname,
 				token: authUser.token,
 			});
 		}
 		// eslint-disable-next-line
-	}, [authUser.id]);
+	}, [authUser.nickname]);
 
 	// try to reconnect
 	useEffect(() => {
-		if (!!authUser.id && !!authUser.token) {
+		if (!!authUser.nickname && !!authUser.token) {
 			socket.on("disconnect", () => {
 				setInitializationSuccess(false);
 				props.initializationTC();
@@ -91,7 +91,7 @@ function App(props: IProps) {
 				setTimeout(() => {
 					socket.connect();
 					socket.emit("connected", {
-						nickname: authUser.id,
+						nickname: authUser.nickname,
 						token: authUser.token,
 					});
 					setInitializationSuccess(true);
@@ -99,7 +99,7 @@ function App(props: IProps) {
 			});
 		}
 		// eslint-disable-next-line
-	}, [authUser.id, initializationSuccess]);
+	}, [authUser.nickname, initializationSuccess]);
 
 	// receive message socket
 	useEffect(() => {
@@ -143,7 +143,7 @@ function App(props: IProps) {
 						}
 					/>
 					<Route
-						path="/:id?"
+						path="/:nickname?"
 						element={
 							<React.Suspense fallback={<AppLoading />}>
 								<ProfilePageContainer />
@@ -159,7 +159,7 @@ function App(props: IProps) {
 						}
 					/>
 					<Route
-						path="/messages/:id?"
+						path="/messages/:nickname?"
 						element={
 							<React.Suspense fallback={<AppLoading />}>
 								<MessagesPageContainer />
@@ -167,7 +167,7 @@ function App(props: IProps) {
 						}
 					/>
 					<Route
-						path="/friends/:id?/:category?"
+						path="/friends/:nickname?/:category?"
 						element={
 							<React.Suspense fallback={<AppLoading />}>
 								<FriendsPageContainer />

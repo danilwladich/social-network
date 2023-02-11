@@ -1,5 +1,5 @@
 export interface WhoseFriends {
-	id: string;
+	nickname: string;
 	firstName: string;
 	lastName: string;
 	image?: string;

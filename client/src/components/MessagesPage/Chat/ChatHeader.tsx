@@ -20,7 +20,7 @@ export function ChatHeader(props: IProps) {
 				</NavLink>
 
 				<NavLink
-					to={"/" + chatWith.id}
+					to={"/" + chatWith.nickname}
 					draggable="false"
 					className="messages__chat_header_name"
 				>
@@ -28,13 +28,16 @@ export function ChatHeader(props: IProps) {
 				</NavLink>
 
 				<NavLink
-					to={"/" + chatWith.id}
+					to={"/" + chatWith.nickname}
 					draggable="false"
 					className={
 						"messages__chat_header_image " + (chatWith.online ? "online" : "")
 					}
 				>
-					<img src={chatWith.image || "/images/user.jpg"} alt={chatWith.id} />
+					<img
+						src={chatWith.image || "/images/user.jpg"}
+						alt={chatWith.nickname}
+					/>
 				</NavLink>
 			</div>
 		</>

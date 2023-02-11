@@ -5,39 +5,31 @@ html[theme="dark"] {
 			> button {
 				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
-				&:hover {
-					background-color: var(--dark-button-bg-active);
-				}
-			}
-		}
-		&__edit {
-			&_input {
-				background-color: var(--dark-input-bg);
-			}
-			&_button {
-				color: var(--dark-button-text-color);
-				background-color: var(--dark-button-bg);
-				&:not(:disabled):hover {
+				&:hover,
+				&:focus {
 					background-color: var(--dark-button-bg-active);
 				}
 			}
 		}
 		&__posts {
 			&_input {
-				border: 2px solid var(--dark-button-bg);
-			}
-			&_send {
-				circle {
-					stroke: var(--dark-text-color);
+				&_field {
+					border: 2px solid var(--dark-button-bg);
 				}
-				&:not(:disabled):hover {
+				&_send {
 					circle {
-						stroke: var(--dark-button-text-color);
+						stroke: var(--dark-text-color);
 					}
-					path {
-						fill: var(--dark-button-text-color);
+					&:not(:disabled):hover,
+					&:focus {
+						circle {
+							stroke: var(--dark-button-text-color);
+						}
+						path {
+							fill: var(--dark-button-text-color);
+						}
+						background-color: var(--dark-button-bg-active);
 					}
-					background-color: var(--dark-button-bg-active);
 				}
 			}
 		}
@@ -51,23 +43,27 @@ html[theme="dark"] {
 			&_like {
 				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
-				&:hover {
+				&:hover,
+				&:focus {
 					background-color: var(--dark-button-bg-active);
 				}
 			}
-			&_showactions {
-				background-color: var(--dark-subsection-bg);
-				span,
-				span:before,
-				span:after {
+			&_actions {
+				&_show {
+					background-color: var(--dark-subsection-bg);
+					span,
+					span:before,
+					span:after {
+						background-color: var(--dark-button-bg);
+					}
+				}
+				&_delete {
+					color: var(--dark-button-text-color);
 					background-color: var(--dark-button-bg);
-				}
-			}
-			&_delete {
-				color: var(--dark-button-text-color);
-				background-color: var(--dark-button-bg);
-				&:hover {
-					background-color: var(--dark-button-bg-active);
+					&:hover,
+					&:focus {
+						background-color: var(--dark-button-bg-active);
+					}
 				}
 			}
 		}
@@ -80,39 +76,31 @@ html[theme="light"] {
 			> button {
 				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
-				&:hover {
-					background-color: var(--light-button-bg-active);
-				}
-			}
-		}
-		&__edit {
-			&_input {
-				background-color: var(--light-input-bg);
-			}
-			&_button {
-				color: var(--light-button-text-color);
-				background-color: var(--light-button-bg);
-				&:not(:disabled):hover {
+				&:hover,
+				&:focus {
 					background-color: var(--light-button-bg-active);
 				}
 			}
 		}
 		&__posts {
 			&_input {
-				border: 2px solid var(--light-button-bg);
-			}
-			&_send {
-				circle {
-					stroke: var(--light-text-color);
+				&_field {
+					border: 2px solid var(--light-button-bg);
 				}
-				&:not(:disabled):hover {
+				&_send {
 					circle {
-						stroke: var(--light-button-text-color);
+						stroke: var(--light-text-color);
 					}
-					path {
-						fill: var(--light-button-text-color);
+					&:not(:disabled):hover,
+					&:focus {
+						circle {
+							stroke: var(--light-button-text-color);
+						}
+						path {
+							fill: var(--light-button-text-color);
+						}
+						background-color: var(--light-button-bg-active);
 					}
-					background-color: var(--light-button-bg-active);
 				}
 			}
 		}
@@ -126,23 +114,27 @@ html[theme="light"] {
 			&_like {
 				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
-				&:hover {
+				&:hover,
+				&:focus {
 					background-color: var(--light-button-bg-active);
 				}
 			}
-			&_showactions {
-				background-color: var(--light-subsection-bg);
-				span,
-				span:before,
-				span:after {
+			&_actions {
+				&_show {
+					background-color: var(--light-subsection-bg);
+					span,
+					span:before,
+					span:after {
+						background-color: var(--light-button-bg);
+					}
+				}
+				&_delete {
+					color: var(--light-button-text-color);
 					background-color: var(--light-button-bg);
-				}
-			}
-			&_delete {
-				color: var(--light-button-text-color);
-				background-color: var(--light-button-bg);
-				&:hover {
-					background-color: var(--light-button-bg-active);
+					&:hover,
+					&:focus {
+						background-color: var(--light-button-bg-active);
+					}
 				}
 			}
 		}
@@ -212,7 +204,8 @@ html[theme="light"] {
 		}
 	}
 	&__not_found {
-		font-size: 26px;
+		line-height: 150%;
+		font-size: 20px;
 		text-align: center;
 	}
 	&__user {
@@ -288,7 +281,8 @@ html[theme="light"] {
 			text-transform: capitalize;
 			font-size: 16px;
 			line-height: 150%;
-			&:hover {
+			&:hover,
+			&:focus {
 				text-decoration: underline;
 			}
 		}
@@ -310,22 +304,12 @@ html[theme="light"] {
 				height: 30px;
 			}
 		}
-		&_field {
-			padding: 0 5px 5px 5px;
-			margin: 0px 0px 25px 0px;
-			position: relative;
-		}
 		&_label {
-			line-height: 150%;
-			opacity: 0.8;
-			cursor: pointer;
-			display: block;
-			font-size: 18px;
-			padding: 0px 0px 5px 0px;
 			&.row {
 				opacity: 1;
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				padding: 0;
 			}
 			span {
@@ -343,100 +327,62 @@ html[theme="light"] {
 				font-size: 16px;
 			}
 		}
-		&_input {
-			padding: 5px 10px;
-			border-radius: 4px;
-			width: 100%;
-			line-height: 150%;
-			font-size: 18px;
-			background-color: transparent;
-			max-width: 250px;
-			cursor: pointer;
-		}
-		&_incorrect {
-			color: rgba(255, 0, 0, 0.87) !important;
-			position: absolute;
-			bottom: -14px;
-		}
-		&_error {
-			word-wrap: break-word;
-			text-align: center;
-			color: rgba(255, 0, 0, 0.87) !important;
-			text-transform: capitalize;
-		}
-		&_button {
-			display: block;
-			font-size: 20px;
-			background-color: transparent;
-			padding: 10px 50px;
-			margin: 30px auto 0px;
-			border-radius: 4px;
-			transition: all 0.2s;
-			opacity: 0.7;
-			&:not(:disabled) {
-				opacity: 1;
-				&:hover {
-					transform: translate(-1px, -1px);
-				}
-				&:active {
-					transform: translate(0);
-				}
-			}
-			svg {
-				width: 45.5px;
-				height: 23px;
-				margin: 0px 0px -5px 0px;
-			}
-		}
 	}
 	&__posts {
+		margin: -10px 0px -10px 0px;
 		overflow-wrap: break-word;
 		position: relative;
 		&_input {
-			border-radius: 4px;
-			resize: none;
-			display: inline-block;
-			font-size: 16px;
-			line-height: 26px;
-			background-color: transparent;
-			padding: 10px 50px 10px 10px;
-			width: calc(100% - 50px);
-			overflow: auto;
-			height: 50px;
-		}
-		&_send {
-			position: absolute;
-			top: 5px;
-			right: 0;
-			font-size: 0;
-			opacity: 0.3;
-			border-radius: 4px;
-			background-color: transparent;
-			#addPostArrow {
-				transform: rotate(90deg);
+			&:not(:last-child) {
+				margin: 0px 0px 10px 0px;
 			}
-			&:not(:disabled) {
-				opacity: 1;
+			position: relative;
+			&_field {
+				border-radius: 4px;
+				resize: none;
+				display: inline-block;
+				font-size: 16px;
+				line-height: 26px;
+				background-color: transparent;
+				padding: 10px 50px 10px 10px;
+				width: calc(100% - 50px);
+				overflow: auto;
+				height: 50px;
 			}
-			svg {
-				width: 40px;
-				height: 40px;
+			&_send {
+				position: absolute;
+				top: 5px;
+				right: 0;
+				font-size: 0;
+				opacity: 0.3;
+				border-radius: 4px;
+				background-color: transparent;
+				#addPostArrow {
+					transform: rotate(90deg);
+				}
+				&:not(:disabled) {
+					opacity: 1;
+				}
+				svg {
+					width: 40px;
+					height: 40px;
+				}
 			}
-		}
-		&_cancel {
-			position: absolute;
-			right: 61px;
-			top: 10px;
-			background-color: transparent;
-			width: 30px;
-			height: 30px;
-			opacity: 0.7;
-			&:hover {
-				opacity: 1;
-			}
-			svg {
+			&_cancel {
+				position: absolute;
+				right: 61px;
+				top: 10px;
+				background-color: transparent;
 				width: 30px;
 				height: 30px;
+				opacity: 0.7;
+				&:hover {
+					opacity: 1;
+				}
+				svg {
+					width: 30px;
+					height: 30px;
+				}
 			}
 		}
 		&_loading {
@@ -453,15 +399,8 @@ html[theme="light"] {
 		}
 	}
 	&__post {
-		&:first-child:not(:last-child) {
-			padding: 0px 0px 10px 0px;
-		}
-		&:last-child:not(:first-child) {
-			padding: 10px 0px 0px 0px;
-		}
-		&:not(:last-child):not(:first-child) {
-			padding: 10px 0px 10px 0px;
-		}
+		position: relative;
+		padding: 10px 0;
 		&_content {
 			line-height: 150%;
 			font-size: 16px;
@@ -493,65 +432,70 @@ html[theme="light"] {
 				height: 18px;
 			}
 		}
-		&_showactions {
-			opacity: 0.3;
-			&:hover {
-				opacity: 1;
-			}
-			width: 28px;
-			height: 28px;
-			background-color: transparent;
+		&_actions {
 			position: absolute;
 			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			border-radius: 4px;
-			span {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				width: 5px;
-				height: 5px;
-				border-radius: 50%;
-			}
-			span:before,
-			span:after {
-				content: "";
-				position: absolute;
-				width: 5px;
-				height: 5px;
-				border-radius: 50%;
-			}
-			span:before {
-				left: -9px;
-			}
-			span:after {
-				right: -9px;
-			}
-		}
-		&_delete {
-			z-index: 2;
-			position: absolute;
-			width: 150px;
-			right: 35px;
-			bottom: 33px;
-			left: 50%;
+			bottom: 10px;
 			transform: translateX(-50%);
-			font-size: 16px;
-			border-radius: 4px;
-			background-color: transparent;
-			padding: 5px 10px;
-			svg {
-				margin: 0px 0px -5px 0px;
-				width: 85px;
-				height: 18px;
+			&_show {
+				opacity: 0.7;
+				&:hover,
+				&:focus {
+					opacity: 1;
+				}
+				width: 30px;
+				height: 30px;
+				background-color: transparent;
+				position: relative;
+				z-index: 3;
+				border-radius: 4px;
+				span {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+				}
+				span:before,
+				span:after {
+					content: "";
+					position: absolute;
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+				}
+				span:before {
+					left: -10px;
+				}
+				span:after {
+					right: -10px;
+				}
 			}
-			opacity: 0;
-			visibility: hidden;
-			&.active {
-				opacity: 1;
-				visibility: visible;
+			&_delete {
+				z-index: 2;
+				position: absolute;
+				width: 150px;
+				left: 50%;
+				top: -35px;
+				transform: translateX(-50%);
+				font-size: 16px;
+				line-height: 150%;
+				border-radius: 4px;
+				background-color: transparent;
+				padding: 2px 10px;
+				svg {
+					margin: 0px 0px -4px 0px;
+					width: 85px;
+					height: 18px;
+				}
+				opacity: 0;
+				visibility: hidden;
+				&.active {
+					opacity: 1;
+					visibility: visible;
+				}
 			}
 		}
 		&_date {
@@ -613,14 +557,9 @@ html[theme="light"] {
 		}
 		&__actions {
 			gap: 15px;
-			a,
-			button:not(.profile__edit_close) {
+			& > a,
+			& > button {
 				width: 175px;
-			}
-		}
-		&__edit {
-			&_input {
-				font-size: 20px;
 			}
 		}
 		&__post {

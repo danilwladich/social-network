@@ -12,20 +12,20 @@ import { setFollowTC, setUnfollowTC } from "../../redux/usersReducer";
 import { FriendsPageLoading } from "./FriendsPageLoading";
 
 interface IProps {
-	authID: string;
+	authNickname: string;
 	whoseFriends: WhoseFriends;
 	usersData: FriendsUserData[];
 	pageSize: number;
 	totalCount: number;
 	getFriendsTC: (
-		userID: string,
+		userNickname: string,
 		category: string,
 		page: number,
 		pageSize: number,
 		search?: string
 	) => Promise<void>;
-	setFollowTC: (userID: string) => Promise<void>;
-	setUnfollowTC: (userID: string) => Promise<void>;
+	setFollowTC: (userNickname: string) => Promise<void>;
+	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
 
 function FriendsPageAPI(props: IProps) {
@@ -33,7 +33,7 @@ function FriendsPageAPI(props: IProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const userID = useParams().id;
+	const userNickname = useParams().nickname;
 	const category = useParams().category;
 	const location = useLocation().pathname;
 
@@ -68,21 +68,27 @@ function FriendsPageAPI(props: IProps) {
 
 	useLayoutEffect(() => {
 		if (
-			userID &&
+			userNickname &&
 			(category === "all" ||
 				category === "followers" ||
 				category === "following")
 		) {
 			setIsLoading(true);
 			props
-				.getFriendsTC(userID, category, currentPage, props.pageSize, search)
+				.getFriendsTC(
+					userNickname,
+					category,
+					currentPage,
+					props.pageSize,
+					search
+				)
 				.finally(() => setIsLoading(false));
 		}
 		// eslint-disable-next-line
-	}, [userID, category, currentPage, props.pageSize, search]);
+	}, [userNickname, category, currentPage, props.pageSize, search]);
 
-	if (!userID) {
-		return <Navigate to={"/friends/" + props.authID + "/all"} />;
+	if (!userNickname) {
+		return <Navigate to={"/friends/" + props.authNickname + "/all"} />;
 	}
 	if (
 		category !== "all"
@@ -96,7 +102,7 @@ function FriendsPageAPI(props: IProps) {
 	if (currentPage === 1 && isLoading) {
 		return <FriendsPageLoading />;
 	}
-	if (!whoseFriends.id) {
+	if (!whoseFriends.nickname) {
 		return (
 			<section className="friends">
 				<div className="subsection">
@@ -124,7 +130,7 @@ function FriendsPageAPI(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
-		authID: state.auth.user.id,
+		authNickname: state.auth.user.nickname,
 		whoseFriends: state.friends.whoseFriends,
 		usersData: state.friends.usersData,
 		pageSize: state.friends.pageSize,

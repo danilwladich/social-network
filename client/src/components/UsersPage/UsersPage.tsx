@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { User } from "./Users/User";
+import { User } from "./User/User";
 import "./UsersPage.css";
 import { UsersUserData } from "../../models/Users/UsersUserData";
 import { LoadingCircle } from "../assets/LoadingCircle";
@@ -9,8 +9,8 @@ interface IProps {
 	usersData: UsersUserData[];
 	isLoading: boolean;
 	search?: string;
-	setFollowTC: (userID: string) => Promise<void>;
-	setUnfollowTC: (userID: string) => Promise<void>;
+	setFollowTC: (userNickname: string) => Promise<void>;
+	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
 
 export function UsersPage(props: IProps) {
@@ -18,20 +18,24 @@ export function UsersPage(props: IProps) {
 		string[]
 	>([]);
 
-	function setFollow(userID: string) {
-		setFollowButtonsInProgress((prev) => [...prev, userID]);
+	function setFollow(userNickname: string) {
+		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
 		props
-			.setFollowTC(userID)
+			.setFollowTC(userNickname)
 			.finally(() =>
-				setFollowButtonsInProgress((prev) => prev.filter((id) => id !== userID))
+				setFollowButtonsInProgress((prev) =>
+					prev.filter((nickname) => nickname !== userNickname)
+				)
 			);
 	}
-	function setUnfollow(userID: string) {
-		setFollowButtonsInProgress((prev) => [...prev, userID]);
+	function setUnfollow(userNickname: string) {
+		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
 		props
-			.setUnfollowTC(userID)
+			.setUnfollowTC(userNickname)
 			.finally(() =>
-				setFollowButtonsInProgress((prev) => prev.filter((id) => id !== userID))
+				setFollowButtonsInProgress((prev) =>
+					prev.filter((nickname) => nickname !== userNickname)
+				)
 			);
 	}
 
@@ -45,12 +49,12 @@ export function UsersPage(props: IProps) {
 						<div className="users__items">
 							{props.usersData.map((u) => (
 								<User
-									key={u.id}
+									key={u.nickname}
 									userData={u}
-									setFollow={() => setFollow(u.id)}
-									setUnfollow={() => setUnfollow(u.id)}
+									setFollow={() => setFollow(u.nickname)}
+									setUnfollow={() => setUnfollow(u.nickname)}
 									followButtonInProgress={followButtonsInProgress.some(
-										(id) => id === u.id
+										(nickname) => nickname === u.nickname
 									)}
 								/>
 							))}

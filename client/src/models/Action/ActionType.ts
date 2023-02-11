@@ -14,7 +14,7 @@ export enum ActionType {
 	// profile
 	SET_PROFILE = "profile/SET_PROFILE",
 	ADD_POST = "profile/ADD_POST",
-	DELTE_POST = "profile/DELTE_POST",
+	DELETE_POST = "profile/DELETE_POST",
 	SET_POSTS = "profile/SET_POSTS",
 	SET_POSTS_TOTAL_COUNT = "users/SET_POSTS_TOTAL_COUNT",
 	LIKE_POST = "profile/LIKE_POST",
@@ -28,6 +28,7 @@ export enum ActionType {
 	SET_CHATS = "messages/SET_CHATS",
 	SET_CHAT_WITH = "messages/SET_CHAT_WITH",
 	SET_MESSAGES = "messages/SET_MESSAGES",
+	DELETE_CHAT = "messages/DELETE_CHAT",
 	SET_MESSAGES_TOTAL_COUNT = "messages/SET_MESSAGES_TOTAL_COUNT",
 	SEND_MESSAGE = "messages/SEND_MESSAGE",
 	MESSAGE_SENT = "messages/MESSAGE_SENT",

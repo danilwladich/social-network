@@ -6,7 +6,7 @@ import { editProfileTC } from "../../../redux/profileReducer";
 function mapStateToProps(state: IState) {
 	return {
 		userData: state.profile.userData,
-		authID: state.auth.user.id,
+		authNickname: state.auth.user.nickname,
 	};
 }
 

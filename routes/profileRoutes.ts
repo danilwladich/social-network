@@ -45,7 +45,7 @@ router.get("/user/:nickname", async (req: Request, res: Response) => {
 		}
 
 		const userData = {
-			id: user.nickname,
+			nickname: user.nickname,
 			firstName: user.firstName,
 			lastName: user.lastName,
 			image: user.avatar,
@@ -113,11 +113,13 @@ router.get("/posts/:nickname", async (req: Request, res: Response) => {
 		const authUser = await User.findOne({ nickname: authNickname }, { _id: 1 });
 		const authID = authUser?._id.toString();
 
+		// filter for posts
 		const filter = !lastPostID
 			? { owner: userID }
 			: { owner: userID, _id: { $lt: lastPostID } };
 		const posts = await Post.find(filter).sort({ _id: -1 }).limit(count);
 
+		// mapping posts
 		const postsData = posts.map((p) => {
 			return {
 				id: p._id,
@@ -128,6 +130,7 @@ router.get("/posts/:nickname", async (req: Request, res: Response) => {
 			};
 		});
 
+		// add total count to response
 		if (page === 1) {
 			const totalCount = await Post.find({ owner: userID }).count();
 
@@ -288,22 +291,22 @@ router.put(
 	authMiddleware,
 	upload,
 	[
-		check("id", "Invalid new id length")
+		check("nickname", "Invalid nickname length")
 			.trim()
 			.isLength({ min: 4, max: 15 })
 			.optional({ nullable: true, checkFalsy: true }),
-		check("id", "Id must be alphanumeric")
+		check("nickname", "Id must be alphanumeric")
 			.trim()
 			.matches(/[\w]/g)
 			.optional({ nullable: true, checkFalsy: true }),
-		check("id", "Not allowed new id").trim().not().equals("login"),
-		check("id", "Not allowed new id").trim().not().equals("register"),
-		check("id", "Not allowed new id").trim().not().equals("messages"),
-		check("id", "Not allowed new id").trim().not().equals("friends"),
-		check("id", "Not allowed new id").trim().not().equals("users"),
-		check("id", "Not allowed new id").trim().not().equals("settings"),
-		check("id", "Not allowed new id").trim().not().equals("images"),
-		check("id", "Not allowed new id").trim().not().equals("news"),
+		check("nickname", "Not allowed nickname").trim().not().equals("login"),
+		check("nickname", "Not allowed nickname").trim().not().equals("register"),
+		check("nickname", "Not allowed nickname").trim().not().equals("messages"),
+		check("nickname", "Not allowed nickname").trim().not().equals("friends"),
+		check("nickname", "Not allowed nickname").trim().not().equals("users"),
+		check("nickname", "Not allowed nickname").trim().not().equals("settings"),
+		check("nickname", "Not allowed nickname").trim().not().equals("images"),
+		check("nickname", "Not allowed nickname").trim().not().equals("news"),
 		check("country", "Country must be alpha")
 			.trim()
 			.matches(/[a-zA-Z-]+/g)
@@ -328,7 +331,7 @@ router.put(
 
 			const authID = req.user!.userID as string;
 
-			const { id, country, city } = req.body;
+			const { nickname, country, city } = req.body;
 			const image = req.file;
 
 			const user = await User.findById(authID);
@@ -351,9 +354,9 @@ router.put(
 				await user.updateOne({ "location.city": city.trim() });
 			}
 
-			if (!!id) {
+			if (!!nickname) {
 				const nicknameAlreadyExist = await User.findOne({
-					nickname: id.trim(),
+					nickname: nickname.trim(),
 				});
 
 				if (!!nicknameAlreadyExist) {
@@ -363,11 +366,11 @@ router.put(
 					});
 				}
 
-				await user.updateOne({ nickname: id.trim() });
+				await user.updateOne({ nickname: nickname.trim() });
 
 				return res
 					.status(201)
-					.cookie("nickname", id.trim(), {
+					.cookie("nickname", nickname.trim(), {
 						maxAge: 2419000000,
 						httpOnly: true,
 						path: "/api",

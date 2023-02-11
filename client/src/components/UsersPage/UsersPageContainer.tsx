@@ -22,8 +22,8 @@ interface IProps {
 		pageSize: number,
 		search?: string
 	) => Promise<void>;
-	setFollowTC: (userID: string) => Promise<void>;
-	setUnfollowTC: (userID: string) => Promise<void>;
+	setFollowTC: (userNickname: string) => Promise<void>;
+	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
 
 function UsersPageAPI(props: IProps) {

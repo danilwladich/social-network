@@ -10,7 +10,8 @@ html[theme="dark"] {
 			&_button {
 				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
-				&:hover {
+				&:hover,
+				&:focus {
 					background-color: var(--dark-button-bg-active);
 				}
 			}
@@ -19,19 +20,22 @@ html[theme="dark"] {
 			&:not(:last-child) {
 				border-bottom: var(--dark-items-border-bottom) solid 1px;
 			}
-			&_showactions {
-				background-color: var(--dark-subsection-bg);
-				span,
-				span:before,
-				span:after {
-					background-color: var(--dark-button-bg);
+			&_actions {
+				&_show {
+					background-color: var(--dark-subsection-bg);
+					span,
+					span:before,
+					span:after {
+						background-color: var(--dark-button-bg);
+					}
 				}
-			}
-			&_follow {
-				color: var(--dark-button-text-color);
-				background-color: var(--dark-button-bg);
-				&:hover {
-					background-color: var(--dark-button-bg-active);
+				&_follow {
+					color: var(--dark-button-text-color);
+					background-color: var(--dark-button-bg);
+					&:hover,
+					&:focus {
+						background-color: var(--dark-button-bg-active);
+					}
 				}
 			}
 		}
@@ -49,7 +53,8 @@ html[theme="light"] {
 			&_button {
 				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
-				&:hover {
+				&:hover,
+				&:focus {
 					background-color: var(--light-button-bg-active);
 				}
 			}
@@ -58,19 +63,22 @@ html[theme="light"] {
 			&:not(:last-child) {
 				border-bottom: var(--light-items-border-bottom) solid 1px;
 			}
-			&_showactions {
-				background-color: var(--light-subsection-bg);
-				span,
-				span:before,
-				span:after {
-					background-color: var(--light-button-bg);
+			&_actions {
+				&_show {
+					background-color: var(--light-subsection-bg);
+					span,
+					span:before,
+					span:after {
+						background-color: var(--light-button-bg);
+					}
 				}
-			}
-			&_follow {
-				color: var(--light-button-text-color);
-				background-color: var(--light-button-bg);
-				&:hover {
-					background-color: var(--light-button-bg-active);
+				&_follow {
+					color: var(--light-button-text-color);
+					background-color: var(--light-button-bg);
+					&:hover,
+					&:focus {
+						background-color: var(--light-button-bg-active);
+					}
 				}
 			}
 		}
@@ -212,7 +220,8 @@ html[theme="light"] {
 				display: block;
 				padding: 15px 0;
 				width: 100%;
-				&:hover {
+				&:hover,
+				&:focus {
 					text-decoration: underline;
 				}
 			}
@@ -222,63 +231,65 @@ html[theme="light"] {
 		}
 		&_actions {
 			flex: 0 0 30px;
-		}
-		&_showactions {
-			opacity: 0.7;
-			&:hover {
-				opacity: 1;
+			&_show {
+				opacity: 0.7;
+				&:hover,
+				&:focus {
+					opacity: 1;
+				}
+				width: 30px;
+				height: 30px;
+				background-color: transparent;
+				position: relative;
+				z-index: 3;
+				border-radius: 4px;
+				span {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+				}
+				span:before,
+				span:after {
+					content: "";
+					position: absolute;
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+				}
+				span:before {
+					left: -10px;
+				}
+				span:after {
+					right: -10px;
+				}
 			}
-			width: 30px;
-			height: 30px;
-			background-color: transparent;
-			position: relative;
-			z-index: 3;
-			border-radius: 4px;
-			span {
+			&_follow {
+				z-index: 2;
 				position: absolute;
+				width: 150px;
+				right: 35px;
 				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				width: 5px;
-				height: 5px;
-				border-radius: 50%;
-			}
-			span:before,
-			span:after {
-				content: "";
-				position: absolute;
-				width: 5px;
-				height: 5px;
-				border-radius: 50%;
-			}
-			span:before {
-				left: -10px;
-			}
-			span:after {
-				right: -10px;
-			}
-		}
-		&_follow {
-			z-index: 2;
-			position: absolute;
-			width: 150px;
-			right: 35px;
-			top: 50%;
-			transform: translateY(-50%);
-			font-size: 16px;
-			border-radius: 4px;
-			background-color: transparent;
-			padding: 5px 10px;
-			svg {
-				margin: 0px 0px -4px 0px;
-				width: 85px;
-				height: 18px;
-			}
-			opacity: 0;
-			visibility: hidden;
-			&.active {
-				opacity: 1;
-				visibility: visible;
+				transform: translateY(-50%);
+				font-size: 16px;
+				line-height: 150%;
+				border-radius: 4px;
+				background-color: transparent;
+				padding: 2px 10px;
+				svg {
+					margin: 0px 0px -4px 0px;
+					width: 85px;
+					height: 18px;
+				}
+				opacity: 0;
+				visibility: hidden;
+				&.active {
+					opacity: 1;
+					visibility: visible;
+				}
 			}
 		}
 	}

@@ -8,13 +8,13 @@ import { socket } from "../../../App";
 import { useNavigate } from "react-router-dom";
 
 interface IProps {
-	authID: string;
+	authNickname: string;
 	chatWith: ChatWith;
 	messagesData: MessagesMessageData[];
 	contentRef: React.RefObject<HTMLDivElement>;
 	contentLock: boolean;
 	sendMessage: (message: string, id: string) => void;
-	readMessages: (userID: string) => void;
+	readMessages: (userNickname: string) => void;
 }
 
 export function Chat(props: IProps) {
@@ -76,11 +76,11 @@ export function Chat(props: IProps) {
 
 			if (readMessagesOption && !props.messagesData[0].read) {
 				socket.emit("readMessages", {
-					who: props.authID,
-					whom: chatWith.id,
+					who: props.authNickname,
+					whom: chatWith.nickname,
 				});
 
-				props.readMessages(chatWith.id);
+				props.readMessages(chatWith.nickname);
 			}
 		}
 		// eslint-disable-next-line
@@ -119,8 +119,8 @@ export function Chat(props: IProps) {
 				</div>
 
 				<ChatInput
-					authID={props.authID}
-					userID={chatWith.id}
+					authNickname={props.authNickname}
+					userNickname={chatWith.nickname}
 					readMessagesOption={readMessagesOption}
 					sendMessage={props.sendMessage}
 					readMessages={props.readMessages}
