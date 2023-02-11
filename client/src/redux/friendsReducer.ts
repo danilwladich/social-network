@@ -139,7 +139,9 @@ export const getFriendsTC = (
 					);
 					dispatch(setFriends([], 1));
 					dispatch(setFriendsTotalCount(0));
-					dispatch(setErrorMessage("Get friends: " + data.statusText));
+					if (data.statusText !== "User not found") {
+						dispatch(setErrorMessage("Get friends: " + data.statusText));
+					}
 				}
 			});
 		} catch (e: unknown) {

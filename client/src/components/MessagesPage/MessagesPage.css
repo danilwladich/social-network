@@ -264,6 +264,8 @@ html[theme=light] .messages__message.out .messages__message_content * {
   height: 35px;
 }
 .messages__users {
+  margin: 0px -10px 0px -10px;
+  overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -283,8 +285,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   -o-transition: all 0.2s;
   transition: all 0.2s;
   position: relative;
-  padding: 5px;
-  border-radius: 4px;
+  padding: 5px 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -661,9 +662,10 @@ html[theme=light] .messages__message.out .messages__message_content * {
     width: 35px;
     height: 35px;
   }
-  .messages__user {
-    border-radius: 0;
+  .messages__users {
     margin: 0 -15px 0 -15px;
+  }
+  .messages__user {
     padding: 5px 15px;
     gap: 15px;
   }

@@ -44,7 +44,9 @@ export function UsersPage(props: IProps) {
 			<section className="users">
 				<div className="subsection">
 					<UsersSearch search={props.search} />
-
+				</div>
+				
+				<div className="subsection">
 					{!!props.usersData.length ? (
 						<div className="users__items">
 							{props.usersData.map((u) => (

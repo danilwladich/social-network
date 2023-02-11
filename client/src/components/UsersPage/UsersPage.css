@@ -122,7 +122,6 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
 .users__search {
   padding: 5px 10px;
   border-radius: 4px;
-  margin: 0px 0px 15px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

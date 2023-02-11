@@ -282,6 +282,8 @@ html[theme="light"] {
 		}
 	}
 	&__users {
+		margin: 0px -10px 0px -10px;
+		overflow: hidden;
 		display: flex;
 		flex-direction: column;
 		gap: 5px;
@@ -294,8 +296,7 @@ html[theme="light"] {
 	&__user {
 		transition: all 0.2s;
 		position: relative;
-		padding: 5px;
-		border-radius: 4px;
+		padding: 5px 10px;
 		display: flex;
 		gap: 10px;
 		line-height: 150%;
@@ -603,9 +604,10 @@ html[theme="light"] {
 				}
 			}
 		}
-		&__user {
-			border-radius: 0;
+		&__users {
 			margin: 0 -15px 0 -15px;
+		}
+		&__user {
 			padding: 5px 15px;
 			gap: 15px;
 			&_image {

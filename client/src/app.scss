@@ -235,8 +235,7 @@ body {
 	position: relative;
 	flex: 1 1 auto;
 	margin: 45px 0px 0px 0px;
-	padding: 0px calc(10px + env(safe-area-inset-right)) 0px
-		calc(10px + env(safe-area-inset-left));
+	padding: 0px env(safe-area-inset-right) 0px env(safe-area-inset-left);
 	@media (min-width: 767px) {
 		margin: 50px 0px 0px 0px;
 		padding: 15px calc(15px + env(safe-area-inset-right)) 0px
@@ -256,7 +255,7 @@ body {
 	overflow: hidden;
 	transition: background-color 0s;
 	position: relative;
-	padding: 10px 0px;
+	padding: 10px;
 	@media (min-width: 767px) {
 		&:not(:first-child) {
 			margin: 15px 0px 0px 0px;
