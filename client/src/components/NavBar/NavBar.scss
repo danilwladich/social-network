@@ -58,25 +58,30 @@ html[theme="light"] {
 	@media (max-width: 766px) {
 		z-index: 10;
 		position: fixed;
-		width: 100vw;
+		width: 220px;
 		height: 100vh;
 		top: 0;
-		left: 0;
+		right: -100%;
 		opacity: 0;
 		visibility: hidden;
-		transition: all 0.4s;
-		&.active {
-			opacity: 1;
-			visibility: visible;
+		transition: all 0.2s;
+		&:before {
+			content: "";
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: rgba(0, 0, 0, 0.7);
 		}
 		&__menu {
-			width: 100%;
+			width: auto;
 			position: fixed;
-			overflow-y: overlay;
-			max-height: calc(100vh - 65px);
-			z-index: 40;
-			top: -100vh;
 			top: 55px;
+			right: -100%;
+			max-height: calc(100vh - 65px);
+			overflow-y: overlay;
+			z-index: 40;
 			transition: all 0.4s;
 		}
 		&__link {
@@ -87,10 +92,19 @@ html[theme="light"] {
 			&:hover {
 				margin: 0 0 10px 0;
 			}
-			text-align: center;
-			width: 220px;
+			text-align: right;
+			width: 200px;
 			&.messages {
-				justify-content: space-around;
+				justify-content: space-between;
+				flex-direction: row-reverse;
+			}
+		}
+		&.active {
+			right: 0;
+			opacity: 1;
+			visibility: visible;
+			.navbar__menu {
+				right: 10px;
 			}
 		}
 	}

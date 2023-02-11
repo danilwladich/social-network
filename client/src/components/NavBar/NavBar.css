@@ -64,28 +64,33 @@ html[theme=light] .navbar__link:hover {
   .navbar {
     z-index: 10;
     position: fixed;
-    width: 100vw;
+    width: 220px;
     height: 100vh;
     top: 0;
-    left: 0;
+    right: -100%;
     opacity: 0;
     visibility: hidden;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    transition: all 0.4s;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
   }
-  .navbar.active {
-    opacity: 1;
-    visibility: visible;
+  .navbar:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
   }
   .navbar__menu {
-    width: 100%;
+    width: auto;
     position: fixed;
-    overflow-y: overlay;
-    max-height: calc(100vh - 65px);
-    z-index: 40;
-    top: -100vh;
     top: 55px;
+    right: -100%;
+    max-height: calc(100vh - 65px);
+    overflow-y: overlay;
+    z-index: 40;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     transition: all 0.4s;
@@ -97,15 +102,28 @@ html[theme=light] .navbar__link:hover {
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
     margin: 1px 1px 11px 1px;
-    text-align: center;
-    width: 220px;
+    text-align: right;
+    width: 200px;
   }
   .navbar__link:hover {
     margin: 0 0 10px 0;
   }
   .navbar__link.messages {
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+  }
+  .navbar.active {
+    right: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+  .navbar.active .navbar__menu {
+    right: 10px;
   }
 }
 @media (min-width: 767px) {
