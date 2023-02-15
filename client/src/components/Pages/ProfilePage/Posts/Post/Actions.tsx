@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LoadingCircle } from "../../../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../../../assets/LoadingCircle";
 
 interface IProps {
 	buttonInProgress: boolean;

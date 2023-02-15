@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FriendsUserData } from "../../../models/Friends/FriendsUserData";
 import { WhoseFriends } from "../../../models/Friends/WhoseFriends";
-import { LoadingCircle } from "../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../assets/LoadingCircle";
 import { Categories } from "./Categories/Categories";
 import "./FriendsPage.css";
 import { FriendsSearch } from "./Search/FriendsSearch";

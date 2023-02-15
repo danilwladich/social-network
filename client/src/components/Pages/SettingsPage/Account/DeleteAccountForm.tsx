@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
-import { LoadingCircle } from "../../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/LoadingCircle";
 
 interface IProps {
 	deleteAccountTC: (password: string) => Promise<void>;

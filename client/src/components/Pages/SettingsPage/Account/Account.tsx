@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CloseX } from "../../../Assets/CloseX";
+import { CloseX } from "../../../assets/CloseX";
 import { DeleteAccountForm } from "./DeleteAccountForm";
 
 interface IProps {

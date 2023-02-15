@@ -10,7 +10,7 @@ import {
 	deletePostTC,
 } from "../../../../redux/profileReducer";
 import { ProfilePostData } from "../../../../models/Profile/ProfilePostData";
-import { LoadingCircle } from "../../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/LoadingCircle";
 
 interface IProps {
 	authNickname: string;

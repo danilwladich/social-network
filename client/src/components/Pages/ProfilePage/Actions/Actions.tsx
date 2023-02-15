@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { EditContainer } from "../Edit/EditContainer";
 import { NavLink } from "react-router-dom";
-import { LoadingCircle } from "../../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/LoadingCircle";
 import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
 
 interface IProps {

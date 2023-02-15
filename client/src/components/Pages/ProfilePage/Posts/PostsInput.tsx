@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { Arrow } from "../../../Assets/Arrow";
-import { CloseX } from "../../../Assets/CloseX";
-import { LoadingCircle } from "../../../Assets/LoadingCircle";
+import { Arrow } from "../../../assets/Arrow";
+import { CloseX } from "../../../assets/CloseX";
+import { LoadingCircle } from "../../../assets/LoadingCircle";
 
 interface IProps {
 	addPostTC: (post: string) => Promise<void>;

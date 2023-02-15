@@ -1,6 +1,6 @@
 import React from "react";
 import { MessagesMessageData } from "../../../../models/Messages/MessagesMessageData";
-import { CheckMark } from "../../../Assets/CheckMark";
+import { CheckMark } from "../../../assets/CheckMark";
 
 interface IProps {
 	messageData: MessagesMessageData;

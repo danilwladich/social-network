@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FriendsUserData } from "../../../../models/Friends/FriendsUserData";
-import { LoadingCircle } from "../../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/LoadingCircle";
 
 interface IProps {
 	userData: FriendsUserData;

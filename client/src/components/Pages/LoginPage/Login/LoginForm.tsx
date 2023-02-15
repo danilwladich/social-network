@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
-import { LoadingCircle } from "../../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/LoadingCircle";
 import ReCAPTCHA from "react-google-recaptcha";
 
 interface IProps {

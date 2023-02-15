@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { socket } from "../../../App";
-import { CloseX } from "../../Assets/CloseX";
+import { CloseX } from "../../assets/CloseX";
 import "./Error.css";
 
 interface IProps {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
-import { CloseX } from "../../../Assets/CloseX";
+import { CloseX } from "../../../assets/CloseX";
 import { EditForm } from "./EditForm";
 
 interface IProps {

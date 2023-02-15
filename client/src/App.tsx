@@ -8,7 +8,7 @@ import { initializationTC } from "./redux/appReducer";
 import { IState } from "./models/IState";
 import { ErrorContainer } from "./components/Common/Error/ErrorContainer";
 import { NotExist } from "./components/Pages/NotExist/NotExist";
-import { AppLoading } from "./components/Assets/AppLoading";
+import { AppLoading } from "./components/assets/AppLoading";
 import * as io from "socket.io-client";
 import { MessagesMessageData } from "./models/Messages/MessagesMessageData";
 import { MessagesUserData } from "./models/Messages/MessagesUserData";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { UsersUserData } from "../../../../models/Users/UsersUserData";
-import { LoadingCircle } from "../../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/LoadingCircle";
 
 interface IProps {
 	userData: UsersUserData;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { DeleteBin } from "../../../../Assets/DeleteBin";
-import { LoadingCircle } from "../../../../Assets/LoadingCircle";
+import { DeleteBin } from "../../../../assets/DeleteBin";
+import { LoadingCircle } from "../../../../assets/LoadingCircle";
 
 interface IProps {
 	deleteButtonInProgress: boolean;

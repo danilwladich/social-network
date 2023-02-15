@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { Arrow } from "../../../Assets/Arrow";
+import { Arrow } from "../../../assets/Arrow";
 import { socket } from "../../../../App";
 
 interface IProps {

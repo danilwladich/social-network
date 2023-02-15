@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { User } from "./User/User";
 import "./UsersPage.css";
 import { UsersUserData } from "../../../models/Users/UsersUserData";
-import { LoadingCircle } from "../../Assets/LoadingCircle";
+import { LoadingCircle } from "../../assets/LoadingCircle";
 import { UsersSearch } from "./Search/UsersSearch";
 
 interface IProps {
