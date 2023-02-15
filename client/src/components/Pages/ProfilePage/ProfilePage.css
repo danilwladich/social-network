@@ -437,11 +437,8 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 }
 .profile__post_actions {
   position: absolute;
-  left: 50%;
+  left: calc(50% - 15px);
   bottom: 10px;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
 }
 .profile__post_actions_show {
   opacity: 0.7;
@@ -481,6 +478,16 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   right: -10px;
 }
 .profile__post_actions_delete {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
   z-index: 2;
   position: absolute;
   width: 150px;
@@ -498,9 +505,8 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   visibility: hidden;
 }
 .profile__post_actions_delete svg {
-  margin: 0px 0px -4px 0px;
-  width: 85px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
 }
 .profile__post_actions_delete.active {
   opacity: 1;

@@ -1,0 +1,75 @@
+html[theme=dark] .submitModal__button.submit {
+  color: var(--dark-button-text-color);
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .submitModal__button.submit:hover, html[theme=dark] .submitModal__button.submit:focus {
+  background-color: var(--dark-button-bg-active);
+}
+html[theme=dark] .submitModal__button.cancel {
+  color: var(--dark-text-color);
+  background-color: var(--dark-main-bg);
+}
+html[theme=dark] .submitModal__button.cancel:hover, html[theme=dark] .submitModal__button.cancel:focus {
+  color: var(--dark-button-text-color);
+  background-color: var(--dark-button-bg-active);
+}
+
+html[theme=light] .submitModal__button.submit {
+  color: var(--light-button-text-color);
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .submitModal__button.submit:hover, html[theme=light] .submitModal__button.submit:focus {
+  background-color: var(--light-button-bg-active);
+}
+html[theme=light] .submitModal__button.cancel {
+  color: var(--light-text-color);
+  background-color: var(--light-main-bg);
+}
+html[theme=light] .submitModal__button.cancel:hover, html[theme=light] .submitModal__button.cancel:focus {
+  color: var(--light-button-text-color);
+  background-color: var(--light-button-bg-active);
+}
+
+.submitModal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  left: 0;
+  top: 0;
+}
+.submitModal__modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+.submitModal__text {
+  line-height: 150%;
+  font-size: 18px;
+  text-align: center;
+  margin: 0px 0px 15px 0px;
+}
+.submitModal__button {
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  line-height: 150%;
+  background-color: transparent;
+  padding: 10px 50px;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.submitModal__button.delete {
+  background-color: rgba(255, 0, 0, 0.6) !important;
+  color: #fff !important;
+}
+.submitModal__button.delete:hover {
+  background-color: red !important;
+}

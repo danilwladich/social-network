@@ -44,6 +44,7 @@ export function User(props: IProps) {
 				</NavLink>
 
 				<Actions
+					firstName={userData.firstName}
 					deleteButtonInProgress={props.deleteButtonInProgress}
 					deleteChat={props.deleteChat}
 				/>

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { DeleteBin } from "../../../../assets/DeleteBin";
 import { LoadingCircle } from "../../../../assets/LoadingCircle";
+import { SubmitModal } from "../../../../Common/SubmitModal/SubmitModal";
 
 interface IProps {
+	firstName: string;
 	deleteButtonInProgress: boolean;
 	deleteChat: () => void;
 }
 
 export function Actions(props: IProps) {
 	const [showActions, setShowActions] = useState(false);
-	const [confirm, setConfirm] = useState(false);
+	const [showSubmitModal, setShowSubmitModal] = useState(false);
 	return (
 		<>
 			<div
@@ -27,22 +29,28 @@ export function Actions(props: IProps) {
 				</button>
 
 				<button
-					onClick={() => {
-						!confirm ? setConfirm(true) : props.deleteChat();
-					}}
+					onClick={() => setShowSubmitModal(true)}
 					disabled={props.deleteButtonInProgress}
 					className={
-						"messages__user_actions_delete " + (showActions ? "active" : "")
+						"messages__user_actions_delete " +
+						(showActions || showSubmitModal ? "active" : "")
 					}
 				>
-					{props.deleteButtonInProgress ? (
-						<LoadingCircle />
-					) : !confirm ? (
-						<DeleteBin />
-					) : (
-						"Confirm \n delete"
-					)}
+					{props.deleteButtonInProgress ? <LoadingCircle /> : <DeleteBin />}
 				</button>
+
+				{showSubmitModal && (
+					<SubmitModal
+						text={
+							"Chat will be permanently deleted for you and " + props.firstName
+						}
+						funct={() => props.deleteChat()}
+						hideModal={() => {
+							setShowActions(false);
+							setShowSubmitModal(false);
+						}}
+					/>
+				)}
 			</div>
 		</>
 	);

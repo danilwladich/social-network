@@ -1,7 +1,6 @@
 export enum ActionType {
 	// app
 	SET_ERROR_MESSAGE = "app/SET_ERROR_MESSAGE",
-	SET_SUBMIT_MODAL = "app/SET_SUBMIT_MODAL",
 
 	// header
 	SET_HEADER_IMAGE = "header/SET_HEADER_IMAGE",

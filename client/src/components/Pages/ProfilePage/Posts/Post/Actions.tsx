@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { DeleteBin } from "../../../../assets/DeleteBin";
 import { LoadingCircle } from "../../../../assets/LoadingCircle";
+import { SubmitModal } from "../../../../Common/SubmitModal/SubmitModal";
 
 interface IProps {
 	buttonInProgress: boolean;
@@ -8,7 +10,7 @@ interface IProps {
 
 export function Actions(props: IProps) {
 	const [showActions, setShowActions] = useState(false);
-	const [confirm, setConfirm] = useState(false);
+	const [showSubmitModal, setShowSubmitModal] = useState(false);
 	return (
 		<>
 			<div
@@ -26,22 +28,25 @@ export function Actions(props: IProps) {
 				</button>
 
 				<button
-					onClick={() => {
-						!confirm ? setConfirm(true) : props.deletePost();
-					}}
+					onClick={() => setShowSubmitModal(true)}
 					disabled={props.buttonInProgress}
 					className={
 						"profile__post_actions_delete " + (showActions ? "active" : "")
 					}
 				>
-					{props.buttonInProgress ? (
-						<LoadingCircle />
-					) : !confirm ? (
-						"Delete post"
-					) : (
-						"Confirm"
-					)}
+					{props.buttonInProgress ? <LoadingCircle /> : <DeleteBin />}
 				</button>
+
+				{showSubmitModal && (
+					<SubmitModal
+						text="Post will be permanently deleted"
+						funct={() => props.deletePost()}
+						hideModal={() => {
+							setShowActions(false);
+							setShowSubmitModal(false);
+						}}
+					/>
+				)}
 			</div>
 		</>
 	);

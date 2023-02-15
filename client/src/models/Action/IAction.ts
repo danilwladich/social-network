@@ -17,10 +17,6 @@ interface setErrorMessage {
 	type: ActionType.SET_ERROR_MESSAGE;
 	value: string;
 }
-interface setSubmitModal {
-	type: ActionType.SET_SUBMIT_MODAL;
-	value: { text: string; thunk: (...args: any[]) => any };
-}
 
 // HEADER
 interface setHeaderImage {
@@ -185,7 +181,6 @@ interface setDonations {
 
 export type IAction =
 	| setAuthUser
-	| setSubmitModal
 	| setCountOfUnreadMessages
 	| setErrorMessage
 	| notAuthUser
