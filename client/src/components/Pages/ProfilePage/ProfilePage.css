@@ -48,6 +48,9 @@ html[theme=dark] .profile__post_actions_delete {
   color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
+html[theme=dark] .profile__post_actions_delete * {
+  color: var(--dark-button-text-color);
+}
 html[theme=dark] .profile__post_actions_delete:hover, html[theme=dark] .profile__post_actions_delete:focus {
   background-color: var(--dark-button-bg-active);
 }
@@ -101,6 +104,9 @@ html[theme=light] .profile__post_actions_show span:after {
 html[theme=light] .profile__post_actions_delete {
   color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
+}
+html[theme=light] .profile__post_actions_delete * {
+  color: var(--light-button-text-color);
 }
 html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profile__post_actions_delete:focus {
   background-color: var(--light-button-bg-active);

@@ -58,6 +58,9 @@ html[theme="dark"] {
 					}
 				}
 				&_delete {
+					* {
+						color: var(--dark-button-text-color);
+					}
 					color: var(--dark-button-text-color);
 					background-color: var(--dark-button-bg);
 					&:hover,
@@ -129,6 +132,9 @@ html[theme="light"] {
 					}
 				}
 				&_delete {
+					* {
+						color: var(--light-button-text-color);
+					}
 					color: var(--light-button-text-color);
 					background-color: var(--light-button-bg);
 					&:hover,
