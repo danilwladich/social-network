@@ -1,14 +1,14 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./app.css";
 import { Route, Routes } from "react-router-dom";
-import { HeaderContainer } from "./components/Header/HeaderContainer";
-import { NavBarContainer } from "./components/NavBar/NavBarContainer";
+import { HeaderContainer } from "./components/Common/Header/HeaderContainer";
+import { NavBarContainer } from "./components/Common/NavBar/NavBarContainer";
 import { connect } from "react-redux";
 import { initializationTC } from "./redux/appReducer";
 import { IState } from "./models/IState";
-import { ErrorContainer } from "./components/Error/ErrorContainer";
-import { NotExist } from "./components/NotExist/NotExist";
-import { AppLoading } from "./components/assets/AppLoading";
+import { ErrorContainer } from "./components/Common/Error/ErrorContainer";
+import { NotExist } from "./components/Pages/NotExist/NotExist";
+import { AppLoading } from "./components/Assets/AppLoading";
 import * as io from "socket.io-client";
 import { MessagesMessageData } from "./models/Messages/MessagesMessageData";
 import { MessagesUserData } from "./models/Messages/MessagesUserData";
@@ -16,28 +16,28 @@ import { receiveMessage } from "./redux/messagesReducer";
 import { useAppHeight } from "./hooks/useAppHeight";
 
 const LoginPageContainer = React.lazy(
-	() => import("./components/LoginPage/Login/LoginPageContainer")
+	() => import("./components/Pages/LoginPage/Login/LoginPageContainer")
 );
 const RegisterPageContainer = React.lazy(
-	() => import("./components/LoginPage/Register/RegisterPageContainer")
+	() => import("./components/Pages/LoginPage/Register/RegisterPageContainer")
 );
 const ProfilePageContainer = React.lazy(
-	() => import("./components/ProfilePage/ProfilePageContainer")
+	() => import("./components/Pages/ProfilePage/ProfilePageContainer")
 );
 const NewsPageContainer = React.lazy(
-	() => import("./components/NewsPage/NewsPageContainer")
+	() => import("./components/Pages/NewsPage/NewsPageContainer")
 );
 const MessagesPageContainer = React.lazy(
-	() => import("./components/MessagesPage/MessagesPageContainer")
+	() => import("./components/Pages/MessagesPage/MessagesPageContainer")
 );
 const FriendsPageContainer = React.lazy(
-	() => import("./components/FriendsPage/FriendsPageContainer")
+	() => import("./components/Pages/FriendsPage/FriendsPageContainer")
 );
 const UsersPageContainer = React.lazy(
-	() => import("./components/UsersPage/UsersPageContainer")
+	() => import("./components/Pages/UsersPage/UsersPageContainer")
 );
 const SettingsPageContainer = React.lazy(
-	() => import("./components/SettingsPage/SettingsPageContainer")
+	() => import("./components/Pages/SettingsPage/SettingsPageContainer")
 );
 
 // connect socket

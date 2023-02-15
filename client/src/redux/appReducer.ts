@@ -7,6 +7,10 @@ import { authMeTC } from "./authReducer";
 
 const initialState: IApp = {
 	errorMessage: "",
+	submitModal: {
+		text: "",
+		thunk: () => {},
+	},
 };
 
 export function appReducer(state: IApp = initialState, action: IAction) {
@@ -15,6 +19,12 @@ export function appReducer(state: IApp = initialState, action: IAction) {
 			return {
 				...state,
 				errorMessage: action.value,
+			};
+
+		case ActionType.SET_SUBMIT_MODAL:
+			return {
+				...state,
+				submitModal: action.value,
 			};
 
 		default:
@@ -26,6 +36,14 @@ export function appReducer(state: IApp = initialState, action: IAction) {
 export const setErrorMessage: (v: string) => IAction = (v) => ({
 	type: ActionType.SET_ERROR_MESSAGE,
 	value: v,
+});
+
+export const setSubmitModal: (
+	text: string,
+	thunk: (...args: any[]) => any
+) => IAction = (text, thunk) => ({
+	type: ActionType.SET_SUBMIT_MODAL,
+	value: { text, thunk },
 });
 
 // thunk
