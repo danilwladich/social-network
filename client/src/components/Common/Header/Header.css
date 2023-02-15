@@ -2,6 +2,12 @@ html[theme=dark] .header {
   background-color: var(--dark-subsection-bg);
   border-bottom: 1px solid var(--dark-button-bg);
 }
+html[theme=dark] .header__logo span {
+  color: var(--dark-button-bg);
+}
+html[theme=dark] .header__logo:hover span {
+  color: var(--dark-button-bg-active);
+}
 html[theme=dark] .header__burger:before, html[theme=dark] .header__burger:after {
   content: "";
   background-color: var(--dark-text-color);
@@ -13,6 +19,12 @@ html[theme=dark] .header__burger span {
 html[theme=light] .header {
   background-color: var(--light-subsection-bg);
   border-bottom: 1px solid var(--light-button-bg);
+}
+html[theme=light] .header__logo span {
+  color: var(--light-button-bg);
+}
+html[theme=light] .header__logo:hover span {
+  color: var(--light-button-bg-active);
 }
 html[theme=light] .header__burger:before, html[theme=light] .header__burger:after {
   content: "";
@@ -79,9 +91,6 @@ html[theme=light] .header__burger span {
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
-}
-.header__logo span {
-  opacity: 0.7;
 }
 .header__burger {
   background-color: transparent;

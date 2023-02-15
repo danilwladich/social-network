@@ -15,14 +15,16 @@ export function User(props: IProps) {
 	const lastMessage = userData.lastMessage;
 	return (
 		<>
-			<div className="messages__user">
+			<div
+				className={
+					"messages__user " +
+					(!lastMessage.read && !lastMessage.out ? "unread" : "")
+				}
+			>
 				<NavLink
 					draggable="false"
 					to={"/messages/" + userData.nickname}
-					className={
-						"messages__user_content " +
-						(!lastMessage.read && !lastMessage.out ? "unread" : "")
-					}
+					className="messages__user_content"
 				>
 					<div
 						className={

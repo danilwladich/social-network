@@ -14,9 +14,6 @@ html[theme=dark] .users__search_button:hover, html[theme=dark] .users__search_bu
 html[theme=dark] .users__user:not(:last-child) {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
-html[theme=dark] .users__user_actions_show {
-  background-color: var(--dark-subsection-bg);
-}
 html[theme=dark] .users__user_actions_show span,
 html[theme=dark] .users__user_actions_show span:before,
 html[theme=dark] .users__user_actions_show span:after {
@@ -45,9 +42,6 @@ html[theme=light] .users__search_button:hover, html[theme=light] .users__search_
 }
 html[theme=light] .users__user:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
-}
-html[theme=light] .users__user_actions_show {
-  background-color: var(--light-subsection-bg);
 }
 html[theme=light] .users__user_actions_show span,
 html[theme=light] .users__user_actions_show span:before,

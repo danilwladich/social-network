@@ -24,9 +24,6 @@ html[theme=dark] .friends__search_button:hover, html[theme=dark] .friends__searc
 html[theme=dark] .friends__user:not(:last-child) {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
-html[theme=dark] .friends__user_actions_show {
-  background-color: var(--dark-subsection-bg);
-}
 html[theme=dark] .friends__user_actions_show span,
 html[theme=dark] .friends__user_actions_show span:before,
 html[theme=dark] .friends__user_actions_show span:after {
@@ -65,9 +62,6 @@ html[theme=light] .friends__search_button:hover, html[theme=light] .friends__sea
 }
 html[theme=light] .friends__user:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
-}
-html[theme=light] .friends__user_actions_show {
-  background-color: var(--light-subsection-bg);
 }
 html[theme=light] .friends__user_actions_show span,
 html[theme=light] .friends__user_actions_show span:before,

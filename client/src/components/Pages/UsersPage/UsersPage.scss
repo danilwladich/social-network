@@ -22,7 +22,6 @@ html[theme="dark"] {
 			}
 			&_actions {
 				&_show {
-					background-color: var(--dark-subsection-bg);
 					span,
 					span:before,
 					span:after {
@@ -65,7 +64,6 @@ html[theme="light"] {
 			}
 			&_actions {
 				&_show {
-					background-color: var(--light-subsection-bg);
 					span,
 					span:before,
 					span:after {

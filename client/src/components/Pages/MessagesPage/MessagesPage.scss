@@ -9,29 +9,37 @@ html[theme="dark"] {
 			}
 		}
 		&__user {
-			&_content {
-				&.unread {
+			&.unread {
+				.messages__user_content {
 					* {
 						color: var(--dark-button-text-color);
 					}
-					background-color: var(--dark-button-bg-active);
+					background-color: var(--dark-highlight);
 				}
+				.messages__user_actions_show {
+					span,
+					span:before,
+					span:after {
+						background-color: var(--dark-button-text-color);
+					}
+				}
+			}
+			&_content {
 				&:hover,
 				&:focus {
 					* {
 						color: var(--dark-button-text-color);
 					}
+					background-color: var(--dark-button-bg) !important;
 					.messages__user_lastmessage_status:not(.read) {
 						svg {
 							fill: var(--dark-button-text-color);
 						}
 					}
-					background-color: var(--dark-button-bg);
 				}
 			}
 			&_actions {
 				&_show {
-					background-color: var(--dark-subsection-bg);
 					span,
 					span:before,
 					span:after {
@@ -53,7 +61,6 @@ html[theme="dark"] {
 			&:hover {
 				.messages__user_actions {
 					&_show {
-						background-color: var(--dark-button-bg);
 						span,
 						span:before,
 						span:after {
@@ -62,10 +69,9 @@ html[theme="dark"] {
 					}
 				}
 			}
-			&_actions {
-				&:hover {
+			&:not(.unread) {
+				.messages__user_actions:hover {
 					.messages__user_actions_show {
-						background-color: var(--dark-subsection-bg);
 						span,
 						span:before,
 						span:after {
@@ -131,29 +137,37 @@ html[theme="light"] {
 			}
 		}
 		&__user {
-			&_content {
-				&.unread {
+			&.unread {
+				.messages__user_content {
 					* {
 						color: var(--light-button-text-color);
 					}
-					background-color: var(--light-button-bg-active);
+					background-color: var(--light-highlight);
 				}
+				.messages__user_actions_show {
+					span,
+					span:before,
+					span:after {
+						background-color: var(--light-button-text-color);
+					}
+				}
+			}
+			&_content {
 				&:hover,
 				&:focus {
 					* {
 						color: var(--light-button-text-color);
 					}
+					background-color: var(--light-button-bg) !important;
 					.messages__user_lastmessage_status:not(.read) {
 						svg {
 							fill: var(--light-button-text-color);
 						}
 					}
-					background-color: var(--light-button-bg);
 				}
 			}
 			&_actions {
 				&_show {
-					background-color: var(--light-subsection-bg);
 					span,
 					span:before,
 					span:after {
@@ -175,7 +189,6 @@ html[theme="light"] {
 			&:hover {
 				.messages__user_actions {
 					&_show {
-						background-color: var(--light-button-bg);
 						span,
 						span:before,
 						span:after {
@@ -184,10 +197,9 @@ html[theme="light"] {
 					}
 				}
 			}
-			&_actions {
-				&:hover {
+			&:not(.unread) {
+				.messages__user_actions:hover {
 					.messages__user_actions_show {
-						background-color: var(--light-subsection-bg);
 						span,
 						span:before,
 						span:after {

@@ -4,23 +4,25 @@ html[theme=dark] .messages__loading_chat {
 html[theme=dark] .messages__loading_chat_header {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
-html[theme=dark] .messages__user_content.unread {
-  background-color: var(--dark-button-bg-active);
+html[theme=dark] .messages__user.unread .messages__user_content {
+  background-color: var(--dark-highlight);
 }
-html[theme=dark] .messages__user_content.unread * {
+html[theme=dark] .messages__user.unread .messages__user_content * {
   color: var(--dark-button-text-color);
 }
+html[theme=dark] .messages__user.unread .messages__user_actions_show span,
+html[theme=dark] .messages__user.unread .messages__user_actions_show span:before,
+html[theme=dark] .messages__user.unread .messages__user_actions_show span:after {
+  background-color: var(--dark-button-text-color);
+}
 html[theme=dark] .messages__user_content:hover, html[theme=dark] .messages__user_content:focus {
-  background-color: var(--dark-button-bg);
+  background-color: var(--dark-button-bg) !important;
 }
 html[theme=dark] .messages__user_content:hover *, html[theme=dark] .messages__user_content:focus * {
   color: var(--dark-button-text-color);
 }
 html[theme=dark] .messages__user_content:hover .messages__user_lastmessage_status:not(.read) svg, html[theme=dark] .messages__user_content:focus .messages__user_lastmessage_status:not(.read) svg {
   fill: var(--dark-button-text-color);
-}
-html[theme=dark] .messages__user_actions_show {
-  background-color: var(--dark-subsection-bg);
 }
 html[theme=dark] .messages__user_actions_show span,
 html[theme=dark] .messages__user_actions_show span:before,
@@ -37,20 +39,14 @@ html[theme=dark] .messages__user_actions_delete * {
 html[theme=dark] .messages__user_actions_delete:hover, html[theme=dark] .messages__user_actions_delete:focus {
   background-color: var(--dark-button-bg-active);
 }
-html[theme=dark] .messages__user:hover .messages__user_actions_show {
-  background-color: var(--dark-button-bg);
-}
 html[theme=dark] .messages__user:hover .messages__user_actions_show span,
 html[theme=dark] .messages__user:hover .messages__user_actions_show span:before,
 html[theme=dark] .messages__user:hover .messages__user_actions_show span:after {
   background-color: var(--dark-button-text-color);
 }
-html[theme=dark] .messages__user_actions:hover .messages__user_actions_show {
-  background-color: var(--dark-subsection-bg);
-}
-html[theme=dark] .messages__user_actions:hover .messages__user_actions_show span,
-html[theme=dark] .messages__user_actions:hover .messages__user_actions_show span:before,
-html[theme=dark] .messages__user_actions:hover .messages__user_actions_show span:after {
+html[theme=dark] .messages__user:not(.unread) .messages__user_actions:hover .messages__user_actions_show span,
+html[theme=dark] .messages__user:not(.unread) .messages__user_actions:hover .messages__user_actions_show span:before,
+html[theme=dark] .messages__user:not(.unread) .messages__user_actions:hover .messages__user_actions_show span:after {
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .messages__chat {
@@ -91,23 +87,25 @@ html[theme=light] .messages__loading_chat {
 html[theme=light] .messages__loading_chat_header {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
-html[theme=light] .messages__user_content.unread {
-  background-color: var(--light-button-bg-active);
+html[theme=light] .messages__user.unread .messages__user_content {
+  background-color: var(--light-highlight);
 }
-html[theme=light] .messages__user_content.unread * {
+html[theme=light] .messages__user.unread .messages__user_content * {
   color: var(--light-button-text-color);
 }
+html[theme=light] .messages__user.unread .messages__user_actions_show span,
+html[theme=light] .messages__user.unread .messages__user_actions_show span:before,
+html[theme=light] .messages__user.unread .messages__user_actions_show span:after {
+  background-color: var(--light-button-text-color);
+}
 html[theme=light] .messages__user_content:hover, html[theme=light] .messages__user_content:focus {
-  background-color: var(--light-button-bg);
+  background-color: var(--light-button-bg) !important;
 }
 html[theme=light] .messages__user_content:hover *, html[theme=light] .messages__user_content:focus * {
   color: var(--light-button-text-color);
 }
 html[theme=light] .messages__user_content:hover .messages__user_lastmessage_status:not(.read) svg, html[theme=light] .messages__user_content:focus .messages__user_lastmessage_status:not(.read) svg {
   fill: var(--light-button-text-color);
-}
-html[theme=light] .messages__user_actions_show {
-  background-color: var(--light-subsection-bg);
 }
 html[theme=light] .messages__user_actions_show span,
 html[theme=light] .messages__user_actions_show span:before,
@@ -124,20 +122,14 @@ html[theme=light] .messages__user_actions_delete * {
 html[theme=light] .messages__user_actions_delete:hover, html[theme=light] .messages__user_actions_delete:focus {
   background-color: var(--light-button-bg-active);
 }
-html[theme=light] .messages__user:hover .messages__user_actions_show {
-  background-color: var(--light-button-bg);
-}
 html[theme=light] .messages__user:hover .messages__user_actions_show span,
 html[theme=light] .messages__user:hover .messages__user_actions_show span:before,
 html[theme=light] .messages__user:hover .messages__user_actions_show span:after {
   background-color: var(--light-button-text-color);
 }
-html[theme=light] .messages__user_actions:hover .messages__user_actions_show {
-  background-color: var(--light-subsection-bg);
-}
-html[theme=light] .messages__user_actions:hover .messages__user_actions_show span,
-html[theme=light] .messages__user_actions:hover .messages__user_actions_show span:before,
-html[theme=light] .messages__user_actions:hover .messages__user_actions_show span:after {
+html[theme=light] .messages__user:not(.unread) .messages__user_actions:hover .messages__user_actions_show span,
+html[theme=light] .messages__user:not(.unread) .messages__user_actions:hover .messages__user_actions_show span:before,
+html[theme=light] .messages__user:not(.unread) .messages__user_actions:hover .messages__user_actions_show span:after {
   background-color: var(--light-button-bg);
 }
 html[theme=light] .messages__chat {
