@@ -69,6 +69,7 @@ html[theme=light] .header__burger span {
   line-height: 40px;
 }
 .header__logo {
+  background-color: transparent;
   font-size: 22px;
   letter-spacing: 2px;
   line-height: 150%;

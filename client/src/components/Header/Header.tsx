@@ -13,6 +13,17 @@ interface IProps {
 
 export function Header(props: IProps) {
 	const countOfUnreadMessages = props.countOfUnreadMessages.length;
+
+	function scrollToTop() {
+		window.requestAnimationFrame(() => {
+			window.scrollTo({
+				top: 0,
+				left: 0,
+				behavior: "smooth",
+			});
+		});
+	}
+
 	return (
 		<>
 			<header className="header">
@@ -31,11 +42,11 @@ export function Header(props: IProps) {
 						</NavLink>
 					)}
 
-					<div className="header__logo">
+					<button onClick={() => scrollToTop()} className="header__logo">
 						<h1>
 							Blo<span>xx</span>
 						</h1>
-					</div>
+					</button>
 
 					{props.isAuth && (
 						<button

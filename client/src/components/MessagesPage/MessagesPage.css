@@ -28,6 +28,7 @@ html[theme=dark] .messages__user_actions_show span:after {
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .messages__user_actions_delete {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .messages__user_actions_delete * {
@@ -114,6 +115,7 @@ html[theme=light] .messages__user_actions_show span:after {
   background-color: var(--light-button-bg);
 }
 html[theme=light] .messages__user_actions_delete {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .messages__user_actions_delete * {
