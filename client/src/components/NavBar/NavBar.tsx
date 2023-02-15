@@ -16,6 +16,12 @@ export function NavBar(props: IProps) {
 		<>
 			{props.isAuth && (
 				<aside className={"navbar " + (props.burger ? "active" : "")}>
+					<div className="navbar__bg"></div>
+					<div
+						className="navbar__blur"
+						onClick={() => props.setBurger(false)}
+					></div>
+
 					<nav className="navbar__menu">
 						<NavLink
 							draggable="false"

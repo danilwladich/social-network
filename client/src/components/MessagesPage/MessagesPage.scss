@@ -9,36 +9,66 @@ html[theme="dark"] {
 			}
 		}
 		&__user {
-			&.unread {
-				* {
-					color: var(--dark-button-text-color);
-				}
-				background-color: var(--dark-button-bg-active);
-			}
-			&:hover,
-			&:focus {
-				* {
-					color: var(--dark-button-text-color);
-				}
-				.messages__user_lastmessage_status:not(.read) {
-					svg {
-						fill: var(--dark-button-text-color);
+			&_content {
+				&.unread {
+					* {
+						color: var(--dark-button-text-color);
 					}
+					background-color: var(--dark-button-bg-active);
 				}
-				background-color: var(--dark-button-bg);
+				&:hover,
+				&:focus {
+					* {
+						color: var(--dark-button-text-color);
+					}
+					.messages__user_lastmessage_status:not(.read) {
+						svg {
+							fill: var(--dark-button-text-color);
+						}
+					}
+					background-color: var(--dark-button-bg);
+				}
 			}
 			&_actions {
-				&_showactions {
+				&_show {
+					background-color: var(--dark-subsection-bg);
 					span,
 					span:before,
 					span:after {
 						background-color: var(--dark-button-bg);
 					}
-					&_follow {
+				}
+				&_delete {
+					* {
 						color: var(--dark-button-text-color);
+					}
+					background-color: var(--dark-button-bg);
+					&:hover,
+					&:focus {
+						background-color: var(--dark-button-bg-active);
+					}
+				}
+			}
+			&:hover {
+				.messages__user_actions {
+					&_show {
 						background-color: var(--dark-button-bg);
-						&:hover {
-							background-color: var(--dark-button-bg-active);
+						span,
+						span:before,
+						span:after {
+							background-color: var(--dark-button-text-color);
+						}
+					}
+				}
+			}
+			&_actions {
+				&:hover {
+					.messages__user_actions_show {
+						background-color: var(--dark-subsection-bg);
+						span,
+						span:before,
+						span:after {
+							background-color: var(--dark-button-bg);
 						}
 					}
 				}
@@ -100,36 +130,66 @@ html[theme="light"] {
 			}
 		}
 		&__user {
-			&.unread {
-				* {
-					color: var(--light-button-text-color);
-				}
-				background-color: var(--light-button-bg-active);
-			}
-			&:hover,
-			&:focus {
-				* {
-					color: var(--light-button-text-color);
-				}
-				.messages__user_lastmessage_status:not(.read) {
-					svg {
-						fill: var(--light-button-text-color);
+			&_content {
+				&.unread {
+					* {
+						color: var(--light-button-text-color);
 					}
+					background-color: var(--light-button-bg-active);
 				}
-				background-color: var(--light-button-bg);
+				&:hover,
+				&:focus {
+					* {
+						color: var(--light-button-text-color);
+					}
+					.messages__user_lastmessage_status:not(.read) {
+						svg {
+							fill: var(--light-button-text-color);
+						}
+					}
+					background-color: var(--light-button-bg);
+				}
 			}
 			&_actions {
-				&_showactions {
+				&_show {
+					background-color: var(--light-subsection-bg);
 					span,
 					span:before,
 					span:after {
 						background-color: var(--light-button-bg);
 					}
-					&_follow {
+				}
+				&_delete {
+					* {
 						color: var(--light-button-text-color);
+					}
+					background-color: var(--light-button-bg);
+					&:hover,
+					&:focus {
+						background-color: var(--light-button-bg-active);
+					}
+				}
+			}
+			&:hover {
+				.messages__user_actions {
+					&_show {
 						background-color: var(--light-button-bg);
-						&:hover {
-							background-color: var(--light-button-bg-active);
+						span,
+						span:before,
+						span:after {
+							background-color: var(--light-button-text-color);
+						}
+					}
+				}
+			}
+			&_actions {
+				&:hover {
+					.messages__user_actions_show {
+						background-color: var(--light-subsection-bg);
+						span,
+						span:before,
+						span:after {
+							background-color: var(--light-button-bg);
 						}
 					}
 				}
@@ -296,10 +356,17 @@ html[theme="light"] {
 	&__user {
 		transition: all 0.2s;
 		position: relative;
-		padding: 5px 10px;
 		display: flex;
-		gap: 10px;
-		line-height: 150%;
+		align-items: center;
+		&_content {
+			width: 100%;
+			padding: 5px 10px;
+			flex: 1 1 auto;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			line-height: 150%;
+		}
 		&_image {
 			flex: 0 0 50px;
 			img {
@@ -362,27 +429,71 @@ html[theme="light"] {
 		}
 		&_actions {
 			position: absolute;
-			right: -60px;
-			top: 0;
-			svg {
-				width: 35px;
-				height: 35px;
-			}
-			&_delete {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				font-weight: 700;
-				font-size: 14px;
+			right: 10px;
+			top: 5px;
+			&_show {
 				opacity: 0.7;
 				&:hover,
 				&:focus {
 					opacity: 1;
 				}
-				width: 60px;
-				height: 60px;
-				background-color: red;
+				width: 30px;
+				height: 30px;
+				background-color: transparent;
+				position: relative;
+				z-index: 3;
+				border-radius: 4px;
+				span {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+				}
+				span:before,
+				span:after {
+					transition: all 0.2s;
+					content: "";
+					position: absolute;
+					width: 5px;
+					height: 5px;
+					border-radius: 50%;
+				}
+				span:before {
+					left: -10px;
+				}
+				span:after {
+					right: -10px;
+				}
+			}
+			&_delete {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 5px;
+				z-index: 2;
+				position: absolute;
+				width: 150px;
+				right: 35px;
+				top: 50%;
+				transform: translateY(-50%);
+				font-size: 16px;
+				line-height: 150%;
+				border-radius: 4px;
+				background-color: transparent;
+				padding: 2px 10px;
+				svg {
+					width: 24px;
+					height: 24px;
+				}
+				opacity: 0;
+				visibility: hidden;
+				&.active {
+					opacity: 1;
+					visibility: visible;
+				}
 			}
 		}
 	}
@@ -608,8 +719,10 @@ html[theme="light"] {
 			margin: -5px -15px -5px -15px;
 		}
 		&__user {
-			padding: 5px 15px;
-			gap: 15px;
+			&_content {
+				padding: 5px 15px;
+				gap: 15px;
+			}
 			&_image {
 				flex: 0 0 60px;
 				img {
@@ -631,13 +744,7 @@ html[theme="light"] {
 				}
 			}
 			&_actions {
-				svg {
-					width: 40px;
-					height: 40px;
-				}
-				&_delete {
-					height: 70px;
-				}
+				right: 15px;
 			}
 		}
 		&__chat {

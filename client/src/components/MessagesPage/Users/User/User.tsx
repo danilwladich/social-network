@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import Draggable, { DraggableEvent, DraggableData } from "react-draggable";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { MessagesUserData } from "../../../../models/Messages/MessagesUserData";
 import { Actions } from "./Actions";
 import { LastMessage } from "./LastMessage";
@@ -14,47 +13,60 @@ interface IProps {
 const maxLeftPosition = -60;
 
 export function User(props: IProps) {
-	const [position, setPosition] = useState({ x: 0, y: 0 });
-	const navigate = useNavigate();
 	const userData = props.userData;
 	const lastMessage = userData.lastMessage;
 
-	// set position
-	function onStopHander(e: DraggableEvent, position: DraggableData) {
-		const { x } = position;
-		if (x < maxLeftPosition / 2) {
-			setPosition({ x: maxLeftPosition, y: 0 });
-		} else {
-			setPosition({ x: 0, y: 0 });
+	const [relPostion, setRelPosition] = useState(0);
+	const userRef = useRef<HTMLDivElement>(null);
 
-			// navigate for mobile
-			if (e.type === "touchend") {
-				navigate("/messages/" + userData.nickname);
+	// set position
+	function onTouchMoveHandler(e: React.TouchEvent<HTMLDivElement>) {
+		const touchPosition = e.changedTouches[0].pageX;
+		const position = touchPosition - relPostion;
+
+		if (userRef.current !== null) {
+			if (position < 0 && position >= maxLeftPosition) {
+				userRef.current.style.translate = position + "px";
+			}
+			if (
+				-position < 0 &&
+				-position >= maxLeftPosition &&
+				+userRef.current.style.translate.replace("px", "") < 0
+			) {
+				userRef.current.style.translate =
+					+userRef.current.style.translate.replace("px", "") + position + "px";
+			}
+		}
+	}
+	function onTouchEndHandler(e: React.TouchEvent<HTMLDivElement>) {
+		const touchPosition = e.changedTouches[0].pageX;
+		const position = touchPosition - relPostion;
+
+		if (userRef.current !== null) {
+			if (position !== 0) {
+				if (position >= maxLeftPosition / 2) {
+					userRef.current.style.translate = "0px";
+				} else {
+					userRef.current.style.translate = maxLeftPosition + "px";
+				}
 			}
 		}
 	}
 
-	// prevent if dragged
-	function onClickHandler(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
-		if (position.x !== 0) {
-			e.preventDefault();
-		}
-	}
 	return (
 		<>
-			<Draggable
-				axis="x"
-				bounds={{ left: maxLeftPosition, right: 0, top: 0, bottom: 0 }}
-				onStop={(e, position) => onStopHander(e, position)}
-				position={position}
-				cancel=".messages__user_actions"
+			<div
+				className="messages__user"
+				onTouchMove={(e) => onTouchMoveHandler(e)}
+				onTouchEnd={(e) => onTouchEndHandler(e)}
+				onTouchStart={(e) => setRelPosition(e.changedTouches[0].pageX)}
+				ref={userRef}
 			>
 				<NavLink
-					onClick={(e) => onClickHandler(e)}
 					draggable="false"
 					to={"/messages/" + userData.nickname}
 					className={
-						"messages__user " +
+						"messages__user_content " +
 						(!lastMessage.read && !lastMessage.out ? "unread" : "")
 					}
 				>
@@ -69,21 +81,19 @@ export function User(props: IProps) {
 							alt={userData.nickname}
 						/>
 					</div>
-
 					<div className="messages__user_info">
 						<div className="messages__user_name">
 							{userData.firstName + " " + userData.lastName}
 						</div>
-
 						<LastMessage lastMessage={lastMessage} />
 					</div>
-
-					<Actions
-						deleteButtonInProgress={props.deleteButtonInProgress}
-						deleteChat={props.deleteChat}
-					/>
 				</NavLink>
-			</Draggable>
+
+				<Actions
+					deleteButtonInProgress={props.deleteButtonInProgress}
+					deleteChat={props.deleteChat}
+				/>
+			</div>
 		</>
 	);
 }

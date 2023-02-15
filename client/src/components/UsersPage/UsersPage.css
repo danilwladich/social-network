@@ -65,7 +65,6 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
 .users__loading_search {
   height: 40px;
   width: 100%;
-  margin: 0px 0px 15px 0px;
 }
 .users__loading_items {
   margin: -10px 0px 0px 0px;
