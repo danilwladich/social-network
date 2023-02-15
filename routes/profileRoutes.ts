@@ -8,24 +8,11 @@ import { check, validationResult } from "express-validator";
 import multer from "multer";
 import fs from "fs";
 import { connectedSockets } from "../socket";
+import sharp from "sharp";
 const router = Router();
 
-const store = multer.diskStorage({
-	destination(req: IGetUserAuthRequest, file, cb) {
-		let path;
-		if (process.env.NODE_ENV === "production") {
-			path = "./client/production/images/" + req.user!.userID;
-		} else {
-			path = "./client/public/images/" + req.user!.userID;
-		}
-		fs.mkdirSync(path, { recursive: true });
-		return cb(null, path);
-	},
-	filename(req, file, cb) {
-		return cb(null, file.originalname);
-	},
-});
-const upload = multer({ storage: store }).single("image");
+const store = multer.memoryStorage();
+const upload = multer({ storage: store });
 
 // /profile/user/:nickname
 router.get("/user/:nickname", async (req: Request, res: Response) => {
@@ -289,7 +276,7 @@ router.delete(
 router.put(
 	"/edit",
 	authMiddleware,
-	upload,
+	upload.single("image"),
 	[
 		check("nickname", "Invalid nickname length")
 			.trim()
@@ -342,18 +329,43 @@ router.put(
 				});
 			}
 
+			// set new avatar
 			if (!!image) {
+				let path: string;
+				if (process.env.NODE_ENV === "production") {
+					path = "client/production/images/" + authID;
+				} else {
+					path = "client/public/images/" + authID;
+				}
+
+				// create dir
+				fs.access(path, (err) => {
+					if (err) {
+						fs.mkdirSync(path, { recursive: true });
+					}
+				});
+
+				// sharp image
+				await sharp(image.buffer)
+					.withMetadata()
+					.resize({ width: 750, height: 750 })
+					.jpeg({ quality: 50 })
+					.toFile(path + "/avatar.jpg");
+
 				await user.updateOne({ avatar: "/images/" + authID + "/avatar.jpg" });
 			}
 
+			// set new country
 			if (!!country) {
 				await user.updateOne({ "location.country": country.trim() });
 			}
 
+			// set new city
 			if (!!city) {
 				await user.updateOne({ "location.city": city.trim() });
 			}
 
+			// set new nickname
 			if (!!nickname) {
 				const nicknameAlreadyExist = await User.findOne({
 					nickname: nickname.trim(),
