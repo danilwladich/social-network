@@ -2,8 +2,10 @@ import React from "react";
 import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
 import { LikeHeart } from "../../../../assets/LikeHeart";
 import { LoadingCircle } from "../../../../assets/LoadingCircle";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
+	isAuth: boolean;
 	postData: ProfilePostData;
 	buttonInProgress: boolean;
 	likePost: () => void;
@@ -11,6 +13,7 @@ interface IProps {
 }
 
 export function Info(props: IProps) {
+	const navigate = useNavigate();
 	const postData = props.postData;
 
 	const date = postData.date.split(" ");
@@ -28,13 +31,22 @@ export function Info(props: IProps) {
 			? likes.slice(0, -3) + "." + likes.slice(-3, -2) + "K"
 			: likes;
 
+	function onLikeClickHandler() {
+		if (!props.isAuth) {
+			return navigate("/login");
+		}
+		if (postData.likedMe) {
+			props.unlikePost();
+		} else {
+			props.likePost();
+		}
+	}
+
 	return (
 		<>
 			<div className="profile__post_info">
 				<button
-					onClick={() =>
-						postData.likedMe ? props.unlikePost() : props.likePost()
-					}
+					onClick={() => onLikeClickHandler()}
 					disabled={props.buttonInProgress}
 					className="profile__post_like"
 				>

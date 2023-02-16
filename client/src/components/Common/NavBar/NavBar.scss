@@ -128,6 +128,13 @@ html[theme="light"] {
 		&__link {
 			font-size: 22px;
 			padding: 5px 15px;
+			&:not(:last-child) {
+				margin: 1px 1px 6px 1px;
+				&:hover,
+				&:focus {
+					margin: 0 0 5px 0;
+				}
+			}
 		}
 	}
 }

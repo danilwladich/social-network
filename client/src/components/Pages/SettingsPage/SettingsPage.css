@@ -129,6 +129,16 @@ html[theme=light] .settings__button:hover, html[theme=light] .settings__button:f
   position: absolute;
   opacity: 0;
 }
+.settings__donation_warning {
+  text-align: center;
+  margin: 10px 0px 0px 0px;
+  opacity: 0.7;
+  line-height: 150%;
+  font-size: 16px;
+}
+.settings__donation_warning a {
+  text-decoration: underline;
+}
 .settings__topdonations_title {
   line-height: 150%;
   text-align: center;
@@ -186,6 +196,9 @@ html[theme=light] .settings__button:hover, html[theme=light] .settings__button:f
   white-space: nowrap;
 }
 @media (min-width: 767px) {
+  .settings__donation_warning {
+    text-align: left;
+  }
   .settings__topdonations {
     max-width: 280px;
   }

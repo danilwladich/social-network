@@ -4,30 +4,31 @@ import { IState } from "../../../models/IState";
 import { getProfileTC } from "../../../redux/profileReducer";
 import { ProfilePage } from "./ProfilePage";
 import { Navigate, useParams } from "react-router-dom";
-import { AuthRedirect } from "../../../hoc/AuthRedirect";
-import { compose } from "redux";
 import { ProfilePageLoading } from "./ProfilePageLoading";
 
 interface IProps {
 	authNickname: string;
 	userNickname: string;
-	getProfileTC: (profileID: string) => Promise<void>;
+	getProfileTC: (profileNickname: string) => Promise<void>;
 }
 
 function ProfilePageAPI(props: IProps) {
 	document.title = `Bloxx`;
 	const [isLoading, setIsLoading] = useState(false);
-	const profileID = useParams().nickname;
+	const profileNickname = useParams().nickname;
 
 	useLayoutEffect(() => {
-		if (profileID) {
+		if (profileNickname) {
 			setIsLoading(true);
-			props.getProfileTC(profileID!).finally(() => setIsLoading(false));
+			props.getProfileTC(profileNickname!).finally(() => setIsLoading(false));
 		}
 		// eslint-disable-next-line
-	}, [profileID]);
+	}, [profileNickname]);
 
-	if (!profileID) {
+	if (!profileNickname) {
+		if (!props.authNickname) {
+			return <Navigate to="/login" />;
+		}
 		return <Navigate to={"/" + props.authNickname} />;
 	}
 	if (isLoading) {
@@ -56,11 +57,8 @@ function mapStateToProps(state: IState) {
 	};
 }
 
-const ProfilePageContainer: any = compose(
-	connect(mapStateToProps, {
-		getProfileTC,
-	}),
-	AuthRedirect
-)(ProfilePageAPI);
+const ProfilePageContainer = connect(mapStateToProps, {
+	getProfileTC,
+})(ProfilePageAPI);
 
 export default ProfilePageContainer;

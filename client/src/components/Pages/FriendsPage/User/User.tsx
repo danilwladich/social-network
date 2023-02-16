@@ -4,6 +4,7 @@ import { FriendsUserData } from "../../../../models/Friends/FriendsUserData";
 import { Actions } from "./Actions";
 
 interface IProps {
+	isAuth: boolean;
 	itsMe: boolean;
 	userData: FriendsUserData;
 	followButtonInProgress: boolean;

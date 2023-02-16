@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { EditContainer } from "../Edit/EditContainer";
-import { NavLink } from "react-router-dom";
+import { EditContainer } from "./Edit/EditContainer";
+import { NavLink, useNavigate } from "react-router-dom";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
 import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
 
@@ -12,8 +12,9 @@ interface IProps {
 }
 
 export function Actions(props: IProps) {
-	const userData = props.userData;
+	const navigate = useNavigate();
 	const [followButtonInProgress, setFollowButtonInProgress] = useState(false);
+	const userData = props.userData;
 
 	function setFollow() {
 		setFollowButtonInProgress(true);
@@ -27,6 +28,27 @@ export function Actions(props: IProps) {
 			.setUnfollowTC(userData.nickname)
 			.then(() => setFollowButtonInProgress(false));
 	}
+
+	function onFollowClickHandler() {
+		if (!props.authNickname) {
+			return navigate("/login");
+		}
+		if (userData.followed) {
+			setUnfollow();
+		} else {
+			setFollow();
+		}
+	}
+
+	const followButtonText =
+		userData.follower && userData.followed
+			? "Unfriend"
+			: userData.followed
+			? "Followed"
+			: userData.follower
+			? "Accept request"
+			: "Add friend";
+
 	return (
 		<>
 			<div className="profile__actions">
@@ -42,23 +64,11 @@ export function Actions(props: IProps) {
 							Message
 						</NavLink>
 						<button
-							onClick={() => {
-								userData.followed ? setUnfollow() : setFollow();
-							}}
+							onClick={() => onFollowClickHandler()}
 							disabled={followButtonInProgress}
 							className="profile__actions_follow"
 						>
-							{followButtonInProgress ? (
-								<LoadingCircle />
-							) : userData.follower && userData.followed ? (
-								"Unfriend"
-							) : userData.followed ? (
-								"Followed"
-							) : userData.follower ? (
-								"Accept request"
-							) : (
-								"Add friend"
-							)}
+							{followButtonInProgress ? <LoadingCircle /> : followButtonText}
 						</button>
 					</>
 				)}

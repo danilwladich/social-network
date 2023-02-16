@@ -106,6 +106,7 @@ export function FriendsPage(props: IProps) {
 							{props.usersData.map((u) => (
 								<User
 									key={u.nickname}
+									isAuth={!!props.authNickname}
 									itsMe={u.nickname === props.authNickname}
 									userData={u}
 									setFollow={() => setFollow(u.nickname)}

@@ -4,6 +4,7 @@ import { User } from "./User";
 import { PayPal } from "./PayPal";
 
 interface IProps {
+	isAuth: boolean;
 	bodyTheme: string;
 	donationsData: DonationData[];
 	newDonationTC: (v: number) => Promise<void>;
@@ -15,7 +16,7 @@ export function Support(props: IProps) {
 			<div className="settings__item">
 				<h3 className="settings__category">Support project</h3>
 
-				<PayPal newDonationTC={props.newDonationTC} />
+				<PayPal newDonationTC={props.newDonationTC} isAuth={props.isAuth}/>
 
 				{!!props.donationsData.length && (
 					<div className="settings__topdonations">

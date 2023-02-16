@@ -1,8 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { connect } from "react-redux";
 import { IState } from "../../../models/IState";
-import { AuthRedirect } from "../../../hoc/AuthRedirect";
-import { compose } from "redux";
 import { Navigate, useLocation, useParams } from "react-router-dom";
 import { FriendsPage } from "./FriendsPage";
 import { getFriendsTC } from "../../../redux/friendsReducer";
@@ -88,6 +86,9 @@ function FriendsPageAPI(props: IProps) {
 	}, [userNickname, category, currentPage, props.pageSize, search]);
 
 	if (!userNickname) {
+		if (!props.authNickname) {
+			return <Navigate to="/login" />;
+		}
 		return <Navigate to={"/friends/" + props.authNickname + "/all"} />;
 	}
 	if (
@@ -138,13 +139,10 @@ function mapStateToProps(state: IState) {
 	};
 }
 
-const FriendsPageContainer: any = compose(
-	connect(mapStateToProps, {
-		getFriendsTC,
-		setFollowTC,
-		setUnfollowTC,
-	}),
-	AuthRedirect
-)(FriendsPageAPI);
+const FriendsPageContainer = connect(mapStateToProps, {
+	getFriendsTC,
+	setFollowTC,
+	setUnfollowTC,
+})(FriendsPageAPI);
 
 export default FriendsPageContainer;

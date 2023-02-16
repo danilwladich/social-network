@@ -6,7 +6,11 @@ import { Copyright } from "./Copyright/Copyright";
 import { Messages } from "./Messages/Messages";
 import { SupportContainer } from "./Support/SupportContainer";
 
-export function SettingsPage() {
+interface IProps {
+	isAuth: boolean;
+}
+
+export function SettingsPage(props: IProps) {
 	document.title = `Settings`;
 	return (
 		<>
@@ -15,9 +19,13 @@ export function SettingsPage() {
 					<div className="settings__items">
 						<GeneralContainer />
 
-						<Messages />
+						{props.isAuth && (
+							<>
+								<Messages />
 
-						<AccountContainer />
+								<AccountContainer />
+							</>
+						)}
 
 						<Copyright />
 

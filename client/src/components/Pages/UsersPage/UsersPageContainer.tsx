@@ -4,16 +4,15 @@ import {
 	setUnfollowTC,
 } from "../../../redux/usersReducer";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { IState } from "../../../models/IState";
 import { UsersUserData } from "../../../models/Users/UsersUserData";
 import { UsersPage } from "./UsersPage";
 import React, { useEffect, useState, useLayoutEffect } from "react";
-import { AuthRedirect } from "../../../hoc/AuthRedirect";
 import { UsersPageLoading } from "./UsersPageLoading";
 import { useLocation } from "react-router-dom";
 
 interface IProps {
+	isAuth: boolean;
 	usersData: UsersUserData[];
 	pageSize: number;
 	totalCount: number;
@@ -80,19 +79,17 @@ function UsersPageAPI(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
+		isAuth: state.auth.isAuth,
 		usersData: state.users.usersData,
 		pageSize: state.users.pageSize,
 		totalCount: state.users.totalCount,
 	};
 }
 
-const UsersPageContainer = compose(
-	connect(mapStateToProps, {
-		getUsersTC,
-		setFollowTC,
-		setUnfollowTC,
-	}),
-	AuthRedirect
-)(UsersPageAPI);
+const UsersPageContainer = connect(mapStateToProps, {
+	getUsersTC,
+	setFollowTC,
+	setUnfollowTC,
+})(UsersPageAPI);
 
 export default UsersPageContainer;

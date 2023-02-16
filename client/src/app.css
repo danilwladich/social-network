@@ -109,8 +109,8 @@ h6 {
 
 :root {
   --dark-text-color: rgba(255, 255, 255, 0.87);
-  --dark-subsection-bg: rgb(26, 26, 26);
-  --dark-main-bg: rgb(37, 37, 37);
+  --dark-subsection-bg: rgb(37, 37, 37);
+  --dark-main-bg: rgb(26, 26, 26);
   --dark-button-text-color: #fff;
   --dark-button-bg: #326273;
   --dark-button-bg-active: #5c9ead;
@@ -312,12 +312,12 @@ body.lock {
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   margin: 45px 0px 0px 0px;
-  padding: 0px env(safe-area-inset-right) 0px env(safe-area-inset-left);
+  padding: 0px env(safe-area-inset-right) 10px env(safe-area-inset-left);
 }
 @media (min-width: 767px) {
   .content {
     margin: 50px 0px 0px 0px;
-    padding: 15px calc(15px + env(safe-area-inset-right)) 0px calc(15px + env(safe-area-inset-left));
+    padding: 15px calc(15px + env(safe-area-inset-right)) 15px calc(15px + env(safe-area-inset-left));
     display: grid;
     grid-template-columns: 0.667fr 200px minmax(537px, 1000px) 1fr;
   }
@@ -447,6 +447,7 @@ body.lock {
   cursor: pointer;
 }
 .form__incorrect {
+  font-size: 14px;
   color: rgba(255, 0, 0, 0.87) !important;
   position: absolute;
   bottom: -14px;

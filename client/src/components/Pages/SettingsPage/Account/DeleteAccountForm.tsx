@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
 	deleteAccountTC: (password: string) => Promise<void>;
-	modalOff: () => void;
 }
 
 export function DeleteAccountForm(props: IProps) {
+	const navigate = useNavigate();
 	const [submitting, setSubmitting] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
@@ -15,11 +16,12 @@ export function DeleteAccountForm(props: IProps) {
 		setSubmitting(true);
 		props
 			.deleteAccountTC(v.password)
-			.then(() => props.modalOff())
+			.then(() => {
+				navigate("/login");
+			})
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));
 	}
-
 	function validate(e: { password: string; confirmPassword: string }) {
 		const errors: { password?: string; confirmPassword?: string } = {};
 		// password

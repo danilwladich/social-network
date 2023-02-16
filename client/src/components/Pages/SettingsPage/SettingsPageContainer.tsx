@@ -1,9 +1,13 @@
-import { AuthRedirect } from "../../../hoc/AuthRedirect";
-import { compose } from "redux";
 import { SettingsPage } from "./SettingsPage";
+import { connect } from "react-redux";
+import { IState } from "../../../models/IState";
 
-const SettingsPageContainer = compose(
-	AuthRedirect
-)(SettingsPage);
+function mapStateToProps(state: IState) {
+	return {
+		isAuth: state.auth.isAuth,
+	};
+}
+
+const SettingsPageContainer = connect(mapStateToProps, {})(SettingsPage);
 
 export default SettingsPageContainer;

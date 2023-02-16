@@ -300,7 +300,7 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
   visibility: hidden;
 }
 .users__user_actions_follow svg {
-  margin: 0px 0px -4px 0px;
+  margin: 0px 0px -3px 0px;
   width: 85px;
   height: 18px;
 }

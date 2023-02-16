@@ -5,6 +5,7 @@ import { Content } from "./Content";
 import { Info } from "./Info";
 
 interface IProps {
+	isAuth: boolean;
 	postData: ProfilePostData;
 	buttonInProgress: boolean;
 	deletePost?: () => void;

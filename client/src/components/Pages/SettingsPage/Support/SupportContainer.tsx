@@ -9,6 +9,7 @@ import { useLayoutEffect } from "react";
 import { DonationData } from "../../../../models/Settings/DonationData";
 
 interface IProps {
+	isAuth: boolean;
 	bodyTheme: string;
 	donationsData: DonationData[];
 	getDonationsTC: () => Promise<void>;
@@ -30,6 +31,7 @@ function SupportAPI(props: IProps) {
 
 function mapStateToProps(state: IState) {
 	return {
+		isAuth: state.auth.isAuth,
 		bodyTheme: state.settings.bodyTheme,
 		donationsData: state.settings.donationsData,
 	};

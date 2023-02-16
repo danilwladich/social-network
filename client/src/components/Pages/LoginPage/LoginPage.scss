@@ -1,21 +1,36 @@
 html[theme="dark"] {
 	.login {
+		&__tagline {
+			span {
+				color: var(--dark-button-bg);
+			}
+		}
 	}
 }
 html[theme="light"] {
 	.login {
+		&__tagline {
+			span {
+				color: var(--light-button-bg);
+			}
+		}
 	}
 }
 
 .login {
-	grid-column: span 2 !important;
-	position: absolute;
-	width: 260px;
-	top: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	&__tagline {
+		display: none;
+	}
+	.subsection {
+		margin: 0 !important;
+		max-width: 260px;
+		overflow: hidden;
+	}
 	&__link {
+		font-weight: 700;
 		display: block;
 		margin: 15px 0px 0px 0px;
 		line-height: 150%;
@@ -29,13 +44,36 @@ html[theme="light"] {
 		position: absolute;
 		z-index: 1;
 		bottom: -10px;
-		right: -10px;
-		transform: translate(0) scale(0.7);
+		right: -1px;
+		transform: translate(0) scale(0.65);
 		opacity: 0.7;
 	}
+	@media (max-width: 766px) {
+		.subsection {
+			border: 0 !important;
+		}
+	}
 	@media (min-width: 767px) {
-		top: 15px;
-		width: 280px;
+		&__tagline {
+			display: block;
+			h3 {
+				font-size: 26px;
+				font-weight: 700;
+				letter-spacing: 1px;
+				line-height: 150%;
+			}
+			p {
+				line-height: 150%;
+				font-size: 16px;
+				opacity: 0.7;
+				a {
+					text-decoration: underline;
+				}
+			}
+		}
+		.subsection {
+			max-width: 280px;
+		}
 	}
 }
 

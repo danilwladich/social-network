@@ -24,12 +24,24 @@ export function RegisterPage(props: IProps) {
 	return (
 		<>
 			<section className="login">
+				<div className="login__tagline">
+					<h3>
+						Blo<span>xx</span> its <span>future</span>
+					</h3>
+					<p>
+						<NavLink to="/login">Login</NavLink> or{" "}
+						<NavLink to="/register">register</NavLink> now for free
+					</p>
+				</div>
+
 				<div className="subsection">
 					<h2 className="login__title title">Register</h2>
+
 					<RegisterForm
 						registerTC={props.registerTC}
 						bodyTheme={props.bodyTheme}
 					/>
+
 					<NavLink to="/login" className="login__link">
 						Already have account?
 					</NavLink>

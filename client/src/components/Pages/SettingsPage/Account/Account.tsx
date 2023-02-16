@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CloseX } from "../../../assets/CloseX";
 import { DeleteAccountForm } from "./DeleteAccountForm";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
 	logoutTC: () => Promise<void>;
@@ -8,6 +9,7 @@ interface IProps {
 }
 
 export function Account(props: IProps) {
+	const navigate = useNavigate();
 	const [showModal, setShowModal] = useState(false);
 
 	const bodyLock = document.querySelector("body");
@@ -19,11 +21,16 @@ export function Account(props: IProps) {
 		bodyLock?.classList.remove("lock");
 		setShowModal(false);
 	}
+
+	function logout() {
+		props.logoutTC().then(() => navigate("/login"));
+	}
+
 	return (
 		<>
 			<div className="settings__item">
 				<h3 className="settings__category">Account</h3>
-				<button onClick={() => props.logoutTC()} className="settings__button">
+				<button onClick={() => logout()} className="settings__button">
 					Log Out
 				</button>
 
@@ -37,18 +44,18 @@ export function Account(props: IProps) {
 							className="settings__delete_bg modal__bg"
 							onClick={() => modalOff()}
 						></div>
+
 						<div className="settings__delete_modal modal">
 							<h2 className="settings__delete_title title">Delete account</h2>
+
 							<button
 								className="settings__delete_close"
 								onClick={() => modalOff()}
 							>
 								<CloseX />
 							</button>
-							<DeleteAccountForm
-								deleteAccountTC={props.deleteAccountTC}
-								modalOff={modalOff}
-							/>
+
+							<DeleteAccountForm deleteAccountTC={props.deleteAccountTC} />
 						</div>
 					</>
 				)}

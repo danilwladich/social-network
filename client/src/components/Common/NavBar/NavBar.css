@@ -141,4 +141,10 @@ html[theme=light] .navbar__bg {
     font-size: 22px;
     padding: 5px 15px;
   }
+  .navbar__link:not(:last-child) {
+    margin: 1px 1px 6px 1px;
+  }
+  .navbar__link:not(:last-child):hover, .navbar__link:not(:last-child):focus {
+    margin: 0 0 5px 0;
+  }
 }

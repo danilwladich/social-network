@@ -1,7 +1,7 @@
-import { IState } from "../../../../models/IState";
+import { IState } from "../../../../../models/IState";
 import { connect } from "react-redux";
 import { Edit } from "./Edit";
-import { editProfileTC } from "../../../../redux/profileReducer";
+import { editProfileTC } from "../../../../../redux/profileReducer";
 
 function mapStateToProps(state: IState) {
 	return {

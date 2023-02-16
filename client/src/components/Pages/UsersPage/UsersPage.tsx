@@ -6,6 +6,7 @@ import { LoadingCircle } from "../../assets/LoadingCircle";
 import { UsersSearch } from "./Search/UsersSearch";
 
 interface IProps {
+	isAuth: boolean;
 	usersData: UsersUserData[];
 	isLoading: boolean;
 	search?: string;
@@ -52,6 +53,7 @@ export function UsersPage(props: IProps) {
 							{props.usersData.map((u) => (
 								<User
 									key={u.nickname}
+									isAuth={props.isAuth}
 									userData={u}
 									setFollow={() => setFollow(u.nickname)}
 									setUnfollow={() => setUnfollow(u.nickname)}

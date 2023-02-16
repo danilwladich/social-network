@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 declare global {
 	interface Window {
@@ -7,6 +8,7 @@ declare global {
 }
 
 interface IProps {
+	isAuth: boolean;
 	newDonationTC: (v: number) => Promise<void>;
 }
 
@@ -21,7 +23,9 @@ export function PayPal(props: IProps) {
 				title: "PayPal - The safer, easier way to pay online!",
 			},
 			onComplete: (params: any) => {
-				props.newDonationTC(+params.amt);
+				if (props.isAuth) {
+					props.newDonationTC(+params.amt);
+				}
 				alert(`Thank you very much for your support`);
 			},
 		});
@@ -34,6 +38,13 @@ export function PayPal(props: IProps) {
 			<button id="payPalButton" className="settings__donation settings__button">
 				PayPal
 			</button>
+
+			{!props.isAuth && (
+				<div className="settings__donation_warning">
+					!If you want to appear in the list below, you need to{" "}
+					<NavLink to="/login">log in</NavLink>!
+				</div>
+			)}
 		</>
 	);
 }

@@ -48,22 +48,20 @@ export function Header(props: IProps) {
 						</h1>
 					</button>
 
-					{props.isAuth && (
-						<button
-							onClick={() => {
-								props.burger ? props.setBurger(false) : props.setBurger(true);
-							}}
-							className={"header__burger " + (props.burger ? "active" : "")}
-						>
-							{!props.burger && !!countOfUnreadMessages && (
-								<div className="countOfUnreadMessages">
-									{!!countOfUnreadMessages &&
-										(countOfUnreadMessages > 9 ? "9+" : countOfUnreadMessages)}
-								</div>
-							)}
-							<span></span>
-						</button>
-					)}
+					<button
+						onClick={() => {
+							props.burger ? props.setBurger(false) : props.setBurger(true);
+						}}
+						className={"header__burger " + (props.burger ? "active" : "")}
+					>
+						{!props.burger && !!countOfUnreadMessages && (
+							<div className="countOfUnreadMessages">
+								{!!countOfUnreadMessages &&
+									(countOfUnreadMessages > 9 ? "9+" : countOfUnreadMessages)}
+							</div>
+						)}
+						<span></span>
+					</button>
 				</nav>
 			</header>
 		</>

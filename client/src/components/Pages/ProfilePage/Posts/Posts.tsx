@@ -52,6 +52,7 @@ export function Posts(props: IProps) {
 					{props.postsData.map((p) => (
 						<Post
 							key={p.id}
+							isAuth={!!props.authNickname}
 							postData={p}
 							buttonInProgress={buttonsInProgress.some((id) => id === p.id)}
 							deletePost={

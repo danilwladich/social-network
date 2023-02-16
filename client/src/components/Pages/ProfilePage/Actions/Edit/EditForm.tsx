@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../../assets/LoadingCircle";
 import { useNavigate } from "react-router-dom";
-import { socket } from "../../../../App";
-import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
+import { socket } from "../../../../../App";
+import { ProfileUserData } from "../../../../../models/Profile/ProfileUserData";
 
 interface IProps {
 	userData: ProfileUserData;
