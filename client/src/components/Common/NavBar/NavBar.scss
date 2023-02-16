@@ -1,6 +1,9 @@
 html[theme="dark"] {
 	.navbar {
 		&__link {
+			&.active {
+				color: var(--dark-button-bg-active);
+			}
 			&:hover,
 			&:focus {
 				background-color: var(--dark-subsection-bg);
@@ -16,6 +19,9 @@ html[theme="dark"] {
 html[theme="light"] {
 	.navbar {
 		&__link {
+			&.active {
+				color: var(--light-button-bg-active);
+			}
 			&:hover,
 			&:focus {
 				background-color: var(--light-subsection-bg);
@@ -45,9 +51,6 @@ html[theme="light"] {
 		&:focus {
 			margin: 0;
 			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-		}
-		&.active {
-			font-weight: 700;
 		}
 		&.messages {
 			position: relative;

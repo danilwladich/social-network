@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
 
 declare global {
 	interface Window {
@@ -38,13 +37,6 @@ export function PayPal(props: IProps) {
 			<button id="payPalButton" className="settings__donation settings__button">
 				PayPal
 			</button>
-
-			{!props.isAuth && (
-				<div className="settings__donation_warning">
-					!If you want to appear in the list below, you need to{" "}
-					<NavLink to="/login">log in</NavLink>!
-				</div>
-			)}
 		</>
 	);
 }

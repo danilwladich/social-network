@@ -1,3 +1,6 @@
+html[theme=dark] .navbar__link.active {
+  color: var(--dark-button-bg-active);
+}
 html[theme=dark] .navbar__link:hover, html[theme=dark] .navbar__link:focus {
   background-color: var(--dark-subsection-bg);
   border: 1px solid var(--dark-button-bg);
@@ -6,6 +9,9 @@ html[theme=dark] .navbar__bg {
   background-color: var(--dark-main-bg);
 }
 
+html[theme=light] .navbar__link.active {
+  color: var(--light-button-bg-active);
+}
 html[theme=light] .navbar__link:hover, html[theme=light] .navbar__link:focus {
   background-color: var(--light-subsection-bg);
   border: 1px solid var(--light-button-bg);
@@ -40,9 +46,6 @@ html[theme=light] .navbar__bg {
   margin: 0;
   -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
           box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-.navbar__link.active {
-  font-weight: 700;
 }
 .navbar__link.messages {
   position: relative;
