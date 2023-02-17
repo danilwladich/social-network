@@ -121,7 +121,7 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
           user-select: none;
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
 .profile__loading_info {
   display: -webkit-box;

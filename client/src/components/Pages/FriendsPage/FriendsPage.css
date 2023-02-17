@@ -131,7 +131,7 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
   height: 33px;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
 .friends__loading_title_text {
   -webkit-box-flex: 0;
@@ -181,7 +181,7 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
       -ms-flex: 0 0 50px;
           flex: 0 0 50px;
   height: 50px;
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
 .friends__loading_info {
   -webkit-box-flex: 1;
@@ -441,7 +441,7 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
   .friends__title {
     gap: 15px;
   }
-  .friends__loading {
+  .friends__loading_item {
     gap: 15px;
   }
   .friends__loading_title {

@@ -150,7 +150,7 @@ html[theme="light"] {
 				flex: 0 0 33px;
 				height: 33px;
 				object-fit: cover;
-				border-radius: 50%;
+				border-radius: 50% !important;
 			}
 			&_text {
 				flex: 0 1 300px;
@@ -190,7 +190,7 @@ html[theme="light"] {
 		&_image {
 			flex: 0 0 50px;
 			height: 50px;
-			border-radius: 50%;
+			border-radius: 50% !important;
 		}
 		&_info {
 			flex: 1 1 auto;
@@ -404,7 +404,9 @@ html[theme="light"] {
 			gap: 15px;
 		}
 		&__loading {
-			gap: 15px;
+			&_item {
+				gap: 15px;
+			}
 			&_title {
 				gap: 15px;
 			}

@@ -102,7 +102,7 @@ html[theme="light"] {
 		&_image {
 			flex: 0 0 50px;
 			height: 50px;
-			border-radius: 50%;
+			border-radius: 50% !important;
 		}
 		&_info {
 			flex: 1 1 auto;
@@ -291,7 +291,9 @@ html[theme="light"] {
 	}
 	@media (min-width: 767px) {
 		&__loading {
-			gap: 15px;
+			&_item {
+				gap: 15px;
+			}
 			&_image {
 				flex: 0 0 75px;
 				height: 75px;

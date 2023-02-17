@@ -400,6 +400,10 @@ body.lock {
   }
 }
 
+.loading_element {
+  border-radius: 4px;
+}
+
 .countOfUnreadMessages {
   border-radius: 20px;
   font-size: 14px;

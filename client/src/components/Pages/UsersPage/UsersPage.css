@@ -79,7 +79,7 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
       -ms-flex: 0 0 50px;
           flex: 0 0 50px;
   height: 50px;
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
 .users__loading_info {
   -webkit-box-flex: 1;
@@ -309,7 +309,7 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
   visibility: visible;
 }
 @media (min-width: 767px) {
-  .users__loading {
+  .users__loading_item {
     gap: 15px;
   }
   .users__loading_image {
