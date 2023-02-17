@@ -22,7 +22,9 @@ html[theme="light"] {
 	align-items: center;
 	justify-content: space-around;
 	&__tagline {
-		display: none;
+		&_wrapper {
+			display: none;
+		}
 	}
 	.subsection {
 		margin: 0 !important;
@@ -55,7 +57,13 @@ html[theme="light"] {
 	}
 	@media (min-width: 767px) {
 		&__tagline {
-			display: block;
+			&_wrapper {
+				width: 225px;
+				display: block;
+			}
+			position: fixed;
+			top: 50%;
+			transform: translateY(calc(-50% + 15px));
 			h3 {
 				font-size: 26px;
 				font-weight: 700;

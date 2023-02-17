@@ -11,6 +11,7 @@ interface IProps {
 
 export function NavBar(props: IProps) {
 	const countOfUnreadMessages = props.countOfUnreadMessages.length;
+	const isAuth = !!props.authNickname;
 	return (
 		<>
 			<aside className={"navbar " + (props.burger ? "active" : "")}>
@@ -23,25 +24,25 @@ export function NavBar(props: IProps) {
 				<nav className="navbar__menu">
 					<NavLink
 						draggable="false"
-						to={"/" + (props.authNickname || "")}
+						to={!isAuth ? "/login" : "/" + props.authNickname}
 						onClick={() => props.setBurger(false)}
-						className="navbar__link"
+						className={"navbar__link " + (!isAuth ? "notAuth" : "")}
 					>
 						My Profile
 					</NavLink>
 					<NavLink
 						draggable="false"
-						to="/news"
+						to={!isAuth ? "/login" : "/news"}
 						onClick={() => props.setBurger(false)}
-						className="navbar__link"
+						className={"navbar__link " + (!isAuth ? "notAuth" : "")}
 					>
 						News
 					</NavLink>
 					<NavLink
 						draggable="false"
-						to="/messages"
+						to={!isAuth ? "/login" : "/messages"}
 						onClick={() => props.setBurger(false)}
-						className="navbar__link messages"
+						className={"navbar__link messages " + (!isAuth ? "notAuth" : "")}
 					>
 						Messages
 						{!!countOfUnreadMessages && (
@@ -52,9 +53,9 @@ export function NavBar(props: IProps) {
 					</NavLink>
 					<NavLink
 						draggable="false"
-						to={"/friends/" + (props.authNickname || "")}
+						to={!isAuth ? "/login" : "/friends/" + props.authNickname}
 						onClick={() => props.setBurger(false)}
-						className="navbar__link"
+						className={"navbar__link " + (!isAuth ? "notAuth" : "")}
 					>
 						My Friends
 					</NavLink>

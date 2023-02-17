@@ -205,7 +205,9 @@ html[theme="light"] {
 			}
 		}
 		&_post {
-			margin: 15px 0px 0px 0px;
+			&:not(:first-child) {
+				margin: 15px 0px 0px 0px;
+			}
 			height: 76px;
 		}
 	}

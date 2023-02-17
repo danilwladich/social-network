@@ -1,4 +1,4 @@
-html[theme=dark] .navbar__link.active {
+html[theme=dark] .navbar__link:not(.notAuth).active {
   color: var(--dark-button-bg-active);
 }
 html[theme=dark] .navbar__link:hover, html[theme=dark] .navbar__link:focus {
@@ -9,7 +9,7 @@ html[theme=dark] .navbar__bg {
   background-color: var(--dark-main-bg);
 }
 
-html[theme=light] .navbar__link.active {
+html[theme=light] .navbar__link:not(.notAuth).active {
   color: var(--light-button-bg-active);
 }
 html[theme=light] .navbar__link:hover, html[theme=light] .navbar__link:focus {
@@ -58,6 +58,9 @@ html[theme=light] .navbar__bg {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+.navbar__link.notAuth {
+  opacity: 0.5;
 }
 @media (max-width: 766px) {
   .navbar {

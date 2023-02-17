@@ -16,7 +16,7 @@ html[theme=light] .login__tagline span {
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
-.login__tagline {
+.login__tagline_wrapper {
   display: none;
 }
 .login .subsection {
@@ -52,6 +52,14 @@ html[theme=light] .login__tagline span {
 }
 @media (min-width: 767px) {
   .login__tagline {
+    position: fixed;
+    top: 50%;
+    -webkit-transform: translateY(calc(-50% + 15px));
+        -ms-transform: translateY(calc(-50% + 15px));
+            transform: translateY(calc(-50% + 15px));
+  }
+  .login__tagline_wrapper {
+    width: 225px;
     display: block;
   }
   .login__tagline h3 {

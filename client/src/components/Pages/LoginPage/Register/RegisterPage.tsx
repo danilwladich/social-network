@@ -24,14 +24,16 @@ export function RegisterPage(props: IProps) {
 	return (
 		<>
 			<section className="login">
-				<div className="login__tagline">
-					<h3>
-						Blo<span>xx</span> its <span>future</span>
-					</h3>
-					<p>
-						<NavLink to="/login">Login</NavLink> or{" "}
-						<NavLink to="/register">register</NavLink> now for free
-					</p>
+				<div className="login__tagline_wrapper">
+					<div className="login__tagline">
+						<h3>
+							Blo<span>xx</span> its <span>future</span>
+						</h3>
+						<p>
+							<NavLink to="/login">Login</NavLink> or{" "}
+							<NavLink to="/register">register</NavLink> now for free
+						</p>
+					</div>
 				</div>
 
 				<div className="subsection">

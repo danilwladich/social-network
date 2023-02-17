@@ -183,8 +183,10 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   height: 35px;
 }
 .profile__loading_post {
-  margin: 15px 0px 0px 0px;
   height: 76px;
+}
+.profile__loading_post:not(:first-child) {
+  margin: 15px 0px 0px 0px;
 }
 .profile__not_found {
   line-height: 150%;

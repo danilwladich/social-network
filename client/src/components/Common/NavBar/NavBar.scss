@@ -1,7 +1,7 @@
 html[theme="dark"] {
 	.navbar {
 		&__link {
-			&.active {
+			&:not(.notAuth).active {
 				color: var(--dark-button-bg-active);
 			}
 			&:hover,
@@ -19,7 +19,7 @@ html[theme="dark"] {
 html[theme="light"] {
 	.navbar {
 		&__link {
-			&.active {
+			&:not(.notAuth).active {
 				color: var(--light-button-bg-active);
 			}
 			&:hover,
@@ -57,6 +57,9 @@ html[theme="light"] {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+		}
+		&.notAuth {
+			opacity: 0.5;
 		}
 	}
 	@media (max-width: 766px) {
