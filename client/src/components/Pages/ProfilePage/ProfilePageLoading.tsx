@@ -20,7 +20,7 @@ export function ProfilePageLoading(props: IProps) {
 
 						<div className="profile__loading_actions">
 							<div className="loading_element"></div>
-							<div className="loading_element"></div>
+							{!props.itsMe && <div className="loading_element"></div>}
 						</div>
 					</div>
 				</div>

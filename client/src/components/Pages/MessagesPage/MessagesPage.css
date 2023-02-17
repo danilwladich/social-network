@@ -165,6 +165,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
 }
 
 .messages__loading_users {
+  margin: -5px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

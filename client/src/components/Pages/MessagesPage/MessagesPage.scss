@@ -258,6 +258,7 @@ html[theme="light"] {
 .messages {
 	&__loading {
 		&_users {
+			margin: -5px 0;
 			display: flex;
 			flex-direction: column;
 			gap: 5px;
