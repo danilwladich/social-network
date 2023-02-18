@@ -29,6 +29,8 @@ function UserLoading() {
 						<div className="messages__loading_user_lastmessage_date loading_element"></div>
 					</div>
 				</div>
+
+				<div className="messages__loading_user_actions loading_element"></div>
 			</div>
 		</>
 	);

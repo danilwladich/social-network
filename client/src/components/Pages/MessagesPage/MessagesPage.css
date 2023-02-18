@@ -176,6 +176,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   gap: 5px;
 }
 .messages__loading_user {
+  position: relative;
   padding: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -232,6 +233,16 @@ html[theme=light] .messages__message.out .messages__message_content * {
 .messages__loading_user_lastmessage_date {
   width: 35px;
   height: 14px;
+}
+.messages__loading_user_actions {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  width: 30px;
+  height: 10px;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 .messages__loading_chat {
   padding: 5px calc(10px + env(safe-area-inset-right)) 5px calc(10px + env(safe-area-inset-left));
@@ -743,6 +754,9 @@ html[theme=light] .messages__message.out .messages__message_content * {
   }
   .messages__loading_user_info {
     height: 60px;
+  }
+  .messages__loading_user_actions {
+    right: 15px;
   }
   .messages__loading_chat {
     position: static;

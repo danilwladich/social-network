@@ -21,6 +21,7 @@ export function EditForm(props: IProps) {
 	const newImageRef = useRef<HTMLImageElement>(null);
 	const [submitting, setSubmitting] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+	const hostname = window.location.hostname;
 
 	function onUpdateProfileImage(e: React.ChangeEvent<HTMLInputElement>) {
 		if (e.target.files?.length && e.target.files[0].size <= 10000000) {
@@ -189,7 +190,7 @@ export function EditForm(props: IProps) {
 									>
 										Nickname
 										<p>
-											bloxx.com.pl/
+											{hostname}/
 											{values.nickname
 												? values.nickname
 														.trim()

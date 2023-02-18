@@ -7,7 +7,6 @@ if (process.env.NODE_ENV === "production") {
 } else {
 	baseURL = "http://localhost:80/api/";
 }
-// 	baseURL = "http://10.8.0.109:80/api/";
 
 const instance = axios.create({
 	withCredentials: true,

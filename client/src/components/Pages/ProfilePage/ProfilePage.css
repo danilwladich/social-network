@@ -36,9 +36,6 @@ html[theme=dark] .profile__post_like {
 html[theme=dark] .profile__post_like:hover, html[theme=dark] .profile__post_like:focus {
   background-color: var(--dark-button-bg-active);
 }
-html[theme=dark] .profile__post_actions_show {
-  background-color: var(--dark-subsection-bg);
-}
 html[theme=dark] .profile__post_actions_show span,
 html[theme=dark] .profile__post_actions_show span:before,
 html[theme=dark] .profile__post_actions_show span:after {
@@ -92,9 +89,6 @@ html[theme=light] .profile__post_like {
 }
 html[theme=light] .profile__post_like:hover, html[theme=light] .profile__post_like:focus {
   background-color: var(--light-button-bg-active);
-}
-html[theme=light] .profile__post_actions_show {
-  background-color: var(--light-subsection-bg);
 }
 html[theme=light] .profile__post_actions_show span,
 html[theme=light] .profile__post_actions_show span:before,

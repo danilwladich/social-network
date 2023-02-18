@@ -16,12 +16,14 @@ export function ProfilePage() {
 						<ActionsContainer />
 					</div>
 
-					<div className="subsection">
-						<AboutContainer />
-					</div>
+					<div className="profile__row">
+						<div className="subsection nf">
+							<AboutContainer />
+						</div>
 
-					<div className="subsection">
-						<PostsContainer />
+						<div className="subsection">
+							<PostsContainer />
+						</div>
 					</div>
 				</div>
 			</section>

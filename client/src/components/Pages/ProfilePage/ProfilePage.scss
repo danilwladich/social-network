@@ -50,7 +50,6 @@ html[theme="dark"] {
 			}
 			&_actions {
 				&_show {
-					background-color: var(--dark-subsection-bg);
 					span,
 					span:before,
 					span:after {
@@ -124,7 +123,6 @@ html[theme="light"] {
 			}
 			&_actions {
 				&_show {
-					background-color: var(--light-subsection-bg);
 					span,
 					span:before,
 					span:after {
@@ -513,6 +511,21 @@ html[theme="light"] {
 			font-size: 12px;
 		}
 	}
+	// @media (min-width: 1023px) {
+	// 	&__row {
+	// 		display: flex;
+	// 		gap: 15px;
+	// 		align-items: flex-start;
+	// 		.subsection:first-child {
+	// 			order: 2;
+	// 			flex: 0 0 300px;
+	// 		}
+	// 		.subsection:last-child {
+	// 			order: 1;
+	// 			flex: 1 1 auto;
+	// 		}
+	// 	}
+	// }
 	@media (min-width: 767px) {
 		&__loading {
 			&_user {
