@@ -7,7 +7,7 @@ function mapStateToProps(state: IState) {
 	return {
 		isAuth: state.auth.isAuth,
 		authNickname: state.auth.user.nickname,
-		headerImage: state.header.headerImage,
+		authImage: state.app.authProfile.image,
 		burger: state.header.burger,
 		countOfUnreadMessages: state.messages.countOfUnreadMessages,
 	};

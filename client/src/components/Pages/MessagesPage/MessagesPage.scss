@@ -95,6 +95,9 @@ html[theme="dark"] {
 			&_input {
 				&_field {
 					border: 2px solid var(--dark-button-bg);
+					&:focus {
+						border: 2px solid var(--dark-button-bg-active);
+					}
 				}
 				&_send {
 					&:not(:disabled):hover {
@@ -108,7 +111,7 @@ html[theme="dark"] {
 		}
 		&__message {
 			&_content {
-				background-color: var(--dark-main-bg);
+				background-color: var(--dark-input-bg);
 				.messages__message_status:not(.read) {
 					svg {
 						fill: var(--dark-button-text-color);
@@ -223,6 +226,9 @@ html[theme="light"] {
 			&_input {
 				&_field {
 					border: 2px solid var(--light-button-bg);
+					&:focus {
+						border: 2px solid var(--light-button-bg-active);
+					}
 				}
 				&_send {
 					&:not(:disabled):hover {
@@ -236,7 +242,7 @@ html[theme="light"] {
 		}
 		&__message {
 			&_content {
-				background-color: var(--light-main-bg);
+				background-color: var(--light-input-bg);
 				.messages__message_status:not(.read) {
 					svg {
 						fill: var(--light-button-text-color);
@@ -649,6 +655,8 @@ html[theme="light"] {
 		}
 	}
 	&__date {
+		font-weight: 700;
+		letter-spacing: 1px;
 		opacity: 0.7;
 		margin: 0px 0px 10px 0px;
 		text-align: center;

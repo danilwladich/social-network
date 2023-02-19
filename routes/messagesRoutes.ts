@@ -34,61 +34,61 @@ router.get(
 			let usersArray: string[] = [];
 			usersSet.forEach((id) => usersArray.push(id));
 
-			// find users and last message for each
-			const users = await Promise.all(
+			// last messages for each users ids
+			const lastMessages = await Promise.all(
 				usersArray.map(async (id) => {
-					const lastMessage = await Message.findOne(
-						{
-							$or: [
-								{ from: id, to: authID },
-								{ to: id, from: authID },
-							],
-						},
-						{ _id: 1, date: 1, message: 1, read: 1, from: 1 }
-					).sort({ _id: -1 });
-
-					return {
-						...(await User.findById(id, {
-							_id: 1,
-							nickname: 1,
-							firstName: 1,
-							lastName: 1,
-							avatar: 1,
-						}))!.toObject(),
-
-						lastMessage: {
-							...lastMessage!.toObject(),
-							id: lastMessage!._id,
-							out: lastMessage!.from!.toString() === authID,
-							from: undefined,
-							_id: undefined,
-						},
-					};
+					return await Message.findOne({
+						$or: [
+							{ from: id, to: authID },
+							{ to: id, from: authID },
+						],
+					}).sort({ _id: -1 });
 				})
 			);
 
-			// sorting users by last message id
-			users.sort((a, b) => {
-				if (a.lastMessage.id > b.lastMessage.id) {
+			// sorting last messages by id
+			lastMessages.sort((a, b) => {
+				if (a?.id > b?.id) {
 					return -1;
 				}
-				if (a.lastMessage.id < b.lastMessage.id) {
+				if (a?.id < b?.id) {
 					return 1;
 				}
 				return 0;
 			});
 
-			// mapping users
-			const usersData = users.map((u) => {
-				return {
-					nickname: u.nickname,
-					lastName: u.lastName,
-					firstName: u.firstName,
-					image: u.avatar,
-					lastMessage: u.lastMessage,
-					online: u.nickname in connectedSockets,
-				};
-			});
+			// mapping lastMessages and finding user
+			const usersData = await Promise.all(
+				lastMessages.map(async (m) => {
+					if (!!m) {
+						const userID = m.from!.toString() === authID ? m.to : m.from;
+						const user = await User.findById(userID, {
+							nickname: 1,
+							firstName: 1,
+							lastName: 1,
+							avatar: 1,
+						});
+
+						if (!!user) {
+							return {
+								nickname: user.nickname,
+								firstName: user.firstName,
+								lastName: user.lastName,
+								image: user.avatar,
+								online: user.nickname in connectedSockets,
+
+								lastMessage: {
+									id: m._id,
+									message: m.message,
+									date: m.date,
+									out: m.from!.toString() === authID,
+									read: m.read,
+								},
+							};
+						}
+					}
+				})
+			);
 
 			res.status(200).json({
 				success: true,

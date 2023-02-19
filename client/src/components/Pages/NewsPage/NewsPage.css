@@ -32,6 +32,9 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
 .news__loading_post:not(:first-child) {
   margin: 15px 0px 0px 0px;
 }
+.news__posts {
+  margin: -10px 0;
+}
 .news__posts_loading {
   margin: 30px 0px 0px 0px;
   height: 30px;
@@ -46,14 +49,16 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   width: 30px;
   height: 30px;
 }
-.news__post:first-child:not(:last-child) {
-  padding: 0px 0px 10px 0px;
+.news__posts_no_posts {
+  line-height: 150%;
+  font-size: 20px;
+  text-align: center;
 }
-.news__post:last-child:not(:first-child) {
-  padding: 10px 0px 0px 0px;
+.news__posts_no_posts a {
+  text-decoration: underline;
 }
-.news__post:not(:last-child):not(:first-child) {
-  padding: 10px 0px 10px 0px;
+.news__post {
+  padding: 10px 0;
 }
 .news__post_owner {
   display: -webkit-box;
@@ -84,6 +89,7 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
+  line-height: 150%;
   font-weight: 700;
   font-size: 14px;
   white-space: nowrap;
@@ -95,9 +101,86 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   display: block;
   line-height: 35px;
 }
-.news__post_content {
+.news__post_content_text {
   line-height: 150%;
   font-size: 16px;
+}
+.news__post_content_images {
+  margin: 0 -5px;
+  display: grid;
+  gap: 2px;
+}
+.news__post_content_images:not(:first-child) {
+  margin: 10px -5px 0px;
+}
+.news__post_content_images .news__post_content_image {
+  position: relative;
+  padding: 0px 0px 100% 0px;
+}
+.news__post_content_images .news__post_content_image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+}
+.news__post_content_images.one {
+  grid-template-columns: 1fr minmax(270px, 425px) 1fr;
+  gap: 0;
+}
+.news__post_content_images.one .news__post_content_image {
+  grid-column: 2/3;
+}
+.news__post_content_images.two {
+  grid-template-columns: 1fr 1fr;
+}
+.news__post_content_images.three {
+  grid-template-columns: 1.3333fr 0.6777fr;
+}
+.news__post_content_images.three .news__post_content_image:first-child {
+  grid-row: span 2;
+}
+.news__post_content_images.four {
+  grid-template-columns: 1fr 1fr;
+}
+.news__post_content_images.five {
+  grid-template-columns: repeat(6, 1fr);
+}
+.news__post_content_images.five .news__post_content_image {
+  grid-column: span 2;
+}
+.news__post_content_images.five .news__post_content_image:nth-child(1), .news__post_content_images.five .news__post_content_image:nth-child(2) {
+  grid-column: span 3;
+}
+.news__post_content_images.six {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.news__post_content_images.seven {
+  grid-template-columns: repeat(10, 1fr);
+}
+.news__post_content_images.seven .news__post_content_image {
+  grid-column: span 2;
+}
+.news__post_content_images.seven .news__post_content_image:nth-child(1), .news__post_content_images.seven .news__post_content_image:nth-child(2) {
+  grid-column: span 5;
+}
+.news__post_content_images.eight {
+  grid-template-columns: repeat(6, 1fr);
+}
+.news__post_content_images.eight .news__post_content_image:nth-child(1), .news__post_content_images.eight .news__post_content_image:nth-child(2) {
+  grid-column: span 3;
+}
+.news__post_content_images.nine {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.news__post_content_images.ten {
+  grid-template-columns: repeat(8, 1fr);
+}
+.news__post_content_images.ten .news__post_content_image:nth-child(1), .news__post_content_images.ten .news__post_content_image:nth-child(2) {
+  grid-column: span 4;
 }
 .news__post_more {
   background-color: transparent;
@@ -136,14 +219,6 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   opacity: 0.7;
   font-size: 12px;
 }
-.news__no_posts {
-  line-height: 150%;
-  font-size: 20px;
-  text-align: center;
-}
-.news__no_posts a {
-  text-decoration: underline;
-}
 @media (min-width: 767px) {
   .news__post_owner {
     gap: 15px;
@@ -162,6 +237,12 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   .news__post_owner_name a {
     display: inline-block;
     line-height: 100%;
+  }
+  .news__post_content_images {
+    margin: 0;
+  }
+  .news__post_content_images:not(:first-child) {
+    margin: 10px 0px 0px 0px;
   }
   .news__post_date {
     font-size: 14px;

@@ -51,22 +51,50 @@ router.get("/user/:nickname", async (req: Request, res: Response) => {
 			online: nickname in connectedSockets,
 		};
 
-		const friends: number =
-			user.following.filter((id) => user.followers.includes(id)).length || 0;
+		// friends
+		const friends = user.following.filter((id) => user.followers.includes(id));
 
-		const aboutData = {
-			follow: {
-				friends,
-				followers: user.followers.length - friends,
-				following: user.following.length - friends,
+		const usersInFriends = await User.find(
+			{ _id: { $in: friends } },
+			{ nickname: 1, firstName: 1, lastName: 1, avatar: 1 }
+		)
+			.sort({ _id: 1 })
+			.limit(9);
+
+		const friendsUsersData = usersInFriends.map((u) => {
+			return {
+				nickname: u.nickname,
+				firstName: u.firstName,
+				lastName: u.lastName,
+				image: u.avatar,
+				online: u.nickname in connectedSockets,
+			};
+		});
+
+		// followers
+		const followers = user.followers.filter(
+			(id) => !user.following.includes(id)
+		);
+
+		// following
+		const following = user.following.filter(
+			(id) => !user.followers.includes(id)
+		);
+
+		const followData = {
+			friends: {
+				usersData: friendsUsersData,
+				totalCount: friends.length,
 			},
+			followers: followers.length,
+			following: following.length,
 		};
 
 		res.status(200).json({
 			success: true,
 			statusText: "Profile sent successfully",
 			userData,
-			aboutData,
+			followData,
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });

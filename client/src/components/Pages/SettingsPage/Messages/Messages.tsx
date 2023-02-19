@@ -14,8 +14,7 @@ export function Messages() {
 			<div className="settings__item">
 				<h3 className="settings__category">Messages</h3>
 				<button onClick={() => onClickHandler()} className="settings__button">
-					Read messages: {readMessages + ""}{" "}
-					<span className="settings__button_beta">beta</span>
+					Read messages: {readMessages ? "on" : " off"}
 				</button>
 			</div>
 		</>

@@ -4,7 +4,7 @@ import { About } from "./About";
 
 function mapStateToProps(state: IState) {
 	return {
-		aboutData: state.profile.aboutData,
+		followData: state.profile.followData,
 		userNickname: state.profile.userData.nickname,
 	};
 }

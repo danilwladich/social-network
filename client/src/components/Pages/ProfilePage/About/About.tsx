@@ -1,31 +1,54 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { ProfileAboutData } from "../../../../models/Profile/ProfileAboutData";
+import { ProfileFollowData } from "../../../../models/Profile/ProfileFollowData";
+import { User } from "./User/User";
 
 interface IProps {
-	aboutData: ProfileAboutData;
+	followData: ProfileFollowData;
 	userNickname: string;
 }
 
 export function About(props: IProps) {
-	const aboutData = props.aboutData;
+	const followData = props.followData;
+	const friends = followData.friends;
+	const followers = followData.followers;
+	const following = followData.following;
 	return (
 		<>
 			<div className="profile__about">
-				{Object.entries(aboutData.follow).map((kv) => (
+				<div className="profile__about_links">
 					<NavLink
-						key={kv[0]}
-						to={
-							"/friends/" +
-							props.userNickname +
-							"/" +
-							(kv[0] === "friends" ? "all" : kv[0])
-						}
+						draggable="false"
+						to={"/friends/" + props.userNickname + "/all"}
 						className="profile__about_link"
 					>
-						<strong>{kv[0]}</strong> {kv[1]}
+						Friends <span>{friends.totalCount}</span>
 					</NavLink>
-				))}
+
+					<NavLink
+						draggable="false"
+						to={"/friends/" + props.userNickname + "/followers"}
+						className="profile__about_link"
+					>
+						Followers <span>{followers}</span>
+					</NavLink>
+					
+					<NavLink
+						draggable="false"
+						to={"/friends/" + props.userNickname + "/following"}
+						className="profile__about_link"
+					>
+						Following <span>{following}</span>
+					</NavLink>
+				</div>
+
+				{!!friends.usersData.length && (
+					<div className="profile__about_users">
+						{friends.usersData.slice(0, 8).map((u) => (
+							<User key={u.nickname} user={u} />
+						))}
+					</div>
+				)}
 			</div>
 		</>
 	);

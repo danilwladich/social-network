@@ -1,7 +1,7 @@
 import { IState } from "../../../../models/IState";
 import { connect } from "react-redux";
 import { Actions } from "./Actions";
-import { setFollowTC, setUnfollowTC } from "../../../../redux/usersReducer";
+import { setFollowTC, setUnfollowTC } from "../../../../redux/profileReducer";
 
 function mapStateToProps(state: IState) {
 	return {

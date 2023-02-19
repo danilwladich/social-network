@@ -61,7 +61,7 @@ html[theme="light"] {
 	padding: 5px env(safe-area-inset-right) 5px env(safe-area-inset-left);
 	height: 45px;
 	display: grid;
-	grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
+	grid-template-columns: 1fr minmax(auto, 900px) 1fr;
 	&__menu {
 		height: 35px;
 		grid-column: 2/3;

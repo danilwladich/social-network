@@ -7,6 +7,7 @@ import { authMeTC } from "./authReducer";
 
 const initialState: IApp = {
 	errorMessage: "",
+	authProfile: JSON.parse(localStorage.getItem("authProfile") || "{}"),
 };
 
 export function appReducer(state: IApp = initialState, action: IAction) {
@@ -15,6 +16,14 @@ export function appReducer(state: IApp = initialState, action: IAction) {
 			return {
 				...state,
 				errorMessage: action.value,
+			};
+
+		case ActionType.SET_AUTH_PROFILE:
+			const value = JSON.stringify(action.value);
+			localStorage.setItem("authProfile", value);
+			return {
+				...state,
+				authProfile: action.value,
 			};
 
 		default:
@@ -26,6 +35,15 @@ export function appReducer(state: IApp = initialState, action: IAction) {
 export const setErrorMessage: (v: string) => IAction = (v) => ({
 	type: ActionType.SET_ERROR_MESSAGE,
 	value: v,
+});
+
+export const setAuthProfile: (value: {
+	firstName: string;
+	lastName: string;
+	image?: string;
+}) => IAction = (value) => ({
+	type: ActionType.SET_AUTH_PROFILE,
+	value,
 });
 
 // thunk

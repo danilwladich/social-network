@@ -160,10 +160,7 @@ html[theme=dark] .app_loading_balls g:nth-child(even) circle {
 html[theme=dark] .subsection {
   background-color: var(--dark-subsection-bg);
 }
-html[theme=dark] .subsection:not(:empty):not(:first-child) {
-  border-top: 1px solid var(--dark-button-bg);
-}
-html[theme=dark] .subsection:not(:empty).nf {
+html[theme=dark] .subsection:not(:empty):not(:first-child), html[theme=dark] .subsection:not(:empty).nf {
   border-top: 1px solid var(--dark-button-bg);
 }
 @media (min-width: 767px) {
@@ -237,10 +234,7 @@ html[theme=light] .app_loading_balls g:nth-child(even) circle {
 html[theme=light] .subsection {
   background-color: var(--light-subsection-bg);
 }
-html[theme=light] .subsection:not(:empty):not(:first-child) {
-  border-top: 1px solid var(--light-button-bg);
-}
-html[theme=light] .subsection:not(:empty).nf {
+html[theme=light] .subsection:not(:empty):not(:first-child), html[theme=light] .subsection:not(:empty).nf {
   border-top: 1px solid var(--light-button-bg);
 }
 @media (min-width: 767px) {
@@ -311,7 +305,7 @@ body.lock {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  min-height: 100%;
+  min-height: var(--app-height);
 }
 
 .content {
@@ -327,7 +321,7 @@ body.lock {
     margin: 50px 0px 0px 0px;
     padding: 15px calc(15px + env(safe-area-inset-right)) 15px calc(15px + env(safe-area-inset-left));
     display: grid;
-    grid-template-columns: 0.667fr 200px minmax(537px, 1000px) 1fr;
+    grid-template-columns: 1fr 200px minmax(537px, 700px) 1fr;
   }
   .content aside {
     grid-column: 2/3;
@@ -353,10 +347,7 @@ body.lock {
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     padding: 15px;
   }
-  .subsection:not(:empty):not(:first-child) {
-    margin: 15px 0px 0px 0px;
-  }
-  .subsection:not(:empty).nf {
+  .subsection:not(:empty):not(:first-child), .subsection:not(:empty).nf {
     margin: 15px 0px 0px 0px;
   }
 }
@@ -390,8 +381,8 @@ body.lock {
   padding: 15px 10px;
   border-radius: 8px;
   max-height: calc(100vh - 30px);
-  -webkit-animation: showModal 0.4s;
-          animation: showModal 0.4s;
+  -webkit-animation: showModal 0.2s;
+          animation: showModal 0.2s;
 }
 .modal__bg {
   position: fixed;
@@ -401,8 +392,8 @@ body.lock {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
-  -webkit-animation: showModal 0.4s;
-          animation: showModal 0.4s;
+  -webkit-animation: showModal 0.2s;
+          animation: showModal 0.2s;
 }
 @media (min-width: 767px) {
   .modal {

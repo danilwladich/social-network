@@ -47,7 +47,7 @@ export function friendsReducer(
 				totalCount: action.value,
 			};
 
-		case ActionType.FOLLOW:
+		case ActionType.FRIENDSPAGE_FOLLOW:
 			return {
 				...state,
 				usersData: state.usersData.map((u) => {
@@ -58,7 +58,7 @@ export function friendsReducer(
 				}),
 			};
 
-		case ActionType.UNFOLLOW:
+		case ActionType.FRIENDSPAGE_UNFOLLOW:
 			return {
 				...state,
 				usersData: state.usersData.map((u) => {
@@ -94,6 +94,18 @@ export const setFriends: (
 export const setFriendsTotalCount: (count: number) => IAction = (count) => ({
 	type: ActionType.SET_FRIENDS_TOTAL_COUNT,
 	value: count,
+});
+
+export const setFollow: (userNickname: string) => IAction = (userNickname) => ({
+	type: ActionType.FRIENDSPAGE_FOLLOW,
+	value: userNickname,
+});
+
+export const setUnfollow: (userNickname: string) => IAction = (
+	userNickname
+) => ({
+	type: ActionType.FRIENDSPAGE_UNFOLLOW,
+	value: userNickname,
 });
 
 // thunk
@@ -147,6 +159,42 @@ export const getFriendsTC = (
 		} catch (e: unknown) {
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Get friends: " + error.message));
+		}
+	};
+};
+
+export const setFollowTC = (nickname: string) => {
+	return async (dispatch: Dispatch<IAction>) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.followUser(nickname).then((data) => {
+				if (data.success === true) {
+					dispatch(setFollow(nickname));
+				} else {
+					dispatch(setErrorMessage("Follow: " + data.statusText));
+				}
+			});
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Follow: " + error.message));
+		}
+	};
+};
+
+export const setUnfollowTC = (nickname: string) => {
+	return async (dispatch: Dispatch<IAction>) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.unfollowUser(nickname).then((data) => {
+				if (data.success === true) {
+					dispatch(setUnfollow(nickname));
+				} else {
+					dispatch(setErrorMessage("Unfollow: " + data.statusText));
+				}
+			});
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Unfollow: " + error.message));
 		}
 	};
 };

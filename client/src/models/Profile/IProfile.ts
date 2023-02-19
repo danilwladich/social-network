@@ -1,10 +1,10 @@
 import { ProfileUserData } from "./ProfileUserData";
-import { ProfileAboutData } from "./ProfileAboutData";
+import { ProfileFollowData } from "./ProfileFollowData";
 import { ProfilePostData } from "./ProfilePostData";
 
 export interface IProfile {
 	userData: ProfileUserData;
-	aboutData: ProfileAboutData;
+	followData: ProfileFollowData;
 	postsData: ProfilePostData[];
 	pageSize: number;
 	totalCount: number;

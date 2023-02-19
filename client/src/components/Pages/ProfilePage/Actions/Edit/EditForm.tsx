@@ -14,6 +14,7 @@ interface IProps {
 		country?: string,
 		city?: string
 	) => Promise<void>;
+	modalOff: () => void;
 }
 
 export function EditForm(props: IProps) {
@@ -50,8 +51,9 @@ export function EditForm(props: IProps) {
 			.then(() => {
 				if (!!v.nickname) {
 					socket.emit("nicknameChanged", { nickname: props.authNickname });
+					navigate("/" + v.nickname);
 				}
-				navigate("/");
+				props.modalOff();
 			})
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));

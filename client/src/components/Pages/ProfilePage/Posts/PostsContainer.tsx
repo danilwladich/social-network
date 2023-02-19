@@ -15,6 +15,7 @@ import { LoadingCircle } from "../../../assets/LoadingCircle";
 interface IProps {
 	authNickname: string;
 	userNickname: string;
+	firstName: string;
 	postsData: ProfilePostData[];
 	pageSize: number;
 	totalCount: number;
@@ -86,6 +87,7 @@ function mapStateToProps(state: IState) {
 	return {
 		authNickname: state.auth.user.nickname,
 		userNickname: state.profile.userData.nickname,
+		firstName: state.profile.userData.firstName,
 		postsData: state.profile.postsData,
 		pageSize: state.profile.pageSize,
 		totalCount: state.profile.totalCount,

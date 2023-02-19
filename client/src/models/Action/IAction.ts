@@ -2,7 +2,7 @@ import { ActionType } from "./ActionType";
 import { UsersUserData } from "../Users/UsersUserData";
 import { IAuth } from "../IAuth";
 import { ProfilePostData } from "../Profile/ProfilePostData";
-import { ProfileAboutData } from "../Profile/ProfileAboutData";
+import { ProfileFollowData } from "../Profile/ProfileFollowData";
 import { ProfileUserData } from "../Profile/ProfileUserData";
 import { FriendsUserData } from "../Friends/FriendsUserData";
 import { WhoseFriends } from "../Friends/WhoseFriends";
@@ -16,6 +16,14 @@ import { DonationData } from "./../Settings/DonationData";
 interface setErrorMessage {
 	type: ActionType.SET_ERROR_MESSAGE;
 	value: string;
+}
+interface setAuthProfile {
+	type: ActionType.SET_AUTH_PROFILE;
+	value: {
+		firstName: string;
+		lastName: string;
+		image?: string;
+	};
 }
 
 // HEADER
@@ -47,7 +55,7 @@ interface setTheme {
 interface setProfile {
 	type: ActionType.SET_PROFILE;
 	userData: ProfileUserData;
-	aboutData: ProfileAboutData;
+	followData: ProfileFollowData;
 }
 interface addPost {
 	type: ActionType.ADD_POST;
@@ -75,6 +83,24 @@ interface unlikePost {
 	type: ActionType.UNLIKE_POST;
 	value: string;
 }
+interface profilePageFollowUser {
+	type: ActionType.PROFILEPAGE_FOLLOW;
+	authNickname: string;
+	authUser: {
+		firstName: string;
+		lastName: string;
+		image?: string;
+	};
+}
+interface profilePageUnfollowUser {
+	type: ActionType.PROFILEPAGE_UNFOLLOW;
+	authNickname: string;
+	authUser: {
+		firstName: string;
+		lastName: string;
+		image?: string;
+	};
+}
 
 // NEWS
 interface setNews {
@@ -85,16 +111,6 @@ interface setNews {
 interface setNewsTotalCount {
 	type: ActionType.SET_NEWS_TOTAL_COUNT;
 	value: number;
-}
-
-// USERS & PROFILE & FRIENDS
-interface followUser {
-	type: ActionType.FOLLOW;
-	value: string;
-}
-interface unfollowUser {
-	type: ActionType.UNFOLLOW;
-	value: string;
 }
 
 // MESSAGES
@@ -161,6 +177,14 @@ interface setFriendsTotalCount {
 	type: ActionType.SET_FRIENDS_TOTAL_COUNT;
 	value: number;
 }
+interface friendsPageFollowUser {
+	type: ActionType.FRIENDSPAGE_FOLLOW;
+	value: string;
+}
+interface friendsPageUnfollowUser {
+	type: ActionType.FRIENDSPAGE_UNFOLLOW;
+	value: string;
+}
 
 // USERS
 interface setUsers {
@@ -172,6 +196,14 @@ interface setUsersTotalCount {
 	type: ActionType.SET_USERS_TOTAL_COUNT;
 	value: number;
 }
+interface usersPageFollowUser {
+	type: ActionType.USERSPAGE_FOLLOW;
+	value: string;
+}
+interface usersPageUnfollowUser {
+	type: ActionType.USERSPAGE_UNFOLLOW;
+	value: string;
+}
 
 // SETTINGS
 interface setDonations {
@@ -181,6 +213,7 @@ interface setDonations {
 
 export type IAction =
 	| setAuthUser
+	| setAuthProfile
 	| setCountOfUnreadMessages
 	| setErrorMessage
 	| notAuthUser
@@ -189,7 +222,6 @@ export type IAction =
 	| sendMessage
 	| addPost
 	| messagesRead
-	| followUser
 	| messageSent
 	| setWhoseFriends
 	| setNews
@@ -197,11 +229,16 @@ export type IAction =
 	| setPostsTotalCount
 	| setNewsTotalCount
 	| deletePost
-	| unfollowUser
 	| deleteChat
 	| setUsers
 	| setChatWith
 	| setMessages
+	| profilePageFollowUser
+	| profilePageUnfollowUser
+	| friendsPageFollowUser
+	| friendsPageUnfollowUser
+	| usersPageFollowUser
+	| usersPageUnfollowUser
 	| setMessagesTotalCount
 	| receiveMessage
 	| setFriends

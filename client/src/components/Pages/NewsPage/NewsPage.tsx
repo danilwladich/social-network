@@ -48,7 +48,7 @@ export function NewsPage(props: IProps) {
 								/>
 							))
 						) : (
-							<div className="news__no_posts">
+							<div className="news__posts_no_posts">
 								All your following have not added any post yet <br />{" "}
 								<NavLink to="/users">You can find some new friends</NavLink>
 							</div>

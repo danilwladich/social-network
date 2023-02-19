@@ -64,7 +64,7 @@ export function UsersPage(props: IProps) {
 							))}
 						</div>
 					) : (
-						<div className="users__no_items">
+						<div className="users__items_no_items">
 							Your search returned no results
 						</div>
 					)}

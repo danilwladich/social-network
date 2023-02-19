@@ -1,6 +1,7 @@
 export enum ActionType {
 	// app
 	SET_ERROR_MESSAGE = "app/SET_ERROR_MESSAGE",
+	SET_AUTH_PROFILE = "app/SET_AUTH_PROFILE",
 
 	// header
 	SET_HEADER_IMAGE = "header/SET_HEADER_IMAGE",
@@ -18,6 +19,8 @@ export enum ActionType {
 	SET_POSTS_TOTAL_COUNT = "users/SET_POSTS_TOTAL_COUNT",
 	LIKE_POST = "profile/LIKE_POST",
 	UNLIKE_POST = "profile/UNLIKE_POST",
+	PROFILEPAGE_FOLLOW = "profile/FOLLOW",
+	PROFILEPAGE_UNFOLLOW = "profile/UNFOLLOW",
 
 	// news
 	SET_NEWS = "news/SET_NEWS",
@@ -40,14 +43,14 @@ export enum ActionType {
 	SET_WHOSE_FRIENDS = "friends/SET_WHOSE_FRIENDS",
 	SET_FRIENDS = "friends/SET_FRIENDS",
 	SET_FRIENDS_TOTAL_COUNT = "friends/SET_FRIENDS_TOTAL_COUNT",
-
-	// users&profile&friends
-	FOLLOW = "users&profile&friends/FOLLOW",
-	UNFOLLOW = "users&profile&friends/UNFOLLOW",
+	FRIENDSPAGE_FOLLOW = "friends/FOLLOW",
+	FRIENDSPAGE_UNFOLLOW = "friends/UNFOLLOW",
 
 	// users
 	SET_USERS = "users/SET_USERS",
 	SET_USERS_TOTAL_COUNT = "users/SET_USERS_TOTAL_COUNT",
+	USERSPAGE_FOLLOW = "users/FOLLOW",
+	USERSPAGE_UNFOLLOW = "users/UNFOLLOW",
 
 	// settings
 	SET_THEME = "settings/SET_THEME",

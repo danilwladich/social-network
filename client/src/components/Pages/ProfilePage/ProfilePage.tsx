@@ -9,22 +9,18 @@ export function ProfilePage() {
 	return (
 		<>
 			<section className="profile">
-				<div className="profile__items">
-					<div className="subsection">
-						<UserContainer />
+				<div className="subsection">
+					<UserContainer />
 
-						<ActionsContainer />
-					</div>
+					<ActionsContainer />
+				</div>
 
-					<div className="profile__row">
-						<div className="subsection nf">
-							<AboutContainer />
-						</div>
+				<div className="subsection nf">
+					<AboutContainer />
+				</div>
 
-						<div className="subsection">
-							<PostsContainer />
-						</div>
-					</div>
+				<div className="subsection">
+					<PostsContainer />
 				</div>
 			</section>
 		</>

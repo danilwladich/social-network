@@ -4,12 +4,11 @@ import { API } from "../API/API";
 import { ActionType } from "../models/Action/ActionType";
 import { IAction } from "../models/Action/IAction";
 import { IProfile } from "../models/Profile/IProfile";
-import { setErrorMessage } from "./appReducer";
+import { setAuthProfile, setErrorMessage } from "./appReducer";
 import { IState } from "../models/IState";
-import { setHeaderImage } from "./headerReducer";
 import { ProfilePostData } from "../models/Profile/ProfilePostData";
 import { ProfileUserData } from "../models/Profile/ProfileUserData";
-import { ProfileAboutData } from "../models/Profile/ProfileAboutData";
+import { ProfileFollowData } from "../models/Profile/ProfileFollowData";
 import { authMeTC } from "./authReducer";
 
 const initialState: IProfile = {
@@ -24,12 +23,13 @@ const initialState: IProfile = {
 		},
 		online: false,
 	},
-	aboutData: {
-		follow: {
-			friends: 0,
-			followers: 0,
-			following: 0,
+	followData: {
+		friends: {
+			usersData: [],
+			totalCount: 0,
 		},
+		followers: 0,
+		following: 0,
 	},
 	postsData: [],
 	pageSize: 20,
@@ -45,7 +45,7 @@ export function profileReducer(
 			return {
 				...state,
 				userData: action.userData,
-				aboutData: action.aboutData,
+				followData: action.followData,
 			};
 
 		case ActionType.SET_POSTS:
@@ -104,49 +104,85 @@ export function profileReducer(
 				}),
 			};
 
-		case ActionType.FOLLOW:
-			return {
-				...state,
-				userData: { ...state.userData, followed: true },
-				aboutData: state.userData.follower
-					? {
-							...state.aboutData,
-							follow: {
-								...state.aboutData.follow,
-								friends: state.aboutData.follow.friends + 1,
-								following: state.aboutData.follow.following - 1,
-							},
-					  }
-					: {
-							...state.aboutData,
-							follow: {
-								...state.aboutData.follow,
-								followers: state.aboutData.follow.followers + 1,
-							},
-					  },
-			};
+		case ActionType.PROFILEPAGE_FOLLOW:
+			if (state.userData.follower) {
+				return {
+					...state,
 
-		case ActionType.UNFOLLOW:
-			return {
-				...state,
-				userData: { ...state.userData, followed: false },
-				aboutData: state.userData.follower
-					? {
-							...state.aboutData,
-							follow: {
-								...state.aboutData.follow,
-								friends: state.aboutData.follow.friends - 1,
-								following: state.aboutData.follow.following + 1,
-							},
-					  }
-					: {
-							...state.aboutData,
-							follow: {
-								...state.aboutData.follow,
-								followers: state.aboutData.follow.followers - 1,
-							},
-					  },
-			};
+					userData: { ...state.userData, followed: true },
+
+					followData: {
+						...state.followData,
+
+						friends: {
+							...state.followData.friends,
+
+							// add auth user if users count <= 9
+							usersData:
+								state.followData.friends.usersData.length <= 9
+									? state.followData.friends.usersData.concat({
+											nickname: action.authNickname,
+											...action.authUser,
+											online: true,
+									  })
+									: [...state.followData.friends.usersData],
+
+							totalCount: state.followData.friends.totalCount + 1,
+						},
+
+						following: state.followData.following - 1,
+					},
+				};
+			} else {
+				return {
+					...state,
+
+					userData: { ...state.userData, followed: true },
+
+					followData: {
+						...state.followData,
+
+						followers: state.followData.followers + 1,
+					},
+				};
+			}
+
+		case ActionType.PROFILEPAGE_UNFOLLOW:
+			if (state.userData.follower) {
+				return {
+					...state,
+
+					userData: { ...state.userData, followed: false },
+
+					followData: {
+						...state.followData,
+
+						friends: {
+							...state.followData.friends,
+
+							usersData: state.followData.friends.usersData.filter(
+								(u) => u.nickname !== action.authNickname
+							),
+
+							totalCount: state.followData.friends.totalCount - 1,
+						},
+
+						following: state.followData.following + 1,
+					},
+				};
+			} else {
+				return {
+					...state,
+
+					userData: { ...state.userData, followed: false },
+
+					followData: {
+						...state.followData,
+
+						following: state.followData.following - 1,
+					},
+				};
+			}
 
 		default:
 			return state;
@@ -156,11 +192,11 @@ export function profileReducer(
 // action
 export const setProfile: (
 	userData: ProfileUserData,
-	aboutData: ProfileAboutData
-) => IAction = (userData, aboutData) => ({
+	followData: ProfileFollowData
+) => IAction = (userData, followData) => ({
 	type: ActionType.SET_PROFILE,
 	userData,
-	aboutData,
+	followData,
 });
 
 export const setPosts: (
@@ -177,10 +213,7 @@ export const setPostsTotalCount: (count: number) => IAction = (count) => ({
 	value: count,
 });
 
-export const addPost: (post: string, id: string) => IAction = (
-	post,
-	id
-) => ({
+export const addPost: (post: string, id: string) => IAction = (post, id) => ({
 	type: ActionType.ADD_POST,
 	value: post,
 	id,
@@ -201,6 +234,32 @@ export const unlikePost: (postID: string) => IAction = (postID) => ({
 	value: postID,
 });
 
+export const setFollow: (
+	authNickname: string,
+	authUser: {
+		firstName: string;
+		lastName: string;
+		image?: string;
+	}
+) => IAction = (authNickname, authUser) => ({
+	type: ActionType.PROFILEPAGE_FOLLOW,
+	authNickname,
+	authUser,
+});
+
+export const setUnfollow: (
+	authNickname: string,
+	authUser: {
+		firstName: string;
+		lastName: string;
+		image?: string;
+	}
+) => IAction = (authNickname, authUser) => ({
+	type: ActionType.PROFILEPAGE_UNFOLLOW,
+	authNickname,
+	authUser,
+});
+
 // thunk
 export const getProfileTC = (userNickname: string) => {
 	return async (dispatch: Dispatch<any>, getState: () => IState) => {
@@ -208,14 +267,13 @@ export const getProfileTC = (userNickname: string) => {
 			dispatch(setErrorMessage(""));
 			await API.getProfile(userNickname).then(async (data) => {
 				if (data.success === true) {
-					dispatch(setProfile(data.userData, data.aboutData));
+					dispatch(setProfile(data.userData, data.followData));
+
 					if (data.userData.nickname === getState().auth.user.nickname) {
-						if (data.userData.image) {
-							dispatch(setHeaderImage(data.userData.image));
-						} else {
-							dispatch(setHeaderImage(""));
-						}
+						const { firstName, lastName, image } = data.userData;
+						dispatch(setAuthProfile({ firstName, lastName, image }));
 					}
+
 					await dispatch(
 						getPostsTC(userNickname, 1, getState().profile.pageSize)
 					);
@@ -234,11 +292,12 @@ export const getProfileTC = (userNickname: string) => {
 								online: false,
 							},
 							{
-								follow: {
-									friends: 0,
-									followers: 0,
-									following: 0,
+								friends: {
+									usersData: [],
+									totalCount: 0,
 								},
+								followers: 0,
+								following: 0,
 							}
 						)
 					);
@@ -359,13 +418,56 @@ export const unlikePostTC = (postID: string) => {
 	};
 };
 
+export const setFollowTC = (nickname: string) => {
+	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.followUser(nickname).then((data) => {
+				if (data.success === true) {
+					dispatch(
+						setFollow(getState().auth.user.nickname, getState().app.authProfile)
+					);
+				} else {
+					dispatch(setErrorMessage("Follow: " + data.statusText));
+				}
+			});
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Follow: " + error.message));
+		}
+	};
+};
+
+export const setUnfollowTC = (nickname: string) => {
+	return async (dispatch: Dispatch<IAction>, getState: () => IState) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.unfollowUser(nickname).then((data) => {
+				if (data.success === true) {
+					dispatch(
+						setUnfollow(
+							getState().auth.user.nickname,
+							getState().app.authProfile
+						)
+					);
+				} else {
+					dispatch(setErrorMessage("Unfollow: " + data.statusText));
+				}
+			});
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Unfollow: " + error.message));
+		}
+	};
+};
+
 export const editProfileTC = (
 	image?: File,
 	nickname?: string,
 	country?: string,
 	city?: string
 ) => {
-	return async (dispatch: Dispatch<any>) => {
+	return async (dispatch: Dispatch<any>, getState: () => IState) => {
 		try {
 			dispatch(setErrorMessage(""));
 			await API.editProfile(image, nickname, country, city).then(
@@ -373,6 +475,8 @@ export const editProfileTC = (
 					if (data.success === true) {
 						if (!!nickname) {
 							await dispatch(authMeTC());
+						} else {
+							await dispatch(getProfileTC(getState().auth.user.nickname));
 						}
 					} else {
 						return Promise.reject(data.statusText);

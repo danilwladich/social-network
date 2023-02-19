@@ -31,7 +31,7 @@ export function usersReducer(state: IUsers = initialState, action: IAction) {
 				totalCount: action.value,
 			};
 
-		case ActionType.FOLLOW:
+		case ActionType.USERSPAGE_FOLLOW:
 			return {
 				...state,
 				usersData: state.usersData.map((u) => {
@@ -42,7 +42,7 @@ export function usersReducer(state: IUsers = initialState, action: IAction) {
 				}),
 			};
 
-		case ActionType.UNFOLLOW:
+		case ActionType.USERSPAGE_UNFOLLOW:
 			return {
 				...state,
 				usersData: state.usersData.map((u) => {
@@ -74,14 +74,14 @@ export const setUsersTotalCount: (count: number) => IAction = (count) => ({
 });
 
 export const setFollow: (userNickname: string) => IAction = (userNickname) => ({
-	type: ActionType.FOLLOW,
+	type: ActionType.USERSPAGE_FOLLOW,
 	value: userNickname,
 });
 
 export const setUnfollow: (userNickname: string) => IAction = (
 	userNickname
 ) => ({
-	type: ActionType.UNFOLLOW,
+	type: ActionType.USERSPAGE_UNFOLLOW,
 	value: userNickname,
 });
 

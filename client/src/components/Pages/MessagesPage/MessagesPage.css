@@ -62,6 +62,9 @@ html[theme=dark] .messages__chat_header_back::before {
 html[theme=dark] .messages__chat_input_field {
   border: 2px solid var(--dark-button-bg);
 }
+html[theme=dark] .messages__chat_input_field:focus {
+  border: 2px solid var(--dark-button-bg-active);
+}
 html[theme=dark] .messages__chat_input_send:not(:disabled):hover {
   background-color: var(--dark-button-bg-active);
 }
@@ -69,7 +72,7 @@ html[theme=dark] .messages__chat_input_send:not(:disabled):hover path {
   fill: var(--dark-button-text-color);
 }
 html[theme=dark] .messages__message_content {
-  background-color: var(--dark-main-bg);
+  background-color: var(--dark-input-bg);
 }
 html[theme=dark] .messages__message_content .messages__message_status:not(.read) svg {
   fill: var(--dark-button-text-color);
@@ -145,6 +148,9 @@ html[theme=light] .messages__chat_header_back::before {
 html[theme=light] .messages__chat_input_field {
   border: 2px solid var(--light-button-bg);
 }
+html[theme=light] .messages__chat_input_field:focus {
+  border: 2px solid var(--light-button-bg-active);
+}
 html[theme=light] .messages__chat_input_send:not(:disabled):hover {
   background-color: var(--light-button-bg-active);
 }
@@ -152,7 +158,7 @@ html[theme=light] .messages__chat_input_send:not(:disabled):hover path {
   fill: var(--light-button-text-color);
 }
 html[theme=light] .messages__message_content {
-  background-color: var(--light-main-bg);
+  background-color: var(--light-input-bg);
 }
 html[theme=light] .messages__message_content .messages__message_status:not(.read) svg {
   fill: var(--light-button-text-color);
@@ -663,6 +669,8 @@ html[theme=light] .messages__message.out .messages__message_content * {
   opacity: 1;
 }
 .messages__date {
+  font-weight: 700;
+  letter-spacing: 1px;
   opacity: 0.7;
   margin: 0px 0px 10px 0px;
   text-align: center;

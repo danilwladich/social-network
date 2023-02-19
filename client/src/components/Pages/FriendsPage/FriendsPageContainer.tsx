@@ -3,10 +3,13 @@ import { connect } from "react-redux";
 import { IState } from "../../../models/IState";
 import { Navigate, useLocation, useParams } from "react-router-dom";
 import { FriendsPage } from "./FriendsPage";
-import { getFriendsTC } from "../../../redux/friendsReducer";
+import {
+	getFriendsTC,
+	setFollowTC,
+	setUnfollowTC,
+} from "../../../redux/friendsReducer";
 import { FriendsUserData } from "../../../models/Friends/FriendsUserData";
 import { WhoseFriends } from "../../../models/Friends/WhoseFriends";
-import { setFollowTC, setUnfollowTC } from "../../../redux/usersReducer";
 import { FriendsPageLoading } from "./FriendsPageLoading";
 
 interface IProps {

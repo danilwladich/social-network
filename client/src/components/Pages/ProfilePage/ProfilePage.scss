@@ -11,10 +11,35 @@ html[theme="dark"] {
 				}
 			}
 		}
+		&__about {
+			&_user {
+				&_image {
+					img {
+						border: 2px solid var(--dark-subsection-bg);
+					}
+				}
+			}
+			@media (min-width: 767px) {
+				&_user {
+					&_image {
+						img {
+							border: 0;
+						}
+					}
+					&:hover,
+					&:focus {
+						background-color: var(--dark-input-bg);
+					}
+				}
+			}
+		}
 		&__posts {
 			&_input {
 				&_field {
 					border: 2px solid var(--dark-button-bg);
+					&:focus {
+						border: 2px solid var(--dark-button-bg-active);
+					}
 				}
 				&_send {
 					circle {
@@ -39,6 +64,10 @@ html[theme="dark"] {
 			}
 			&_more {
 				background-color: var(--dark-button-bg);
+				&:hover,
+				&:focus {
+					background-color: var(--dark-button-bg-active);
+				}
 			}
 			&_like {
 				color: var(--dark-button-text-color);
@@ -84,10 +113,35 @@ html[theme="light"] {
 				}
 			}
 		}
+		&__about {
+			&_user {
+				&_image {
+					img {
+						border: 2px solid var(--light-subsection-bg);
+					}
+				}
+			}
+			@media (min-width: 767px) {
+				&_user {
+					&_image {
+						img {
+							border: 0;
+						}
+					}
+					&:hover,
+					&:focus {
+						background-color: var(--light-input-bg);
+					}
+				}
+			}
+		}
 		&__posts {
 			&_input {
 				&_field {
 					border: 2px solid var(--light-button-bg);
+					&:focus {
+						border: 2px solid var(--light-button-bg-active);
+					}
 				}
 				&_send {
 					circle {
@@ -112,6 +166,10 @@ html[theme="light"] {
 			}
 			&_more {
 				background-color: var(--light-button-bg);
+				&:hover,
+				&:focus {
+					background-color: var(--light-button-bg-active);
+				}
 			}
 			&_like {
 				color: var(--light-button-text-color);
@@ -278,18 +336,54 @@ html[theme="light"] {
 	}
 	&__about {
 		display: flex;
-		justify-content: space-around;
-		gap: 10px;
+		justify-content: space-between;
+		&_links {
+			display: flex;
+			justify-content: space-around;
+		}
 		&_link {
+			&:nth-child(2),
+			&:nth-child(3) {
+				display: none;
+			}
+			font-weight: 700;
 			text-align: center;
-			border-radius: 4px;
 			display: inline-block;
-			text-transform: capitalize;
 			font-size: 16px;
 			line-height: 150%;
 			&:hover,
 			&:focus {
 				text-decoration: underline;
+			}
+			span {
+				opacity: 0.7;
+			}
+		}
+		&_users {
+			display: flex;
+		}
+		&_user {
+			width: 25px;
+			&:not(:last-child) {
+				margin: 0px -5px 0px 0px;
+			}
+			&_image {
+				position: relative;
+				padding: 0px 0px 100% 0px;
+				img {
+					user-select: none;
+					pointer-events: none;
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					border-radius: 50%;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+			&_name {
+				display: none;
 			}
 		}
 	}
@@ -403,22 +497,113 @@ html[theme="light"] {
 				height: 30px;
 			}
 		}
+		&_no_posts {
+			opacity: 0.7;
+			line-height: 150%;
+			text-align: center;
+			font-size: 16px;
+		}
 	}
 	&__post {
 		position: relative;
 		padding: 10px 0;
 		&_content {
-			line-height: 150%;
-			font-size: 16px;
+			&_text {
+				line-height: 150%;
+				font-size: 16px;
+			}
+			&_images {
+				&:not(:first-child) {
+					margin: 10px -5px 0px;
+				}
+				margin: 0 -5px;
+				display: grid;
+				gap: 2px;
+				.profile__post_content_image {
+					position: relative;
+					padding: 0px 0px 100% 0px;
+					img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						position: absolute;
+						top: 0;
+						left: 0;
+						border-radius: 4px;
+					}
+				}
+				&.one {
+					grid-template-columns: 1fr minmax(270px, 425px) 1fr;
+					gap: 0;
+					.profile__post_content_image {
+						grid-column: 2/3;
+					}
+				}
+				&.two {
+					grid-template-columns: 1fr 1fr;
+				}
+				&.three {
+					grid-template-columns: 1.3333fr 0.6777fr;
+					.profile__post_content_image {
+						&:first-child {
+							grid-row: span 2;
+						}
+					}
+				}
+				&.four {
+					grid-template-columns: 1fr 1fr;
+				}
+				&.five {
+					grid-template-columns: repeat(6, 1fr);
+					.profile__post_content_image {
+						grid-column: span 2;
+						&:nth-child(1),
+						&:nth-child(2) {
+							grid-column: span 3;
+						}
+					}
+				}
+				&.six {
+					grid-template-columns: 1fr 1fr 1fr;
+				}
+				&.seven {
+					grid-template-columns: repeat(10, 1fr);
+					.profile__post_content_image {
+						grid-column: span 2;
+						&:nth-child(1),
+						&:nth-child(2) {
+							grid-column: span 5;
+						}
+					}
+				}
+				&.eight {
+					grid-template-columns: repeat(6, 1fr);
+					.profile__post_content_image {
+						&:nth-child(1),
+						&:nth-child(2) {
+							grid-column: span 3;
+						}
+					}
+				}
+				&.nine {
+					grid-template-columns: 1fr 1fr 1fr;
+				}
+				&.ten {
+					grid-template-columns: repeat(8, 1fr);
+					.profile__post_content_image {
+						&:nth-child(1),
+						&:nth-child(2) {
+							grid-column: span 4;
+						}
+					}
+				}
+			}
 		}
 		&_more {
 			background-color: transparent;
 			padding: 2px 5px;
 			font-size: 16px;
 			border-radius: 4px;
-			&:hover {
-				text-decoration: underline;
-			}
 		}
 		&_info {
 			display: flex;
@@ -511,21 +696,6 @@ html[theme="light"] {
 			font-size: 12px;
 		}
 	}
-	// @media (min-width: 1023px) {
-	// 	&__row {
-	// 		display: flex;
-	// 		gap: 15px;
-	// 		align-items: flex-start;
-	// 		.subsection:first-child {
-	// 			order: 2;
-	// 			flex: 0 0 300px;
-	// 		}
-	// 		.subsection:last-child {
-	// 			order: 1;
-	// 			flex: 1 1 auto;
-	// 		}
-	// 	}
-	// }
 	@media (min-width: 767px) {
 		&__loading {
 			&_user {
@@ -585,7 +755,53 @@ html[theme="light"] {
 				width: 175px;
 			}
 		}
+		&__about {
+			display: block;
+			&_link {
+				&:nth-child(2),
+				&:nth-child(3) {
+					display: block;
+				}
+			}
+			&_users {
+				margin: 10px -8px 0px;
+				display: grid;
+				grid-template-columns: repeat(8, 1fr);
+			}
+			&_user {
+				width: 100%;
+				overflow: hidden;
+				padding: 5px 8px;
+				border-radius: 4px;
+				&_image {
+					&.online {
+						img {
+							padding: 2px;
+							border: 2px solid rgba(0, 255, 0, 0.7) !important;
+						}
+					}
+				}
+				&_name {
+					display: block;
+					text-align: center;
+					margin: 3px 0px 0px 0px;
+					line-height: 150%;
+					font-size: 14px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
 		&__post {
+			&_content {
+				&_images {
+					margin: 0;
+					&:not(:first-child) {
+						margin: 10px 0px 0px 0px;
+					}
+				}
+			}
 			&_date {
 				font-size: 14px;
 			}

@@ -6,6 +6,7 @@ import { PostsInput } from "./PostsInput";
 interface IProps {
 	authNickname: string;
 	userNickname: string;
+	firstName: string;
 	postsData: ProfilePostData[];
 	addPostTC: (post: string) => Promise<void>;
 	deletePostTC: (postID: string) => Promise<void>;
@@ -47,7 +48,7 @@ export function Posts(props: IProps) {
 				<PostsInput addPostTC={props.addPostTC} />
 			)}
 
-			{!!props.postsData.length && (
+			{!!props.postsData.length ? (
 				<div className="profile__posts">
 					{props.postsData.map((p) => (
 						<Post
@@ -64,6 +65,12 @@ export function Posts(props: IProps) {
 							unlikePost={() => unlikePost(p.id)}
 						/>
 					))}
+				</div>
+			) : (
+				<div className="profile__posts_no_posts">
+					{(props.authNickname === props.userNickname
+						? "You"
+						: props.firstName) + " have not added any post yet"}
 				</div>
 			)}
 		</>
