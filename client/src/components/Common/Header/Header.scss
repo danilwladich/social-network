@@ -6,7 +6,8 @@ html[theme="dark"] {
 			span {
 				color: var(--dark-button-bg);
 			}
-			&:hover {
+			&:hover,
+			&:focus {
 				span {
 					color: var(--dark-button-bg-active);
 				}
@@ -33,7 +34,8 @@ html[theme="light"] {
 			span {
 				color: var(--light-button-bg);
 			}
-			&:hover {
+			&:hover,
+			&:focus {
 				span {
 					color: var(--light-button-bg-active);
 				}

@@ -5,7 +5,7 @@ html[theme=dark] .header {
 html[theme=dark] .header__logo span {
   color: var(--dark-button-bg);
 }
-html[theme=dark] .header__logo:hover span {
+html[theme=dark] .header__logo:hover span, html[theme=dark] .header__logo:focus span {
   color: var(--dark-button-bg-active);
 }
 html[theme=dark] .header__burger:before, html[theme=dark] .header__burger:after {
@@ -23,7 +23,7 @@ html[theme=light] .header {
 html[theme=light] .header__logo span {
   color: var(--light-button-bg);
 }
-html[theme=light] .header__logo:hover span {
+html[theme=light] .header__logo:hover span, html[theme=light] .header__logo:focus span {
   color: var(--light-button-bg-active);
 }
 html[theme=light] .header__burger:before, html[theme=light] .header__burger:after {

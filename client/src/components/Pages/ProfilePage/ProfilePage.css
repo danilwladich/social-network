@@ -503,12 +503,12 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   font-size: 16px;
 }
 .profile__post_content_images {
-  margin: 0 -5px;
+  margin: 0 -10px;
   display: grid;
   gap: 2px;
 }
 .profile__post_content_images:not(:first-child) {
-  margin: 10px -5px 0px;
+  margin: 10px -10px 0px;
 }
 .profile__post_content_images .profile__post_content_image {
   position: relative;
@@ -522,7 +522,6 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 4px;
 }
 .profile__post_content_images.one {
   grid-template-columns: 1fr minmax(270px, 425px) 1fr;
@@ -827,6 +826,9 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   }
   .profile__post_content_images:not(:first-child) {
     margin: 10px 0px 0px 0px;
+  }
+  .profile__post_content_images .profile__post_content_image img {
+    border-radius: 4px;
   }
   .profile__post_date {
     font-size: 14px;

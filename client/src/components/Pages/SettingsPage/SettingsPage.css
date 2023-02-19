@@ -165,19 +165,22 @@ html[theme=light] .settings__button:hover, html[theme=light] .settings__button:f
           align-items: center;
   gap: 10px;
 }
+.settings__topdonations_item:hover .settings__topdonations_name, .settings__topdonations_item:focus .settings__topdonations_name {
+  text-decoration: underline;
+}
 .settings__topdonations_image {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 30px;
-          flex: 0 0 30px;
+      -ms-flex: 0 0 40px;
+          flex: 0 0 40px;
 }
 .settings__topdonations_image img {
   pointer-events: none;
   width: 100%;
-  height: 30px;
+  height: 40px;
   border-radius: 50%;
 }
 .settings__topdonations_name {
-  text-align: center;
+  line-height: 150%;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
@@ -189,6 +192,7 @@ html[theme=light] .settings__button:hover, html[theme=light] .settings__button:f
      text-overflow: ellipsis;
 }
 .settings__topdonations_value {
+  line-height: 150%;
   text-align: right;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 30px;

@@ -530,9 +530,9 @@ html[theme="light"] {
 			}
 			&_images {
 				&:not(:first-child) {
-					margin: 10px -5px 0px;
+					margin: 10px -10px 0px;
 				}
-				margin: 0 -5px;
+				margin: 0 -10px;
 				display: grid;
 				gap: 2px;
 				.profile__post_content_image {
@@ -545,7 +545,6 @@ html[theme="light"] {
 						position: absolute;
 						top: 0;
 						left: 0;
-						border-radius: 4px;
 					}
 				}
 				&.one {
@@ -844,6 +843,11 @@ html[theme="light"] {
 					margin: 0;
 					&:not(:first-child) {
 						margin: 10px 0px 0px 0px;
+					}
+					.profile__post_content_image {
+						img {
+							border-radius: 4px;
+						}
 					}
 				}
 			}

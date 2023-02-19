@@ -162,18 +162,24 @@ html[theme="light"] {
 			display: flex;
 			align-items: center;
 			gap: 10px;
+			&:hover,
+			&:focus {
+				.settings__topdonations_name {
+					text-decoration: underline;
+				}
+			}
 		}
 		&_image {
-			flex: 0 0 30px;
+			flex: 0 0 40px;
 			img {
 				pointer-events: none;
 				width: 100%;
-				height: 30px;
+				height: 40px;
 				border-radius: 50%;
 			}
 		}
 		&_name {
-			text-align: center;
+			line-height: 150%;
 			flex: 1 1 auto;
 			font-weight: 700;
 			font-size: 14px;
@@ -182,6 +188,7 @@ html[theme="light"] {
 			text-overflow: ellipsis;
 		}
 		&_value {
+			line-height: 150%;
 			text-align: right;
 			flex: 0 0 30px;
 			white-space: nowrap;

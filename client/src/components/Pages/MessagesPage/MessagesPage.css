@@ -610,6 +610,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
 }
 .messages__chat_header_image.online img {
   border: 2px solid rgba(0, 255, 0, 0.7);
+  padding: 2px;
 }
 .messages__chat_content {
   -webkit-box-flex: 1;
