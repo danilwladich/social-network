@@ -15,6 +15,7 @@ const initialState: IFriends = {
 		firstName: "",
 		lastName: "",
 		image: "",
+		online: false,
 	},
 	usersData: [],
 	pageSize: 20,
@@ -147,6 +148,7 @@ export const getFriendsTC = (
 							firstName: "",
 							lastName: "",
 							image: "",
+							online: false,
 						})
 					);
 					dispatch(setFriends([], 1));

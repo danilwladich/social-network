@@ -43,6 +43,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			image: user.avatar,
+			online: user.nickname in connectedSockets,
 		};
 
 		const authNickname = req.cookies.nickname;

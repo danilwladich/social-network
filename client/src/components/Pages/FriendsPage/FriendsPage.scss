@@ -115,6 +115,7 @@ html[theme="light"] {
 
 .friends {
 	&__title {
+		text-transform: capitalize;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -133,6 +134,12 @@ html[theme="light"] {
 			height: 33px;
 			object-fit: cover;
 			border-radius: 50%;
+		}
+		&.online {
+			img {
+				padding: 2px;
+				border: 2px solid rgba(0, 255, 0, 0.7);
+			}
 		}
 	}
 	&__not_found {

@@ -28,6 +28,8 @@ export function FriendsPage(props: IProps) {
 	const whoseFriends = props.whoseFriends;
 	const usersData = props.usersData;
 
+	const category = props.category === "all" ? "friends" : props.category;
+
 	function setFollow(userNickname: string) {
 		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
 		props
@@ -53,7 +55,11 @@ export function FriendsPage(props: IProps) {
 		<>
 			<section className="friends">
 				<div className="subsection">
-					<div className="friends__title title">
+					<div
+						className={
+							"friends__title title " + (whoseFriends.online ? "online" : "")
+						}
+					>
 						<NavLink draggable="false" to={"/" + whoseFriends.nickname}>
 							<img
 								src={whoseFriends.image || "/images/user.jpg"}
@@ -63,12 +69,7 @@ export function FriendsPage(props: IProps) {
 
 						<NavLink draggable="false" to={"/" + whoseFriends.nickname}>
 							<h2>
-								{`${whoseFriends.firstName} ${whoseFriends.lastName} ${
-									props.category === "all"
-										? "Friends"
-										: props.category![0].toUpperCase() +
-										  props.category!.slice(1)
-								}`}
+								{`${whoseFriends.firstName} ${whoseFriends.lastName} ${category}`}
 							</h2>
 						</NavLink>
 					</div>
@@ -92,9 +93,7 @@ export function FriendsPage(props: IProps) {
 										whoseFriends.nickname === props.authNickname
 											? "You"
 											: whoseFriends.firstName
-									} don't have any ${
-										props.category === "all" ? "friends" : props.category
-									} yet`}
+									} don't have any ${category} yet`}
 							</>
 						) : (
 							!props.usersData.length && <>Your search returned no results</>
