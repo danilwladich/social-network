@@ -373,14 +373,29 @@ router.put(
 					}
 				});
 
+				// remove old avatar
+				fs.readdir(path, (err, files) => {
+					if (files) {
+						for (const file of files) {
+							if (file.includes("avatar")) {
+								fs.unlink(path + "/" + file, (err) => {});
+							}
+						}
+					}
+				});
+
+				const dateNow = Date.now();
+
 				// sharp image
 				await sharp(image.buffer)
 					.withMetadata()
 					.resize({ width: 750, height: 750 })
 					.jpeg({ quality: 50 })
-					.toFile(path + "/avatar.jpg");
+					.toFile(`${path}/avatar&date=${dateNow}.jpg`);
 
-				await user.updateOne({ avatar: "/images/" + authID + "/avatar.jpg" });
+				await user.updateOne({
+					avatar: `/images/${authID}/avatar&date=${dateNow}.jpg`,
+				});
 			}
 
 			// set new country
