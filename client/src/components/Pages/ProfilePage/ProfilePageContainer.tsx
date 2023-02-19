@@ -31,7 +31,7 @@ function ProfilePageAPI(props: IProps) {
 		}
 		return <Navigate to={"/" + props.authNickname} />;
 	}
-	if (isLoading) {
+	if (!isLoading) {
 		return (
 			<ProfilePageLoading itsMe={profileNickname === props.authNickname} />
 		);

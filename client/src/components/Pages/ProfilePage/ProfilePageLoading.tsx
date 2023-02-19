@@ -27,9 +27,46 @@ export function ProfilePageLoading(props: IProps) {
 
 				<div className="subsection">
 					<div className="profile__loading_about">
-						<p className="loading_element"></p>
-						<p className="loading_element"></p>
-						<p className="loading_element"></p>
+						<div className="profile__loading_about_links">
+							<p className="loading_element"></p>
+							<p className="loading_element"></p>
+							<p className="loading_element"></p>
+						</div>
+
+						<div className="profile__loading_about_users">
+							<div className="profile__loading_about_user">
+								<div className="profile__loading_about_user_image loading_element"></div>
+								<div className="profile__loading_about_user_name loading_element"></div>
+							</div>
+							<div className="profile__loading_about_user">
+								<div className="profile__loading_about_user_image loading_element"></div>
+								<div className="profile__loading_about_user_name loading_element"></div>
+							</div>
+							<div className="profile__loading_about_user">
+								<div className="profile__loading_about_user_image loading_element"></div>
+								<div className="profile__loading_about_user_name loading_element"></div>
+							</div>
+							<div className="profile__loading_about_user">
+								<div className="profile__loading_about_user_image loading_element"></div>
+								<div className="profile__loading_about_user_name loading_element"></div>
+							</div>
+							<div className="profile__loading_about_user">
+								<div className="profile__loading_about_user_image loading_element"></div>
+								<div className="profile__loading_about_user_name loading_element"></div>
+							</div>
+							<div className="profile__loading_about_user">
+								<div className="profile__loading_about_user_image loading_element"></div>
+								<div className="profile__loading_about_user_name loading_element"></div>
+							</div>
+							<div className="profile__loading_about_user">
+								<div className="profile__loading_about_user_image loading_element"></div>
+								<div className="profile__loading_about_user_name loading_element"></div>
+							</div>
+							<div className="profile__loading_about_user">
+								<div className="profile__loading_about_user_image loading_element"></div>
+								<div className="profile__loading_about_user_name loading_element"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 

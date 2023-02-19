@@ -239,11 +239,27 @@ html[theme="light"] {
 		}
 		&_about {
 			display: flex;
-			justify-content: space-around;
-			gap: 10px;
-			p {
-				height: 24px;
-				width: 100px;
+			justify-content: space-between;
+			&_links {
+				p {
+					height: 24px;
+					width: 100px;
+					display: none;
+					&:first-child {
+						display: block;
+					}
+				}
+			}
+			&_users {
+				display: flex;
+			}
+			&_user {
+				&:first-child {
+					.profile__loading_about_user_image {
+						width: 165px;
+						height: 25px;
+					}
+				}
 			}
 		}
 		&_posts {
@@ -724,6 +740,35 @@ html[theme="light"] {
 			&_location {
 				height: 24px;
 			}
+			&_about {
+				display: block;
+				&_links {
+					display: flex;
+					justify-content: space-around;
+					gap: 10px;
+					p {
+						display: block;
+					}
+				}
+				&_users {
+					margin: 15px -8px 0px;
+					display: grid;
+					grid-template-columns: repeat(8, 1fr);
+				}
+				&_user {
+					&_image {
+						width: calc(100% - 16px) !important;
+						padding: 0px 0px calc(100% - 16px) 0px;
+						border-radius: 50%;
+						margin: 0 auto;
+					}
+					&_name {
+						width: 40px;
+						height: 14px;
+						margin: 7px auto 3px;
+					}
+				}
+			}
 			&_post {
 				height: 90px;
 			}
@@ -764,7 +809,7 @@ html[theme="light"] {
 				}
 			}
 			&_users {
-				margin: 10px -8px 0px;
+				margin: 10px -8px -5px;
 				display: grid;
 				grid-template-columns: repeat(8, 1fr);
 			}

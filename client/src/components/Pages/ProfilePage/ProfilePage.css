@@ -188,13 +188,26 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  gap: 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
-.profile__loading_about p {
+.profile__loading_about_links p {
   height: 24px;
   width: 100px;
+  display: none;
+}
+.profile__loading_about_links p:first-child {
+  display: block;
+}
+.profile__loading_about_users {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.profile__loading_about_user:first-child .profile__loading_about_user_image {
+  width: 165px;
+  height: 25px;
 }
 .profile__loading_posts {
   position: relative;
@@ -710,6 +723,36 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   .profile__loading_location {
     height: 24px;
   }
+  .profile__loading_about {
+    display: block;
+  }
+  .profile__loading_about_links {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    gap: 10px;
+  }
+  .profile__loading_about_links p {
+    display: block;
+  }
+  .profile__loading_about_users {
+    margin: 15px -8px 0px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
+  .profile__loading_about_user_image {
+    width: calc(100% - 16px) !important;
+    padding: 0px 0px calc(100% - 16px) 0px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+  .profile__loading_about_user_name {
+    width: 40px;
+    height: 14px;
+    margin: 7px auto 3px;
+  }
   .profile__loading_post {
     height: 90px;
   }
@@ -754,7 +797,7 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
     display: block;
   }
   .profile__about_users {
-    margin: 10px -8px 0px;
+    margin: 10px -8px -5px;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
   }
