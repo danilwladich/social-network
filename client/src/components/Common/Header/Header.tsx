@@ -15,6 +15,12 @@ interface IProps {
 export function Header(props: IProps) {
 	const countOfUnreadMessages = props.countOfUnreadMessages.length;
 
+	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
+	if (!!props.authImage) {
+		userImage = props.authImage.split(".jpg")[0] + "&size=small.jpg";
+	}
+
+	// logo button scroll to top
 	function scrollToTop() {
 		window.requestAnimationFrame(() => {
 			window.scrollTo({
@@ -35,12 +41,7 @@ export function Header(props: IProps) {
 							draggable="false"
 							className="header__user"
 						>
-							<img
-								src={
-									props.authImage || `/images/user&theme=${props.bodyTheme}.jpg`
-								}
-								alt="User"
-							/>
+							<img src={userImage} alt={props.authNickname} />
 						</NavLink>
 					) : (
 						<NavLink to="/login" draggable="false" className="header__login">
