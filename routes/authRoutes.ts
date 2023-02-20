@@ -240,7 +240,15 @@ router.delete(
 				});
 			}
 
-			fs.rmSync("./client/public/images/" + authID, {
+			// delete all images
+			let path: string;
+			if (process.env.NODE_ENV === "production") {
+				path = "client/production/images/" + authID;
+			} else {
+				path = "client/public/images/" + authID;
+			}
+
+			fs.rmSync(path, {
 				recursive: true,
 				force: true,
 			});
