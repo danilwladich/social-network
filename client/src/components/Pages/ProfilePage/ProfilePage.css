@@ -41,6 +41,7 @@ html[theme=dark] .profile__post:not(:last-child) {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .profile__post_more {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
 html[theme=dark] .profile__post_more:hover, html[theme=dark] .profile__post_more:focus {
@@ -112,6 +113,7 @@ html[theme=light] .profile__post:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .profile__post_more {
+  color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
 html[theme=light] .profile__post_more:hover, html[theme=light] .profile__post_more:focus {

@@ -63,6 +63,7 @@ html[theme="dark"] {
 				border-bottom: var(--dark-items-border-bottom) solid 1px;
 			}
 			&_more {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
 				&:hover,
 				&:focus {
@@ -165,6 +166,7 @@ html[theme="light"] {
 				border-bottom: var(--light-items-border-bottom) solid 1px;
 			}
 			&_more {
+				color: var(--light-button-text-color);
 				background-color: var(--light-button-bg);
 				&:hover,
 				&:focus {
