@@ -9,6 +9,12 @@ interface IProps {
 
 export function ChatHeader(props: IProps) {
 	const chatWith = props.chatWith;
+
+	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
+	if (!!chatWith.image) {
+		userImage = chatWith.image.split(".jpg")[0] + "&size=small.jpg";
+	}
+
 	return (
 		<>
 			<div className="messages__chat_header">
@@ -35,10 +41,7 @@ export function ChatHeader(props: IProps) {
 						"messages__chat_header_image " + (chatWith.online ? "online" : "")
 					}
 				>
-					<img
-						src={chatWith.image || `/images/user&theme=${props.bodyTheme}.jpg`}
-						alt={chatWith.nickname}
-					/>
+					<img src={userImage} alt={chatWith.nickname} />
 				</NavLink>
 			</div>
 		</>

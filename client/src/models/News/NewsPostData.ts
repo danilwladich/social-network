@@ -1,10 +1,7 @@
+import { NewsPostOwnerData } from "./NewsPostOwnerData";
+
 export interface NewsPostData {
-	owner: {
-		nickname: string;
-		firstName: string;
-		lastName: string;
-		image?: string;
-	};
+	owner: NewsPostOwnerData;
 	id: string;
 	date: string;
 	post: string;

@@ -15,6 +15,12 @@ interface IProps {
 
 export function User(props: IProps) {
 	const userData = props.userData;
+
+	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
+	if (!!userData.image) {
+		userImage = userData.image.split(".jpg")[0] + "&size=small.jpg";
+	}
+
 	return (
 		<>
 			<div className="friends__user">
@@ -23,11 +29,7 @@ export function User(props: IProps) {
 					draggable="false"
 					className={"friends__user_image " + (userData.online ? "online" : "")}
 				>
-					<img
-						loading="lazy"
-						src={userData.image || `/images/user&theme=${props.bodyTheme}.jpg`}
-						alt={userData.nickname}
-					/>
+					<img loading="lazy" src={userImage} alt={userData.nickname} />
 				</NavLink>
 
 				<div className="friends__user_info">
