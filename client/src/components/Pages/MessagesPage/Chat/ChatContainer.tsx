@@ -2,7 +2,11 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IState } from "../../../../models/IState";
 import { connect } from "react-redux";
 import { Chat } from "./Chat";
-import { readMessages, sendMessage } from "../../../../redux/messagesReducer";
+import {
+	deleteMessageTC,
+	readMessages,
+	sendMessage,
+} from "../../../../redux/messagesReducer";
 import { useParams } from "react-router-dom";
 import { MessagesMessageData } from "../../../../models/Messages/MessagesMessageData";
 import { ChatWith } from "../../../../models/Messages/ChatWith";
@@ -23,6 +27,7 @@ interface IProps {
 	) => Promise<void>;
 	sendMessage: (message: string, id: string) => void;
 	readMessages: (userNickname: string) => void;
+	deleteMessageTC: (messageID: string) => Promise<void>;
 }
 
 export function ChatContainerAPI(props: IProps) {
@@ -114,4 +119,5 @@ export const ChatContainer = connect(mapStateToProps, {
 	getChatTC,
 	sendMessage,
 	readMessages,
+	deleteMessageTC,
 })(ChatContainerAPI);

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useUrlifyText } from "../../../../../hooks/useUrlifyText";
 import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
 
 interface IProps {
@@ -23,6 +24,7 @@ function numberToWord(number: number) {
 }
 
 export function Content(props: IProps) {
+	const postTextRef = useRef<HTMLDivElement>(null);
 	const [showMore, setShowMore] = useState(false);
 	const postData = props.postData;
 
@@ -31,7 +33,9 @@ export function Content(props: IProps) {
 		? postData.post
 		: postData.post.split(" ").slice(0, 75).join(" ").slice(0, 500);
 
-	const images: string[] = []
+	useUrlifyText(postToShow, postTextRef);
+
+	const images: string[] = [];
 
 	const imagesCount = numberToWord(images.length);
 
@@ -40,7 +44,7 @@ export function Content(props: IProps) {
 			<div className="profile__post_content">
 				{!!postToShow && (
 					<div className="profile__post_content_text">
-						{postToShow}
+						<span ref={postTextRef}>{postToShow}</span>
 
 						{(postData.post.split(" ").length > 75 ||
 							postData.post.length > 500) &&

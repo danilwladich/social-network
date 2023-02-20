@@ -366,4 +366,25 @@ router.delete(
 	}
 );
 
+// /messages/message/:id
+router.delete(
+	"/message/:id",
+	authMiddleware,
+	async (req: IGetUserAuthRequest, res: Response) => {
+		try {
+			const authID = req.user!.userID as string;
+			const id = req.params.id;
+
+			await Message.deleteOne({ from: authID, _id: id });
+
+			res.status(200).json({
+				success: true,
+				statusText: "Message delete successfully",
+			});
+		} catch (e) {
+			res.status(500).json({ success: false, statusText: "Server error" });
+		}
+	}
+);
+
 export default router;

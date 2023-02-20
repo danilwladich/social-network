@@ -103,6 +103,21 @@ export default (io: Server) => {
 			}
 		});
 
+		// send message
+		socket.on("deleteMessage", async (data) => {
+			if (connectedSockets[data.from]) {
+				if (connectedSockets[data.to]) {
+					io.sockets
+						.to(connectedSockets[data.to].socketID)
+						.emit("messageDelete", {
+							from: data.from,
+							messageID: data.messageID,
+							penultimateMessageData: data.penultimateMessageData,
+						});
+				}
+			}
+		});
+
 		// nickname changed
 		socket.on("nicknameChanged", (data) => {
 			if (connectedSockets[data.nickname]) {

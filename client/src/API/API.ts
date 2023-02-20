@@ -145,6 +145,11 @@ export const API = {
 	getCountOfUnreadMessages() {
 		return instance.get(`messages/read`).then((response) => response.data);
 	},
+	deleteMessage(messageID: string) {
+		return instance
+			.delete(`messages/message/${messageID}`)
+			.then((response) => response.data);
+	},
 
 	// friends
 	getFriends(

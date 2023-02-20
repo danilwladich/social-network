@@ -108,6 +108,10 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   line-height: 150%;
   font-size: 16px;
 }
+.news__post_content_text a {
+  color: var(--link-color) !important;
+  text-decoration: underline;
+}
 .news__post_content_images {
   margin: 0 -5px;
   display: grid;

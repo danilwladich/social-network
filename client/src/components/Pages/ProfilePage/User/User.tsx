@@ -9,16 +9,17 @@ interface IProps {
 export function User(props: IProps) {
 	const userData = props.userData;
 	document.title = `${userData.firstName + " " + userData.lastName}`;
+
+	let userImage: string =
+		userData.image || `/images/user&theme=${props.bodyTheme}.jpg`;
+
 	return (
 		<>
 			<div className="profile__user">
 				<div
 					className={"profile__user_image " + (userData.online ? "online" : "")}
 				>
-					<img
-						src={userData.image || `/images/user&theme=${props.bodyTheme}.jpg`}
-						alt={userData.nickname}
-					/>
+					<img src={userImage} alt={userData.nickname} />
 				</div>
 
 				<div className="profile__user_info">

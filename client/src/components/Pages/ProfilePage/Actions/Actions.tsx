@@ -58,7 +58,11 @@ export function Actions(props: IProps) {
 					<>
 						<NavLink
 							draggable="false"
-							to={"/messages/" + userData.nickname}
+							to={
+								!props.authNickname
+									? "/login"
+									: "/messages/" + userData.nickname
+							}
 							className="profile__actions_message"
 						>
 							Message

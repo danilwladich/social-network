@@ -92,11 +92,13 @@ export function messagesReducer(
 				...state,
 
 				usersData: [
-					{ ...action.fromUser, lastMessage: action.messageData },
+					{ ...action.fromUser, lastMessage: action.messageData, online: true },
 					...state.usersData.filter(
 						(u) => u.nickname !== action.fromUser.nickname
 					),
 				],
+
+				chatWith: { ...state.chatWith, online: true },
 
 				messagesData:
 					action.fromUser.nickname === state.chatWith.nickname
@@ -115,11 +117,17 @@ export function messagesReducer(
 				...state,
 
 				usersData: state.usersData.map((u) => {
-					if (u.lastMessage.out) {
-						return { ...u, lastMessage: { ...u.lastMessage, read: true } };
+					if (u.nickname === action.value && u.lastMessage.out) {
+						return {
+							...u,
+							lastMessage: { ...u.lastMessage, read: true },
+							online: true,
+						};
 					}
 					return u;
 				}),
+
+				chatWith: { ...state.chatWith, online: true },
 
 				messagesData:
 					action.value === state.chatWith.nickname
@@ -144,6 +152,45 @@ export function messagesReducer(
 			return {
 				...state,
 				countOfUnreadMessages: action.value,
+			};
+
+		case ActionType.DELETE_MESSAGE:
+			return {
+				...state,
+				messagesData: state.messagesData.filter(
+					(m) => m.id !== action.messageID
+				),
+			};
+
+		case ActionType.MESSAGE_DELETE:
+			return {
+				...state,
+
+				messagesData:
+					state.chatWith.nickname === action.fromUser
+						? state.messagesData.filter((m) => m.id !== action.messageID)
+						: [...state.messagesData],
+
+				usersData: !!action.penultimateMessageData
+					? state.usersData.map((u) => {
+							if (
+								u.nickname === action.fromUser &&
+								u.lastMessage.id === action.messageID
+							) {
+								return {
+									...u,
+									lastMessage: { ...action.penultimateMessageData, out: false },
+								};
+							}
+							return u;
+					  })
+					: [...state.usersData],
+
+				countOfUnreadMessages: action.penultimateMessageData?.read
+					? state.countOfUnreadMessages.filter(
+							(nickname) => nickname !== action.fromUser
+					  )
+					: [...state.countOfUnreadMessages],
 			};
 
 		default:
@@ -231,6 +278,22 @@ export const setCountOfUnreadMessages: (count: string[]) => IAction = (
 ) => ({
 	type: ActionType.SET_COUNT_OF_UNREAD_MESSAGES,
 	value: count,
+});
+
+export const deleteMessage: (messageID: string) => IAction = (messageID) => ({
+	type: ActionType.DELETE_MESSAGE,
+	messageID,
+});
+
+export const messageDelete: (
+	fromUser: string,
+	messageID: string,
+	penultimateMessageData?: MessagesMessageData
+) => IAction = (fromUser, messageID, penultimateMessageData) => ({
+	type: ActionType.MESSAGE_DELETE,
+	fromUser,
+	messageID,
+	penultimateMessageData,
 });
 
 // thunk
@@ -334,6 +397,24 @@ export const getCountOfUnreadMessagesTC = () => {
 			dispatch(
 				setErrorMessage("Get count of unread mesages: " + error.message)
 			);
+		}
+	};
+};
+
+export const deleteMessageTC = (messageID: string) => {
+	return async (dispatch: Dispatch<IAction>) => {
+		try {
+			dispatch(setErrorMessage(""));
+			await API.deleteMessage(messageID).then((data) => {
+				if (data.success === true) {
+					dispatch(deleteMessage(messageID));
+				} else {
+					dispatch(setErrorMessage("Delete message: " + data.statusText));
+				}
+			});
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Delete message: " + error.message));
 		}
 	};
 };

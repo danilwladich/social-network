@@ -502,6 +502,10 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   line-height: 150%;
   font-size: 16px;
 }
+.profile__post_content_text a {
+  color: var(--link-color) !important;
+  text-decoration: underline;
+}
 .profile__post_content_images {
   margin: 0 -10px;
   display: grid;

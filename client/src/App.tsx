@@ -12,7 +12,7 @@ import { AppLoading } from "./components/assets/AppLoading";
 import * as io from "socket.io-client";
 import { MessagesMessageData } from "./models/Messages/MessagesMessageData";
 import { MessagesUserData } from "./models/Messages/MessagesUserData";
-import { receiveMessage } from "./redux/messagesReducer";
+import { messageDelete, receiveMessage } from "./redux/messagesReducer";
 import { useAppHeight } from "./hooks/useAppHeight";
 
 const LoginPageContainer = React.lazy(
@@ -59,6 +59,11 @@ interface IProps {
 		messageData: MessagesMessageData,
 		fromUser: MessagesUserData
 	) => void;
+	messageDelete: (
+		fromUser: string,
+		messageID: string,
+		penultimateMessageData?: MessagesMessageData
+	) => void;
 }
 
 function App(props: IProps) {
@@ -81,7 +86,7 @@ function App(props: IProps) {
 		// eslint-disable-next-line
 	}, [authUser.nickname]);
 
-	// try to reconnect
+	// try to reconnect on disconnect
 	useEffect(() => {
 		if (!!authUser.nickname && !!authUser.token) {
 			socket.on("disconnect", () => {
@@ -101,14 +106,23 @@ function App(props: IProps) {
 		// eslint-disable-next-line
 	}, [authUser.nickname, initializationSuccess]);
 
-	// receive message socket
+	// global sockets
 	useEffect(() => {
 		socket.on("receiveMessage", (data) => {
 			props.receiveMessage(data.messageData, data.fromUser);
 		});
 
+		socket.on("messageDelete", (data) => {
+			props.messageDelete(
+				data.from,
+				data.messageID,
+				data.penultimateMessageData
+			);
+		});
+
 		return () => {
 			socket.off("receiveMessage");
+			socket.off("messageDelete");
 		};
 		// eslint-disable-next-line
 	}, []);
@@ -206,4 +220,5 @@ function mapStateToProps(state: IState) {
 export default connect(mapStateToProps, {
 	initializationTC,
 	receiveMessage,
+	messageDelete,
 })(App);

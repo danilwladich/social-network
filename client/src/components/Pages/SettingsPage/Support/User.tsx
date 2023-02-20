@@ -9,6 +9,12 @@ interface IProps {
 
 export function User(props: IProps) {
 	const donationData = props.donationData;
+
+	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
+	if (!!donationData.image) {
+		userImage = donationData.image.split(".jpg")[0] + "&size=small.jpg";
+	}
+
 	return (
 		<>
 			<NavLink
@@ -17,12 +23,7 @@ export function User(props: IProps) {
 				className="settings__topdonations_item"
 			>
 				<div className="settings__topdonations_image">
-					<img
-						src={
-							donationData.image || `/images/user&theme=${props.bodyTheme}.jpg`
-						}
-						alt={donationData.nickname}
-					/>
+					<img src={userImage} alt={donationData.nickname} />
 				</div>
 
 				<div className="settings__topdonations_name">

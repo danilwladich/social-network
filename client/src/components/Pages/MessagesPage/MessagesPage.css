@@ -83,6 +83,13 @@ html[theme=dark] .messages__message.out .messages__message_content {
 html[theme=dark] .messages__message.out .messages__message_content * {
   color: var(--dark-button-text-color);
 }
+html[theme=dark] .messages__message_actions_delete {
+  color: var(--dark-button-text-color);
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .messages__message_actions_delete:hover, html[theme=dark] .messages__message_actions_delete:focus {
+  background-color: var(--dark-button-bg-active);
+}
 
 html[theme=light] .messages__loading_chat {
   background-color: var(--light-subsection-bg);
@@ -168,6 +175,13 @@ html[theme=light] .messages__message.out .messages__message_content {
 }
 html[theme=light] .messages__message.out .messages__message_content * {
   color: var(--light-button-text-color);
+}
+html[theme=light] .messages__message_actions_delete {
+  color: var(--light-button-text-color);
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .messages__message_actions_delete:focus {
+  background-color: var(--light-button-bg-active);
 }
 
 .messages__loading_users {
@@ -439,7 +453,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   margin: 0px 0px 0px -5px;
 }
 .messages__user_lastmessage_status.read svg {
-  fill: yellowgreen;
+  fill: var(--link-color);
 }
 .messages__user_actions {
   position: absolute;
@@ -682,6 +696,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
 }
 .messages__message:not(:last-child) {
   margin: 0px 0px 10px 0px;
@@ -717,6 +732,10 @@ html[theme=light] .messages__message.out .messages__message_content * {
   line-height: 150%;
   overflow-wrap: break-word;
 }
+.messages__message_text a {
+  color: var(--link-color) !important;
+  text-decoration: underline;
+}
 .messages__message_footer {
   font-size: 10px;
   display: -webkit-box;
@@ -740,7 +759,7 @@ html[theme=light] .messages__message.out .messages__message_content * {
   margin: 0px 0px 0px -5px;
 }
 .messages__message_status.read svg {
-  fill: yellowgreen;
+  fill: var(--link-color);
 }
 .messages__message_date {
   -webkit-user-select: none;
@@ -748,6 +767,38 @@ html[theme=light] .messages__message.out .messages__message_content * {
       -ms-user-select: none;
           user-select: none;
   opacity: 0.7;
+}
+.messages__message_actions {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 0;
+  height: 30px;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.messages__message_actions_delete {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-color: transparent;
+  width: 75px;
+  font-size: 16px;
+  line-height: 150%;
+  border-radius: 4px;
+  padding: 2px 10px;
+  opacity: 0;
+  visibility: hidden;
+}
+.messages__message_actions_delete svg {
+  margin: 0px 0px -3px 0px;
+  height: 18px;
+}
+.messages__message_actions_delete.active {
+  opacity: 1;
+  visibility: visible;
 }
 @media (min-width: 767px) {
   .messages__loading_user {

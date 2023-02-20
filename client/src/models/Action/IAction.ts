@@ -162,6 +162,16 @@ interface setCountOfUnreadMessages {
 	type: ActionType.SET_COUNT_OF_UNREAD_MESSAGES;
 	value: string[];
 }
+interface deleteMessage {
+	type: ActionType.DELETE_MESSAGE;
+	messageID: string;
+}
+interface messageDelete {
+	type: ActionType.MESSAGE_DELETE;
+	fromUser: string;
+	messageID: string;
+	penultimateMessageData?: MessagesMessageData;
+}
 
 // FRIENDS
 interface setWhoseFriends {
@@ -229,6 +239,7 @@ export type IAction =
 	| setPostsTotalCount
 	| setNewsTotalCount
 	| deletePost
+	| deleteMessage
 	| deleteChat
 	| setUsers
 	| setChatWith
@@ -239,6 +250,7 @@ export type IAction =
 	| friendsPageUnfollowUser
 	| usersPageFollowUser
 	| usersPageUnfollowUser
+	| messageDelete
 	| setMessagesTotalCount
 	| receiveMessage
 	| setFriends
