@@ -6,6 +6,7 @@ import { User } from "./User/User";
 interface IProps {
 	followData: ProfileFollowData;
 	userNickname: string;
+	bodyTheme: string;
 }
 
 export function About(props: IProps) {
@@ -32,7 +33,7 @@ export function About(props: IProps) {
 					>
 						Followers <span>{followers}</span>
 					</NavLink>
-					
+
 					<NavLink
 						draggable="false"
 						to={"/friends/" + props.userNickname + "/following"}
@@ -45,7 +46,7 @@ export function About(props: IProps) {
 				{!!friends.usersData.length && (
 					<div className="profile__about_users">
 						{friends.usersData.slice(0, 8).map((u) => (
-							<User key={u.nickname} user={u} />
+							<User key={u.nickname} user={u} bodyTheme={props.bodyTheme} />
 						))}
 					</div>
 				)}

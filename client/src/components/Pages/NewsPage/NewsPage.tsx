@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 interface IProps {
 	postsData: NewsPostData[];
 	isLoading: boolean;
+	bodyTheme: string;
 	likePostTC: (postID: string) => Promise<void>;
 	unlikePostTC: (postID: string) => Promise<void>;
 }
@@ -43,6 +44,7 @@ export function NewsPage(props: IProps) {
 									key={p.id}
 									postData={p}
 									buttonInProgress={buttonsInProgress.some((id) => id === p.id)}
+									bodyTheme={props.bodyTheme}
 									likePost={() => likePost(p.id)}
 									unlikePost={() => unlikePost(p.id)}
 								/>

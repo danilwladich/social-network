@@ -3,6 +3,7 @@ import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
 
 interface IProps {
 	userData: ProfileUserData;
+	bodyTheme: string;
 }
 
 export function User(props: IProps) {
@@ -15,7 +16,7 @@ export function User(props: IProps) {
 					className={"profile__user_image " + (userData.online ? "online" : "")}
 				>
 					<img
-						src={userData.image || "/images/user.jpg"}
+						src={userData.image || `/images/user&theme=${props.bodyTheme}.jpg`}
 						alt={userData.nickname}
 					/>
 				</div>

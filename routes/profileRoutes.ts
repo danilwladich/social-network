@@ -393,6 +393,12 @@ router.put(
 					.jpeg({ quality: 50 })
 					.toFile(`${path}/avatar&date=${dateNow}.jpg`);
 
+				await sharp(image.buffer)
+					.withMetadata()
+					.resize({ width: 150, height: 150 })
+					.jpeg({ quality: 50 })
+					.toFile(`${path}/avatar&date=${dateNow}&size=small.jpg`);
+
 				await user.updateOne({
 					avatar: `/images/${authID}/avatar&date=${dateNow}.jpg`,
 				});

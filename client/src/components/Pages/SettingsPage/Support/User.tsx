@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 interface IProps {
 	donationData: DonationData;
+	bodyTheme: string;
 }
 
 export function User(props: IProps) {
@@ -17,7 +18,9 @@ export function User(props: IProps) {
 			>
 				<div className="settings__topdonations_image">
 					<img
-						src={donationData.image || "/images/user.jpg"}
+						src={
+							donationData.image || `/images/user&theme=${props.bodyTheme}.jpg`
+						}
 						alt={donationData.nickname}
 					/>
 				</div>

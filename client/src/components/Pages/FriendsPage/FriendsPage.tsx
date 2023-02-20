@@ -16,6 +16,7 @@ interface IProps {
 	usersData: FriendsUserData[];
 	totalCount: number;
 	search?: string;
+	bodyTheme: string;
 	setFollowTC: (userNickname: string) => Promise<void>;
 	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
@@ -62,7 +63,10 @@ export function FriendsPage(props: IProps) {
 					>
 						<NavLink draggable="false" to={"/" + whoseFriends.nickname}>
 							<img
-								src={whoseFriends.image || "/images/user.jpg"}
+								src={
+									whoseFriends.image ||
+									`/images/user&theme=${props.bodyTheme}.jpg`
+								}
 								alt={whoseFriends.nickname}
 							/>
 						</NavLink>
@@ -108,6 +112,7 @@ export function FriendsPage(props: IProps) {
 									isAuth={!!props.authNickname}
 									itsMe={u.nickname === props.authNickname}
 									userData={u}
+									bodyTheme={props.bodyTheme}
 									setFollow={() => setFollow(u.nickname)}
 									setUnfollow={() => setUnfollow(u.nickname)}
 									followButtonInProgress={followButtonsInProgress.some(

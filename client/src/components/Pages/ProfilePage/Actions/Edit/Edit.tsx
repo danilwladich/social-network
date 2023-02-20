@@ -6,6 +6,7 @@ import { EditForm } from "./EditForm";
 interface IProps {
 	userData: ProfileUserData;
 	authNickname: string;
+	bodyTheme: string;
 	editProfileTC: (
 		image?: File,
 		nickname?: string,
@@ -32,7 +33,7 @@ export function Edit(props: IProps) {
 			<button onClick={() => modalOn()} className="profile__actions_edit">
 				Edit profile
 			</button>
-			
+
 			{showModal && (
 				<>
 					<div

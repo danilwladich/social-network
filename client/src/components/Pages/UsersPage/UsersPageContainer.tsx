@@ -16,6 +16,7 @@ interface IProps {
 	usersData: UsersUserData[];
 	pageSize: number;
 	totalCount: number;
+	bodyTheme: string;
 	getUsersTC: (
 		page: number,
 		pageSize: number,
@@ -83,6 +84,7 @@ function mapStateToProps(state: IState) {
 		usersData: state.users.usersData,
 		pageSize: state.users.pageSize,
 		totalCount: state.users.totalCount,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

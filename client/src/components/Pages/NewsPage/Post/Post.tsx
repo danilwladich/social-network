@@ -7,6 +7,7 @@ import { Info } from "./Info";
 interface IProps {
 	postData: NewsPostData;
 	buttonInProgress: boolean;
+	bodyTheme: string;
 	likePost: () => void;
 	unlikePost: () => void;
 }
@@ -26,7 +27,9 @@ export function Post(props: IProps) {
 					>
 						<img
 							loading="lazy"
-							src={ownerData.image || "/images/user.jpg"}
+							src={
+								ownerData.image || `/images/user&theme=${props.bodyTheme}.jpg`
+							}
 							alt={ownerData.nickname}
 						/>
 					</NavLink>

@@ -13,6 +13,7 @@ interface IProps {
 	messagesData: MessagesMessageData[];
 	contentRef: React.RefObject<HTMLDivElement>;
 	contentLock: boolean;
+	bodyTheme: string;
 	sendMessage: (message: string, id: string) => void;
 	readMessages: (userNickname: string) => void;
 }
@@ -92,7 +93,7 @@ export function Chat(props: IProps) {
 	return (
 		<>
 			<div className="messages__chat">
-				<ChatHeader chatWith={chatWith} />
+				<ChatHeader chatWith={chatWith} bodyTheme={props.bodyTheme} />
 
 				<div className="messages__chat_content" ref={contentRef}>
 					{!!props.messagesData.length ? (

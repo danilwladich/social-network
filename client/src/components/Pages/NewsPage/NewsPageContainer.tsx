@@ -13,6 +13,7 @@ interface IProps {
 	postsData: NewsPostData[];
 	pageSize: number;
 	totalCount: number;
+	bodyTheme: string;
 	getNewsTC: (page: number, pageSize: number) => Promise<void>;
 	likePostTC: (postID: string) => Promise<void>;
 	unlikePostTC: (postID: string) => Promise<void>;
@@ -72,6 +73,7 @@ function mapStateToProps(state: IState) {
 		postsData: state.news.postsData,
 		pageSize: state.news.pageSize,
 		totalCount: state.news.totalCount,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

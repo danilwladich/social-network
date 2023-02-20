@@ -6,6 +6,7 @@ function mapStateToProps(state: IState) {
 	return {
 		followData: state.profile.followData,
 		userNickname: state.profile.userData.nickname,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

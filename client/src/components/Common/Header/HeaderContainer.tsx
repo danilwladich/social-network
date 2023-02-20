@@ -10,6 +10,7 @@ function mapStateToProps(state: IState) {
 		authImage: state.app.authProfile.image,
 		burger: state.header.burger,
 		countOfUnreadMessages: state.messages.countOfUnreadMessages,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

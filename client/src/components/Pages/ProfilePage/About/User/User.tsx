@@ -4,6 +4,7 @@ import { ProfileFollowUserData } from "../../../../../models/Profile/ProfileFoll
 
 interface IProps {
 	user: ProfileFollowUserData;
+	bodyTheme: string;
 }
 
 export function User(props: IProps) {
@@ -20,7 +21,10 @@ export function User(props: IProps) {
 						"profile__about_user_image " + (user.online ? "online" : "")
 					}
 				>
-					<img src={user.image || "/images/user.jpg"} alt={user.nickname} />
+					<img
+						src={user.image || `/images/user&theme=${props.bodyTheme}.jpg`}
+						alt={user.nickname}
+					/>
 				</div>
 
 				<div className="profile__about_user_name">{user.firstName}</div>

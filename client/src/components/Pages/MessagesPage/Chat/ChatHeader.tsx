@@ -4,6 +4,7 @@ import { ChatWith } from "../../../../models/Messages/ChatWith";
 
 interface IProps {
 	chatWith: ChatWith;
+	bodyTheme: string;
 }
 
 export function ChatHeader(props: IProps) {
@@ -35,7 +36,7 @@ export function ChatHeader(props: IProps) {
 					}
 				>
 					<img
-						src={chatWith.image || "/images/user.jpg"}
+						src={chatWith.image || `/images/user&theme=${props.bodyTheme}.jpg`}
 						alt={chatWith.nickname}
 					/>
 				</NavLink>

@@ -8,6 +8,7 @@ interface IProps {
 	authImage?: string;
 	burger: boolean;
 	countOfUnreadMessages: string[];
+	bodyTheme: string;
 	setBurger: (b: boolean) => void;
 }
 
@@ -34,7 +35,12 @@ export function Header(props: IProps) {
 							draggable="false"
 							className="header__user"
 						>
-							<img src={props.authImage || "/images/user.jpg"} alt="User" />
+							<img
+								src={
+									props.authImage || `/images/user&theme=${props.bodyTheme}.jpg`
+								}
+								alt="User"
+							/>
 						</NavLink>
 					) : (
 						<NavLink to="/login" draggable="false" className="header__login">

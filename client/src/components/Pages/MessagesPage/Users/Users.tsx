@@ -4,6 +4,7 @@ import { User } from "./User/User";
 
 interface IProps {
 	usersData: MessagesUserData[];
+	bodyTheme: string;
 	deleteChatTC: (userNickname: string) => Promise<void>;
 }
 
@@ -34,6 +35,7 @@ export function Users(props: IProps) {
 							deleteButtonInProgress={deleteButtonsInProgress.some(
 								(nickname) => nickname === u.nickname
 							)}
+							bodyTheme={props.bodyTheme}
 							deleteChat={() => deleteChat(u.nickname)}
 						/>
 					))}

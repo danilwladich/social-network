@@ -10,6 +10,7 @@ interface IProps {
 	usersData: UsersUserData[];
 	isLoading: boolean;
 	search?: string;
+	bodyTheme: string;
 	setFollowTC: (userNickname: string) => Promise<void>;
 	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
@@ -55,6 +56,7 @@ export function UsersPage(props: IProps) {
 									key={u.nickname}
 									isAuth={props.isAuth}
 									userData={u}
+									bodyTheme={props.bodyTheme}
 									setFollow={() => setFollow(u.nickname)}
 									setUnfollow={() => setUnfollow(u.nickname)}
 									followButtonInProgress={followButtonsInProgress.some(

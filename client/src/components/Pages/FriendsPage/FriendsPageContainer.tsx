@@ -18,6 +18,7 @@ interface IProps {
 	usersData: FriendsUserData[];
 	pageSize: number;
 	totalCount: number;
+	bodyTheme: string;
 	getFriendsTC: (
 		userNickname: string,
 		category: string,
@@ -139,6 +140,7 @@ function mapStateToProps(state: IState) {
 		usersData: state.friends.usersData,
 		pageSize: state.friends.pageSize,
 		totalCount: state.friends.totalCount,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

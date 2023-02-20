@@ -15,6 +15,7 @@ interface IProps {
 	messagesData: MessagesMessageData[];
 	pageSize: number;
 	totalCount: number;
+	bodyTheme: string;
 	getChatTC: (
 		userNickname: string,
 		page: number,
@@ -105,6 +106,7 @@ function mapStateToProps(state: IState) {
 		messagesData: state.messages.messagesData,
 		pageSize: state.messages.pageSize,
 		totalCount: state.messages.totalCount,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

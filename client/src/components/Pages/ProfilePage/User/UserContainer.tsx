@@ -5,6 +5,7 @@ import { User } from "./User";
 function mapStateToProps(state: IState) {
 	return {
 		userData: state.profile.userData,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

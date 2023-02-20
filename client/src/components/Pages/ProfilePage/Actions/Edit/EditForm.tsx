@@ -8,6 +8,7 @@ import { ProfileUserData } from "../../../../../models/Profile/ProfileUserData";
 interface IProps {
 	userData: ProfileUserData;
 	authNickname: string;
+	bodyTheme: string;
 	editProfileTC: (
 		image?: File,
 		nickname?: string,
@@ -158,7 +159,10 @@ export function EditForm(props: IProps) {
 										<span>Update profile image</span>
 										<img
 											ref={newImageRef}
-											src={props.userData.image || "/images/user.jpg"}
+											src={
+												props.userData.image ||
+												`/images/user&theme=${props.bodyTheme}.jpg`
+											}
 											alt={props.authNickname}
 										/>
 									</label>

@@ -7,6 +7,7 @@ interface IProps {
 	isAuth: boolean;
 	userData: UsersUserData;
 	followButtonInProgress: boolean;
+	bodyTheme: string;
 	setFollow: () => void;
 	setUnfollow: () => void;
 }
@@ -23,7 +24,7 @@ export function User(props: IProps) {
 				>
 					<img
 						loading="lazy"
-						src={userData.image || "/images/user.jpg"}
+						src={userData.image || `/images/user&theme=${props.bodyTheme}.jpg`}
 						alt={userData.nickname}
 					/>
 				</NavLink>

@@ -9,6 +9,7 @@ import { deleteChatTC } from "./../../../../redux/messagesReducer";
 
 interface IProps {
 	usersData: MessagesUserData[];
+	bodyTheme: string;
 	getChatsTC: () => Promise<void>;
 	deleteChatTC: (userNickname: string) => Promise<void>;
 }
@@ -35,6 +36,7 @@ export function UsersContainerAPI(props: IProps) {
 function mapStateToProps(state: IState) {
 	return {
 		usersData: state.messages.usersData,
+		bodyTheme: state.settings.bodyTheme,
 	};
 }
 

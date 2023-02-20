@@ -7,6 +7,7 @@ import { LastMessage } from "./LastMessage";
 interface IProps {
 	userData: MessagesUserData;
 	deleteButtonInProgress: boolean;
+	bodyTheme: string;
 	deleteChat: () => void;
 }
 
@@ -33,7 +34,9 @@ export function User(props: IProps) {
 					>
 						<img
 							loading="lazy"
-							src={userData.image || "/images/user.jpg"}
+							src={
+								userData.image || `/images/user&theme=${props.bodyTheme}.jpg`
+							}
 							alt={userData.nickname}
 						/>
 					</div>

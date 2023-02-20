@@ -99,6 +99,10 @@ html[theme="light"] {
 				a {
 					display: block;
 					line-height: 35px;
+					&:hover,
+					&:focus {
+						text-decoration: underline;
+					}
 				}
 			}
 		}
