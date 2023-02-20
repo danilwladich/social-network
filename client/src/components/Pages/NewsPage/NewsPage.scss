@@ -5,7 +5,12 @@ html[theme="dark"] {
 				border-bottom: var(--dark-items-border-bottom) solid 1px;
 			}
 			&_more {
+				color: var(--dark-button-text-color);
 				background-color: var(--dark-button-bg);
+				&:hover,
+				&:focus {
+					background-color: var(--dark-button-bg-active);
+				}
 			}
 			&_like {
 				color: var(--light-button-text-color);
@@ -25,7 +30,12 @@ html[theme="light"] {
 				border-bottom: var(--light-items-border-bottom) solid 1px;
 			}
 			&_more {
+				color: var(--dark-button-text-color);
 				background-color: var(--light-button-bg);
+				&:hover,
+				&:focus {
+					background-color: var(--light-button-bg-active);
+				}
 			}
 			&_like {
 				color: var(--light-button-text-color);
@@ -207,9 +217,6 @@ html[theme="light"] {
 			padding: 2px 5px;
 			font-size: 16px;
 			border-radius: 4px;
-			&:hover {
-				text-decoration: underline;
-			}
 		}
 		&_info {
 			display: flex;

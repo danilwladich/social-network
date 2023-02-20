@@ -2,7 +2,11 @@ html[theme=dark] .news__post:not(:last-child) {
   border-bottom: var(--dark-items-border-bottom) solid 1px;
 }
 html[theme=dark] .news__post_more {
+  color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
+}
+html[theme=dark] .news__post_more:hover, html[theme=dark] .news__post_more:focus {
+  background-color: var(--dark-button-bg-active);
 }
 html[theme=dark] .news__post_like {
   color: var(--light-button-text-color);
@@ -16,7 +20,11 @@ html[theme=light] .news__post:not(:last-child) {
   border-bottom: var(--light-items-border-bottom) solid 1px;
 }
 html[theme=light] .news__post_more {
+  color: var(--dark-button-text-color);
   background-color: var(--light-button-bg);
+}
+html[theme=light] .news__post_more:hover, html[theme=light] .news__post_more:focus {
+  background-color: var(--light-button-bg-active);
 }
 html[theme=light] .news__post_like {
   color: var(--light-button-text-color);
@@ -194,9 +202,6 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   padding: 2px 5px;
   font-size: 16px;
   border-radius: 4px;
-}
-.news__post_more:hover {
-  text-decoration: underline;
 }
 .news__post_info {
   display: -webkit-box;
