@@ -212,7 +212,8 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
   border: 2px solid rgba(0, 255, 0, 0.7);
 }
 .friends__not_found {
-  font-size: 26px;
+  line-height: 150%;
+  font-size: 20px;
   text-align: center;
 }
 .friends__categories {
