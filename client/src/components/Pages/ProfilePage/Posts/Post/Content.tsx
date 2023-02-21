@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import { useUrlifyText } from "../../../../../hooks/useUrlifyText";
+import React, { useState } from "react";
 import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
+import Linkify from "react-linkify";
 
 interface IProps {
 	postData: ProfilePostData;
@@ -24,7 +24,6 @@ function numberToWord(number: number) {
 }
 
 export function Content(props: IProps) {
-	const postTextRef = useRef<HTMLDivElement>(null);
 	const [showMore, setShowMore] = useState(false);
 	const postData = props.postData;
 
@@ -32,8 +31,6 @@ export function Content(props: IProps) {
 	const postToShow = showMore
 		? postData.post
 		: postData.post.split(" ").slice(0, 75).join(" ").slice(0, 500);
-
-	useUrlifyText(postToShow, postTextRef);
 
 	const images: string[] = [];
 
@@ -44,7 +41,7 @@ export function Content(props: IProps) {
 			<div className="profile__post_content">
 				{!!postToShow && (
 					<div className="profile__post_content_text">
-						<span ref={postTextRef}>{postToShow}</span>
+						<Linkify>{postToShow}</Linkify>
 
 						{(postData.post.split(" ").length > 75 ||
 							postData.post.length > 500) &&

@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
-import { useUrlifyText } from "../../../../../hooks/useUrlifyText";
+import React, { useState } from "react";
 import { MessagesMessageData } from "../../../../../models/Messages/MessagesMessageData";
 import { LoadingCircle } from "../../../../assets/LoadingCircle";
 import { MessageFooter } from "./MessageFooter";
+import Linkify from "react-linkify";
 
 interface IProps {
 	messageData: MessagesMessageData;
@@ -13,7 +13,6 @@ interface IProps {
 }
 
 export function Message(props: IProps) {
-	const messageTextRef = useRef<HTMLDivElement>(null);
 	const [waitingClick, setWaitingClick] = useState<NodeJS.Timeout | null>(null);
 	const [lastClick, setLastClick] = useState(0);
 	const [showActions, setShowActions] = useState(false);
@@ -35,8 +34,6 @@ export function Message(props: IProps) {
 		}
 	};
 
-	useUrlifyText(messageData.message, messageTextRef);
-
 	return (
 		<>
 			{!!props.date && <div className="messages__date">{props.date}</div>}
@@ -47,9 +44,11 @@ export function Message(props: IProps) {
 				className={"messages__message " + (messageData.out ? "out" : "")}
 			>
 				<div className="messages__message_content">
-					<span className="messages__message_text" ref={messageTextRef}>
-						{messageData.message}
-					</span>
+					<Linkify>
+						<span className="messages__message_text">
+							{messageData.message}
+						</span>
+					</Linkify>
 
 					<MessageFooter messageData={messageData} />
 

@@ -12,7 +12,13 @@ export function Copyright() {
 				>
 					GitHub
 				</a>
-				<p className="settings__copy">frosbutte1@gmail.com</p>
+				<a
+					draggable="false"
+					href="mailto:frosbutte1@gmail.com"
+					className="settings__button"
+				>
+					frosbutte1@gmail.com
+				</a>
 			</div>
 		</>
 	);

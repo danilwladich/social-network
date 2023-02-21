@@ -270,7 +270,7 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   position: fixed;
   left: 0;
   top: 0;
-  height: 100vh;
+  height: var(--app-height);
   width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;
