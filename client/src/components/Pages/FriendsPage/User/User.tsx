@@ -21,6 +21,14 @@ export function User(props: IProps) {
 		userImage = userData.image.split(".jpg")[0] + "&size=small.jpg";
 	}
 
+	let userLocation = "";
+	if (!!userData.location.country) {
+		userLocation += userData.location.country + " ";
+	}
+	if (!!userData.location.city) {
+		userLocation += userData.location.city;
+	}
+
 	return (
 		<>
 			<div className="friends__user">
@@ -39,10 +47,7 @@ export function User(props: IProps) {
 						</NavLink>
 					</div>
 
-					<div className="friends__user_location">
-						<p>{userData.location.country}</p>
-						<p>{userData.location.city}</p>
-					</div>
+					<div className="friends__user_location">{userLocation}</div>
 				</div>
 
 				{!props.itsMe ? (

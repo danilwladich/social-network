@@ -216,10 +216,6 @@ html[theme="light"] {
 				display: block;
 				padding: 15px 0;
 				width: 100%;
-				&:hover,
-				&:focus {
-					text-decoration: underline;
-				}
 			}
 		}
 		&_location {
@@ -331,11 +327,14 @@ html[theme="light"] {
 				a {
 					display: inline;
 					padding: 0;
+					&:hover,
+					&:focus {
+						text-decoration: underline;
+					}
 				}
 			}
 			&_location {
-				display: flex;
-				gap: 5px;
+				display: block;
 				opacity: 0.7;
 				font-size: 14px;
 				overflow: hidden;

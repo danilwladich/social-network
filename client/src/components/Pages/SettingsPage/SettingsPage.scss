@@ -117,11 +117,6 @@ html[theme="light"] {
 			}
 		}
 	}
-	&__copy {
-		line-height: 150%;
-		font-size: 18px;
-		margin: 15px 0 0 0;
-	}
 	&__donation {
 		border-radius: 4px;
 		margin: 15px 0px 0px 0px;
@@ -162,12 +157,6 @@ html[theme="light"] {
 			display: flex;
 			align-items: center;
 			gap: 10px;
-			&:hover,
-			&:focus {
-				.settings__topdonations_name {
-					text-decoration: underline;
-				}
-			}
 		}
 		&_image {
 			flex: 0 0 40px;
@@ -204,6 +193,14 @@ html[theme="light"] {
 			max-width: 280px;
 			&_items {
 				margin: 10px 0px 0px 0px;
+			}
+			&_item {
+				&:hover,
+				&:focus {
+					.settings__topdonations_name {
+						text-decoration: underline;
+					}
+				}
 			}
 		}
 	}

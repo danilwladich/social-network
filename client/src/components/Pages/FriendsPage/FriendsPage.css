@@ -362,9 +362,6 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
   padding: 15px 0;
   width: 100%;
 }
-.friends__user_name a:hover, .friends__user_name a:focus {
-  text-decoration: underline;
-}
 .friends__user_location {
   display: none;
 }
@@ -508,11 +505,11 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
     display: inline;
     padding: 0;
   }
+  .friends__user_name a:hover, .friends__user_name a:focus {
+    text-decoration: underline;
+  }
   .friends__user_location {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    gap: 5px;
+    display: block;
     opacity: 0.7;
     font-size: 14px;
     overflow: hidden;

@@ -111,11 +111,6 @@ html[theme=light] .settings__button:hover, html[theme=light] .settings__button:f
 .settings__delete_button svg circle {
   stroke: #fff !important;
 }
-.settings__copy {
-  line-height: 150%;
-  font-size: 18px;
-  margin: 15px 0 0 0;
-}
 .settings__donation {
   border-radius: 4px;
   margin: 15px 0px 0px 0px;
@@ -165,9 +160,6 @@ html[theme=light] .settings__button:hover, html[theme=light] .settings__button:f
           align-items: center;
   gap: 10px;
 }
-.settings__topdonations_item:hover .settings__topdonations_name, .settings__topdonations_item:focus .settings__topdonations_name {
-  text-decoration: underline;
-}
 .settings__topdonations_image {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 40px;
@@ -208,5 +200,8 @@ html[theme=light] .settings__button:hover, html[theme=light] .settings__button:f
   }
   .settings__topdonations_items {
     margin: 10px 0px 0px 0px;
+  }
+  .settings__topdonations_item:hover .settings__topdonations_name, .settings__topdonations_item:focus .settings__topdonations_name {
+    text-decoration: underline;
   }
 }

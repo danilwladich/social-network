@@ -267,6 +267,9 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 5px;
 }
 .profile__user_name {
@@ -278,13 +281,6 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   font-size: 14px;
   line-height: 150%;
   opacity: 0.7;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 5px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 .profile__actions {
   margin: 15px 0px 0px 0px;
@@ -780,14 +776,16 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
     width: 100%;
     height: 150px;
   }
+  .profile__user_info {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
   .profile__user_name {
     font-size: 24px;
   }
   .profile__user_location {
     font-size: 16px;
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: start;
   }
   .profile__actions {
     gap: 15px;

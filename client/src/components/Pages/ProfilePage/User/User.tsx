@@ -13,6 +13,14 @@ export function User(props: IProps) {
 	let userImage: string =
 		userData.image || `/images/user&theme=${props.bodyTheme}.jpg`;
 
+	let userLocation = "";
+	if (!!userData.location.country) {
+		userLocation += userData.location.country + " ";
+	}
+	if (!!userData.location.city) {
+		userLocation += userData.location.city;
+	}
+
 	return (
 		<>
 			<div className="profile__user">
@@ -27,10 +35,7 @@ export function User(props: IProps) {
 						{userData.firstName + " " + userData.lastName}
 					</h2>
 
-					<div className="profile__user_location">
-						<p>{userData.location.country}</p>
-						<p>{userData.location.city}</p>
-					</div>
+					<div className="profile__user_location">{userLocation}</div>
 				</div>
 			</div>
 		</>
