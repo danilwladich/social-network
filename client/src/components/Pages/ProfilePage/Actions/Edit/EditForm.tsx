@@ -20,10 +20,17 @@ interface IProps {
 
 export function EditForm(props: IProps) {
 	const navigate = useNavigate();
+
 	const newImageRef = useRef<HTMLImageElement>(null);
 	const [submitting, setSubmitting] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+
 	const hostname = window.location.hostname;
+
+	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
+	if (!!props.userData.image) {
+		userImage = props.userData.image.split(".jpg")[0] + "&size=small.jpg";
+	}
 
 	function onUpdateProfileImage(e: React.ChangeEvent<HTMLInputElement>) {
 		if (e.target.files?.length && e.target.files[0].size <= 10000000) {
@@ -159,10 +166,7 @@ export function EditForm(props: IProps) {
 										<span>Update profile image</span>
 										<img
 											ref={newImageRef}
-											src={
-												props.userData.image ||
-												`/images/user&theme=${props.bodyTheme}.jpg`
-											}
+											src={userImage}
 											alt={props.authNickname}
 										/>
 									</label>
@@ -196,13 +200,14 @@ export function EditForm(props: IProps) {
 									>
 										Nickname
 										<p>
-											{hostname}/
-											{values.nickname
-												? values.nickname
-														.trim()
-														.slice(0, 15)
-														.replace(/[^\w]/g, "")
-												: props.authNickname}
+											{hostname +
+												"/" +
+												(values.nickname
+													? values.nickname
+															.trim()
+															.slice(0, 15)
+															.replace(/[^\w]/g, "")
+													: props.authNickname)}
 										</p>
 									</label>
 									<input

@@ -114,6 +114,8 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
 }
 .news__post_content_text a {
   color: var(--link-color) !important;
+}
+.news__post_content_text a:hover, .news__post_content_text a:focus {
   text-decoration: underline;
 }
 .news__post_content_images {

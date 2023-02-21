@@ -117,7 +117,10 @@ html[theme="light"] {
 				font-size: 16px;
 				a {
 					color: var(--link-color) !important;
-					text-decoration: underline;
+					&:hover,
+					&:focus {
+						text-decoration: underline;
+					}
 				}
 			}
 			&_images {

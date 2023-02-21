@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Arrow } from "../../../assets/Arrow";
-import { CloseX } from "../../../assets/CloseX";
+import { ImageIcon } from "../../../assets/ImageIcon";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
 
 interface IProps {
@@ -16,6 +16,7 @@ export function Input(props: IProps) {
 	const [newPostValue, setNewPostValue] = useState(newPostDraft.value || "");
 	const [addPostInProgress, setAddPostInProgress] = useState(false);
 	const fieldRef = useRef<HTMLTextAreaElement>(null);
+	// const postImage = useRef<HTMLImageElement>(null);
 
 	// first render scroll bottom
 	useLayoutEffect(() => {
@@ -25,8 +26,6 @@ export function Input(props: IProps) {
 	function updateNewPostValue(v: string) {
 		if (v.length < 15000) {
 			newPostDraft.value = v;
-
-			sessionStorage.setItem("newPostDraft", JSON.stringify(newPostDraft));
 
 			setNewPostValue(v);
 		}
@@ -38,24 +37,19 @@ export function Input(props: IProps) {
 				fieldRef.current!.scrollHeight + 4 + "px";
 
 			newPostDraft.height = fieldRef.current!.scrollHeight + 4 + "px";
-
-			sessionStorage.setItem("newPostDraft", JSON.stringify(newPostDraft));
 		} else {
 			fieldRef.current!.style.height = "284px";
 
 			newPostDraft.height = "284px";
-
-			sessionStorage.setItem("newPostDraft", JSON.stringify(newPostDraft));
 		}
 
 		if (v === "") {
 			newPostDraft.value = "";
 			newPostDraft.height = "50px";
 
-			sessionStorage.setItem("newPostDraft", JSON.stringify(newPostDraft));
-
 			fieldRef.current!.style.height = "50px";
 		}
+		sessionStorage.setItem("newPostDraft", JSON.stringify(newPostDraft));
 	}
 	function addPost() {
 		setAddPostInProgress(true);
@@ -75,6 +69,21 @@ export function Input(props: IProps) {
 			}
 		}
 	}
+
+	// function onUploadImage(e: React.ChangeEvent<HTMLInputElement>) {
+	// 	if (e.target.files !== null) {
+	// 		Array.from(e.target.files).forEach((file) => {
+	// 			console.log(file);
+	// 		});
+	// 	}
+	// 	// if (e.target.files?.length && e.target.files[0].size <= 10000000) {
+	// 	// 	const reader = new FileReader();
+	// 	// 	reader.readAsDataURL(e.target.files![0]);
+	// 	// 	reader.onload = function (e) {
+	// 	// 		postImage.current!.src = e.target?.result as string;
+	// 	// 	};
+	// 	// }
+	// }
 
 	return (
 		<>
@@ -100,16 +109,26 @@ export function Input(props: IProps) {
 					{addPostInProgress ? <LoadingCircle /> : <Arrow id="addPostArrow" />}
 				</button>
 
-				{newPostValue && (
-					<button
-						onClick={() => {
-							updateNewPostValue("");
-						}}
-						className="profile__posts_input_cancel"
-					>
-						<CloseX />
-					</button>
-				)}
+				{/* <label
+					htmlFor="postImageInput"
+					id="postImageInputLabel"
+					className="profile__posts_input_images"
+				>
+					<ImageIcon />
+				</label>
+
+				<img ref={postImage} src={""} alt={""} />
+
+				<input
+					id="postImageInput"
+					onChange={(e) => {
+						onUploadImage(e);
+					}}
+					type="file"
+					multiple
+					accept="image/png, image/jpeg"
+					style={{ display: "none" }}
+				/> */}
 			</div>
 		</>
 	);

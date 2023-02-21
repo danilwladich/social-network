@@ -122,6 +122,11 @@ html[theme="dark"] {
 			}
 		}
 	}
+	.imageIcon {
+		path {
+			fill: var(--dark-text-color);
+		}
+	}
 }
 
 html[theme="light"] {
@@ -211,6 +216,11 @@ html[theme="light"] {
 			&:not(:disabled):hover {
 				background-color: var(--light-button-bg-active);
 			}
+		}
+	}
+	.imageIcon {
+		path {
+			fill: var(--light-text-color);
 		}
 	}
 }

@@ -453,19 +453,20 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   width: 40px;
   height: 40px;
 }
-.profile__posts_input_cancel {
+.profile__posts_input_images {
+  cursor: pointer;
   position: absolute;
   right: 61px;
   top: 10px;
   background-color: transparent;
   width: 30px;
   height: 30px;
-  opacity: 0.7;
+  opacity: 0.8;
 }
-.profile__posts_input_cancel:hover {
+.profile__posts_input_images:hover, .profile__posts_input_images:focus {
   opacity: 1;
 }
-.profile__posts_input_cancel svg {
+.profile__posts_input_images svg {
   width: 30px;
   height: 30px;
 }
@@ -499,6 +500,8 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 }
 .profile__post_content_text a {
   color: var(--link-color) !important;
+}
+.profile__post_content_text a:hover, .profile__post_content_text a:focus {
   text-decoration: underline;
 }
 .profile__post_content_images {

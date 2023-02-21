@@ -734,6 +734,8 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
 }
 .messages__message_text a {
   color: var(--link-color) !important;
+}
+.messages__message_text a:hover, .messages__message_text a:focus {
   text-decoration: underline;
 }
 .messages__message_footer {

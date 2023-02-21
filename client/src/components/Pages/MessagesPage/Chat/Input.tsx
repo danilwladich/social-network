@@ -31,11 +31,6 @@ export function Input(props: IProps) {
 		if (v.length <= 5000) {
 			newMessagesDraft[props.userNickname + "\\value"] = v;
 
-			sessionStorage.setItem(
-				"newMessagesDraft",
-				JSON.stringify(newMessagesDraft)
-			);
-
 			setNewMessageValue(v);
 		}
 
@@ -47,33 +42,22 @@ export function Input(props: IProps) {
 
 			newMessagesDraft[props.userNickname + "\\height"] =
 				fieldRef.current!.scrollHeight + 4 + "px";
-
-			sessionStorage.setItem(
-				"newMessagesDraft",
-				JSON.stringify(newMessagesDraft)
-			);
 		} else {
 			fieldRef.current!.style.height = "284px";
 
 			newMessagesDraft[props.userNickname + "\\height"] = "284px";
-
-			sessionStorage.setItem(
-				"newMessagesDraft",
-				JSON.stringify(newMessagesDraft)
-			);
 		}
 
 		if (v === "") {
 			delete newMessagesDraft[props.userNickname + "\\value"];
 			delete newMessagesDraft[props.userNickname + "\\height"];
 
-			sessionStorage.setItem(
-				"newMessagesDraft",
-				JSON.stringify(newMessagesDraft)
-			);
-
 			fieldRef.current!.style.height = "50px";
 		}
+		sessionStorage.setItem(
+			"newMessagesDraft",
+			JSON.stringify(newMessagesDraft)
+		);
 	}
 	function sendMessage() {
 		if (newMessageValue.trim() !== "") {

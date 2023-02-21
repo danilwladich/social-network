@@ -712,7 +712,10 @@ html[theme="light"] {
 			overflow-wrap: break-word;
 			a {
 				color: var(--link-color) !important;
-				text-decoration: underline;
+				&:hover,
+				&:focus {
+					text-decoration: underline;
+				}
 			}
 		}
 		&_footer {

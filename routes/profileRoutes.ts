@@ -186,6 +186,18 @@ router.post(
 			}
 
 			const authID = req.user!.userID as string;
+
+			// ! limit
+			const countOfPosts = await Post.find({ owner: authID }).count();
+			if (countOfPosts >= 10) {
+				return res.status(200).json({
+					success: false,
+					statusText:
+						"I'm sorry but due to the fact that at the moment I'm using a free database, you can't add more than 10 posts",
+				});
+			}
+			// !
+
 			const { post } = req.body;
 
 			const newPost = new Post({

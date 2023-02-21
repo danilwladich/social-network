@@ -205,6 +205,9 @@ html[theme=dark] .form__button {
 html[theme=dark] .form__button:not(:disabled):hover {
   background-color: var(--dark-button-bg-active);
 }
+html[theme=dark] .imageIcon path {
+  fill: var(--dark-text-color);
+}
 
 html[theme=light] ::-webkit-scrollbar-track {
   background: rgba(85, 85, 85, 0.3);
@@ -278,6 +281,9 @@ html[theme=light] .form__button {
 }
 html[theme=light] .form__button:not(:disabled):hover {
   background-color: var(--light-button-bg-active);
+}
+html[theme=light] .imageIcon path {
+  fill: var(--light-text-color);
 }
 
 html {

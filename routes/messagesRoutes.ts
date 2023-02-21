@@ -123,6 +123,28 @@ router.post(
 
 			const { fromUserID, toUserNickname, message } = req.body;
 
+			// ! limit
+			const exceptions = [
+				"63da5c970bb0d00c8cb47e14",
+				"63da6f93b02443e6f67fc7a3",
+				"63da8dbbb02443e6f67fceff",
+				"63dc51586c2af2d76b387d86",
+				"63da6bf4a9f9b3d6aad0a5ff",
+			];
+			if (!exceptions.includes(fromUserID)) {
+				const countOfMessages = await Message.find({
+					from: fromUserID,
+				}).count();
+				if (countOfMessages >= 50) {
+					return res.status(200).json({
+						success: false,
+						statusText:
+							"I'm sorry but due to the fact that at the moment I'm using a free database, you can't send more than 50 messages in total",
+					});
+				}
+			}
+			// !
+
 			const fromUser = await User.findById(fromUserID, {
 				_id: 1,
 				firstName: 1,
