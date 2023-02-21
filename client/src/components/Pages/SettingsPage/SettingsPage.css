@@ -6,6 +6,9 @@ html[theme=dark] .settings__button {
   color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
 }
+html[theme=dark] .settings__button * {
+  color: var(--dark-button-text-color);
+}
 html[theme=dark] .settings__button:hover, html[theme=dark] .settings__button:focus {
   background-color: var(--dark-button-bg-active);
 }
@@ -17,6 +20,9 @@ html[theme=light] .settings__button {
   stroke: var(--light-button-text-color);
   color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
+}
+html[theme=light] .settings__button * {
+  color: var(--light-button-text-color);
 }
 html[theme=light] .settings__button:hover, html[theme=light] .settings__button:focus {
   background-color: var(--light-button-bg-active);

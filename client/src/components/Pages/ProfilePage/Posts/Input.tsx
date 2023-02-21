@@ -31,13 +31,19 @@ export function Input(props: IProps) {
 			setNewPostValue(v);
 		}
 
-		if (fieldRef.current!.scrollHeight + 4 < 300) {
+		if (fieldRef.current!.scrollHeight + 4 < 285) {
 			fieldRef.current!.style.height = "50px";
 
 			fieldRef.current!.style.height =
 				fieldRef.current!.scrollHeight + 4 + "px";
 
 			newPostDraft.height = fieldRef.current!.scrollHeight + 4 + "px";
+
+			sessionStorage.setItem("newPostDraft", JSON.stringify(newPostDraft));
+		} else {
+			fieldRef.current!.style.height = "284px";
+
+			newPostDraft.height = "284px";
 
 			sessionStorage.setItem("newPostDraft", JSON.stringify(newPostDraft));
 		}

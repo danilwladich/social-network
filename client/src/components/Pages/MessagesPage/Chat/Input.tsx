@@ -39,7 +39,7 @@ export function Input(props: IProps) {
 			setNewMessageValue(v);
 		}
 
-		if (fieldRef.current!.scrollHeight + 4 < 300) {
+		if (fieldRef.current!.scrollHeight + 4 < 285) {
 			fieldRef.current!.style.height = "50px";
 
 			fieldRef.current!.style.height =
@@ -47,6 +47,15 @@ export function Input(props: IProps) {
 
 			newMessagesDraft[props.userNickname + "\\height"] =
 				fieldRef.current!.scrollHeight + 4 + "px";
+
+			sessionStorage.setItem(
+				"newMessagesDraft",
+				JSON.stringify(newMessagesDraft)
+			);
+		} else {
+			fieldRef.current!.style.height = "284px";
+
+			newMessagesDraft[props.userNickname + "\\height"] = "284px";
 
 			sessionStorage.setItem(
 				"newMessagesDraft",
