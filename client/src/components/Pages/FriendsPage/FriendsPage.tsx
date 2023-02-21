@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { FriendsUserData } from "../../../models/Friends/FriendsUserData";
 import { WhoseFriends } from "../../../models/Friends/WhoseFriends";
 import { LoadingCircle } from "../../assets/LoadingCircle";
-import { Categories } from "./Categories/Categories";
+import { Categories } from "./Categories";
 import "./FriendsPage.css";
-import { FriendsSearch } from "./Search/FriendsSearch";
+import { Search } from "./Search";
+import { Title } from "./Title";
 import { User } from "./User/User";
 
 interface IProps {
@@ -56,57 +56,25 @@ export function FriendsPage(props: IProps) {
 		<>
 			<section className="friends">
 				<div className="subsection">
-					<div
-						className={
-							"friends__title title " + (whoseFriends.online ? "online" : "")
-						}
-					>
-						<NavLink draggable="false" to={"/" + whoseFriends.nickname}>
-							<img
-								src={
-									whoseFriends.image ||
-									`/images/user&theme=${props.bodyTheme}.jpg`
-								}
-								alt={whoseFriends.nickname}
-							/>
-						</NavLink>
-
-						<NavLink draggable="false" to={"/" + whoseFriends.nickname}>
-							<h2>
-								{`${whoseFriends.firstName} ${whoseFriends.lastName} ${category}`}
-							</h2>
-						</NavLink>
-					</div>
+					<Title
+						whoseFriends={whoseFriends}
+						bodyTheme={props.bodyTheme}
+						category={category}
+					/>
 
 					<Categories nickname={whoseFriends.nickname} />
 
-					{(props.usersData.length > 10 || !!props.search) && (
-						<FriendsSearch
+					{(usersData.length > 10 || !!props.search) && (
+						<Search
 							nickname={whoseFriends.nickname}
 							category={props.category}
 							search={props.search}
 						/>
 					)}
 
-					<div className="friends__total">
-						{!props.search || !!props.usersData.length ? (
-							<>
-								<strong>Total count</strong>{" "}
-								{usersData.length ||
-									`${
-										whoseFriends.nickname === props.authNickname
-											? "You"
-											: whoseFriends.firstName
-									} don't have any ${category} yet`}
-							</>
-						) : (
-							!props.usersData.length && <>Your search returned no results</>
-						)}
-					</div>
-
-					{!!props.usersData.length && (
+					{!!usersData.length ? (
 						<div className="friends__items">
-							{props.usersData.map((u) => (
+							{usersData.map((u) => (
 								<User
 									key={u.nickname}
 									isAuth={!!props.authNickname}
@@ -120,6 +88,16 @@ export function FriendsPage(props: IProps) {
 									)}
 								/>
 							))}
+						</div>
+					) : (
+						<div className="friends__items_no_items">
+							{!props.search
+								? `${
+										whoseFriends.nickname === props.authNickname
+											? "You"
+											: whoseFriends.firstName
+								  }	don't have any ${category} yet`
+								: "Your search returned no results"}
 						</div>
 					)}
 

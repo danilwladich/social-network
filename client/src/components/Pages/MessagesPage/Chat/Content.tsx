@@ -15,7 +15,7 @@ interface IProps {
 	deleteMessageTC: (messageID: string) => Promise<void>;
 }
 
-export function ChatContent(props: IProps) {
+export function Content(props: IProps) {
 	const [deleteButtonsInProgress, setDeleteButtonsInProgress] = useState<
 		string[]
 	>([]);

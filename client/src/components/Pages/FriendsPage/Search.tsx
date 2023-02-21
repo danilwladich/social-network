@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 
 interface IProps {
+	nickname: string;
+	category: string;
 	search?: string;
 }
 
-export function UsersSearch(props: IProps) {
+export function Search(props: IProps) {
 	const navigate = useNavigate();
 	const [searchValue, setSearchValue] = useState(
 		props.search?.replaceAll("%20", " ") || ""
@@ -22,7 +24,14 @@ export function UsersSearch(props: IProps) {
 	function keyDownHandler(e: KeyboardEvent) {
 		if (e.key === "Enter") {
 			navigate(
-				!!searchValue.trim() ? "/users?search=" + searchValue.trim() : "/users"
+				!!searchValue.trim()
+					? "/friends/" +
+							props.nickname +
+							"/" +
+							props.category +
+							"?search=" +
+							searchValue.trim()
+					: "/friends/" + props.nickname + "/" + props.category
 			);
 		}
 	}
@@ -36,23 +45,26 @@ export function UsersSearch(props: IProps) {
 
 	return (
 		<>
-			<div className="users__search">
+			<div className="friends__search">
 				<input
 					type="text"
 					value={searchValue}
-					autoFocus
-					tabIndex={1}
 					onChange={(e) => onChangeHandler(e.target.value)}
 					placeholder="Who are you looking for?"
-					className="users__search_input"
+					className="friends__search_input"
 				/>
 				<NavLink
 					to={
 						!!searchValue.trim()
-							? "/users?search=" + searchValue.trim()
-							: "/users"
+							? "/friends/" +
+							  props.nickname +
+							  "/" +
+							  props.category +
+							  "?search=" +
+							  searchValue.trim()
+							: "/friends/" + props.nickname + "/" + props.category
 					}
-					className="users__search_button"
+					className="friends__search_button"
 				>
 					Find
 				</NavLink>

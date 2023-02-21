@@ -3,7 +3,7 @@ import { User } from "./User/User";
 import "./UsersPage.css";
 import { UsersUserData } from "../../../models/Users/UsersUserData";
 import { LoadingCircle } from "../../assets/LoadingCircle";
-import { UsersSearch } from "./Search/UsersSearch";
+import { Search } from "./Search";
 
 interface IProps {
 	isAuth: boolean;
@@ -45,7 +45,7 @@ export function UsersPage(props: IProps) {
 		<>
 			<section className="users">
 				<div className="subsection">
-					<UsersSearch search={props.search} />
+					<Search search={props.search} />
 				</div>
 
 				<div className="subsection">

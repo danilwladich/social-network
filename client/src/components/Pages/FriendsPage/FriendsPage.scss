@@ -114,38 +114,6 @@ html[theme="light"] {
 }
 
 .friends {
-	&__title {
-		text-transform: capitalize;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 10px;
-		a:last-child {
-			flex: 0 1 auto;
-			overflow: hidden;
-			h2 {
-				overflow: hidden;
-				text-overflow: ellipsis;
-			}
-		}
-		img {
-			pointer-events: none;
-			width: 33px;
-			height: 33px;
-			object-fit: cover;
-			border-radius: 50%;
-		}
-		&.online {
-			img {
-				padding: 2px;
-				border: 2px solid rgba(0, 255, 0, 0.7);
-			}
-		}
-	}
-	&__not_found {
-		font-size: 26px;
-		text-align: center;
-	}
 	&__loading {
 		&_title {
 			margin: 0px 0px 15px 0px;
@@ -159,8 +127,8 @@ html[theme="light"] {
 				object-fit: cover;
 				border-radius: 50% !important;
 			}
-			&_text {
-				flex: 0 1 300px;
+			&_name {
+				flex: 0 1 200px;
 				height: 22px;
 			}
 		}
@@ -180,12 +148,8 @@ html[theme="light"] {
 			width: 100%;
 			margin: 0px 0px 15px 0px;
 		}
-		&_total {
-			width: 125px;
-			height: 27px;
-		}
 		&_items {
-			margin: 5px 0px 0px 0px;
+			margin: -10px 0;
 		}
 		&_item {
 			display: flex;
@@ -220,9 +184,43 @@ html[theme="light"] {
 			height: 10px;
 		}
 	}
+	&__title {
+		text-transform: capitalize;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		&_name {
+			flex: 0 1 auto;
+			overflow: hidden;
+			h2 {
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+		&_image {
+			img {
+				pointer-events: none;
+				width: 33px;
+				height: 33px;
+				object-fit: cover;
+				border-radius: 50%;
+			}
+			&.online {
+				img {
+					padding: 2px;
+					border: 2px solid rgba(0, 255, 0, 0.7);
+				}
+			}
+		}
+	}
+	&__not_found {
+		font-size: 26px;
+		text-align: center;
+	}
 	&__categories {
 		max-width: 600px;
-		margin: 0 auto;
+		margin: 0px auto 15px;
 		display: flex;
 		justify-content: space-around;
 		gap: 10px;
@@ -240,7 +238,7 @@ html[theme="light"] {
 	&__search {
 		padding: 5px 10px;
 		border-radius: 4px;
-		margin: 15px 0px 0px 0px;
+		margin: 0px 0px 15px 0px;
 		display: flex;
 		gap: 10px;
 		height: 40px;
@@ -263,14 +261,8 @@ html[theme="light"] {
 			transition: all 0.2s;
 		}
 	}
-	&__total {
-		margin: 15px 0px 0px 0px;
-		opacity: 0.7;
-		line-height: 150%;
-		font-size: 18px;
-	}
 	&__items {
-		margin: 5px 0px -10px 0px;
+		margin: -10px 0px;
 		&_loading {
 			margin: 30px 0px 0px 0px;
 			height: 30px;
@@ -282,6 +274,12 @@ html[theme="light"] {
 				width: 30px;
 				height: 30px;
 			}
+		}
+		&_no_items {
+			opacity: 0.7;
+			line-height: 150%;
+			font-size: 18px;
+			text-align: center;
 		}
 	}
 	&__user {
@@ -313,10 +311,6 @@ html[theme="light"] {
 		&_info {
 			flex: 1 1 auto;
 			height: 50px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			gap: 5px;
 			white-space: nowrap;
 			overflow: hidden;
 		}
@@ -327,7 +321,7 @@ html[theme="light"] {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				display: block;
-				padding: 15px 0;
+				line-height: 50px;
 				width: 100%;
 			}
 		}
@@ -396,10 +390,9 @@ html[theme="light"] {
 					visibility: visible;
 				}
 			}
-			&_itsme {
-				opacity: 0.7;
-				flex: 0 0 20px;
-			}
+		}
+		&_itsme {
+			opacity: 0.7;
 		}
 	}
 	@media (min-width: 767px) {
@@ -457,12 +450,15 @@ html[theme="light"] {
 			}
 			&_info {
 				height: 75px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 			&_name {
 				font-size: 16px;
 				a {
 					display: inline;
-					padding: 0;
+					line-height: 150%;
 					&:hover,
 					&:focus {
 						text-decoration: underline;

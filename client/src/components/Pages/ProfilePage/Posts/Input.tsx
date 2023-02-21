@@ -12,7 +12,7 @@ const newPostDraft: { value: string; height: string } = JSON.parse(
 );
 const newPostHeight = newPostDraft.height || "50px";
 
-export function PostsInput(props: IProps) {
+export function Input(props: IProps) {
 	const [newPostValue, setNewPostValue] = useState(newPostDraft.value || "");
 	const [addPostInProgress, setAddPostInProgress] = useState(false);
 	const fieldRef = useRef<HTMLTextAreaElement>(null);

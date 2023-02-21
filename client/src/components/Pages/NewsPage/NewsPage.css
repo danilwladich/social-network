@@ -97,7 +97,6 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  line-height: 150%;
   font-weight: 700;
   font-size: 14px;
   white-space: nowrap;
@@ -108,9 +107,6 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
 .news__post_owner_name a {
   display: block;
   line-height: 35px;
-}
-.news__post_owner_name a:hover, .news__post_owner_name a:focus {
-  text-decoration: underline;
 }
 .news__post_content_text {
   line-height: 150%;
@@ -248,7 +244,10 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   }
   .news__post_owner_name a {
     display: inline-block;
-    line-height: 100%;
+    line-height: 150%;
+  }
+  .news__post_owner_name a:hover, .news__post_owner_name a:focus {
+    text-decoration: underline;
   }
   .news__post_content_images {
     margin: 0;

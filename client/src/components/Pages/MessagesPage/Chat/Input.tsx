@@ -14,7 +14,7 @@ const newMessagesDraft: {
 	[key: string]: string;
 } = JSON.parse(sessionStorage.getItem("newMessagesDraft") || "{}");
 
-export function ChatInput(props: IProps) {
+export function Input(props: IProps) {
 	const [newMessageValue, setNewMessageValue] = useState(
 		newMessagesDraft[props.userNickname + "\\value"] || ""
 	);

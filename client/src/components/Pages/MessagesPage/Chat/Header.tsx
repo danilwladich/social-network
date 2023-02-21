@@ -7,7 +7,7 @@ interface IProps {
 	bodyTheme: string;
 }
 
-export function ChatHeader(props: IProps) {
+export function Header(props: IProps) {
 	const chatWith = props.chatWith;
 
 	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;

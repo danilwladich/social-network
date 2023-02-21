@@ -10,7 +10,7 @@ export function FriendsPageLoading() {
 			<div className="subsection">
 				<div className="friends__loading_title">
 					<div className="friends__loading_title_image loading_element"></div>
-					<div className="friends__loading_title_text loading_element"></div>
+					<div className="friends__loading_title_name loading_element"></div>
 				</div>
 				<div className="friends__loading_categories">
 					<div className="loading_element"></div>
@@ -18,7 +18,6 @@ export function FriendsPageLoading() {
 					<div className="loading_element"></div>
 				</div>
 				<div className="friends__loading_search loading_element"></div>
-				<div className="friends__loading_total loading_element"></div>
 				<div className="friends__loading_items">{loadingElements}</div>
 			</div>
 		</section>

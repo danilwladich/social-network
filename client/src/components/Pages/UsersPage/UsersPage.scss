@@ -200,10 +200,6 @@ html[theme="light"] {
 		&_info {
 			flex: 1 1 auto;
 			height: 50px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			gap: 5px;
 			white-space: nowrap;
 			overflow: hidden;
 		}
@@ -214,7 +210,7 @@ html[theme="light"] {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				display: block;
-				padding: 15px 0;
+				line-height: 50px;
 				width: 100%;
 			}
 		}
@@ -321,12 +317,15 @@ html[theme="light"] {
 			}
 			&_info {
 				height: 75px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 			&_name {
 				font-size: 16px;
 				a {
 					display: inline;
-					padding: 0;
+					line-height: 150%;
 					&:hover,
 					&:focus {
 						text-decoration: underline;

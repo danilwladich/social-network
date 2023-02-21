@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { MessagesMessageData } from "../../../../models/Messages/MessagesMessageData";
-import { ChatInput } from "./ChatInput";
-import { ChatHeader } from "./ChatHeader";
+import { Input } from "./Input";
+import { Header } from "./Header";
 import { ChatWith } from "../../../../models/Messages/ChatWith";
 import { useNavigate } from "react-router-dom";
-import { ChatContent } from "./ChatContent";
+import { Content } from "./Content";
 
 interface IProps {
 	authNickname: string;
@@ -41,11 +41,11 @@ export function Chat(props: IProps) {
 	return (
 		<>
 			<div className="messages__chat">
-				<ChatHeader chatWith={props.chatWith} bodyTheme={props.bodyTheme} />
+				<Header chatWith={props.chatWith} bodyTheme={props.bodyTheme} />
 
-				<ChatContent {...props} readMessagesOption={readMessagesOption} />
+				<Content {...props} readMessagesOption={readMessagesOption} />
 
-				<ChatInput
+				<Input
 					authNickname={props.authNickname}
 					userNickname={props.chatWith.nickname}
 					readMessagesOption={readMessagesOption}

@@ -100,7 +100,6 @@ html[theme="light"] {
 			}
 			&_name {
 				flex: 1 1 auto;
-				line-height: 150%;
 				font-weight: 700;
 				font-size: 14px;
 				white-space: nowrap;
@@ -109,10 +108,6 @@ html[theme="light"] {
 				a {
 					display: block;
 					line-height: 35px;
-					&:hover,
-					&:focus {
-						text-decoration: underline;
-					}
 				}
 			}
 		}
@@ -255,7 +250,11 @@ html[theme="light"] {
 					font-size: 16px;
 					a {
 						display: inline-block;
-						line-height: 100%;
+						line-height: 150%;
+						&:hover,
+						&:focus {
+							text-decoration: underline;
+						}
 					}
 				}
 			}

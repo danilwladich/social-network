@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ProfilePostData } from "../../../../models/Profile/ProfilePostData";
 import { Post } from "./Post/Post";
-import { PostsInput } from "./PostsInput";
+import { Input } from "./Input";
 
 interface IProps {
 	authNickname: string;
@@ -45,7 +45,7 @@ export function Posts(props: IProps) {
 	return (
 		<>
 			{props.authNickname === props.userNickname && (
-				<PostsInput addPostTC={props.addPostTC} />
+				<Input addPostTC={props.addPostTC} />
 			)}
 
 			{!!props.postsData.length ? (

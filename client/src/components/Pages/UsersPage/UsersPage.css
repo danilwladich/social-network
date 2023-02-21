@@ -208,17 +208,6 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   height: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  gap: 5px;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -231,7 +220,7 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
   -o-text-overflow: ellipsis;
      text-overflow: ellipsis;
   display: block;
-  padding: 15px 0;
+  line-height: 50px;
   width: 100%;
 }
 .users__user_location {
@@ -344,13 +333,23 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
   }
   .users__user_info {
     height: 75px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .users__user_name {
     font-size: 16px;
   }
   .users__user_name a {
     display: inline;
-    padding: 0;
+    line-height: 150%;
   }
   .users__user_name a:hover, .users__user_name a:focus {
     text-decoration: underline;
