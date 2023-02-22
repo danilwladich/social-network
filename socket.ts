@@ -17,11 +17,9 @@ if (process.env.NODE_ENV === "production") {
 const fileName = "connectedSockets.txt";
 
 // create txt
-fs.access(fileName, (err) => {
-	if (err) {
-		fs.writeFileSync(fileName, "");
-	}
-});
+if (!fs.existsSync(fileName)) {
+	fs.writeFileSync(fileName, "{}");
+}
 
 // read txt
 const connectedSocketsTxt = fs.readFileSync(fileName).toString();
