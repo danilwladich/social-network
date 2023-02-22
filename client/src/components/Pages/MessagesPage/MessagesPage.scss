@@ -418,6 +418,7 @@ html[theme="light"] {
 			line-height: 150%;
 		}
 		&_image {
+			position: relative;
 			flex: 0 0 50px;
 			img {
 				pointer-events: none;
@@ -425,12 +426,6 @@ html[theme="light"] {
 				height: 50px;
 				border-radius: 50%;
 				object-fit: cover;
-			}
-			&.online {
-				img {
-					padding: 2px;
-					border: 2px solid rgba(0, 255, 0, 0.7);
-				}
 			}
 		}
 		&_info {
@@ -608,6 +603,7 @@ html[theme="light"] {
 				overflow: hidden;
 			}
 			&_image {
+				position: relative;
 				img {
 					pointer-events: none;
 					width: 35px;
@@ -615,10 +611,19 @@ html[theme="light"] {
 					border-radius: 50%;
 					object-fit: cover;
 				}
-				&.online {
-					img {
-						border: 2px solid rgba(0, 255, 0, 0.7);
-						padding: 2px;
+			}
+			&_online {
+				&:not(.empty) {
+					position: absolute;
+					right: 0px;
+					bottom: 0px;
+					border-radius: 12px;
+					padding: 0;
+					&.small {
+						height: 12px;
+						min-width: 12px;
+						right: 0px;
+						bottom: 0px;
 					}
 				}
 			}

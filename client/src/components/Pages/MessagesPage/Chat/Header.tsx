@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { ChatWith } from "../../../../models/Messages/ChatWith";
+import { UserOnline } from "../../../assets/UserOnline";
 
 interface IProps {
 	chatWith: ChatWith;
@@ -37,11 +38,15 @@ export function Header(props: IProps) {
 				<NavLink
 					to={"/" + chatWith.nickname}
 					draggable="false"
-					className={
-						"messages__chat_header_image " + (chatWith.online ? "online" : "")
-					}
+					className="messages__chat_header_image"
 				>
 					<img src={userImage} alt={chatWith.nickname} />
+
+					<UserOnline
+						className="messages__chat_header_online"
+						online={chatWith.online}
+						small
+					/>
 				</NavLink>
 			</div>
 		</>

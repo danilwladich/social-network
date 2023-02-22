@@ -1,5 +1,6 @@
 import React from "react";
 import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
+import { UserOnline } from "../../../assets/UserOnline";
 
 interface IProps {
 	userData: ProfileUserData;
@@ -24,10 +25,13 @@ export function User(props: IProps) {
 	return (
 		<>
 			<div className="profile__user">
-				<div
-					className={"profile__user_image " + (userData.online ? "online" : "")}
-				>
+				<div className="profile__user_image">
 					<img src={userImage} alt={userData.nickname} />
+
+					<UserOnline
+						online={userData.online}
+						className="profile__user_online"
+					/>
 				</div>
 
 				<div className="profile__user_info">

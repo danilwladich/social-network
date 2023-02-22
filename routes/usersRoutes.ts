@@ -94,7 +94,7 @@ router.get("", async (req: Request, res: Response) => {
 				},
 				follower: u.following.some((id) => id === authID?.toString()),
 				followed: u.followers.some((id) => id === authID?.toString()),
-				online: u.nickname in connectedSockets,
+				online: connectedSockets[u.nickname]?.online || false,
 			};
 		});
 

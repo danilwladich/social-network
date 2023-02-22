@@ -3,5 +3,4 @@ export interface WhoseFriends {
 	firstName: string;
 	lastName: string;
 	image?: string;
-	online: boolean;
 }

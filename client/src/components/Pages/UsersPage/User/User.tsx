@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { UsersUserData } from "../../../../models/Users/UsersUserData";
+import { UserOnline } from "../../../assets/UserOnline";
 import { Actions } from "./Actions";
 
 interface IProps {
@@ -34,9 +35,11 @@ export function User(props: IProps) {
 				<NavLink
 					to={"/" + userData.nickname}
 					draggable="false"
-					className={"users__user_image " + (userData.online ? "online" : "")}
+					className="users__user_image"
 				>
 					<img loading="lazy" src={userImage} alt={userData.nickname} />
+
+					<UserOnline className="users__user_online" online={userData.online} small/>
 				</NavLink>
 
 				<div className="users__user_info">

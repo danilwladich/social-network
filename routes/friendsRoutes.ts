@@ -43,19 +43,16 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			image: user.avatar,
-			online: user.nickname in connectedSockets,
 		};
 
 		const authNickname = req.cookies.nickname;
 		const authUser = await User.findOne({ nickname: authNickname }, { _id: 1 });
 		const authID = authUser?._id.toString();
 
-		let totalCount: number;
-		let users;
 		let filter;
 		let totalCountFilter;
 
-		// set users and total count based on category
+		// set users and total count filter based on category and search
 		if (category === "all") {
 			const friends = user.following.filter((id) =>
 				user.followers.includes(id)
@@ -121,8 +118,6 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 				}
 			}
 
-			users = await User.find(filter).sort({ _id: 1 }).limit(count);
-
 			// total count filter
 			if (!search) {
 				totalCountFilter = {
@@ -146,8 +141,6 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 					],
 				};
 			}
-
-			totalCount = await User.find(totalCountFilter).count();
 		} else if (category === "followers") {
 			const followers = user.followers.filter(
 				(id) => !user.following.includes(id)
@@ -213,8 +206,6 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 				}
 			}
 
-			users = await User.find(filter).sort({ _id: 1 }).limit(count);
-
 			// total count filter
 			if (!search) {
 				totalCountFilter = {
@@ -238,8 +229,6 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 					],
 				};
 			}
-
-			totalCount = await User.find(totalCountFilter).count();
 		} else {
 			const following = user.following.filter(
 				(id) => !user.followers.includes(id)
@@ -305,8 +294,6 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 				}
 			}
 
-			users = await User.find(filter).sort({ _id: 1 }).limit(count);
-
 			// total count filter
 			if (!search) {
 				totalCountFilter = {
@@ -330,9 +317,10 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 					],
 				};
 			}
-
-			totalCount = await User.find(totalCountFilter).count();
 		}
+
+		const users = await User.find(filter).sort({ _id: 1 }).limit(count);
+		const totalCount = await User.find(totalCountFilter).count();
 
 		// mapping users
 		const usersData = users.map((u) => {
@@ -353,7 +341,7 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 					!!authID && authNickname !== u.nickname
 						? u.followers.some((id) => id === authID)
 						: undefined,
-				online: u.nickname in connectedSockets,
+				online: connectedSockets[u.nickname]?.online,
 			};
 		});
 

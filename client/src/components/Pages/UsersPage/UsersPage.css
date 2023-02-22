@@ -181,6 +181,7 @@ html[theme=light] .users__user_actions_follow:hover, html[theme=light] .users__u
   line-height: 150%;
 }
 .users__user_image {
+  position: relative;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50px;
           flex: 0 0 50px;

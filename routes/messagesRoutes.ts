@@ -75,7 +75,7 @@ router.get(
 								firstName: user.firstName,
 								lastName: user.lastName,
 								image: user.avatar,
-								online: user.nickname in connectedSockets,
+								online: connectedSockets[user.nickname]?.online || false,
 
 								lastMessage: {
 									id: m._id,
@@ -321,7 +321,7 @@ router.get(
 				firstName: user.firstName,
 				lastName: user.lastName,
 				image: user.avatar,
-				online: user.nickname in connectedSockets,
+				online: connectedSockets[user.nickname]?.online || false,
 			};
 
 			// sent total count if page === 1

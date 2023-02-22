@@ -127,6 +127,11 @@ html[theme="dark"] {
 			fill: var(--dark-text-color);
 		}
 	}
+	.userOnline {
+		&:not(.empty) {
+			border: 2px solid var(--dark-subsection-bg);
+		}
+	}
 }
 
 html[theme="light"] {
@@ -221,6 +226,11 @@ html[theme="light"] {
 	.imageIcon {
 		path {
 			fill: var(--light-text-color);
+		}
+	}
+	.userOnline {
+		&:not(.empty) {
+			border: 2px solid var(--light-subsection-bg);
 		}
 	}
 }
@@ -342,6 +352,54 @@ body {
 	line-height: 20px;
 	height: 20px;
 	min-width: 20px;
+}
+
+.userOnline {
+	&:not(.empty) {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		border-radius: 20px;
+		font-size: 12px;
+		background-color: gray;
+		color: #fff;
+		padding: 0 5px;
+		line-height: 16px;
+		height: 20px;
+		min-width: 20px;
+		&.small {
+			height: 14px;
+			min-width: 14px;
+			right: 0px;
+			bottom: 0px;
+		}
+	}
+	&.active {
+		right: 4%;
+		bottom: 4%;
+		background-color: rgb(0, 255, 0);
+	}
+	@media (min-width: 767px) {
+		&:not(.empty) {
+			right: 5px;
+			bottom: 5px;
+			border-radius: 24px;
+			font-size: 14px;
+			line-height: 20px;
+			height: 24px;
+			min-width: 24px;
+			&.small {
+				height: 16px;
+				min-width: 16px;
+				right: 3%;
+				bottom: 3%;
+			}
+		}
+		&.active {
+			right: 7%;
+			bottom: 7%;
+		}
+	}
 }
 
 .app_loading {

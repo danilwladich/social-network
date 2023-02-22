@@ -22,9 +22,7 @@ export function Title(props: IProps) {
 				<NavLink
 					draggable="false"
 					to={"/" + whoseFriends.nickname}
-					className={
-						"friends__title_image " + (whoseFriends.online ? "online" : "")
-					}
+					className="friends__title_image"
 				>
 					<img src={userImage} alt={whoseFriends.nickname} />
 				</NavLink>

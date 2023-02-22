@@ -70,11 +70,15 @@ export function Input(props: IProps) {
 		}
 	}
 
-	// function onUploadImage(e: React.ChangeEvent<HTMLInputElement>) {
-	// 	if (e.target.files !== null) {
-	// 		Array.from(e.target.files).forEach((file) => {
-	// 			console.log(file);
-	// 		});
+	// function onUploadImages(e: React.ChangeEvent<HTMLInputElement>) {
+	// 	const files = e.target.files;
+	// 	if (files !== null) {
+	// 		if (files.length > 10) {
+	// 		} else {
+	// 			Array.from(files).forEach((file) => {
+	// 				console.log(file);
+	// 			});
+	// 		}
 	// 	}
 	// 	// if (e.target.files?.length && e.target.files[0].size <= 10000000) {
 	// 	// 	const reader = new FileReader();
@@ -122,7 +126,7 @@ export function Input(props: IProps) {
 				<input
 					id="postImageInput"
 					onChange={(e) => {
-						onUploadImage(e);
+						onUploadImages(e);
 					}}
 					type="file"
 					multiple

@@ -48,7 +48,7 @@ router.get("/user/:nickname", async (req: Request, res: Response) => {
 				!!authID && authNickname !== nickname
 					? user.followers.some((id) => id === authID)
 					: undefined,
-			online: nickname in connectedSockets,
+			online: connectedSockets[user.nickname]?.online || false,
 		};
 
 		// friends
@@ -67,7 +67,7 @@ router.get("/user/:nickname", async (req: Request, res: Response) => {
 				firstName: u.firstName,
 				lastName: u.lastName,
 				image: u.avatar,
-				online: u.nickname in connectedSockets,
+				online: connectedSockets[u.nickname]?.online || false,
 			};
 		});
 
@@ -373,9 +373,9 @@ router.put(
 			if (!!image) {
 				let path: string;
 				if (process.env.NODE_ENV === "production") {
-					path = "client/production/images/" + authID;
+					path = `client/production/images/${authID}/avatar`;
 				} else {
-					path = "client/public/images/" + authID;
+					path = `client/public/images/${authID}/avatar`;
 				}
 
 				// create dir
@@ -405,6 +405,7 @@ router.put(
 					.jpeg({ quality: 50 })
 					.toFile(`${path}/avatar&date=${dateNow}.jpg`);
 
+				// small size
 				await sharp(image.buffer)
 					.withMetadata()
 					.resize({ width: 150, height: 150 })
@@ -412,7 +413,7 @@ router.put(
 					.toFile(`${path}/avatar&date=${dateNow}&size=small.jpg`);
 
 				await user.updateOne({
-					avatar: `/images/${authID}/avatar&date=${dateNow}.jpg`,
+					avatar: `/images/${authID}/avatar/avatar&date=${dateNow}.jpg`,
 				});
 			}
 

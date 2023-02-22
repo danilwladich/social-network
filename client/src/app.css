@@ -208,6 +208,9 @@ html[theme=dark] .form__button:not(:disabled):hover {
 html[theme=dark] .imageIcon path {
   fill: var(--dark-text-color);
 }
+html[theme=dark] .userOnline:not(.empty) {
+  border: 2px solid var(--dark-subsection-bg);
+}
 
 html[theme=light] ::-webkit-scrollbar-track {
   background: rgba(85, 85, 85, 0.3);
@@ -284,6 +287,9 @@ html[theme=light] .form__button:not(:disabled):hover {
 }
 html[theme=light] .imageIcon path {
   fill: var(--light-text-color);
+}
+html[theme=light] .userOnline:not(.empty) {
+  border: 2px solid var(--light-subsection-bg);
 }
 
 html {
@@ -423,6 +429,52 @@ body.lock {
   line-height: 20px;
   height: 20px;
   min-width: 20px;
+}
+
+.userOnline:not(.empty) {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  border-radius: 20px;
+  font-size: 12px;
+  background-color: gray;
+  color: #fff;
+  padding: 0 5px;
+  line-height: 16px;
+  height: 20px;
+  min-width: 20px;
+}
+.userOnline:not(.empty).small {
+  height: 14px;
+  min-width: 14px;
+  right: 0px;
+  bottom: 0px;
+}
+.userOnline.active {
+  right: 4%;
+  bottom: 4%;
+  background-color: rgb(0, 255, 0);
+}
+@media (min-width: 767px) {
+  .userOnline:not(.empty) {
+    right: 5px;
+    bottom: 5px;
+    border-radius: 24px;
+    font-size: 14px;
+    line-height: 20px;
+    height: 24px;
+    min-width: 24px;
+  }
+  .userOnline:not(.empty).small {
+    height: 16px;
+    min-width: 16px;
+    right: 3%;
+    bottom: 3%;
+  }
+  .userOnline.active {
+    right: 7%;
+    bottom: 7%;
+  }
 }
 
 .app_loading {

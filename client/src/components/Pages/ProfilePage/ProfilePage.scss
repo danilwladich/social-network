@@ -293,8 +293,12 @@ html[theme="light"] {
 	&__user {
 		position: relative;
 		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 15px;
 		&_image {
-			margin: 0px 0px 15px 0px;
+			position: relative;
 			img {
 				pointer-events: none;
 				user-select: none;
@@ -302,12 +306,6 @@ html[theme="light"] {
 				height: 100px;
 				object-fit: cover;
 				border-radius: 50%;
-			}
-			&.online {
-				img {
-					padding: 2px;
-					border: 2px solid rgba(0, 255, 0, 0.7);
-				}
 			}
 		}
 		&_info {
@@ -393,6 +391,9 @@ html[theme="light"] {
 					top: 0;
 					left: 0;
 				}
+			}
+			&_online {
+				display: none;
 			}
 			&_name {
 				display: none;
@@ -778,11 +779,9 @@ html[theme="light"] {
 			}
 		}
 		&__user {
-			display: flex;
-			align-items: center;
+			flex-direction: row;
 			gap: 30px;
 			&_image {
-				margin: 0;
 				flex: 0 0 150px;
 				img {
 					width: 100%;
@@ -845,6 +844,9 @@ html[theme="light"] {
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;
+				}
+				&_online {
+					display: block;
 				}
 			}
 		}

@@ -3,5 +3,5 @@ export interface ProfileFollowUserData {
 	firstName: string;
 	lastName: string;
 	image?: string;
-	online: boolean;
+	online: string | boolean;
 }

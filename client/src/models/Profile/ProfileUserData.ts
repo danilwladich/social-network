@@ -9,5 +9,5 @@ export interface ProfileUserData {
 	};
 	follower?: boolean;
 	followed?: boolean;
-	online: boolean;
+	online: string | boolean;
 }

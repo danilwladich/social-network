@@ -376,6 +376,7 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   line-height: 150%;
 }
 .messages__user_image {
+  position: relative;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50px;
           flex: 0 0 50px;
@@ -387,10 +388,6 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
-}
-.messages__user_image.online img {
-  padding: 2px;
-  border: 2px solid rgba(0, 255, 0, 0.7);
 }
 .messages__user_info {
   -webkit-box-flex: 1;
@@ -614,6 +611,9 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   white-space: nowrap;
   overflow: hidden;
 }
+.messages__chat_header_image {
+  position: relative;
+}
 .messages__chat_header_image img {
   pointer-events: none;
   width: 35px;
@@ -622,9 +622,18 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   -o-object-fit: cover;
      object-fit: cover;
 }
-.messages__chat_header_image.online img {
-  border: 2px solid rgba(0, 255, 0, 0.7);
-  padding: 2px;
+.messages__chat_header_online:not(.empty) {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  border-radius: 12px;
+  padding: 0;
+}
+.messages__chat_header_online:not(.empty).small {
+  height: 12px;
+  min-width: 12px;
+  right: 0px;
+  bottom: 0px;
 }
 .messages__chat_content {
   -webkit-box-flex: 1;
