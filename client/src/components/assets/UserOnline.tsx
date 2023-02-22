@@ -34,9 +34,9 @@ export function UserOnline(props: IProps) {
 				) {
 					if (minutesNow - minutes < 60 && minutesNow - minutes >= 0) {
 						if (minutesNow - minutes === 0) {
-							userOnline = "now";
+							userOnline = "<1min";
 						} else {
-							userOnline = minutesNow - minutes + "<1min";
+							userOnline = minutesNow - minutes + "min";
 						}
 					} else if (
 						60 - minutes + minutesNow < 60 &&
