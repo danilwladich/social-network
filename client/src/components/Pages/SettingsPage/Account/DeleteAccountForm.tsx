@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
 import { useNavigate } from "react-router-dom";
+import { socket } from "../../../../App";
 
 interface IProps {
+	authNickname: string;
 	deleteAccountTC: (password: string) => Promise<void>;
 }
 
@@ -18,6 +20,7 @@ export function DeleteAccountForm(props: IProps) {
 			.deleteAccountTC(v.password)
 			.then(() => {
 				navigate("/login");
+				socket.emit("deleteAccount", { nickname: props.authNickname });
 			})
 			.catch((reject) => setErrorMessage(reject))
 			.finally(() => setSubmitting(false));

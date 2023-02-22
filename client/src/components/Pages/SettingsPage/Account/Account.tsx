@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { CloseX } from "../../../assets/CloseX";
 import { DeleteAccountForm } from "./DeleteAccountForm";
 import { useNavigate } from "react-router-dom";
+import { socket } from "./../../../../App";
 
 interface IProps {
+	authNickname: string;
 	logoutTC: () => Promise<void>;
 	deleteAccountTC: (password: string) => Promise<void>;
 }
@@ -23,7 +25,10 @@ export function Account(props: IProps) {
 	}
 
 	function logout() {
-		props.logoutTC().then(() => navigate("/login"));
+		props.logoutTC().then(() => {
+			navigate("/login");
+			socket.emit("logout", { nickname: props.authNickname });
+		});
 	}
 
 	return (
@@ -55,7 +60,10 @@ export function Account(props: IProps) {
 								<CloseX />
 							</button>
 
-							<DeleteAccountForm deleteAccountTC={props.deleteAccountTC} />
+							<DeleteAccountForm
+								authNickname={props.authNickname}
+								deleteAccountTC={props.deleteAccountTC}
+							/>
 						</div>
 					</>
 				)}

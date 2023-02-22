@@ -153,6 +153,32 @@ export default (io: Server) => {
 			}
 		});
 
+		// logout
+		socket.on("logout", (data) => {
+			if (connectedSockets[data.nickname]) {
+				connectedSockets[data.nickname].online = new Date()
+					.toString()
+					.split(" ")
+					.slice(1, 5)
+					.join(" ");
+
+				connectedSockets[data.nickname].socketID = "";
+
+				// write txt
+				fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+			}
+		});
+
+		// logout
+		socket.on("deleteAccount", (data) => {
+			if (connectedSockets[data.nickname]) {
+				delete connectedSockets[data.nickname];
+
+				// write txt
+				fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+			}
+		});
+
 		// disconnect
 		socket.on("disconnect", (data) => {
 			for (let key in connectedSockets) {

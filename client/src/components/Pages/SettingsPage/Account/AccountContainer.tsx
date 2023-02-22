@@ -4,7 +4,9 @@ import { deleteAccountTC, logoutTC } from "../../../../redux/authReducer";
 import { Account } from "./Account";
 
 function mapStateToProps(state: IState) {
-	return {};
+	return {
+		authNickname: state.auth.user.nickname,
+	};
 }
 
 export const AccountContainer = connect(mapStateToProps, {
