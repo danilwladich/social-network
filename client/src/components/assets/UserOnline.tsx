@@ -49,8 +49,14 @@ export function UserOnline(props: IProps) {
 				} else {
 					userOnline = hourNow - hour + "h";
 				}
+			} else if (day + 1 === dayNow && hour > hourNow) {
+				userOnline = 24 - hour + hourNow + "h";
 			} else {
-				userOnline = dayNow - day + "d";
+				if (hour > hourNow) {
+					userOnline = dayNow - day - 1 + "d";
+				} else {
+					userOnline = dayNow - day + "d";
+				}
 			}
 		} else {
 			userOnline = ">1mon";
