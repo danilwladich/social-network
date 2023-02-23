@@ -134,7 +134,7 @@ function App(props: IProps) {
 		return <AppLoading />;
 	}
 	return (
-		<div className="wrapper">
+		<>
 			<Helmet>
 				<title>Bloxx</title>
 				<meta
@@ -143,79 +143,81 @@ function App(props: IProps) {
 				/>
 			</Helmet>
 
-			<ErrorContainer />
-			<HeaderContainer />
-			<main className="content">
-				<NavBarContainer />
-				<Routes>
-					<Route
-						path="/login"
-						element={
-							<React.Suspense fallback={<AppLoading />}>
-								<LoginPageContainer />
-							</React.Suspense>
-						}
-					/>
-					<Route
-						path="/register"
-						element={
-							<React.Suspense fallback={<AppLoading />}>
-								<RegisterPageContainer />
-							</React.Suspense>
-						}
-					/>
-					<Route
-						path="/:nickname?"
-						element={
-							<React.Suspense fallback={<AppLoading />}>
-								<ProfilePageContainer />
-							</React.Suspense>
-						}
-					/>
-					<Route
-						path="/news"
-						element={
-							<React.Suspense fallback={<AppLoading />}>
-								<NewsPageContainer />
-							</React.Suspense>
-						}
-					/>
-					<Route
-						path="/messages/:nickname?"
-						element={
-							<React.Suspense fallback={<AppLoading />}>
-								<MessagesPageContainer />
-							</React.Suspense>
-						}
-					/>
-					<Route
-						path="/friends/:nickname?/:category?"
-						element={
-							<React.Suspense fallback={<AppLoading />}>
-								<FriendsPageContainer />
-							</React.Suspense>
-						}
-					/>
-					<Route
-						path="/users"
-						element={
-							<React.Suspense fallback={<AppLoading />}>
-								<UsersPageContainer />
-							</React.Suspense>
-						}
-					/>
-					<Route
-						path="/settings"
-						element={
-							<React.Suspense fallback={<AppLoading />}>
-								<SettingsPageContainer />
-							</React.Suspense>
-						}
-					/>
-					<Route path="/*" element={<NotExist />} />
-				</Routes>
-			</main>
-		</div>
+			<div className="wrapper">
+				<ErrorContainer />
+				<HeaderContainer />
+				<main className="content">
+					<NavBarContainer />
+					<Routes>
+						<Route
+							path="/login"
+							element={
+								<React.Suspense fallback={<AppLoading />}>
+									<LoginPageContainer />
+								</React.Suspense>
+							}
+						/>
+						<Route
+							path="/register"
+							element={
+								<React.Suspense fallback={<AppLoading />}>
+									<RegisterPageContainer />
+								</React.Suspense>
+							}
+						/>
+						<Route
+							path="/:nickname?"
+							element={
+								<React.Suspense fallback={<AppLoading />}>
+									<ProfilePageContainer />
+								</React.Suspense>
+							}
+						/>
+						<Route
+							path="/news"
+							element={
+								<React.Suspense fallback={<AppLoading />}>
+									<NewsPageContainer />
+								</React.Suspense>
+							}
+						/>
+						<Route
+							path="/messages/:nickname?"
+							element={
+								<React.Suspense fallback={<AppLoading />}>
+									<MessagesPageContainer />
+								</React.Suspense>
+							}
+						/>
+						<Route
+							path="/friends/:nickname?/:category?"
+							element={
+								<React.Suspense fallback={<AppLoading />}>
+									<FriendsPageContainer />
+								</React.Suspense>
+							}
+						/>
+						<Route
+							path="/users"
+							element={
+								<React.Suspense fallback={<AppLoading />}>
+									<UsersPageContainer />
+								</React.Suspense>
+							}
+						/>
+						<Route
+							path="/settings"
+							element={
+								<React.Suspense fallback={<AppLoading />}>
+									<SettingsPageContainer />
+								</React.Suspense>
+							}
+						/>
+						<Route path="/*" element={<NotExist />} />
+					</Routes>
+				</main>
+			</div>
+		</>
 	);
 }
 

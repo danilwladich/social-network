@@ -179,7 +179,7 @@ export function profileReducer(
 					followData: {
 						...state.followData,
 
-						following: state.followData.following - 1,
+						followers: state.followData.followers - 1,
 					},
 				};
 			}
