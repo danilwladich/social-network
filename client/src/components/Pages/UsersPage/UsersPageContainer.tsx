@@ -10,6 +10,7 @@ import { UsersPage } from "./UsersPage";
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import { UsersPageLoading } from "./UsersPageLoading";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 interface IProps {
 	isAuth: boolean;
@@ -27,7 +28,6 @@ interface IProps {
 }
 
 function UsersPageAPI(props: IProps) {
-	document.title = `Find users`;
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -73,6 +73,10 @@ function UsersPageAPI(props: IProps) {
 	}
 	return (
 		<>
+			<Helmet>
+				<title>Find users</title>
+			</Helmet>
+
 			<UsersPage {...props} isLoading={isLoading} search={search} />
 		</>
 	);

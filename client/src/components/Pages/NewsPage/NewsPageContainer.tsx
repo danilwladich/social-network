@@ -8,6 +8,7 @@ import { likePostTC, unlikePostTC } from "./../../../redux/profileReducer";
 import { NewsPostData } from "../../../models/News/NewsPostData";
 import { getNewsTC } from "./../../../redux/newsReducer";
 import { NewsPageLoading } from "./NewsPageLoading";
+import { Helmet } from "react-helmet";
 
 interface IProps {
 	postsData: NewsPostData[];
@@ -20,7 +21,6 @@ interface IProps {
 }
 
 function NewsPageAPI(props: IProps) {
-	document.title = `News`;
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -63,6 +63,10 @@ function NewsPageAPI(props: IProps) {
 	}
 	return (
 		<>
+			<Helmet>
+				<title>News</title>
+			</Helmet>
+
 			<NewsPage {...props} isLoading={isLoading} />
 		</>
 	);

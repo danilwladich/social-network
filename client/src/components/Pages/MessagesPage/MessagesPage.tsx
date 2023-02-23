@@ -4,6 +4,7 @@ import { UsersContainer } from "./Users/UsersContainer";
 import { ChatContainer } from "./Chat/ChatContainer";
 import { useParams } from "react-router-dom";
 import { socket } from "../../../App";
+import { Helmet } from "react-helmet";
 
 interface IProps {
 	messageSent: (oldID: string, newID: string) => void;
@@ -12,7 +13,6 @@ interface IProps {
 }
 
 export function MessagesPage(props: IProps) {
-	document.title = `Messages`;
 	const userNickname = useParams().nickname;
 
 	// sockets
@@ -39,6 +39,10 @@ export function MessagesPage(props: IProps) {
 
 	return (
 		<>
+			<Helmet>
+				<title>Messages</title>
+			</Helmet>
+
 			<section className="messages">
 				<div className="subsection">
 					{userNickname ? <ChatContainer /> : <UsersContainer />}

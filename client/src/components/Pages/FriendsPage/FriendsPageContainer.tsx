@@ -11,6 +11,7 @@ import {
 import { FriendsUserData } from "../../../models/Friends/FriendsUserData";
 import { WhoseFriends } from "../../../models/Friends/WhoseFriends";
 import { FriendsPageLoading } from "./FriendsPageLoading";
+import { Helmet } from "react-helmet";
 
 interface IProps {
 	authNickname: string;
@@ -116,13 +117,16 @@ function FriendsPageAPI(props: IProps) {
 			</section>
 		);
 	}
-	document.title = `${whoseFriends.firstName} ${whoseFriends.lastName} ${
-		category === "all"
-			? "Friends"
-			: category![0].toUpperCase() + category!.slice(1)
-	}`;
 	return (
 		<>
+			<Helmet>
+				<title>{`${whoseFriends.firstName} ${whoseFriends.lastName} ${
+					category === "all"
+						? "Friends"
+						: category![0].toUpperCase() + category!.slice(1)
+				}`}</title>
+			</Helmet>
+
 			<FriendsPage
 				{...props}
 				isLoading={isLoading}

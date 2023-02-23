@@ -1,6 +1,7 @@
 import React from "react";
 import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
 import { UserOnline } from "../../../assets/UserOnline";
+import { Helmet } from "react-helmet";
 
 interface IProps {
 	userData: ProfileUserData;
@@ -9,7 +10,6 @@ interface IProps {
 
 export function User(props: IProps) {
 	const userData = props.userData;
-	document.title = `${userData.firstName + " " + userData.lastName}`;
 
 	let userImage: string =
 		userData.image || `/images/user&theme=${props.bodyTheme}.jpg`;
@@ -24,6 +24,10 @@ export function User(props: IProps) {
 
 	return (
 		<>
+			<Helmet>
+				<title>{`${userData.firstName} ${userData.lastName}`}</title>
+			</Helmet>
+
 			<div className="profile__user">
 				<div className="profile__user_image">
 					<img src={userImage} alt={userData.nickname} />

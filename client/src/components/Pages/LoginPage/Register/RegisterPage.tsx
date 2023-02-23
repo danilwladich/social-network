@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, NavLink } from "react-router-dom";
 import "../LoginPage.css";
 import { RegisterForm } from "./RegisterForm";
+import { Helmet } from "react-helmet";
 
 interface IProps {
 	isAuth: boolean;
@@ -17,12 +18,15 @@ interface IProps {
 }
 
 export function RegisterPage(props: IProps) {
-	document.title = `Register`;
 	if (props.isAuth) {
 		return <Navigate to={"/" + props.authNickname} />;
 	}
 	return (
 		<>
+			<Helmet>
+				<title>Register</title>
+			</Helmet>
+
 			<section className="login">
 				<div className="login__tagline_wrapper">
 					<div className="login__tagline">

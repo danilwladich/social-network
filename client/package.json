@@ -10,6 +10,7 @@
 		"react-dom": "^18.2.0",
 		"react-final-form": "^6.5.9",
 		"react-google-recaptcha": "^2.1.0",
+		"react-helmet": "^6.1.0",
 		"react-linkify": "^1.0.0-alpha",
 		"react-phone-number-input": "^3.2.16",
 		"react-redux": "^8.0.5",
@@ -56,6 +57,7 @@
 		"@types/react": "^18.0.28",
 		"@types/react-dom": "^18.0.11",
 		"@types/react-google-recaptcha": "^2.1.5",
+		"@types/react-helmet": "^6.1.6",
 		"@types/react-linkify": "^1.0.1"
 	}
 }

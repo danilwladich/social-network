@@ -13,7 +13,6 @@ interface IProps {
 }
 
 function ProfilePageAPI(props: IProps) {
-	document.title = `Bloxx`;
 	const [isLoading, setIsLoading] = useState(false);
 	const profileNickname = useParams().nickname;
 

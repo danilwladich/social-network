@@ -14,6 +14,7 @@ import { MessagesMessageData } from "./models/Messages/MessagesMessageData";
 import { MessagesUserData } from "./models/Messages/MessagesUserData";
 import { messageDelete, receiveMessage } from "./redux/messagesReducer";
 import { useAppHeight } from "./hooks/useAppHeight";
+import { Helmet } from "react-helmet";
 
 const LoginPageContainer = React.lazy(
 	() => import("./components/Pages/LoginPage/Login/LoginPageContainer")
@@ -67,7 +68,6 @@ interface IProps {
 }
 
 function App(props: IProps) {
-	document.title = `Bloxx`;
 	const [initializationSuccess, setInitializationSuccess] = useState(false);
 
 	const authUser = props.authUser;
@@ -135,6 +135,14 @@ function App(props: IProps) {
 	}
 	return (
 		<div className="wrapper">
+			<Helmet>
+				<title>Bloxx</title>
+				<meta
+					name="description"
+					content="Bloxx is social network to find and chat with your friends"
+				/>
+			</Helmet>
+
 			<ErrorContainer />
 			<HeaderContainer />
 			<main className="content">
