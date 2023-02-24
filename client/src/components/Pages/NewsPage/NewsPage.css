@@ -58,6 +58,7 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   height: 30px;
 }
 .news__posts_no_posts {
+  padding: 10px 0;
   line-height: 150%;
   font-size: 20px;
   text-align: center;
