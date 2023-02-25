@@ -12,6 +12,7 @@ import authMiddleware, {
 } from "../middleware/authMiddleware";
 import fs from "fs";
 import axios from "axios";
+import Donater from "../models/Donater";
 const router = Router();
 
 // /api/auth/register
@@ -270,6 +271,8 @@ router.delete(
 			);
 
 			await Message.deleteMany({ $or: [{ from: authID }, { to: authID }] });
+
+			await Donater.deleteOne({ owner: authID });
 
 			await user.deleteOne();
 

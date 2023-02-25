@@ -25,7 +25,7 @@ if (!fs.existsSync(fileName)) {
 const connectedSocketsTxt = fs.readFileSync(fileName).toString();
 
 interface IConnectedSockets {
-	[key: string]: {
+	[nickname: string]: {
 		socketID: string;
 		userID: string;
 		online: string | boolean;
@@ -36,6 +36,10 @@ interface IConnectedSockets {
 export const connectedSockets = JSON.parse(
 	connectedSocketsTxt || "{}"
 ) as IConnectedSockets;
+
+function writeConnectedSockets() {
+	fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+}
 
 export default (io: Server) => {
 	io.sockets.on("connection", (socket) => {
@@ -54,8 +58,7 @@ export default (io: Server) => {
 					online: true,
 				};
 
-				// write txt
-				fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+				writeConnectedSockets();
 			} catch (e) {}
 		});
 
@@ -148,8 +151,7 @@ export default (io: Server) => {
 			if (connectedSockets[data.nickname]) {
 				delete connectedSockets[data.nickname];
 
-				// write txt
-				fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+				writeConnectedSockets();
 			}
 		});
 
@@ -164,8 +166,7 @@ export default (io: Server) => {
 
 				connectedSockets[data.nickname].socketID = "";
 
-				// write txt
-				fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+				writeConnectedSockets();
 			}
 		});
 
@@ -174,25 +175,24 @@ export default (io: Server) => {
 			if (connectedSockets[data.nickname]) {
 				delete connectedSockets[data.nickname];
 
-				// write txt
-				fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+				writeConnectedSockets();
 			}
 		});
 
 		// disconnect
 		socket.on("disconnect", (data) => {
-			for (let key in connectedSockets) {
-				if (connectedSockets[key].socketID === socket.id) {
-					connectedSockets[key].online = new Date()
+			for (let nickname in connectedSockets) {
+				if (connectedSockets[nickname].socketID === socket.id) {
+					connectedSockets[nickname].online = new Date()
 						.toString()
 						.split(" ")
 						.slice(1, 5)
 						.join(" ");
 
-					connectedSockets[key].socketID = "";
+					connectedSockets[nickname].socketID = "";
 
-					// write txt
-					fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+					writeConnectedSockets();
+					break;
 				}
 			}
 		});
@@ -213,11 +213,11 @@ const exceptions = [
 const secondsToCheck = 86400;
 
 setInterval(async () => {
-	for (let key in connectedSockets) {
-		const online = connectedSockets[key].online;
+	for (let nickname in connectedSockets) {
+		const online = connectedSockets[nickname].online;
 		if (
 			typeof online === "string" &&
-			!exceptions.includes(connectedSockets[key].userID)
+			!exceptions.includes(connectedSockets[nickname].userID)
 		) {
 			const day = new Date(Date.parse(online)).getDate();
 			const dayNow = new Date().getDate();
@@ -232,7 +232,7 @@ setInterval(async () => {
 				dayNow - day >= 28 ||
 				(month !== monthNow && daysInMonth - day + dayNow >= 28)
 			) {
-				const userID = connectedSockets[key].userID;
+				const userID = connectedSockets[nickname].userID;
 
 				const user = await User.findById(userID);
 				if (!user) {
@@ -272,10 +272,9 @@ setInterval(async () => {
 
 				await user.deleteOne();
 
-				delete connectedSockets[key];
+				delete connectedSockets[nickname];
 
-				// write txt
-				fs.writeFileSync(fileName, JSON.stringify(connectedSockets));
+				writeConnectedSockets();
 			}
 		}
 	}
