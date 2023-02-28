@@ -715,14 +715,11 @@ html[theme="light"] {
 	}
 	&__message {
 		&:not(:last-child) {
-			margin: 0px 0px 10px 0px;
+			margin: 0px 0px 5px 0px;
 		}
 		display: flex;
 		position: relative;
 		&.out {
-			&:not(:last-child) {
-				margin: 0px 0px 10px 0px;
-			}
 			flex-direction: row-reverse;
 		}
 		&_content {
@@ -731,6 +728,44 @@ html[theme="light"] {
 			border-radius: 8px;
 			display: flex;
 			flex-direction: column;
+		}
+		&.first {
+			&.out {
+				.messages__message_content {
+					border-bottom-right-radius: 0px;
+				}
+			}
+			&:not(.out) {
+				.messages__message_content {
+					border-bottom-left-radius: 0px;
+				}
+			}
+		}
+		&.middle {
+			&.out {
+				.messages__message_content {
+					border-bottom-right-radius: 0px;
+					border-top-right-radius: 0px;
+				}
+			}
+			&:not(.out) {
+				.messages__message_content {
+					border-bottom-left-radius: 0px;
+					border-top-left-radius: 0px;
+				}
+			}
+		}
+		&.last {
+			&.out {
+				.messages__message_content {
+					border-top-right-radius: 0px;
+				}
+			}
+			&:not(.out) {
+				.messages__message_content {
+					border-top-left-radius: 0px;
+				}
+			}
 		}
 		&_spacer {
 			flex: 1;

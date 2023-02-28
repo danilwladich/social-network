@@ -734,16 +734,13 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   position: relative;
 }
 .messages__message:not(:last-child) {
-  margin: 0px 0px 10px 0px;
+  margin: 0px 0px 5px 0px;
 }
 .messages__message.out {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse;
-}
-.messages__message.out:not(:last-child) {
-  margin: 0px 0px 10px 0px;
 }
 .messages__message_content {
   max-width: 66.667%;
@@ -756,6 +753,26 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+.messages__message.first.out .messages__message_content {
+  border-bottom-right-radius: 0px;
+}
+.messages__message.first:not(.out) .messages__message_content {
+  border-bottom-left-radius: 0px;
+}
+.messages__message.middle.out .messages__message_content {
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.messages__message.middle:not(.out) .messages__message_content {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+.messages__message.last.out .messages__message_content {
+  border-top-right-radius: 0px;
+}
+.messages__message.last:not(.out) .messages__message_content {
+  border-top-left-radius: 0px;
 }
 .messages__message_spacer {
   -webkit-box-flex: 1;

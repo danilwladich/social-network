@@ -86,6 +86,36 @@ export function Content(props: IProps) {
 		}
 	}
 
+	// return class name for message depending on neighboring messages
+	function checkMessagesRow(index: number): "first" | "middle" | "last" {
+		if (!checkMessageDate(index)) {
+			if (reverseMessageData[index].out) {
+				if (
+					reverseMessageData[index - 1]?.out &&
+					reverseMessageData[index + 1]?.out &&
+					!checkMessageDate(index + 1)
+				) {
+					return "middle";
+				}
+				if (reverseMessageData[index - 1]?.out) {
+					return "last";
+				}
+			} else {
+				if (
+					!reverseMessageData[index - 1]?.out &&
+					!reverseMessageData[index + 1]?.out  &&
+					!checkMessageDate(index + 1)
+				) {
+					return "middle";
+				}
+				if (!reverseMessageData[index - 1]?.out) {
+					return "last";
+				}
+			}
+		}
+		return "first";
+	}
+
 	// delete message
 	async function deleteMessage(messageID: string) {
 		setDeleteButtonsInProgress((prev) => [...prev, messageID]);
@@ -123,6 +153,7 @@ export function Content(props: IProps) {
 								messageData={message}
 								index={index}
 								date={checkMessageDate(index)}
+								rowClassName={checkMessagesRow(index)}
 								deleteButtonInProgress={deleteButtonsInProgress.some(
 									(id) => id === message.id
 								)}

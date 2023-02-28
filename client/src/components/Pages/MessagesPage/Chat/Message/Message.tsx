@@ -8,6 +8,7 @@ interface IProps {
 	messageData: MessagesMessageData;
 	index: number;
 	date?: string;
+	rowClassName: "first" | "middle" | "last";
 	deleteButtonInProgress: boolean;
 	deleteMessage: () => void;
 }
@@ -41,7 +42,7 @@ export function Message(props: IProps) {
 			<div
 				onMouseLeave={() => setShowActions(false)}
 				onClick={(e) => processClick(e)}
-				className={"messages__message " + (messageData.out ? "out" : "")}
+				className={"messages__message " + (messageData.out ? "out " : "") + props.rowClassName}
 			>
 				<div className="messages__message_content">
 					<Linkify>
