@@ -55,7 +55,24 @@ html[theme="light"] {
 			&:not(:first-child) {
 				margin: 15px 0px 0px 0px;
 			}
-			height: 100px;
+			&_owner {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin: 0px 0px 10px 0px;
+				&_image {
+					flex: 0 0 35px;
+					border-radius: 50%;
+					height: 35px;
+				}
+				&_name {
+					height: 16px;
+					width: 125px;
+				}
+			}
+			&_content {
+				height: 76px;
+			}
 		}
 	}
 	&__posts {
@@ -241,6 +258,25 @@ html[theme="light"] {
 		}
 	}
 	@media (min-width: 767px) {
+		&__loading {
+			&_post {
+				&_owner {
+					gap: 15px;
+					&_image {
+						flex: 0 0 45px;
+						height: 45px;
+					}
+					&_name {
+						height: 18px;
+						width: 150px;
+					}
+				}
+
+				&_content {
+					height: 90px;
+				}
+			}
+		}
 		&__post {
 			&_owner {
 				gap: 15px;
