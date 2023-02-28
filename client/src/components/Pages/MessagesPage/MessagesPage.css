@@ -197,7 +197,7 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
 }
 
 .messages__loading_users {
-  margin: -5px 0;
+  margin: -5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -237,11 +237,11 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  gap: 5px;
+  gap: 8px;
 }
 .messages__loading_user_name {
   width: 125px;
-  height: 16px;
+  height: 21px;
 }
 .messages__loading_user_lastmessage {
   display: -webkit-box;
@@ -256,10 +256,10 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  height: 14px;
+  height: 18px;
 }
 .messages__loading_user_lastmessage_text div {
-  height: 14px;
+  height: 18px;
   width: 100px;
 }
 .messages__loading_user_lastmessage_date {
@@ -268,7 +268,7 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
 }
 .messages__loading_user_actions {
   position: absolute;
-  right: 10px;
+  right: 5px;
   top: 20px;
   width: 30px;
   height: 10px;
@@ -838,8 +838,10 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   visibility: visible;
 }
 @media (min-width: 767px) {
+  .messages__loading_users {
+    margin: -5px -15px;
+  }
   .messages__loading_user {
-    margin: 0 -15px 0 -15px;
     padding: 5px 15px;
     gap: 15px;
   }
