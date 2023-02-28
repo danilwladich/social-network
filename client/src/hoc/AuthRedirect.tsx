@@ -1,21 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { IState } from "../redux/store";
+import { useAppSelector } from "./../hooks/useAppSelector";
 
-export function AuthRedirect(Component: (props: any) => JSX.Element) {
-	function RedirectComponent(props: any) {
-		if (!props.isAuth) {
-			return <Navigate to="/login" />;
-		} else {
-			return <Component {...props} />;
-		}
-	}
+export function AuthRedirect({
+	children,
+}: {
+	children: React.ReactElement<any, any>;
+}): JSX.Element {
+	const { isAuth } = useAppSelector((state) => state.auth);
 
-	function mapStateToProps(state: IState) {
-		return {
-			isAuth: state.auth.isAuth,
-		};
+	if (!isAuth) {
+		return <Navigate to="/login" />;
+	} else {
+		return children;
 	}
-	return connect(mapStateToProps, {})(RedirectComponent);
 }

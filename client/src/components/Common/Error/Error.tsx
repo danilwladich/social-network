@@ -24,7 +24,7 @@ export default function Error() {
 			socket.off("error");
 			socket.off("disconnect");
 		};
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<>

@@ -36,7 +36,7 @@ export default function MessagesPage() {
 			socket.off("messagesRead");
 			socket.off("readMessages");
 		};
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<>
