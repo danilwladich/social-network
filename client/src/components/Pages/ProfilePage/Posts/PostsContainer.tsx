@@ -1,40 +1,21 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Posts } from "./Posts";
-import { IState } from "../../../../models/IState";
-import { connect } from "react-redux";
-import {
-	unlikePostTC,
-	likePostTC,
-	addPostTC,
-	getPostsTC,
-	deletePostTC,
-} from "../../../../redux/profileReducer";
-import { ProfilePostData } from "../../../../models/Profile/ProfilePostData";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import { fetchPostsTC } from "../../../../redux/reducers/profileReducer";
 
-interface IProps {
-	authNickname: string;
-	userNickname: string;
-	firstName: string;
-	postsData: ProfilePostData[];
-	pageSize: number;
-	totalCount: number;
-	getPostsTC: (
-		userNickname: string,
-		page: number,
-		pageSize: number
-	) => Promise<void>;
-	addPostTC: (post: string) => Promise<void>;
-	deletePostTC: (postID: string) => Promise<void>;
-	likePostTC: (postID: string) => Promise<void>;
-	unlikePostTC: (postID: string) => Promise<void>;
-}
-
-export function PostsContainerAPI(props: IProps) {
+export function PostsContainerAPI() {
+	const dispatch = useAppDispatch();
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const pagesCount = Math.ceil(props.totalCount / props.pageSize);
+	const { pageSize, totalCount } = useAppSelector((state) => state.profile);
+	const { nickname: userNickname } = useAppSelector(
+		(state) => state.profile.userData
+	);
+
+	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pages: number[] = [];
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i);
@@ -42,37 +23,44 @@ export function PostsContainerAPI(props: IProps) {
 
 	// pagination
 	useEffect(() => {
+		function scrollHandler() {
+			if (
+				pagesCount > 0 &&
+				currentPage !== pagesCount &&
+				!isLoading &&
+				window.pageYOffset >=
+					document.documentElement.scrollHeight -
+						Math.max(
+							window.innerHeight,
+							document.documentElement.clientHeight
+						) *
+							2
+			) {
+				setCurrentPage((prev) => prev + 1);
+			}
+		}
+
 		window.addEventListener("scroll", scrollHandler);
 		return () => window.removeEventListener("scroll", scrollHandler);
-		// eslint-disable-next-line
 	}, [isLoading, currentPage, pagesCount]);
-	function scrollHandler() {
-		if (
-			pagesCount > 0 &&
-			currentPage !== pagesCount &&
-			!isLoading &&
-			window.pageYOffset >=
-				document.documentElement.scrollHeight -
-					Math.max(window.innerHeight, document.documentElement.clientHeight) *
-						2
-		) {
-			setCurrentPage((prev) => prev + 1);
-		}
-	}
 
+	// fetching
 	useLayoutEffect(() => {
 		if (pagesCount > 0 && currentPage !== 1) {
 			setIsLoading(true);
-			props
-				.getPostsTC(props.userNickname, currentPage, props.pageSize)
-				.finally(() => setIsLoading(false));
+			dispatch(
+				fetchPostsTC({
+					userNickname: userNickname,
+					page: currentPage,
+					pageSize,
+				})
+			).finally(() => setIsLoading(false));
 		}
-		// eslint-disable-next-line
-	}, [currentPage, props.pageSize]);
+	}, [currentPage, pageSize, dispatch, pagesCount, userNickname]);
 
 	return (
 		<>
-			<Posts {...props} />
+			<Posts />
 
 			{isLoading && (
 				<div className="profile__posts_loading">
@@ -83,21 +71,4 @@ export function PostsContainerAPI(props: IProps) {
 	);
 }
 
-function mapStateToProps(state: IState) {
-	return {
-		authNickname: state.auth.user.nickname,
-		userNickname: state.profile.userData.nickname,
-		firstName: state.profile.userData.firstName,
-		postsData: state.profile.postsData,
-		pageSize: state.profile.pageSize,
-		totalCount: state.profile.totalCount,
-	};
-}
-
-export const PostsContainer = connect(mapStateToProps, {
-	getPostsTC,
-	addPostTC,
-	deletePostTC,
-	likePostTC,
-	unlikePostTC,
-})(PostsContainerAPI);
+export default PostsContainerAPI;

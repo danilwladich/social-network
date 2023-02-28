@@ -1,43 +1,29 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { IState } from "../../../../models/IState";
-import { connect } from "react-redux";
 import { Chat } from "./Chat";
-import {
-	deleteMessageTC,
-	readMessages,
-	sendMessage,
-} from "../../../../redux/messagesReducer";
 import { useParams } from "react-router-dom";
-import { MessagesMessageData } from "../../../../models/Messages/MessagesMessageData";
-import { ChatWith } from "../../../../models/Messages/ChatWith";
-import { getChatTC } from ".././../../../redux/messagesReducer";
 import { ChatLoading } from "./ChatLoading";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import { fetchChatTC } from "../../../../redux/reducers/messagesReducer";
 
-interface IProps {
-	authNickname: string;
-	chatWith: ChatWith;
-	messagesData: MessagesMessageData[];
-	pageSize: number;
-	totalCount: number;
-	bodyTheme: string;
-	getChatTC: (
-		userNickname: string,
-		page: number,
-		pageSize: number
-	) => Promise<void>;
-	sendMessage: (message: string, id: string) => void;
-	readMessages: (userNickname: string) => void;
-	deleteMessageTC: (messageID: string) => Promise<void>;
-}
+export function ChatContainerAPI() {
+	const dispatch = useAppDispatch();
 
-export function ChatContainerAPI(props: IProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [contentLock, setContentLock] = useState(true);
+
 	const contentRef = useRef<HTMLDivElement>(null);
+
+	const { messagesTotalCount: totalCount, messagesPageSize: pageSize } =
+		useAppSelector((state) => state.messages);
+	const { nickname: chatWithNickname } = useAppSelector(
+		(state) => state.messages.chatWith
+	);
+
 	const userNickname = useParams().nickname;
 
-	const pagesCount = Math.ceil(props.totalCount / props.pageSize);
+	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pages: number[] = [];
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i);
@@ -45,79 +31,64 @@ export function ChatContainerAPI(props: IProps) {
 
 	// pagination and scroll lock
 	useEffect(() => {
-		contentRef.current?.addEventListener("scroll", scrollHandler);
-		return () => {
-			// eslint-disable-next-line
-			contentRef.current?.removeEventListener("scroll", scrollHandler);
-		};
-		// eslint-disable-next-line
-	}, [isLoading, currentPage, pagesCount]);
-	function scrollHandler() {
-		if (contentRef.current !== null) {
-			// set current page based on scrollTop
-			if (
-				pagesCount > 0 &&
-				currentPage !== pagesCount &&
-				!isLoading &&
-				contentRef.current.scrollTop <= contentRef.current.clientHeight
-			) {
-				setCurrentPage((prev) => prev + 1);
-			}
+		const content = contentRef.current;
 
-			// set content lock based on scrollTop
-			if (
-				contentRef.current.scrollHeight -
-					(contentRef.current.scrollTop + contentRef.current.clientHeight) >
-				50
-			) {
-				setContentLock(false);
-			} else if (
-				contentRef.current.scrollHeight -
-					(contentRef.current.scrollTop + contentRef.current.clientHeight) ===
-				0
-			) {
-				setContentLock(true);
+		function scrollHandler() {
+			if (content !== null) {
+				// set current page based on scrollTop
+				if (
+					pagesCount > 0 &&
+					currentPage !== pagesCount &&
+					!isLoading &&
+					content.scrollTop <= content.clientHeight
+				) {
+					setCurrentPage((prev) => prev + 1);
+				}
+
+				// set content lock based on scrollTop
+				if (
+					content.scrollHeight - (content.scrollTop + content.clientHeight) >
+					50
+				) {
+					setContentLock(false);
+				} else if (
+					content.scrollHeight - (content.scrollTop + content.clientHeight) ===
+					0
+				) {
+					setContentLock(true);
+				}
 			}
 		}
-	}
 
+		content?.addEventListener("scroll", scrollHandler);
+		return () => content?.removeEventListener("scroll", scrollHandler);
+	}, [isLoading, currentPage, pagesCount]);
+
+	// fetching
 	useLayoutEffect(() => {
-		if (!!userNickname) {
+		if (userNickname) {
 			setIsLoading(true);
-			props.getChatTC(userNickname, currentPage, props.pageSize).finally(() => {
+			dispatch(
+				fetchChatTC({ userNickname, page: currentPage, pageSize })
+			).finally(() => {
 				setIsLoading(false);
 			});
 		}
-		// eslint-disable-next-line
-	}, [currentPage, props.pageSize]);
+	}, [userNickname, currentPage, pageSize, dispatch]);
 
 	if (isLoading && currentPage === 1) {
 		return <ChatLoading />;
 	}
-	if (!props.chatWith.nickname) {
+
+	if (!chatWithNickname) {
 		return <div className="messages__not_found">User not found</div>;
 	}
+
 	return (
 		<>
-			<Chat {...props} contentRef={contentRef} contentLock={contentLock} />
+			<Chat isLoading={isLoading} contentRef={contentRef} contentLock={contentLock} />
 		</>
 	);
 }
 
-function mapStateToProps(state: IState) {
-	return {
-		authNickname: state.auth.user.nickname,
-		chatWith: state.messages.chatWith,
-		messagesData: state.messages.messagesData,
-		pageSize: state.messages.pageSize,
-		totalCount: state.messages.totalCount,
-		bodyTheme: state.settings.bodyTheme,
-	};
-}
-
-export const ChatContainer = connect(mapStateToProps, {
-	getChatTC,
-	sendMessage,
-	readMessages,
-	deleteMessageTC,
-})(ChatContainerAPI);
+export default ChatContainerAPI;

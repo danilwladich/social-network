@@ -1,52 +1,60 @@
 import React, { useState } from "react";
-import { NewsPostData } from "../../../models/News/NewsPostData";
-import { LoadingCircle } from "../../assets/LoadingCircle";
 import "./NewsPage.css";
+import { LoadingCircle } from "../../assets/LoadingCircle";
 import { Post } from "./Post/Post";
 import { NavLink } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useAppSelector } from "./../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../hooks/useAppDispatch";
+import { likePostTC, unlikePostTC } from "../../../redux/reducers/newsReducer";
 
 interface IProps {
-	postsData: NewsPostData[];
 	isLoading: boolean;
-	bodyTheme: string;
-	likePostTC: (postID: string) => Promise<void>;
-	unlikePostTC: (postID: string) => Promise<void>;
 }
 
 export function NewsPage(props: IProps) {
+	const dispatch = useAppDispatch();
+
 	const [buttonsInProgress, setButtonsInProgress] = useState<string[]>([]);
 
-	function likePost(postID: string) {
+	const { postsData } = useAppSelector((state) => state.news);
+	const { bodyTheme } = useAppSelector((state) => state.settings);
+
+	async function likePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
-		props
-			.likePostTC(postID)
-			.finally(() =>
-				setButtonsInProgress((prev) => prev.filter((id) => id !== postID))
-			);
+
+		await dispatch(likePostTC(postID));
+
+		setButtonsInProgress((prev) => prev.filter((id) => id !== postID));
 	}
-	function unlikePost(postID: string) {
+	async function unlikePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
-		props
-			.unlikePostTC(postID)
-			.finally(() =>
-				setButtonsInProgress((prev) => prev.filter((id) => id !== postID))
-			);
+
+		await dispatch(unlikePostTC(postID));
+
+		setButtonsInProgress((prev) => prev.filter((id) => id !== postID));
 	}
 
 	return (
 		<>
+			<Helmet>
+				<title>News</title>
+			</Helmet>
+
 			<section className="news">
 				<div className="subsection">
 					<div className="news__posts">
-						{!!props.postsData.length ? (
-							props.postsData.map((p) => (
+						{!!postsData.length ? (
+							postsData.map((post) => (
 								<Post
-									key={p.id}
-									postData={p}
-									buttonInProgress={buttonsInProgress.some((id) => id === p.id)}
-									bodyTheme={props.bodyTheme}
-									likePost={() => likePost(p.id)}
-									unlikePost={() => unlikePost(p.id)}
+									key={post.id}
+									postData={post}
+									buttonInProgress={buttonsInProgress.some(
+										(id) => id === post.id
+									)}
+									bodyTheme={bodyTheme}
+									likePost={() => likePost(post.id)}
+									unlikePost={() => unlikePost(post.id)}
 								/>
 							))
 						) : (

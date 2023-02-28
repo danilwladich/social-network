@@ -1,17 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { ChatWith } from "../../../../models/Messages/ChatWith";
 import { UserOnline } from "../../../assets/UserOnline";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
 
-interface IProps {
-	chatWith: ChatWith;
-	bodyTheme: string;
-}
+export function Header() {
+	const { chatWith } = useAppSelector((state) => state.messages);
+	const { bodyTheme } = useAppSelector((state) => state.settings);
 
-export function Header(props: IProps) {
-	const chatWith = props.chatWith;
-
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
+	let userImage: string = `/images/user&theme=${bodyTheme}.jpg`;
 	if (!!chatWith.image) {
 		userImage = chatWith.image.split(".jpg")[0] + "&size=small.jpg";
 	}

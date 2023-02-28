@@ -3,23 +3,21 @@ import { Field, Form } from "react-final-form";
 import { LoadingCircle } from "../../../../assets/LoadingCircle";
 import { useNavigate } from "react-router-dom";
 import { socket } from "../../../../../App";
-import { ProfileUserData } from "../../../../../models/Profile/ProfileUserData";
+import { useAppSelector } from "./../../../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../../../hooks/useAppDispatch";
+import { editProfileTC } from "../../../../../redux/reducers/profileReducer";
 
 interface IProps {
-	userData: ProfileUserData;
-	authNickname: string;
-	bodyTheme: string;
-	editProfileTC: (
-		image?: File,
-		nickname?: string,
-		country?: string,
-		city?: string
-	) => Promise<void>;
 	modalOff: () => void;
 }
 
 export function EditForm(props: IProps) {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+
+	const { bodyTheme } = useAppSelector((state) => state.settings);
+	const { userData } = useAppSelector((state) => state.profile);
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
 
 	const newImageRef = useRef<HTMLImageElement>(null);
 	const [submitting, setSubmitting] = useState(false);
@@ -27,9 +25,9 @@ export function EditForm(props: IProps) {
 
 	const hostname = window.location.hostname;
 
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
-	if (!!props.userData.image) {
-		userImage = props.userData.image.split(".jpg")[0] + "&size=small.jpg";
+	let userImage: string = `/images/user&theme=${bodyTheme}.jpg`;
+	if (userData.image) {
+		userImage = userData.image.split(".jpg")[0] + "&size=small.jpg";
 	}
 
 	function onUpdateProfileImage(e: React.ChangeEvent<HTMLInputElement>) {
@@ -41,7 +39,7 @@ export function EditForm(props: IProps) {
 			};
 		}
 	}
-	function onSubmit(v: {
+	async function onSubmit(v: {
 		image?: FileList;
 		nickname?: string;
 		country?: string;
@@ -49,22 +47,27 @@ export function EditForm(props: IProps) {
 	}) {
 		setSubmitting(true);
 		const image = v.image ? v.image[0] : undefined;
-		props
-			.editProfileTC(
+
+		const { meta, payload } = await dispatch(
+			editProfileTC({
 				image,
-				v.nickname?.trim(),
-				v.country?.trim(),
-				v.city?.trim()
-			)
-			.then(() => {
-				if (!!v.nickname) {
-					socket.emit("nicknameChanged", { nickname: props.authNickname });
-					navigate("/" + v.nickname);
-				}
-				props.modalOff();
+				nickname: v.nickname?.trim(),
+				country: v.country?.trim(),
+				city: v.city?.trim(),
 			})
-			.catch((reject) => setErrorMessage(reject))
-			.finally(() => setSubmitting(false));
+		);
+
+		if (meta.requestStatus === "rejected") {
+			setErrorMessage(payload as string);
+		} else {
+			if (v.nickname) {
+				socket.emit("nicknameChanged", { nickname: authNickname });
+				navigate("/" + v.nickname);
+			}
+			props.modalOff();
+		}
+
+		setSubmitting(false);
 	}
 	function validate(e: {
 		image?: FileList;
@@ -106,7 +109,7 @@ export function EditForm(props: IProps) {
 				) {
 					errors.nickname = "Not allowed!";
 				}
-				if (e.nickname.trim() === props.authNickname) {
+				if (e.nickname.trim() === authNickname) {
 					errors.nickname = "It's already your nickname";
 				}
 				if (e.nickname.trim().match(/[^\w]/g)) {
@@ -147,6 +150,7 @@ export function EditForm(props: IProps) {
 
 		return errors;
 	}
+
 	return (
 		<>
 			<Form
@@ -164,11 +168,7 @@ export function EditForm(props: IProps) {
 										className="profile__edit_label form__label row"
 									>
 										<span>Update profile image</span>
-										<img
-											ref={newImageRef}
-											src={userImage}
-											alt={props.authNickname}
-										/>
+										<img ref={newImageRef} src={userImage} alt={authNickname} />
 									</label>
 									<input
 										{...input}
@@ -207,7 +207,7 @@ export function EditForm(props: IProps) {
 															.trim()
 															.slice(0, 15)
 															.replace(/[^\w]/g, "")
-													: props.authNickname)}
+													: authNickname)}
 										</p>
 									</label>
 									<input
@@ -241,9 +241,7 @@ export function EditForm(props: IProps) {
 										id="countryInput"
 										type="text"
 										className="profile__edit_input form__input"
-										placeholder={
-											props.userData.location.country || "Your country"
-										}
+										placeholder={userData.location.country || "Your country"}
 									/>
 									{meta.touched && meta.error && (
 										<div className="profile__edit_incorrect form__incorrect">
@@ -269,7 +267,7 @@ export function EditForm(props: IProps) {
 										id="cityInput"
 										type="text"
 										className="profile__edit_input form__input"
-										placeholder={props.userData.location.city || "Your city"}
+										placeholder={userData.location.city || "Your city"}
 									/>
 									{meta.touched && meta.error && (
 										<div className="profile__edit_incorrect form__incorrect">

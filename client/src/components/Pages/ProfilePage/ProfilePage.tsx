@@ -1,22 +1,22 @@
 import React from "react";
 import "./ProfilePage.css";
-import { UserContainer } from "./User/UserContainer";
-import { PostsContainer } from "./Posts/PostsContainer";
-import { AboutContainer } from "./About/AboutContainer";
-import { ActionsContainer } from "./Actions/ActionsContainer";
+import { User } from "./User/User";
+import PostsContainer from "./Posts/PostsContainer";
+import { About } from "./About/About";
+import { Actions } from "./Actions/Actions";
 
 export function ProfilePage() {
 	return (
 		<>
 			<section className="profile">
 				<div className="subsection">
-					<UserContainer />
+					<User />
 
-					<ActionsContainer />
+					<Actions />
 				</div>
 
 				<div className="subsection nf">
-					<AboutContainer />
+					<About />
 				</div>
 
 				<div className="subsection">

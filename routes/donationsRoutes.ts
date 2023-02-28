@@ -28,7 +28,9 @@ router.get("/", async (req: Request, res: Response) => {
 		res.status(200).json({
 			success: true,
 			statusText: "Donations send successful",
-			donationsData,
+			items: {
+				donationsData,
+			},
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });

@@ -1,38 +1,14 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { connect } from "react-redux";
-import { IState } from "../../../models/IState";
 import { Navigate, useLocation, useParams } from "react-router-dom";
 import { FriendsPage } from "./FriendsPage";
-import {
-	getFriendsTC,
-	setFollowTC,
-	setUnfollowTC,
-} from "../../../redux/friendsReducer";
-import { FriendsUserData } from "../../../models/Friends/FriendsUserData";
-import { WhoseFriends } from "../../../models/Friends/WhoseFriends";
 import { FriendsPageLoading } from "./FriendsPageLoading";
-import { Helmet } from "react-helmet";
+import { useAppDispatch } from "./../../../hooks/useAppDispatch";
+import { useAppSelector } from "./../../../hooks/useAppSelector";
+import { fetchFriendsTC } from "../../../redux/reducers/friendsReducer";
 
-interface IProps {
-	authNickname: string;
-	whoseFriends: WhoseFriends;
-	usersData: FriendsUserData[];
-	pageSize: number;
-	totalCount: number;
-	bodyTheme: string;
-	getFriendsTC: (
-		userNickname: string,
-		category: string,
-		page: number,
-		pageSize: number,
-		search?: string
-	) => Promise<void>;
-	setFollowTC: (userNickname: string) => Promise<void>;
-	setUnfollowTC: (userNickname: string) => Promise<void>;
-}
+function FriendsPageAPI() {
+	const dispatch = useAppDispatch();
 
-function FriendsPageAPI(props: IProps) {
-	const whoseFriends = props.whoseFriends;
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -43,7 +19,12 @@ function FriendsPageAPI(props: IProps) {
 	const query = useLocation().search.slice(1).replaceAll("&", " ").split(" ");
 	const search = query.find((q) => q.split("=")[0] === "search")?.split("=")[1];
 
-	const pagesCount = Math.ceil(props.totalCount / props.pageSize);
+	const { totalCount, pageSize, whoseFriends } = useAppSelector(
+		(state) => state.friends
+	);
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
+
+	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pages: number[] = [];
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i);
@@ -51,24 +32,28 @@ function FriendsPageAPI(props: IProps) {
 
 	// pagination
 	useEffect(() => {
+		function scrollHandler() {
+			if (
+				pagesCount > 0 &&
+				currentPage !== pagesCount &&
+				!isLoading &&
+				window.pageYOffset >=
+					document.documentElement.scrollHeight -
+						Math.max(
+							window.innerHeight,
+							document.documentElement.clientHeight
+						) *
+							2
+			) {
+				setCurrentPage((prev) => prev + 1);
+			}
+		}
+
 		window.addEventListener("scroll", scrollHandler);
 		return () => window.removeEventListener("scroll", scrollHandler);
-		// eslint-disable-next-line
 	}, [isLoading, currentPage, pagesCount]);
-	function scrollHandler() {
-		if (
-			pagesCount > 0 &&
-			currentPage !== pagesCount &&
-			!isLoading &&
-			window.pageYOffset >=
-				document.documentElement.scrollHeight -
-					Math.max(window.innerHeight, document.documentElement.clientHeight) *
-						2
-		) {
-			setCurrentPage((prev) => prev + 1);
-		}
-	}
 
+	// fetching
 	useLayoutEffect(() => {
 		if (
 			userNickname &&
@@ -77,25 +62,25 @@ function FriendsPageAPI(props: IProps) {
 				category === "following")
 		) {
 			setIsLoading(true);
-			props
-				.getFriendsTC(
+			dispatch(
+				fetchFriendsTC({
 					userNickname,
 					category,
-					currentPage,
-					props.pageSize,
-					search
-				)
-				.finally(() => setIsLoading(false));
+					page: currentPage,
+					pageSize,
+					search,
+				})
+			).finally(() => setIsLoading(false));
 		}
-		// eslint-disable-next-line
-	}, [userNickname, category, currentPage, props.pageSize, search]);
+	}, [userNickname, category, currentPage, pageSize, search, dispatch]);
 
 	if (!userNickname) {
-		if (!props.authNickname) {
+		if (!authNickname) {
 			return <Navigate to="/login" />;
 		}
-		return <Navigate to={"/friends/" + props.authNickname + "/all"} />;
+		return <Navigate to={"/friends/" + authNickname + "/all"} />;
 	}
+
 	if (
 		category !== "all"
 			? category !== "followers"
@@ -105,9 +90,11 @@ function FriendsPageAPI(props: IProps) {
 	) {
 		return <Navigate to={"/friends/" + location.split("/")[2] + "/all"} />;
 	}
+
 	if (currentPage === 1 && isLoading) {
 		return <FriendsPageLoading />;
 	}
+
 	if (!whoseFriends.nickname) {
 		return (
 			<section className="friends">
@@ -117,41 +104,12 @@ function FriendsPageAPI(props: IProps) {
 			</section>
 		);
 	}
+
 	return (
 		<>
-			<Helmet>
-				<title>{`${whoseFriends.firstName} ${whoseFriends.lastName} ${
-					category === "all"
-						? "Friends"
-						: category![0].toUpperCase() + category!.slice(1)
-				}`}</title>
-			</Helmet>
-
-			<FriendsPage
-				{...props}
-				isLoading={isLoading}
-				category={category!}
-				search={search}
-			/>
+			<FriendsPage isLoading={isLoading} category={category!} search={search} />
 		</>
 	);
 }
 
-function mapStateToProps(state: IState) {
-	return {
-		authNickname: state.auth.user.nickname,
-		whoseFriends: state.friends.whoseFriends,
-		usersData: state.friends.usersData,
-		pageSize: state.friends.pageSize,
-		totalCount: state.friends.totalCount,
-		bodyTheme: state.settings.bodyTheme,
-	};
-}
-
-const FriendsPageContainer = connect(mapStateToProps, {
-	getFriendsTC,
-	setFollowTC,
-	setUnfollowTC,
-})(FriendsPageAPI);
-
-export default FriendsPageContainer;
+export default FriendsPageAPI;

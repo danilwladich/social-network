@@ -344,8 +344,7 @@ body {
 
 .countOfUnreadMessages {
 	border-radius: 20px;
-	font-size: 14px;
-	font-weight: 700;
+	font-size: 16px;
 	background-color: red;
 	color: #fff;
 	padding: 0 5px;
@@ -461,9 +460,8 @@ body {
 			}
 		}
 		svg {
-			width: 62px;
-			height: 23px;
-			margin: 0px 0px -5px 0px;
+			height: 26px;
+			margin: -5px 0px -5px 0px;
 		}
 	}
 	&__error {

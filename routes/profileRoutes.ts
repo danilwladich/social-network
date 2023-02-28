@@ -93,8 +93,10 @@ router.get("/user/:nickname", async (req: Request, res: Response) => {
 		res.status(200).json({
 			success: true,
 			statusText: "Profile sent successfully",
-			userData,
-			followData,
+			items: {
+				userData,
+				followData,
+			},
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });
@@ -152,15 +154,19 @@ router.get("/posts/:nickname", async (req: Request, res: Response) => {
 			return res.status(200).json({
 				success: true,
 				statusText: "Posts send successfully",
-				postsData,
-				totalCount,
+				items: {
+					postsData,
+					totalCount,
+				},
 			});
 		}
 
 		res.status(200).json({
 			success: true,
 			statusText: "Posts send successfully",
-			postsData,
+			items: {
+				postsData,
+			},
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });
@@ -181,7 +187,7 @@ router.post(
 			if (!errors.isEmpty()) {
 				return res.status(400).json({
 					success: false,
-					statusText: errors.array(),
+					statusText: errors.array().join("; "),
 				});
 			}
 
@@ -212,7 +218,9 @@ router.post(
 			res.status(201).json({
 				success: true,
 				statusText: "Post add successfully",
-				postID,
+				items: {
+					postID,
+				},
 			});
 		} catch (e) {
 			res.status(500).json({ success: false, statusText: "Server error" });
@@ -352,7 +360,7 @@ router.put(
 			if (!errors.isEmpty()) {
 				return res.status(400).json({
 					success: false,
-					statusText: errors.array(),
+					statusText: errors.array().join("; "),
 				});
 			}
 

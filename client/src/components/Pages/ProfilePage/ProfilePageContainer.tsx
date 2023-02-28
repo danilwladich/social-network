@@ -1,41 +1,44 @@
 import React, { useLayoutEffect, useState } from "react";
-import { connect } from "react-redux";
-import { IState } from "../../../models/IState";
-import { getProfileTC } from "../../../redux/profileReducer";
 import { ProfilePage } from "./ProfilePage";
 import { Navigate, useParams } from "react-router-dom";
 import { ProfilePageLoading } from "./ProfilePageLoading";
+import { useAppSelector } from "./../../../hooks/useAppSelector";
+import { fetchProfileTC } from "../../../redux/reducers/profileReducer";
+import { useAppDispatch } from "../../../hooks/useAppDispatch";
 
-interface IProps {
-	authNickname: string;
-	userNickname: string;
-	getProfileTC: (profileNickname: string) => Promise<void>;
-}
-
-function ProfilePageAPI(props: IProps) {
+function ProfilePageAPI() {
+	const dispatch = useAppDispatch();
 	const [isLoading, setIsLoading] = useState(false);
+
+	const { user: authUser } = useAppSelector((state) => state.auth);
+	const { nickname: userNickname } = useAppSelector(
+		(state) => state.profile.userData
+	);
+
 	const profileNickname = useParams().nickname;
 
+	// fetching
 	useLayoutEffect(() => {
 		if (profileNickname) {
 			setIsLoading(true);
-			props.getProfileTC(profileNickname!).finally(() => setIsLoading(false));
+			dispatch(fetchProfileTC(profileNickname)).finally(() => {
+				setIsLoading(false);
+			});
 		}
-		// eslint-disable-next-line
-	}, [profileNickname]);
+	}, [profileNickname, dispatch]);
 
 	if (!profileNickname) {
-		if (!props.authNickname) {
+		if (!authUser.nickname) {
 			return <Navigate to="/login" />;
 		}
-		return <Navigate to={"/" + props.authNickname} />;
+		return <Navigate to={"/" + authUser.nickname} />;
 	}
+
 	if (isLoading) {
-		return (
-			<ProfilePageLoading itsMe={profileNickname === props.authNickname} />
-		);
+		return <ProfilePageLoading itsMe={profileNickname === authUser.nickname} />;
 	}
-	if (!props.userNickname) {
+
+	if (!userNickname) {
 		return (
 			<section className="profile">
 				<div className="subsection">
@@ -44,6 +47,7 @@ function ProfilePageAPI(props: IProps) {
 			</section>
 		);
 	}
+
 	return (
 		<>
 			<ProfilePage />
@@ -51,15 +55,4 @@ function ProfilePageAPI(props: IProps) {
 	);
 }
 
-function mapStateToProps(state: IState) {
-	return {
-		authNickname: state.auth.user.nickname,
-		userNickname: state.profile.userData.nickname,
-	};
-}
-
-const ProfilePageContainer = connect(mapStateToProps, {
-	getProfileTC,
-})(ProfilePageAPI);
-
-export default ProfilePageContainer;
+export default ProfilePageAPI;

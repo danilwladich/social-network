@@ -15,6 +15,9 @@ html[theme=dark] .messages__user.unread .messages__user_actions_show span:before
 html[theme=dark] .messages__user.unread .messages__user_actions_show span:after {
   background-color: var(--dark-button-text-color);
 }
+html[theme=dark] .messages__user.unread .messages__user_online:not(.empty) {
+  border: 2px solid var(--dark-highlight);
+}
 html[theme=dark] .messages__user_content:hover, html[theme=dark] .messages__user_content:focus {
   background-color: var(--dark-button-bg) !important;
 }
@@ -23,6 +26,9 @@ html[theme=dark] .messages__user_content:hover *, html[theme=dark] .messages__us
 }
 html[theme=dark] .messages__user_content:hover .messages__user_lastmessage_status:not(.read) svg, html[theme=dark] .messages__user_content:focus .messages__user_lastmessage_status:not(.read) svg {
   fill: var(--dark-button-text-color);
+}
+html[theme=dark] .messages__user_content:hover .messages__user_online:not(.empty), html[theme=dark] .messages__user_content:focus .messages__user_online:not(.empty) {
+  border: 2px solid var(--dark-button-bg);
 }
 html[theme=dark] .messages__user_actions_show span,
 html[theme=dark] .messages__user_actions_show span:before,
@@ -108,6 +114,9 @@ html[theme=light] .messages__user.unread .messages__user_actions_show span:befor
 html[theme=light] .messages__user.unread .messages__user_actions_show span:after {
   background-color: var(--light-button-text-color);
 }
+html[theme=light] .messages__user.unread .messages__user_online:not(.empty) {
+  border: 2px solid var(--light-highlight);
+}
 html[theme=light] .messages__user_content:hover, html[theme=light] .messages__user_content:focus {
   background-color: var(--light-button-bg) !important;
 }
@@ -116,6 +125,9 @@ html[theme=light] .messages__user_content:hover *, html[theme=light] .messages__
 }
 html[theme=light] .messages__user_content:hover .messages__user_lastmessage_status:not(.read) svg, html[theme=light] .messages__user_content:focus .messages__user_lastmessage_status:not(.read) svg {
   fill: var(--light-button-text-color);
+}
+html[theme=light] .messages__user_content:hover .messages__user_online:not(.empty), html[theme=light] .messages__user_content:focus .messages__user_online:not(.empty) {
+  border: 2px solid var(--light-button-bg);
 }
 html[theme=light] .messages__user_actions_show span,
 html[theme=light] .messages__user_actions_show span:before,
@@ -656,6 +668,20 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+.messages__chat_content_loading {
+  margin: 0px 0px 30px 0px;
+  height: 30px;
+}
+.messages__chat_content_loading svg {
+  position: absolute;
+  left: calc(50% - 6px);
+  top: 10px;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
 }
 .messages__chat_input {
   position: relative;

@@ -157,7 +157,7 @@ html[theme=light] .header__burger span {
 .header__burger .countOfUnreadMessages {
   position: absolute;
   left: -8px;
-  bottom: -8px;
+  bottom: -5px;
   z-index: 1;
 }
 @media (min-width: 767px) {

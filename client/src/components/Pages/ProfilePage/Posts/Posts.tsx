@@ -1,63 +1,54 @@
 import React, { useState } from "react";
-import { ProfilePostData } from "../../../../models/Profile/ProfilePostData";
 import { Post } from "./Post/Post";
 import { Input } from "./Input";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import {
+	deletePostTC,
+	likePostTC,
+	unlikePostTC,
+} from "../../../../redux/reducers/profileReducer";
 
-interface IProps {
-	authNickname: string;
-	userNickname: string;
-	firstName: string;
-	postsData: ProfilePostData[];
-	addPostTC: (post: string) => Promise<void>;
-	deletePostTC: (postID: string) => Promise<void>;
-	likePostTC: (postID: string) => Promise<void>;
-	unlikePostTC: (postID: string) => Promise<void>;
-}
-
-export function Posts(props: IProps) {
+export function Posts() {
+	const dispatch = useAppDispatch();
 	const [buttonsInProgress, setButtonsInProgress] = useState<string[]>([]);
 
-	function likePost(postID: string) {
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
+	const { nickname: userNickname, firstName } = useAppSelector(
+		(state) => state.profile.userData
+	);
+	const { postsData } = useAppSelector((state) => state.profile);
+
+	async function likePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
-		props
-			.likePostTC(postID)
-			.finally(() =>
-				setButtonsInProgress((prev) => prev.filter((id) => id !== postID))
-			);
+		await dispatch(likePostTC(postID));
+		setButtonsInProgress((prev) => prev.filter((id) => id !== postID));
 	}
-	function unlikePost(postID: string) {
+	async function unlikePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
-		props
-			.unlikePostTC(postID)
-			.finally(() =>
-				setButtonsInProgress((prev) => prev.filter((id) => id !== postID))
-			);
+		await dispatch(unlikePostTC(postID));
+		setButtonsInProgress((prev) => prev.filter((id) => id !== postID));
 	}
-	function deletePost(postID: string) {
+	async function deletePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
-		props
-			.deletePostTC(postID)
-			.finally(() =>
-				setButtonsInProgress((prev) => prev.filter((id) => id !== postID))
-			);
+		await dispatch(deletePostTC(postID));
+		setButtonsInProgress((prev) => prev.filter((id) => id !== postID));
 	}
 
 	return (
 		<>
-			{props.authNickname === props.userNickname && (
-				<Input addPostTC={props.addPostTC} />
-			)}
+			{authNickname === userNickname && <Input />}
 
-			{!!props.postsData.length ? (
+			{!!postsData.length ? (
 				<div className="profile__posts">
-					{props.postsData.map((p) => (
+					{postsData.map((p) => (
 						<Post
 							key={p.id}
-							isAuth={!!props.authNickname}
+							isAuth={!!authNickname}
 							postData={p}
 							buttonInProgress={buttonsInProgress.some((id) => id === p.id)}
 							deletePost={
-								props.authNickname === props.userNickname
+								authNickname === userNickname
 									? () => deletePost(p.id)
 									: undefined
 							}
@@ -68,9 +59,8 @@ export function Posts(props: IProps) {
 				</div>
 			) : (
 				<div className="profile__posts_no_posts">
-					{(props.authNickname === props.userNickname
-						? "You"
-						: props.firstName) + " have not added any post yet"}
+					{(authNickname === userNickname ? "You" : firstName) +
+						" have not added any post yet"}
 				</div>
 			)}
 		</>

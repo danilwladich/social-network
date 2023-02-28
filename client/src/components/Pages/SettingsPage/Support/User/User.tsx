@@ -1,5 +1,5 @@
 import React from "react";
-import { DonationData } from "../../../../models/Settings/DonationData";
+import { DonationData } from "../../../../../models/Settings/DonationData";
 import { NavLink } from "react-router-dom";
 
 interface IProps {

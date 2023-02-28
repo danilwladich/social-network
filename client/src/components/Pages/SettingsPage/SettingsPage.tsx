@@ -1,17 +1,15 @@
 import React from "react";
-import { GeneralContainer } from "./General/GeneralContainer";
-import { AccountContainer } from "./Account/AccountContainer";
 import "./SettingsPage.css";
+import { General } from "./General/General";
+import { Account } from "./Account/Account";
 import { Copyright } from "./Copyright/Copyright";
 import { Messages } from "./Messages/Messages";
-import { SupportContainer } from "./Support/SupportContainer";
+import SupportContainer from "./Support/SupportContainer";
 import { Helmet } from "react-helmet";
+import { useAppSelector } from "./../../../hooks/useAppSelector";
 
-interface IProps {
-	isAuth: boolean;
-}
-
-export function SettingsPage(props: IProps) {
+export default function SettingsPage() {
+	const { isAuth } = useAppSelector((state) => state.auth);
 	return (
 		<>
 			<Helmet>
@@ -21,13 +19,13 @@ export function SettingsPage(props: IProps) {
 			<section className="settings">
 				<div className="subsection">
 					<div className="settings__items">
-						<GeneralContainer />
+						<General />
 
-						{props.isAuth && (
+						{isAuth && (
 							<>
 								<Messages />
 
-								<AccountContainer />
+								<Account />
 							</>
 						)}
 

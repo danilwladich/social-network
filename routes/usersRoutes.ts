@@ -128,8 +128,10 @@ router.get("", async (req: Request, res: Response) => {
 		res.status(200).json({
 			success: true,
 			statusText: "Users sent successfully",
-			usersData,
-			totalCount,
+			items: {
+				usersData,
+				totalCount,
+			},
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });

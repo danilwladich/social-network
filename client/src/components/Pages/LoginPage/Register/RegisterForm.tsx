@@ -2,23 +2,20 @@ import { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
 import ReCAPTCHA from "react-google-recaptcha";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import { useAppDispatch } from "../../../../hooks/useAppDispatch";
+import { useAppSelector } from "../../../../hooks/useAppSelector";
+import { registerTC } from "../../../../redux/reducers/authReducer";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
 
-interface IProps {
-	bodyTheme: string;
-	registerTC: (
-		phoneNumber: string,
-		password: string,
-		firstName: string,
-		lastName: string,
-		recaptcha: string
-	) => Promise<void>;
-}
+export function RegisterForm() {
+	const dispatch = useAppDispatch();
 
-export function RegisterForm(props: IProps) {
 	const [errorMessage, setErrorMessage] = useState("");
 	const [submitting, setSubmitting] = useState(false);
+
 	const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+	const { bodyTheme } = useAppSelector((state) => state.settings);
 
 	async function onSubmit(v: {
 		phoneNumber: string;
@@ -27,24 +24,30 @@ export function RegisterForm(props: IProps) {
 		lastName: string;
 	}) {
 		setSubmitting(true);
+
 		const recaptcha = await recaptchaRef.current?.executeAsync();
 		if (!recaptcha) {
 			setSubmitting(false);
+			recaptchaRef.current?.reset();
 			return () => setErrorMessage("Recaptcha error, try again");
 		}
-		props
-			.registerTC(
-				v.phoneNumber,
-				v.password,
-				v.firstName.trim(),
-				v.lastName.trim(),
-				recaptcha
-			)
-			.catch((reject) => {
-				setErrorMessage(reject);
-				recaptchaRef.current?.reset();
+
+		const { meta, payload } = await dispatch(
+			registerTC({
+				phoneNumber: v.phoneNumber,
+				password: v.password,
+				firstName: v.firstName.trim(),
+				lastName: v.lastName.trim(),
+				recaptcha,
 			})
-			.finally(() => setSubmitting(false));
+		);
+
+		if (meta.requestStatus === "rejected") {
+			setErrorMessage(payload as string);
+			recaptchaRef.current?.reset();
+		}
+
+		setSubmitting(false);
 	}
 	function validate(e: {
 		phoneNumber: string;
@@ -264,7 +267,7 @@ export function RegisterForm(props: IProps) {
 									type="text"
 									autoComplete="given-name"
 									className="login__input form__input"
-									placeholder="Bob"
+									placeholder="First name"
 								/>
 								{meta.touched && meta.error && (
 									<div className="login__incorrect form__incorrect">
@@ -292,7 +295,7 @@ export function RegisterForm(props: IProps) {
 									type="text"
 									autoComplete="family-name"
 									className="login__input form__input"
-									placeholder="Dylan"
+									placeholder="Last name"
 								/>
 								{meta.touched && meta.error && (
 									<div className="login__incorrect form__incorrect">
@@ -306,7 +309,7 @@ export function RegisterForm(props: IProps) {
 					<ReCAPTCHA
 						size="invisible"
 						className="login__recaptcha"
-						theme={props.bodyTheme as "light" | "dark"}
+						theme={bodyTheme as "light" | "dark"}
 						sitekey="6LcwYyQkAAAAAMsq2VnRYkkqNqLt-ljuy-gfmPYn"
 						ref={recaptchaRef}
 					/>

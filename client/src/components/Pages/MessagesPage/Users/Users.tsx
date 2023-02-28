@@ -1,42 +1,42 @@
 import React, { useState } from "react";
-import { MessagesUserData } from "../../../../models/Messages/MessagesUserData";
 import { User } from "./User/User";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import { deleteChatTC } from "../../../../redux/reducers/messagesReducer";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
 
-interface IProps {
-	usersData: MessagesUserData[];
-	bodyTheme: string;
-	deleteChatTC: (userNickname: string) => Promise<void>;
-}
+export function Users() {
+	const dispatch = useAppDispatch();
 
-export function Users(props: IProps) {
+	const { usersData } = useAppSelector((state) => state.messages);
+	const { bodyTheme } = useAppSelector((state) => state.settings);
+
 	const [deleteButtonsInProgress, setDeleteButtonsInProgress] = useState<
 		string[]
 	>([]);
 
-	function deleteChat(userNickname: string) {
+	async function deleteChat(userNickname: string) {
 		setDeleteButtonsInProgress((prev) => [...prev, userNickname]);
-		props
-			.deleteChatTC(userNickname)
-			.finally(() =>
-				setDeleteButtonsInProgress((prev) =>
-					prev.filter((nickname) => nickname !== userNickname)
-				)
-			);
+
+		await dispatch(deleteChatTC(userNickname));
+
+		setDeleteButtonsInProgress((prev) =>
+			prev.filter((nickname) => nickname !== userNickname)
+		);
 	}
 
 	return (
 		<>
-			{!!props.usersData.length ? (
+			{!!usersData.length ? (
 				<div className="messages__users">
-					{props.usersData.map((u) => (
+					{usersData.map((user) => (
 						<User
-							key={u.nickname}
-							userData={u}
+							key={user.nickname}
+							userData={user}
 							deleteButtonInProgress={deleteButtonsInProgress.some(
-								(nickname) => nickname === u.nickname
+								(nickname) => nickname === user.nickname
 							)}
-							bodyTheme={props.bodyTheme}
-							deleteChat={() => deleteChat(u.nickname)}
+							bodyTheme={bodyTheme}
+							deleteChat={() => deleteChat(user.nickname)}
 						/>
 					))}
 				</div>

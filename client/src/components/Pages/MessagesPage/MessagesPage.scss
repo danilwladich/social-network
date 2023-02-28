@@ -23,6 +23,9 @@ html[theme="dark"] {
 						background-color: var(--dark-button-text-color);
 					}
 				}
+				.messages__user_online:not(.empty) {
+					border: 2px solid var(--dark-highlight);
+				}
 			}
 			&_content {
 				&:hover,
@@ -35,6 +38,9 @@ html[theme="dark"] {
 						svg {
 							fill: var(--dark-button-text-color);
 						}
+					}
+					.messages__user_online:not(.empty) {
+						border: 2px solid var(--dark-button-bg);
 					}
 				}
 			}
@@ -164,6 +170,9 @@ html[theme="light"] {
 						background-color: var(--light-button-text-color);
 					}
 				}
+				.messages__user_online:not(.empty) {
+					border: 2px solid var(--light-highlight);
+				}
 			}
 			&_content {
 				&:hover,
@@ -176,6 +185,9 @@ html[theme="light"] {
 						svg {
 							fill: var(--light-button-text-color);
 						}
+					}
+					.messages__user_online:not(.empty) {
+						border: 2px solid var(--light-button-bg);
 					}
 				}
 			}
@@ -644,6 +656,18 @@ html[theme="light"] {
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
+			}
+			&_loading {
+				margin: 0px 0px 30px 0px;
+				height: 30px;
+				svg {
+					position: absolute;
+					left: calc(50% - 6px);
+					top: 10px;
+					transform: translateX(-50%);
+					width: 30px;
+					height: 30px;
+				}
 			}
 		}
 		&_input {

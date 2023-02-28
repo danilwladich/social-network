@@ -3,24 +3,14 @@ import { Navigate, NavLink } from "react-router-dom";
 import "../LoginPage.css";
 import { RegisterForm } from "./RegisterForm";
 import { Helmet } from "react-helmet";
+import { useAppSelector } from "../../../../hooks/useAppSelector";
 
-interface IProps {
-	isAuth: boolean;
-	authNickname: string;
-	bodyTheme: string;
-	registerTC: (
-		phoneNumber: string,
-		password: string,
-		firstName: string,
-		lastName: string,
-		recaptcha: string
-	) => Promise<void>;
-}
-
-export function RegisterPage(props: IProps) {
-	if (props.isAuth) {
-		return <Navigate to={"/" + props.authNickname} />;
+export default function RegisterPage() {
+	const { isAuth, user: authUser } = useAppSelector((state) => state.auth);
+	if (isAuth) {
+		return <Navigate to={"/" + authUser.nickname} />;
 	}
+	
 	return (
 		<>
 			<Helmet>
@@ -43,10 +33,7 @@ export function RegisterPage(props: IProps) {
 				<div className="subsection">
 					<h2 className="login__title title">Register</h2>
 
-					<RegisterForm
-						registerTC={props.registerTC}
-						bodyTheme={props.bodyTheme}
-					/>
+					<RegisterForm />
 
 					<NavLink to="/login" className="login__link">
 						Already have account?

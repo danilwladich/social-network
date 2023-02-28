@@ -32,8 +32,8 @@ html[theme=light] .navbar__bg {
 .navbar__link {
   font-size: 24px;
   letter-spacing: 1px;
-  padding: 10px 20px;
-  line-height: 24px;
+  padding: 4px 20px;
+  line-height: 150%;
   border-radius: 4px;
   -webkit-transition: background-color 0.2s, -webkit-box-shadow 0.2s;
   transition: background-color 0.2s, -webkit-box-shadow 0.2s;
@@ -112,7 +112,7 @@ html[theme=light] .navbar__bg {
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
-    margin: 1px 1px 11px 1px;
+    margin: 1px 1px 11px -1px;
     text-align: right;
     width: 200px;
   }
@@ -145,7 +145,7 @@ html[theme=light] .navbar__bg {
   }
   .navbar__link {
     font-size: 22px;
-    padding: 5px 15px;
+    padding: 0px 15px;
   }
   .navbar__link:not(:last-child) {
     margin: 1px 1px 6px 1px;

@@ -1,32 +1,34 @@
 import React, { useEffect } from "react";
 import "./MessagesPage.css";
-import { UsersContainer } from "./Users/UsersContainer";
-import { ChatContainer } from "./Chat/ChatContainer";
+import UsersContainer from "./Users/UsersContainer";
+import ChatContainer from "./Chat/ChatContainer";
 import { useParams } from "react-router-dom";
 import { socket } from "../../../App";
 import { Helmet } from "react-helmet";
+import { useAppDispatch } from "./../../../hooks/useAppDispatch";
+import {
+	messageSent,
+	messagesRead,
+	readMessages,
+} from "../../../redux/reducers/messagesReducer";
 
-interface IProps {
-	messageSent: (oldID: string, newID: string) => void;
-	messagesRead: (userNickname: string) => void;
-	readMessages: (userNickname: string) => void;
-}
+export default function MessagesPage() {
+	const dispatch = useAppDispatch();
 
-export function MessagesPage(props: IProps) {
 	const userNickname = useParams().nickname;
 
 	// sockets
 	useEffect(() => {
 		socket.on("messageSent", (data) => {
-			props.messageSent(data.oldID, data.newID);
+			dispatch(messageSent({ oldID: data.oldID, newID: data.newID }));
 		});
 
 		socket.on("messagesRead", (data) => {
-			props.messagesRead(data.userNickname);
+			dispatch(messagesRead(data.userNickname));
 		});
 
 		socket.on("readMessages", (data) => {
-			props.readMessages(data.userNickname);
+			dispatch(readMessages(data.userNickname));
 		});
 
 		return () => {
@@ -34,7 +36,6 @@ export function MessagesPage(props: IProps) {
 			socket.off("messagesRead");
 			socket.off("readMessages");
 		};
-		// eslint-disable-next-line
 	}, []);
 
 	return (

@@ -36,7 +36,7 @@ router.post(
 			if (!errors.isEmpty()) {
 				return res.status(400).json({
 					success: false,
-					statusText: errors.array(),
+					statusText: errors.array().join("; "),
 				});
 			}
 
@@ -117,7 +117,7 @@ router.post(
 			if (!errors.isEmpty()) {
 				return res.status(200).json({
 					success: false,
-					statusText: errors.array(),
+					statusText: errors.array().join("; "),
 				});
 			}
 
@@ -193,7 +193,9 @@ router.get("/me", async (req: Request, res: Response) => {
 		res.status(200).json({
 			success: true,
 			statusText: "Auth successful",
-			user: { nickname, token },
+			items: {
+				user: { nickname, token },
+			},
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });

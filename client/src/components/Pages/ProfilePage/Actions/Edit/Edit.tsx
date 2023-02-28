@@ -1,21 +1,8 @@
 import React, { useState } from "react";
-import { ProfileUserData } from "../../../../../models/Profile/ProfileUserData";
 import { CloseX } from "../../../../assets/CloseX";
 import { EditForm } from "./EditForm";
 
-interface IProps {
-	userData: ProfileUserData;
-	authNickname: string;
-	bodyTheme: string;
-	editProfileTC: (
-		image?: File,
-		nickname?: string,
-		country?: string,
-		city?: string
-	) => Promise<void>;
-}
-
-export function Edit(props: IProps) {
+export function Edit() {
 	const [showModal, setShowModal] = useState(false);
 
 	const bodyLock = document.querySelector("body");
@@ -42,13 +29,13 @@ export function Edit(props: IProps) {
 					></div>
 
 					<div className="profile__edit_modal modal">
-						<h2 className="profile__edit_title title">Edit profile </h2>
+						<h2 className="profile__edit_title title">Edit profile</h2>
 
 						<button className="profile__edit_close" onClick={() => modalOff()}>
 							<CloseX />
 						</button>
 
-						<EditForm {...props} modalOff={modalOff} />
+						<EditForm modalOff={modalOff} />
 					</div>
 				</>
 			)}

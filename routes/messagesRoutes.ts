@@ -15,6 +15,15 @@ router.get(
 	async (req: IGetUserAuthRequest, res: Response) => {
 		try {
 			const authID = req.user!.userID as string;
+			const page = parseInt((req.query.page as string) || "");
+			const count = parseInt((req.query.count as string) || "");
+			const lastChatLastMessageID = req.query.lastChatLastMessageID;
+			if (!page || !count || page < 1 || count > 200) {
+				return res.status(400).json({
+					success: false,
+					statusText: "Invalid query parameters",
+				});
+			}
 
 			const messagesFromUsers = await Message.distinct("from", {
 				$or: [{ from: authID }, { to: authID }],
@@ -22,78 +31,92 @@ router.get(
 			const messagesToUsers = await Message.distinct("to", {
 				$or: [{ from: authID }, { to: authID }],
 			});
-			const messagesUsers = messagesFromUsers.concat(messagesToUsers);
+			const messagesUsersIDs = messagesFromUsers.concat(messagesToUsers);
 
 			// set unique ids of users
-			const usersSet: Set<string> = new Set();
-			messagesUsers.forEach((id) => {
-				if (id.toString() !== authID) {
-					usersSet.add(id.toString());
+			let usersIDsSet: string[] = [];
+			messagesUsersIDs.every((id) => {
+				if (!usersIDsSet.includes(id.toString()) && id.toString() !== authID) {
+					usersIDsSet.push(id.toString());
 				}
+				return true;
 			});
-			let usersArray: string[] = [];
-			usersSet.forEach((id) => usersArray.push(id));
 
-			// last messages for each users ids
-			const lastMessages = await Promise.all(
-				usersArray.map(async (id) => {
-					return await Message.findOne({
+			let chatsArray: any[] = [];
+			for (const id of usersIDsSet) {
+				let lastMessageFilter;
+				if (!lastChatLastMessageID) {
+					lastMessageFilter = {
 						$or: [
 							{ from: id, to: authID },
 							{ to: id, from: authID },
 						],
-					}).sort({ _id: -1 });
-				})
-			);
+					};
+				} else {
+					lastMessageFilter = {
+						$or: [
+							{ from: id, to: authID },
+							{ to: id, from: authID },
+						],
+						_id: { $gt: lastChatLastMessageID },
+					};
+				}
 
-			// sorting last messages by id
-			lastMessages.sort((a, b) => {
-				if (a?.id > b?.id) {
+				const lastMessage = await Message.findOne(lastMessageFilter).sort({
+					_id: -1,
+				});
+
+				if (!!lastMessage) {
+					const user = await User.findById(id, {
+						nickname: 1,
+						firstName: 1,
+						lastName: 1,
+						avatar: 1,
+					});
+
+					chatsArray.push({ lastMessage, user });
+				}
+			}
+
+			// sorting chats by last message id
+			chatsArray.sort((a, b) => {
+				if (a.lastMessage.id > b.lastMessage.id) {
 					return -1;
 				}
-				if (a?.id < b?.id) {
+				if (a.lastMessage.id < b.lastMessage.id) {
 					return 1;
 				}
 				return 0;
 			});
 
 			// mapping lastMessages and finding user
-			const usersData = await Promise.all(
-				lastMessages.map(async (m) => {
-					if (!!m) {
-						const userID = m.from!.toString() === authID ? m.to : m.from;
-						const user = await User.findById(userID, {
-							nickname: 1,
-							firstName: 1,
-							lastName: 1,
-							avatar: 1,
-						});
+			const usersData = chatsArray.map((chat) => {
+				const user = chat.user;
+				const lastMessage = chat.lastMessage;
 
-						if (!!user) {
-							return {
-								nickname: user.nickname,
-								firstName: user.firstName,
-								lastName: user.lastName,
-								image: user.avatar,
-								online: connectedSockets[user.nickname]?.online || false,
+				return {
+					nickname: user.nickname,
+					firstName: user.firstName,
+					lastName: user.lastName,
+					image: user.avatar,
+					online: connectedSockets[user.nickname]?.online || false,
 
-								lastMessage: {
-									id: m._id,
-									message: m.message,
-									date: m.date,
-									out: m.from!.toString() === authID,
-									read: m.read,
-								},
-							};
-						}
-					}
-				})
-			);
+					lastMessage: {
+						id: lastMessage._id,
+						message: lastMessage.message,
+						date: lastMessage.date,
+						out: lastMessage.from!.toString() === authID,
+						read: lastMessage.read,
+					},
+				};
+			});
 
 			res.status(200).json({
 				success: true,
 				statusText: "Chats sent successfully",
-				usersData,
+				items: {
+					usersData,
+				},
 			});
 		} catch (e) {
 			res.status(500).json({ success: false, statusText: "Server error" });
@@ -117,7 +140,7 @@ router.post(
 			if (!errors.isEmpty()) {
 				return res.status(200).json({
 					success: false,
-					statusText: errors.array(),
+					statusText: errors.array().join("; "),
 				});
 			}
 
@@ -135,11 +158,11 @@ router.post(
 				const countOfMessages = await Message.find({
 					from: fromUserID,
 				}).count();
-				if (countOfMessages >= 50) {
+				if (countOfMessages >= 250) {
 					return res.status(200).json({
 						success: false,
 						statusText:
-							"I'm sorry but due to the fact that at the moment I'm using a free database, you can't send more than 50 messages in total",
+							"I'm sorry but due to the fact that at the moment I'm using a free database, you can't send more than 250 messages in total",
 					});
 				}
 			}
@@ -151,12 +174,18 @@ router.post(
 				lastName: 1,
 				avatar: 1,
 			});
+			if (!fromUser) {
+				return res.status(200).json({
+					success: false,
+					statusText: "Auth error",
+				});
+			}
 
 			const toUser = await User.findOne(
 				{ nickname: toUserNickname },
 				{ _id: 1 }
 			);
-			if (!fromUser || !toUser) {
+			if (!toUser) {
 				return res.status(200).json({
 					success: false,
 					statusText: "User not found",
@@ -176,8 +205,10 @@ router.post(
 			res.status(201).json({
 				success: true,
 				statusText: "Message add successfully",
-				message: newMessage,
-				fromUser,
+				items: {
+					message: newMessage,
+					fromUser,
+				},
 			});
 		} catch (e) {
 			res.status(500).json({ success: false, statusText: "Server error" });
@@ -207,7 +238,9 @@ router.get(
 			res.status(200).json({
 				success: true,
 				statusText: "Count of unread messages sent successfully",
-				count,
+				items: {
+					count,
+				},
 			});
 		} catch (e) {
 			res.status(500).json({ success: false, statusText: "Server error" });
@@ -228,13 +261,20 @@ router.put(
 			if (!errors.isEmpty()) {
 				return res.status(200).json({
 					success: false,
-					statusText: errors.array(),
+					statusText: errors.array().join("; "),
 				});
 			}
 
 			const { whoUserID, whomUserNickname } = req.body;
 
 			const whoUser = await User.findById(whoUserID, { _id: 1 });
+			if (!whoUser) {
+				return res.status(200).json({
+					success: false,
+					statusText: "Auth error",
+				});
+			}
+
 			const whomUser = await User.findOne({ nickname: whomUserNickname });
 			if (!whoUser || !whomUser) {
 				return res.status(200).json({
@@ -287,32 +327,35 @@ router.get(
 
 			const authID = req.user!.userID as string;
 
-			const filter = !lastMessageID
-				? {
-						$or: [
-							{ from: userID, to: authID },
-							{ to: userID, from: authID },
-						],
-				  }
-				: {
-						$or: [
-							{ from: userID, to: authID },
-							{ to: userID, from: authID },
-						],
-						_id: { $lt: lastMessageID },
-				  };
+			let filter;
+			if (!lastMessageID) {
+				filter = {
+					$or: [
+						{ from: userID, to: authID },
+						{ to: userID, from: authID },
+					],
+				};
+			} else {
+				filter = {
+					$or: [
+						{ from: userID, to: authID },
+						{ to: userID, from: authID },
+					],
+					_id: { $lt: lastMessageID },
+				};
+			}
 
 			const messages = await Message.find(filter)
 				.sort({ _id: -1 })
 				.limit(count);
 
-			const messagesData = messages.map((m) => {
+			const messagesData = messages.map((message) => {
 				return {
-					id: m._id,
-					date: m.date,
-					message: m.message,
-					out: m.from?.toString() === authID,
-					read: m.read,
+					id: message._id,
+					date: message.date,
+					message: message.message,
+					out: message.from?.toString() === authID,
+					read: message.read,
 				};
 			});
 
@@ -336,17 +379,21 @@ router.get(
 				return res.status(200).json({
 					success: true,
 					statusText: "Chat sent successfully",
-					chatWith,
-					messagesData,
-					totalCount,
+					items: {
+						chatWith,
+						messagesData,
+						totalCount,
+					},
 				});
 			}
 
 			res.status(200).json({
 				success: true,
 				statusText: "Chat sent successfully",
-				chatWith,
-				messagesData,
+				items: {
+					chatWith,
+					messagesData,
+				},
 			});
 		} catch (e) {
 			res.status(500).json({ success: false, statusText: "Server error" });

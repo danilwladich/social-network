@@ -3,32 +3,35 @@ import { CloseX } from "../../../assets/CloseX";
 import { DeleteAccountForm } from "./DeleteAccountForm";
 import { useNavigate } from "react-router-dom";
 import { socket } from "./../../../../App";
+import { useAppDispatch } from "../../../../hooks/useAppDispatch";
+import { useAppSelector } from "../../../../hooks/useAppSelector";
+import { logoutTC } from "../../../../redux/reducers/authReducer";
 
-interface IProps {
-	authNickname: string;
-	logoutTC: () => Promise<void>;
-	deleteAccountTC: (password: string) => Promise<void>;
-}
-
-export function Account(props: IProps) {
+export function Account() {
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+
 	const [showModal, setShowModal] = useState(false);
 
-	const bodyLock = document.querySelector("body");
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
+
+	const body = document.querySelector("body");
 	function modalOn() {
-		bodyLock?.classList.add("lock");
+		body?.classList.add("lock");
 		setShowModal(true);
 	}
 	function modalOff() {
-		bodyLock?.classList.remove("lock");
+		body?.classList.remove("lock");
 		setShowModal(false);
 	}
 
-	function logout() {
-		props.logoutTC().then(() => {
+	async function logout() {
+		const { meta } = await dispatch(logoutTC());
+
+		if (meta.requestStatus === "fulfilled") {
 			navigate("/login");
-			socket.emit("logout", { nickname: props.authNickname });
-		});
+			socket.emit("logout", { nickname: authNickname });
+		}
 	}
 
 	return (
@@ -60,10 +63,7 @@ export function Account(props: IProps) {
 								<CloseX />
 							</button>
 
-							<DeleteAccountForm
-								authNickname={props.authNickname}
-								deleteAccountTC={props.deleteAccountTC}
-							/>
+							<DeleteAccountForm />
 						</div>
 					</>
 				)}

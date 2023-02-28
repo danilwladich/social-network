@@ -3,5 +3,10 @@ export interface IAuth {
 		nickname: string;
 		token: string;
 	};
+	authProfile: {
+		firstName: string;
+		lastName: string;
+		image?: string;
+	};
 	isAuth: boolean;
 }

@@ -1,43 +1,21 @@
-import { connect } from "react-redux";
-import { IState } from "../../../../models/IState";
+import React, { useLayoutEffect } from "react";
 import { Support } from "./Support";
-import {
-	getDonationsTC,
-	newDonationTC,
-} from "../../../../redux/settingsReducer";
-import { useLayoutEffect } from "react";
-import { DonationData } from "../../../../models/Settings/DonationData";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import { fetchDonationsTC } from "../../../../redux/reducers/settingsReducer";
 
-interface IProps {
-	isAuth: boolean;
-	bodyTheme: string;
-	donationsData: DonationData[];
-	getDonationsTC: () => Promise<void>;
-	newDonationTC: (v: number) => Promise<void>;
-}
+function SupportAPI() {
+	const dispatch = useAppDispatch();
 
-function SupportAPI(props: IProps) {
+	// fetching
 	useLayoutEffect(() => {
-		props.getDonationsTC();
-		// eslint-disable-next-line
-	}, []);
+		dispatch(fetchDonationsTC());
+	}, [dispatch]);
 
 	return (
 		<>
-			<Support {...props} />
+			<Support />
 		</>
 	);
 }
 
-function mapStateToProps(state: IState) {
-	return {
-		isAuth: state.auth.isAuth,
-		bodyTheme: state.settings.bodyTheme,
-		donationsData: state.settings.donationsData,
-	};
-}
-
-export const SupportContainer = connect(mapStateToProps, {
-	getDonationsTC,
-	newDonationTC,
-})(SupportAPI);
+export default SupportAPI;

@@ -1,43 +1,35 @@
 import React, { useState } from "react";
-import { EditContainer } from "./Edit/EditContainer";
+import { Edit } from "./Edit/Edit";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
-import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
+import { useAppSelector } from "../../../../hooks/useAppSelector";
+import { useAppDispatch } from "../../../../hooks/useAppDispatch";
+import {
+	setFollowTC,
+	setUnfollowTC,
+} from "../../../../redux/reducers/profileReducer";
 
-interface IProps {
-	authNickname: string;
-	userData: ProfileUserData;
-	setFollowTC: (userNickname: string) => Promise<void>;
-	setUnfollowTC: (userNickname: string) => Promise<void>;
-}
-
-export function Actions(props: IProps) {
+export function Actions() {
 	const navigate = useNavigate();
-	const [followButtonInProgress, setFollowButtonInProgress] = useState(false);
-	const userData = props.userData;
+	const dispatch = useAppDispatch();
 
-	function setFollow() {
-		setFollowButtonInProgress(true);
-		props
-			.setFollowTC(userData.nickname)
-			.then(() => setFollowButtonInProgress(false));
-	}
-	function setUnfollow() {
-		setFollowButtonInProgress(true);
-		props
-			.setUnfollowTC(userData.nickname)
-			.then(() => setFollowButtonInProgress(false));
-	}
+	const [isLoading, setIsLoading] = useState(false);
 
-	function onFollowClickHandler() {
-		if (!props.authNickname) {
+	const { user: authUser } = useAppSelector((state) => state.auth);
+	const { userData } = useAppSelector((state) => state.profile);
+
+	async function onFollowButtonClickHandler() {
+		if (!authUser.nickname) {
 			return navigate("/login");
 		}
+
+		setIsLoading(true);
 		if (userData.followed) {
-			setUnfollow();
+			await dispatch(setUnfollowTC(userData.nickname));
 		} else {
-			setFollow();
+			await dispatch(setFollowTC(userData.nickname));
 		}
+		setIsLoading(false);
 	}
 
 	const followButtonText =
@@ -52,27 +44,25 @@ export function Actions(props: IProps) {
 	return (
 		<>
 			<div className="profile__actions">
-				{props.authNickname === userData.nickname ? (
-					<EditContainer />
+				{authUser.nickname === userData.nickname ? (
+					<Edit />
 				) : (
 					<>
 						<NavLink
 							draggable="false"
 							to={
-								!props.authNickname
-									? "/login"
-									: "/messages/" + userData.nickname
+								!authUser.nickname ? "/login" : "/messages/" + userData.nickname
 							}
 							className="profile__actions_message"
 						>
 							Message
 						</NavLink>
 						<button
-							onClick={() => onFollowClickHandler()}
-							disabled={followButtonInProgress}
+							onClick={() => onFollowButtonClickHandler()}
+							disabled={isLoading}
 							className="profile__actions_follow"
 						>
-							{followButtonInProgress ? <LoadingCircle /> : followButtonText}
+							{isLoading ? <LoadingCircle /> : followButtonText}
 						</button>
 					</>
 				)}

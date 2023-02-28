@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { IState } from "../models/IState";
+import { IState } from "../redux/store";
 
 export function AuthRedirect(Component: (props: any) => JSX.Element) {
 	function RedirectComponent(props: any) {

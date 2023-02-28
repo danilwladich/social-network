@@ -121,8 +121,19 @@ export const API = {
 	},
 
 	// messages
-	getChats() {
-		return instance.get(`messages/chats`).then((response) => response.data);
+	getChats(
+		page: number,
+		pageSize: number,
+		lastChatLastMessageID: string | null
+	) {
+		return instance
+			.get(
+				`messages/chats?page=${page}&count=${pageSize}` +
+					(!!lastChatLastMessageID
+						? `&lastChatLastMessageID=${lastChatLastMessageID}`
+						: "")
+			)
+			.then((response) => response.data);
 	},
 	getChat(
 		userNickname: string,

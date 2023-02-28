@@ -71,7 +71,8 @@ export default (io: Server) => {
 					message: data.message,
 				});
 
-				const { success, statusText, message, fromUser } = res.data;
+				const { success, statusText, items } = res.data;
+				const { message, fromUser } = items;
 
 				if (success) {
 					if (connectedSockets[data.to]?.socketID) {

@@ -1,16 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { ProfileFollowData } from "../../../../models/Profile/ProfileFollowData";
 import { User } from "./User/User";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
 
-interface IProps {
-	followData: ProfileFollowData;
-	userNickname: string;
-	bodyTheme: string;
-}
+export function About() {
+	const { followData } = useAppSelector((state) => state.profile);
+	const { bodyTheme } = useAppSelector((state) => state.settings);
+	const { nickname: userNickname } = useAppSelector(
+		(state) => state.profile.userData
+	);
 
-export function About(props: IProps) {
-	const followData = props.followData;
 	const friends = followData.friends;
 	const followers = followData.followers;
 	const following = followData.following;
@@ -20,7 +19,7 @@ export function About(props: IProps) {
 				<div className="profile__about_links">
 					<NavLink
 						draggable="false"
-						to={"/friends/" + props.userNickname + "/all"}
+						to={"/friends/" + userNickname + "/all"}
 						className="profile__about_link"
 					>
 						Friends <span>{friends.totalCount}</span>
@@ -28,7 +27,7 @@ export function About(props: IProps) {
 
 					<NavLink
 						draggable="false"
-						to={"/friends/" + props.userNickname + "/followers"}
+						to={"/friends/" + userNickname + "/followers"}
 						className="profile__about_link"
 					>
 						Followers <span>{followers}</span>
@@ -36,7 +35,7 @@ export function About(props: IProps) {
 
 					<NavLink
 						draggable="false"
-						to={"/friends/" + props.userNickname + "/following"}
+						to={"/friends/" + userNickname + "/following"}
 						className="profile__about_link"
 					>
 						Following <span>{following}</span>
@@ -46,7 +45,7 @@ export function About(props: IProps) {
 				{!!friends.usersData.length && (
 					<div className="profile__about_users">
 						{friends.usersData.slice(0, 8).map((u) => (
-							<User key={u.nickname} userData={u} bodyTheme={props.bodyTheme} />
+							<User key={u.nickname} userData={u} bodyTheme={bodyTheme} />
 						))}
 					</div>
 				)}

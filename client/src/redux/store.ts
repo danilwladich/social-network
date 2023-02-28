@@ -1,15 +1,14 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { messagesReducer } from "./messagesReducer";
-import { profileReducer } from "./profileReducer";
-import { settingsReducer } from "./settingsReducer";
-import { IStore } from "../models/IStore";
-import { usersReducer } from "./usersReducer";
-import { authReducer } from "./authReducer";
-import { appReducer } from "./appReducer";
-import { headerReducer } from "./headerReducer";
-import { friendsReducer } from "./friendsReducer";
-import { newsReducer } from "./newsReducer";
+import messagesReducer from "./reducers/messagesReducer";
+import profileReducer from "./reducers/profileReducer";
+import settingsReducer from "./reducers/settingsReducer";
+import usersReducer from "./reducers/usersReducer";
+import authReducer from "./reducers/authReducer";
+import appReducer from "./reducers/appReducer";
+import headerReducer from "./reducers/headerReducer";
+import friendsReducer from "./reducers/friendsReducer";
+import newsReducer from "./reducers/newsReducer";
 
 const reducers = combineReducers({
 	app: appReducer,
@@ -23,4 +22,9 @@ const reducers = combineReducers({
 	settings: settingsReducer,
 });
 
-export const store: IStore = configureStore({ reducer: reducers });
+export const store = configureStore({
+	reducer: reducers,
+});
+
+export type IState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

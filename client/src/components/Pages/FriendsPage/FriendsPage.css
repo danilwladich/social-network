@@ -404,8 +404,7 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
   visibility: hidden;
 }
 .friends__user_actions_follow svg {
-  margin: 0px 0px -4px 0px;
-  width: 85px;
+  margin: -3px 0px -3px 0px;
   height: 18px;
 }
 .friends__user_actions_follow.active {

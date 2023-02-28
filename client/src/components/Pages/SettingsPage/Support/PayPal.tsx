@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { useAppSelector } from "../../../../hooks/useAppSelector";
+import { newDonationTC } from "../../../../redux/reducers/settingsReducer";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
 
 declare global {
 	interface Window {
@@ -6,12 +9,11 @@ declare global {
 	}
 }
 
-interface IProps {
-	isAuth: boolean;
-	newDonationTC: (v: number) => Promise<void>;
-}
+export function PayPal() {
+	const dispatch = useAppDispatch();
 
-export function PayPal(props: IProps) {
+	const { isAuth } = useAppSelector((state) => state.auth);
+
 	useEffect(() => {
 		const button = window.PayPal.Donation.Button({
 			env: "production",
@@ -22,15 +24,14 @@ export function PayPal(props: IProps) {
 				title: "PayPal - The safer, easier way to pay online!",
 			},
 			onComplete: (params: any) => {
-				if (props.isAuth) {
-					props.newDonationTC(+params.amt);
+				if (isAuth) {
+					dispatch(newDonationTC(+params.amt));
 				}
 				alert(`Thank you very much for your support`);
 			},
 		});
 		button.render(`#payPalButton`);
-		// eslint-disable-next-line
-	}, []);
+	}, [isAuth, dispatch]);
 
 	return (
 		<>

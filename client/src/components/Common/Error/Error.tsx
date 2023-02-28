@@ -2,36 +2,37 @@ import React, { useEffect } from "react";
 import { socket } from "../../../App";
 import { CloseX } from "../../assets/CloseX";
 import "./Error.css";
+import { useAppDispatch } from "./../../../hooks/useAppDispatch";
+import { setErrorMessage } from "../../../redux/reducers/appReducer";
+import { useAppSelector } from "./../../../hooks/useAppSelector";
 
-interface IProps {
-	errorMessage?: string;
-	setErrorMessage: (v: string) => void;
-}
+export default function Error() {
+	const dispatch = useAppDispatch();
 
-export function Error(props: IProps) {
+	const { errorMessage } = useAppSelector((state) => state.app);
+
 	useEffect(() => {
 		socket.on("error", (data) => {
-			props.setErrorMessage(data.statusText);
+			dispatch(setErrorMessage(data.statusText));
 		});
 
 		socket.on("disconnect", (reason) => {
-			props.setErrorMessage("Connection error. Try to refresh page");
+			dispatch(setErrorMessage("Connection error. Try to refresh page"));
 		});
 
 		return () => {
 			socket.off("error");
 			socket.off("disconnect");
 		};
-		// eslint-disable-next-line
 	}, []);
 
 	return (
 		<>
-			{props.errorMessage && (
+			{!!errorMessage && (
 				<div className="error">
-					<span className="error__message">{props.errorMessage}</span>
+					<span className="error__message">{errorMessage}</span>
 					<button
-						onClick={() => props.setErrorMessage("")}
+						onClick={() => dispatch(setErrorMessage(""))}
 						className="error__close"
 					>
 						<CloseX />

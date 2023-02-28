@@ -47,6 +47,7 @@ export function User(props: IProps) {
 						<div className="messages__user_name">
 							{userData.firstName + " " + userData.lastName}
 						</div>
+
 						<LastMessage lastMessage={lastMessage} />
 					</div>
 				</NavLink>

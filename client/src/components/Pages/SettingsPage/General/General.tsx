@@ -1,19 +1,20 @@
 import React from "react";
+import { useAppSelector } from "../../../../hooks/useAppSelector";
+import { setTheme } from "../../../../redux/reducers/settingsReducer";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
 
-interface IProps {
-	bodyTheme: string;
-	setTheme: (v: string) => void;
-}
+export function General() {
+	const dispatch = useAppDispatch();
 
-export function General(props: IProps) {
+	const { bodyTheme } = useAppSelector((state) => state.settings);
 	return (
 		<>
 			<div className="settings__item">
 				<h3 className="settings__category">General</h3>
-				{props.bodyTheme === "light" ? (
+				{bodyTheme === "light" ? (
 					<button
 						onClick={() => {
-							props.setTheme("dark");
+							dispatch(setTheme("dark"));
 						}}
 						className="settings__button"
 					>
@@ -34,7 +35,7 @@ export function General(props: IProps) {
 				) : (
 					<button
 						onClick={() => {
-							props.setTheme("light");
+							dispatch(setTheme("light"));
 						}}
 						className="settings__button"
 					>

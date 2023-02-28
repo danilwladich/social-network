@@ -1,62 +1,71 @@
 import React, { useState } from "react";
-import { User } from "./User/User";
 import "./UsersPage.css";
-import { UsersUserData } from "../../../models/Users/UsersUserData";
+import { User } from "./User/User";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 import { Search } from "./Search";
+import { Helmet } from "react-helmet";
+import { useAppDispatch } from "./../../../hooks/useAppDispatch";
+import { useAppSelector } from "./../../../hooks/useAppSelector";
+import {
+	setFollowTC,
+	setUnfollowTC,
+} from "../../../redux/reducers/usersReducer";
 
 interface IProps {
-	isAuth: boolean;
-	usersData: UsersUserData[];
 	isLoading: boolean;
 	search?: string;
-	bodyTheme: string;
-	setFollowTC: (userNickname: string) => Promise<void>;
-	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
 
 export function UsersPage(props: IProps) {
+	const dispatch = useAppDispatch();
+
 	const [followButtonsInProgress, setFollowButtonsInProgress] = useState<
 		string[]
 	>([]);
 
-	function setFollow(userNickname: string) {
+	const { usersData } = useAppSelector((state) => state.users);
+	const { isAuth } = useAppSelector((state) => state.auth);
+	const { bodyTheme } = useAppSelector((state) => state.settings);
+
+	async function setFollow(userNickname: string) {
 		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
-		props
-			.setFollowTC(userNickname)
-			.finally(() =>
-				setFollowButtonsInProgress((prev) =>
-					prev.filter((nickname) => nickname !== userNickname)
-				)
-			);
+
+		await dispatch(setFollowTC(userNickname));
+
+		setFollowButtonsInProgress((prev) =>
+			prev.filter((nickname) => nickname !== userNickname)
+		);
 	}
-	function setUnfollow(userNickname: string) {
+	async function setUnfollow(userNickname: string) {
 		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
-		props
-			.setUnfollowTC(userNickname)
-			.finally(() =>
-				setFollowButtonsInProgress((prev) =>
-					prev.filter((nickname) => nickname !== userNickname)
-				)
-			);
+
+		await dispatch(setUnfollowTC(userNickname));
+
+		setFollowButtonsInProgress((prev) =>
+			prev.filter((nickname) => nickname !== userNickname)
+		);
 	}
 
 	return (
 		<>
+			<Helmet>
+				<title>Find users</title>
+			</Helmet>
+
 			<section className="users">
 				<div className="subsection">
 					<Search search={props.search} />
 				</div>
 
 				<div className="subsection">
-					{!!props.usersData.length ? (
+					{!!usersData.length ? (
 						<div className="users__items">
-							{props.usersData.map((u) => (
+							{usersData.map((u) => (
 								<User
 									key={u.nickname}
-									isAuth={props.isAuth}
+									isAuth={isAuth}
 									userData={u}
-									bodyTheme={props.bodyTheme}
+									bodyTheme={bodyTheme}
 									setFollow={() => setFollow(u.nickname)}
 									setUnfollow={() => setUnfollow(u.nickname)}
 									followButtonInProgress={followButtonsInProgress.some(

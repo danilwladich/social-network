@@ -1,18 +1,14 @@
 import React from "react";
-import { ProfileUserData } from "../../../../models/Profile/ProfileUserData";
 import { UserOnline } from "../../../assets/UserOnline";
 import { Helmet } from "react-helmet";
+import { useAppSelector } from "../../../../hooks/useAppSelector";
 
-interface IProps {
-	userData: ProfileUserData;
-	bodyTheme: string;
-}
-
-export function User(props: IProps) {
-	const userData = props.userData;
+export function User() {
+	const { bodyTheme } = useAppSelector((state) => state.settings);
+	const { userData } = useAppSelector((state) => state.profile);
 
 	let userImage: string =
-		userData.image || `/images/user&theme=${props.bodyTheme}.jpg`;
+		userData.image || `/images/user&theme=${bodyTheme}.jpg`;
 
 	let userLocation = "";
 	if (!!userData.location.country) {

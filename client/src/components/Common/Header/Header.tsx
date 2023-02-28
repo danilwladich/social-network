@@ -1,23 +1,23 @@
 import React from "react";
 import "./Header.css";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "./../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../hooks/useAppDispatch";
+import { setBurger } from "../../../redux/reducers/headerReducer";
 
-interface IProps {
-	isAuth: boolean;
-	authNickname: string;
-	authImage?: string;
-	burger: boolean;
-	countOfUnreadMessages: string[];
-	bodyTheme: string;
-	setBurger: (b: boolean) => void;
-}
+export default function Header() {
+	const dispatch = useAppDispatch();
 
-export function Header(props: IProps) {
-	const countOfUnreadMessages = props.countOfUnreadMessages.length;
+	const { countOfUnreadMessages } = useAppSelector((state) => state.messages);
+	const { bodyTheme } = useAppSelector((state) => state.settings);
+	const { authProfile, user: authUser } = useAppSelector((state) => state.auth);
+	const { burger } = useAppSelector((state) => state.header);
 
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
-	if (!!props.authImage) {
-		userImage = props.authImage.split(".jpg")[0] + "&size=small.jpg";
+	const cOUM = countOfUnreadMessages.length;
+
+	let userImage: string = `/images/user&theme=${bodyTheme}.jpg`;
+	if (authProfile.image) {
+		userImage = authProfile.image.split(".jpg")[0] + "&size=small.jpg";
 	}
 
 	// logo button scroll to top
@@ -35,13 +35,13 @@ export function Header(props: IProps) {
 		<>
 			<header className="header">
 				<nav className="header__menu">
-					{props.isAuth ? (
+					{!!authUser.nickname ? (
 						<NavLink
-							to={"/" + props.authNickname}
+							to={"/" + authUser.nickname}
 							draggable="false"
 							className="header__user"
 						>
-							<img src={userImage} alt={props.authNickname} />
+							<img src={userImage} alt={authUser.nickname} />
 						</NavLink>
 					) : (
 						<NavLink to="/login" draggable="false" className="header__login">
@@ -56,15 +56,12 @@ export function Header(props: IProps) {
 					</button>
 
 					<button
-						onClick={() => {
-							props.burger ? props.setBurger(false) : props.setBurger(true);
-						}}
-						className={"header__burger " + (props.burger ? "active" : "")}
+						onClick={() => dispatch(setBurger(!burger))}
+						className={"header__burger " + (burger ? "active" : "")}
 					>
-						{!props.burger && !!countOfUnreadMessages && (
+						{!burger && !!cOUM && (
 							<div className="countOfUnreadMessages">
-								{!!countOfUnreadMessages &&
-									(countOfUnreadMessages > 9 ? "9+" : countOfUnreadMessages)}
+								{!!cOUM && (cOUM > 9 ? "9+" : cOUM)}
 							</div>
 						)}
 						<span></span>

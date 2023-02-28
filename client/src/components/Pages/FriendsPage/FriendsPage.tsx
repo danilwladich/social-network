@@ -1,64 +1,71 @@
 import React, { useState } from "react";
-import { FriendsUserData } from "../../../models/Friends/FriendsUserData";
-import { WhoseFriends } from "../../../models/Friends/WhoseFriends";
+import "./FriendsPage.css";
 import { LoadingCircle } from "../../assets/LoadingCircle";
 import { Categories } from "./Categories";
-import "./FriendsPage.css";
 import { Search } from "./Search";
 import { Title } from "./Title";
+import { Helmet } from "react-helmet";
 import { User } from "./User/User";
+import { useAppDispatch } from "./../../../hooks/useAppDispatch";
+import { useAppSelector } from "./../../../hooks/useAppSelector";
+import {
+	setFollowTC,
+	setUnfollowTC,
+} from "../../../redux/reducers/friendsReducer";
 
 interface IProps {
 	isLoading: boolean;
 	category: string;
-	authNickname: string;
-	whoseFriends: WhoseFriends;
-	usersData: FriendsUserData[];
-	totalCount: number;
 	search?: string;
-	bodyTheme: string;
-	setFollowTC: (userNickname: string) => Promise<void>;
-	setUnfollowTC: (userNickname: string) => Promise<void>;
 }
 
 export function FriendsPage(props: IProps) {
+	const dispatch = useAppDispatch();
+
 	const [followButtonsInProgress, setFollowButtonsInProgress] = useState<
 		string[]
 	>([]);
 
-	const whoseFriends = props.whoseFriends;
-	const usersData = props.usersData;
+	const { whoseFriends, usersData } = useAppSelector((state) => state.friends);
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
+	const { bodyTheme } = useAppSelector((state) => state.settings);
 
 	const category = props.category === "all" ? "friends" : props.category;
 
-	function setFollow(userNickname: string) {
+	async function setFollow(userNickname: string) {
 		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
-		props
-			.setFollowTC(userNickname)
-			.finally(() =>
-				setFollowButtonsInProgress((prev) =>
-					prev.filter((nickname) => nickname !== userNickname)
-				)
-			);
+
+		await dispatch(setFollowTC(userNickname));
+
+		setFollowButtonsInProgress((prev) =>
+			prev.filter((nickname) => nickname !== userNickname)
+		);
 	}
-	function setUnfollow(userNickname: string) {
+	async function setUnfollow(userNickname: string) {
 		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
-		props
-			.setUnfollowTC(userNickname)
-			.finally(() =>
-				setFollowButtonsInProgress((prev) =>
-					prev.filter((nickname) => nickname !== userNickname)
-				)
-			);
+
+		await dispatch(setUnfollowTC(userNickname));
+
+		setFollowButtonsInProgress((prev) =>
+			prev.filter((nickname) => nickname !== userNickname)
+		);
 	}
 
 	return (
 		<>
+			<Helmet>
+				<title>{`${whoseFriends.firstName} ${whoseFriends.lastName} ${
+					category === "all"
+						? "Friends"
+						: category![0].toUpperCase() + category!.slice(1)
+				}`}</title>
+			</Helmet>
+
 			<section className="friends">
 				<div className="subsection">
 					<Title
 						whoseFriends={whoseFriends}
-						bodyTheme={props.bodyTheme}
+						bodyTheme={bodyTheme}
 						category={category}
 					/>
 
@@ -77,10 +84,10 @@ export function FriendsPage(props: IProps) {
 							{usersData.map((u) => (
 								<User
 									key={u.nickname}
-									isAuth={!!props.authNickname}
-									itsMe={u.nickname === props.authNickname}
+									isAuth={!!authNickname}
+									itsMe={u.nickname === authNickname}
 									userData={u}
-									bodyTheme={props.bodyTheme}
+									bodyTheme={bodyTheme}
 									setFollow={() => setFollow(u.nickname)}
 									setUnfollow={() => setUnfollow(u.nickname)}
 									followButtonInProgress={followButtonsInProgress.some(
@@ -93,7 +100,7 @@ export function FriendsPage(props: IProps) {
 						<div className="friends__items_no_items">
 							{!props.search
 								? `${
-										whoseFriends.nickname === props.authNickname
+										whoseFriends.nickname === authNickname
 											? "You"
 											: whoseFriends.firstName
 								  }	don't have any ${category} yet`

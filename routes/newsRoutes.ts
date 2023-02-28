@@ -74,15 +74,19 @@ router.get(
 				return res.status(200).json({
 					success: true,
 					statusText: "News send successfully",
-					postsData,
-					totalCount,
+					items: {
+						postsData,
+						totalCount,
+					},
 				});
 			}
 
 			res.status(200).json({
 				success: true,
 				statusText: "News send successfully",
-				postsData,
+				items: {
+					postsData,
+				},
 			});
 		} catch (e) {
 			res.status(500).json({ success: false, statusText: "Server error" });

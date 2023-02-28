@@ -1,27 +1,25 @@
 import React from "react";
-import { DonationData } from "../../../../models/Settings/DonationData";
-import { User } from "./User";
+import { User } from "./User/User";
 import { PayPal } from "./PayPal";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
 
-interface IProps {
-	isAuth: boolean;
-	bodyTheme: string;
-	donationsData: DonationData[];
-	newDonationTC: (v: number) => Promise<void>;
-}
+export function Support() {
+	const { donationsData, bodyTheme } = useAppSelector(
+		(state) => state.settings
+	);
+	const { isAuth } = useAppSelector((state) => state.auth);
 
-export function Support(props: IProps) {
 	return (
 		<>
 			<div className="settings__item">
 				<h3 className="settings__category">Support project</h3>
 
-				<PayPal newDonationTC={props.newDonationTC} isAuth={props.isAuth} />
+				<PayPal />
 
-				{!!props.donationsData.length && (
+				{!!donationsData.length && (
 					<>
-						{!props.isAuth && (
+						{!isAuth && (
 							<div className="settings__donation_warning">
 								!If you want to appear in the list below, you need to{" "}
 								<NavLink to="/login">log in</NavLink>!
@@ -32,11 +30,11 @@ export function Support(props: IProps) {
 							<p className="settings__topdonations_title">Top 3 donations</p>
 
 							<div className="settings__topdonations_items">
-								{props.donationsData.map((d) => (
+								{donationsData.map((donation) => (
 									<User
-										key={d.nickname}
-										donationData={d}
-										bodyTheme={props.bodyTheme}
+										key={donation.nickname}
+										donationData={donation}
+										bodyTheme={bodyTheme}
 									/>
 								))}
 							</div>

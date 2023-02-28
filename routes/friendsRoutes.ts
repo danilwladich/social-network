@@ -348,9 +348,11 @@ router.get("/:nickname", async (req: Request, res: Response) => {
 		res.status(200).json({
 			success: true,
 			statusText: "Friends sent successfully",
-			whoseFriends,
-			usersData,
-			totalCount,
+			items: {
+				whoseFriends,
+				usersData,
+				totalCount,
+			},
 		});
 	} catch (e) {
 		res.status(500).json({ success: false, statusText: "Server error" });

@@ -1,26 +1,27 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./app.css";
 import { Route, Routes } from "react-router-dom";
-import { HeaderContainer } from "./components/Common/Header/HeaderContainer";
-import { NavBarContainer } from "./components/Common/NavBar/NavBarContainer";
-import { connect } from "react-redux";
-import { initializationTC } from "./redux/appReducer";
-import { IState } from "./models/IState";
-import { ErrorContainer } from "./components/Common/Error/ErrorContainer";
+import Header from "./components/Common/Header/Header";
+import NavBar from "./components/Common/NavBar/NavBar";
+import Error from "./components/Common/Error/Error";
 import { NotExist } from "./components/Pages/NotExist/NotExist";
 import { AppLoading } from "./components/assets/AppLoading";
 import * as io from "socket.io-client";
-import { MessagesMessageData } from "./models/Messages/MessagesMessageData";
-import { MessagesUserData } from "./models/Messages/MessagesUserData";
-import { messageDelete, receiveMessage } from "./redux/messagesReducer";
 import { useAppHeight } from "./hooks/useAppHeight";
 import { Helmet } from "react-helmet";
+import { useAppSelector } from "./hooks/useAppSelector";
+import { useAppDispatch } from "./hooks/useAppDispatch";
+import { setInitializationTC } from "./redux/reducers/appReducer";
+import {
+	messageDelete,
+	receiveMessage,
+} from "./redux/reducers/messagesReducer";
 
-const LoginPageContainer = React.lazy(
-	() => import("./components/Pages/LoginPage/Login/LoginPageContainer")
+const LoginPage = React.lazy(
+	() => import("./components/Pages/LoginPage/Login/LoginPage")
 );
-const RegisterPageContainer = React.lazy(
-	() => import("./components/Pages/LoginPage/Register/RegisterPageContainer")
+const RegisterPage = React.lazy(
+	() => import("./components/Pages/LoginPage/Register/RegisterPage")
 );
 const ProfilePageContainer = React.lazy(
 	() => import("./components/Pages/ProfilePage/ProfilePageContainer")
@@ -28,8 +29,8 @@ const ProfilePageContainer = React.lazy(
 const NewsPageContainer = React.lazy(
 	() => import("./components/Pages/NewsPage/NewsPageContainer")
 );
-const MessagesPageContainer = React.lazy(
-	() => import("./components/Pages/MessagesPage/MessagesPageContainer")
+const MessagesPage = React.lazy(
+	() => import("./components/Pages/MessagesPage/MessagesPage")
 );
 const FriendsPageContainer = React.lazy(
 	() => import("./components/Pages/FriendsPage/FriendsPageContainer")
@@ -37,8 +38,8 @@ const FriendsPageContainer = React.lazy(
 const UsersPageContainer = React.lazy(
 	() => import("./components/Pages/UsersPage/UsersPageContainer")
 );
-const SettingsPageContainer = React.lazy(
-	() => import("./components/Pages/SettingsPage/SettingsPageContainer")
+const SettingsPage = React.lazy(
+	() => import("./components/Pages/SettingsPage/SettingsPage")
 );
 
 // connect socket
@@ -50,31 +51,18 @@ if (process.env.NODE_ENV === "production") {
 }
 export const socket = io.connect(baseURL, { autoConnect: false });
 
-interface IProps {
-	authUser: {
-		nickname: string;
-		token: string;
-	};
-	initializationTC: () => Promise<void>;
-	receiveMessage: (
-		messageData: MessagesMessageData,
-		fromUser: MessagesUserData
-	) => void;
-	messageDelete: (
-		fromUser: string,
-		messageID: string,
-		penultimateMessageData?: MessagesMessageData
-	) => void;
-}
+export default function App() {
+	const dispatch = useAppDispatch();
 
-function App(props: IProps) {
 	const [initializationSuccess, setInitializationSuccess] = useState(false);
 
-	const authUser = props.authUser;
+	const { user: authUser } = useAppSelector((state) => state.auth);
 
 	// initialization
-	useLayoutEffect(() => {
-		props.initializationTC().finally(() => setInitializationSuccess(true));
+	useEffect(() => {
+		dispatch(setInitializationTC()).finally(() =>
+			setInitializationSuccess(true)
+		);
 
 		if (!!authUser.nickname && !!authUser.token) {
 			socket.connect();
@@ -83,15 +71,14 @@ function App(props: IProps) {
 				token: authUser.token,
 			});
 		}
-		// eslint-disable-next-line
-	}, [authUser.nickname]);
+	}, [authUser.nickname, authUser.token, dispatch]);
 
 	// try to reconnect on disconnect
 	useEffect(() => {
 		if (!!authUser.nickname && !!authUser.token) {
 			socket.on("disconnect", () => {
 				setInitializationSuccess(false);
-				props.initializationTC();
+				dispatch(setInitializationTC());
 
 				setTimeout(() => {
 					socket.connect();
@@ -103,20 +90,26 @@ function App(props: IProps) {
 				}, 1000);
 			});
 		}
-		// eslint-disable-next-line
-	}, [authUser.nickname, initializationSuccess]);
+	}, [authUser.nickname, authUser.token, initializationSuccess, dispatch]);
 
 	// global sockets
 	useEffect(() => {
 		socket.on("receiveMessage", (data) => {
-			props.receiveMessage(data.messageData, data.fromUser);
+			dispatch(
+				receiveMessage({
+					messageData: data.messageData,
+					fromUser: data.fromUser,
+				})
+			);
 		});
 
 		socket.on("messageDelete", (data) => {
-			props.messageDelete(
-				data.from,
-				data.messageID,
-				data.penultimateMessageData
+			dispatch(
+				messageDelete({
+					fromUserNickname: data.from,
+					messageID: data.messageID,
+					penultimateMessageData: data.penultimateMessageData,
+				})
 			);
 		});
 
@@ -124,8 +117,7 @@ function App(props: IProps) {
 			socket.off("receiveMessage");
 			socket.off("messageDelete");
 		};
-		// eslint-disable-next-line
-	}, []);
+	}, [dispatch]);
 
 	// set app height
 	useAppHeight();
@@ -133,6 +125,7 @@ function App(props: IProps) {
 	if (!initializationSuccess) {
 		return <AppLoading />;
 	}
+
 	return (
 		<>
 			<Helmet>
@@ -144,91 +137,83 @@ function App(props: IProps) {
 			</Helmet>
 
 			<div className="wrapper">
-				<ErrorContainer />
-				<HeaderContainer />
+				<Error />
+				<Header />
 				<main className="content">
-					<NavBarContainer />
-					<Routes>
-						<Route
-							path="/login"
-							element={
-								<React.Suspense fallback={<AppLoading />}>
-									<LoginPageContainer />
-								</React.Suspense>
-							}
-						/>
-						<Route
-							path="/register"
-							element={
-								<React.Suspense fallback={<AppLoading />}>
-									<RegisterPageContainer />
-								</React.Suspense>
-							}
-						/>
-						<Route
-							path="/:nickname?"
-							element={
-								<React.Suspense fallback={<AppLoading />}>
-									<ProfilePageContainer />
-								</React.Suspense>
-							}
-						/>
-						<Route
-							path="/news"
-							element={
-								<React.Suspense fallback={<AppLoading />}>
-									<NewsPageContainer />
-								</React.Suspense>
-							}
-						/>
-						<Route
-							path="/messages/:nickname?"
-							element={
-								<React.Suspense fallback={<AppLoading />}>
-									<MessagesPageContainer />
-								</React.Suspense>
-							}
-						/>
-						<Route
-							path="/friends/:nickname?/:category?"
-							element={
-								<React.Suspense fallback={<AppLoading />}>
-									<FriendsPageContainer />
-								</React.Suspense>
-							}
-						/>
-						<Route
-							path="/users"
-							element={
-								<React.Suspense fallback={<AppLoading />}>
-									<UsersPageContainer />
-								</React.Suspense>
-							}
-						/>
-						<Route
-							path="/settings"
-							element={
-								<React.Suspense fallback={<AppLoading />}>
-									<SettingsPageContainer />
-								</React.Suspense>
-							}
-						/>
-						<Route path="/*" element={<NotExist />} />
-					</Routes>
+					<NavBar />
+					<AppRoutes />
 				</main>
 			</div>
 		</>
 	);
 }
 
-function mapStateToProps(state: IState) {
-	return {
-		authUser: state.auth.user,
-	};
-}
+const routes = [
+	{
+		path: "/login",
+		element: <LoginPage />,
+		suspense: true,
+	},
+	{
+		path: "/register",
+		element: <RegisterPage />,
+		suspense: true,
+	},
+	{
+		path: "/:nickname?",
+		element: <ProfilePageContainer />,
+		suspense: true,
+	},
+	{
+		path: "/news",
+		element: <NewsPageContainer />,
+		suspense: true,
+	},
+	{
+		path: "/messages/:nickname?",
+		element: <MessagesPage />,
+		suspense: true,
+	},
+	{
+		path: "/friends/:nickname?/:category?",
+		element: <FriendsPageContainer />,
+		suspense: true,
+	},
+	{
+		path: "/users",
+		element: <UsersPageContainer />,
+		suspense: true,
+	},
+	{
+		path: "/settings",
+		element: <SettingsPage />,
+		suspense: true,
+	},
+	{
+		path: "/*",
+		element: <NotExist />,
+		suspense: false,
+	},
+];
 
-export default connect(mapStateToProps, {
-	initializationTC,
-	receiveMessage,
-	messageDelete,
-})(App);
+function AppRoutes() {
+	return (
+		<Routes>
+			{routes.map((route) =>
+				route.suspense ? (
+					<Route
+						key={route.path}
+						path={route.path}
+						element={
+							<React.Suspense fallback={<AppLoading />}>
+								{route.element}
+							</React.Suspense>
+						}
+					/>
+				) : (
+					<Route key={route.path} path="/*" element={<NotExist />} />
+				)
+			)}
+		</Routes>
+	);
+}

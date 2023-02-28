@@ -1,28 +1,35 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { socket } from "../../../../App";
-import { ChatWith } from "../../../../models/Messages/ChatWith";
-import { MessagesMessageData } from "../../../../models/Messages/MessagesMessageData";
 import { Message } from "./Message/Message";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import {
+	deleteMessageTC,
+	readMessages,
+} from "../../../../redux/reducers/messagesReducer";
+import { LoadingCircle } from "../../../assets/LoadingCircle";
 
 interface IProps {
-	authNickname: string;
-	messagesData: MessagesMessageData[];
-	chatWith: ChatWith;
+	isLoading: boolean;
 	contentRef: React.RefObject<HTMLDivElement>;
 	contentLock: boolean;
-	readMessagesOption: boolean;
-	readMessages: (userNickname: string) => void;
-	deleteMessageTC: (messageID: string) => Promise<void>;
 }
 
 export function Content(props: IProps) {
+	const dispatch = useAppDispatch();
+
 	const [deleteButtonsInProgress, setDeleteButtonsInProgress] = useState<
 		string[]
 	>([]);
+
 	const messagesEnd = useRef<HTMLDivElement>(null);
 
-	const chatWith = props.chatWith;
-	const reverseMessageData = [...props.messagesData].reverse();
+	const { chatWith, messagesData } = useAppSelector((state) => state.messages);
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
+
+	const reverseMessageData = [...messagesData].reverse();
+	const readMessagesOption =
+		localStorage.getItem("readMessages") === "false" ? false : true;
 
 	// first render scroll bottom
 	useLayoutEffect(() => {
@@ -31,22 +38,28 @@ export function Content(props: IProps) {
 
 	// scroll bottom after get and send messages + read messages socket
 	useEffect(() => {
-		if (!!props.messagesData.length) {
+		if (!!messagesData.length) {
 			if (props.contentLock) {
 				scrollBottom();
 			}
 
-			if (props.readMessagesOption && !props.messagesData[0].read) {
+			if (readMessagesOption && !messagesData[0].read) {
 				socket.emit("readMessages", {
-					who: props.authNickname,
+					who: authNickname,
 					whom: chatWith.nickname,
 				});
 
-				props.readMessages(chatWith.nickname);
+				dispatch(readMessages(chatWith.nickname));
 			}
 		}
-		// eslint-disable-next-line
-	}, [props.messagesData]);
+	}, [
+		messagesData,
+		authNickname,
+		props.contentLock,
+		chatWith.nickname,
+		readMessagesOption,
+		dispatch,
+	]);
 	function scrollBottom() {
 		messagesEnd.current?.scrollIntoView();
 	}
@@ -74,51 +87,50 @@ export function Content(props: IProps) {
 	}
 
 	// delete message
-	function deleteMessage(messageID: string) {
+	async function deleteMessage(messageID: string) {
 		setDeleteButtonsInProgress((prev) => [...prev, messageID]);
-		props
-			.deleteMessageTC(messageID)
-			.then(() => {
-				socket.emit("deleteMessage", {
-					from: props.authNickname,
-					to: chatWith.nickname,
-					messageID,
-					// return penultimate message if the deleted message was the last one
-					penultimateMessageData:
-						props.messagesData[0].id === messageID
-							? props.messagesData[1]
-							: undefined,
-				});
-			})
-			.finally(() =>
-				setDeleteButtonsInProgress((prev) =>
-					prev.filter((id) => id !== messageID)
-				)
-			);
+
+		const { meta } = await dispatch(deleteMessageTC(messageID));
+
+		if (meta.requestStatus === "fulfilled") {
+			socket.emit("deleteMessage", {
+				from: authNickname,
+				to: chatWith.nickname,
+				messageID,
+				// return penultimate message if the deleted message was the last one
+				penultimateMessageData:
+					messagesData[0].id === messageID ? messagesData[1] : undefined,
+			});
+		}
+
+		setDeleteButtonsInProgress((prev) => prev.filter((id) => id !== messageID));
 	}
 
 	return (
 		<>
 			<div className="messages__chat_content" ref={props.contentRef}>
-				{!!props.messagesData.length ? (
+				{!!messagesData.length ? (
 					<>
-						{reverseMessageData.map((m, index) => (
+						{props.isLoading && (
+							<div className="messages__chat_content_loading">
+								<LoadingCircle />
+							</div>
+						)}
+
+						{reverseMessageData.map((message, index) => (
 							<Message
-								key={m.id}
-								messageData={m}
+								key={message.id}
+								messageData={message}
 								index={index}
 								date={checkMessageDate(index)}
 								deleteButtonInProgress={deleteButtonsInProgress.some(
-									(id) => id === m.id
+									(id) => id === message.id
 								)}
-								deleteMessage={() => deleteMessage(m.id)}
+								deleteMessage={() => deleteMessage(message.id)}
 							/>
 						))}
 
-						<div
-							style={{ float: "left", clear: "both" }}
-							ref={messagesEnd}
-						></div>
+						<div style={{ float: "left", clear: "both" }} ref={messagesEnd} />
 					</>
 				) : (
 					<div className="messages__chat_content_no_content">

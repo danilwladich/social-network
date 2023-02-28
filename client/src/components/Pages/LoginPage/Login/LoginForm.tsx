@@ -3,35 +3,40 @@ import { Field, Form } from "react-final-form";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import { loginTC } from "../../../../redux/reducers/authReducer";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
 
-interface IProps {
-	bodyTheme: string;
-	loginTC: (
-		phoneNumber: string,
-		password: string,
-		recaptcha: string
-	) => Promise<void>;
-}
+export function LoginForm() {
+	const dispatch = useAppDispatch();
 
-export function LoginForm(props: IProps) {
 	const [errorMessage, setErrorMessage] = useState("");
 	const [submitting, setSubmitting] = useState(false);
+
 	const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+	const { bodyTheme } = useAppSelector((state) => state.settings);
 
 	async function onSubmit(v: { phoneNumber: string; password: string }) {
 		setSubmitting(true);
+
 		const recaptcha = await recaptchaRef.current?.executeAsync();
 		if (!recaptcha) {
 			setSubmitting(false);
+			recaptchaRef.current?.reset();
 			return () => setErrorMessage("Recaptcha error, try again");
 		}
-		props
-			.loginTC(v.phoneNumber, v.password, recaptcha)
-			.catch((reject) => {
-				setErrorMessage(reject);
-				recaptchaRef.current?.reset();
-			})
-			.finally(() => setSubmitting(false));
+
+		const { meta, payload } = await dispatch(
+			loginTC({ phoneNumber: v.phoneNumber, password: v.password, recaptcha })
+		);
+
+		if (meta.requestStatus === "rejected") {
+			setErrorMessage(payload as string);
+			recaptchaRef.current?.reset();
+		}
+
+		setSubmitting(false);
 	}
 	function validate(e: { phoneNumber: string; password: string }) {
 		const errors: { phoneNumber?: string; password?: string } = {};
@@ -114,7 +119,7 @@ export function LoginForm(props: IProps) {
 					<ReCAPTCHA
 						size="invisible"
 						className="login__recaptcha"
-						theme={props.bodyTheme as "light" | "dark"}
+						theme={bodyTheme as "light" | "dark"}
 						sitekey="6LcwYyQkAAAAAMsq2VnRYkkqNqLt-ljuy-gfmPYn"
 						ref={recaptchaRef}
 					/>

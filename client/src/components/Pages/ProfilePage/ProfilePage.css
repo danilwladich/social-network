@@ -308,7 +308,7 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   text-align: center;
 }
 .profile__actions_follow svg {
-  margin: -2px 0px -5px 0px;
+  margin: -3px 0px -3px 0px;
   width: 85px;
   height: 23px;
 }

@@ -1,68 +1,72 @@
 import React from "react";
 import "./NavBar.css";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../../hooks/useAppSelector";
+import { useAppDispatch } from "../../../hooks/useAppDispatch";
+import { setBurger } from "../../../redux/reducers/headerReducer";
 
-interface IProps {
-	authNickname: string;
-	burger: boolean;
-	countOfUnreadMessages: string[];
-	setBurger: (b: boolean) => void;
-}
+export default function NavBar() {
+	const dispatch = useAppDispatch();
 
-export function NavBar(props: IProps) {
-	const countOfUnreadMessages = props.countOfUnreadMessages.length;
-	const isAuth = !!props.authNickname;
+	const { countOfUnreadMessages } = useAppSelector((state) => state.messages);
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
+	const { burger } = useAppSelector((state) => state.header);
+
+	const cOUM = countOfUnreadMessages.length;
+
 	return (
 		<>
-			<aside className={"navbar " + (props.burger ? "active" : "")}>
+			<aside className={"navbar " + (burger ? "active" : "")}>
 				<div className="navbar__bg"></div>
 				<div
 					className="navbar__blur"
-					onClick={() => props.setBurger(false)}
-				></div>
+					onClick={() => dispatch(setBurger(false))}
+				/>
 
 				<nav className="navbar__menu">
 					<NavLink
 						draggable="false"
-						to={!isAuth ? "/login" : "/" + props.authNickname}
-						onClick={() => props.setBurger(false)}
-						className={"navbar__link " + (!isAuth ? "notAuth" : "")}
+						to={!authNickname ? "/login" : "/" + authNickname}
+						onClick={() => dispatch(setBurger(false))}
+						className={"navbar__link " + (!authNickname ? "notAuth" : "")}
 					>
 						My Profile
 					</NavLink>
 					<NavLink
 						draggable="false"
-						to={!isAuth ? "/login" : "/news"}
-						onClick={() => props.setBurger(false)}
-						className={"navbar__link " + (!isAuth ? "notAuth" : "")}
+						to={!authNickname ? "/login" : "/news"}
+						onClick={() => dispatch(setBurger(false))}
+						className={"navbar__link " + (!authNickname ? "notAuth" : "")}
 					>
 						News
 					</NavLink>
 					<NavLink
 						draggable="false"
-						to={!isAuth ? "/login" : "/messages"}
-						onClick={() => props.setBurger(false)}
-						className={"navbar__link messages " + (!isAuth ? "notAuth" : "")}
+						to={!authNickname ? "/login" : "/messages"}
+						onClick={() => dispatch(setBurger(false))}
+						className={
+							"navbar__link messages " + (!authNickname ? "notAuth" : "")
+						}
 					>
 						Messages
-						{!!countOfUnreadMessages && (
+						{!!cOUM && (
 							<span className="countOfUnreadMessages">
-								{countOfUnreadMessages > 9 ? "9+" : countOfUnreadMessages}
+								{cOUM > 9 ? "9+" : cOUM}
 							</span>
 						)}
 					</NavLink>
 					<NavLink
 						draggable="false"
-						to={!isAuth ? "/login" : "/friends/" + props.authNickname}
-						onClick={() => props.setBurger(false)}
-						className={"navbar__link " + (!isAuth ? "notAuth" : "")}
+						to={!authNickname ? "/login" : "/friends/" + authNickname}
+						onClick={() => dispatch(setBurger(false))}
+						className={"navbar__link " + (!authNickname ? "notAuth" : "")}
 					>
 						My Friends
 					</NavLink>
 					<NavLink
 						draggable="false"
 						to="/users"
-						onClick={() => props.setBurger(false)}
+						onClick={() => dispatch(setBurger(false))}
 						className="navbar__link"
 					>
 						Find users
@@ -70,7 +74,7 @@ export function NavBar(props: IProps) {
 					<NavLink
 						draggable="false"
 						to="/settings"
-						onClick={() => props.setBurger(false)}
+						onClick={() => dispatch(setBurger(false))}
 						className="navbar__link"
 					>
 						Settings

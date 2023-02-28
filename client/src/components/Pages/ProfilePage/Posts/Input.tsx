@@ -1,25 +1,26 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useAppDispatch } from "../../../../hooks/useAppDispatch";
+import { addPostTC } from "../../../../redux/reducers/profileReducer";
 import { Arrow } from "../../../assets/Arrow";
-import { ImageIcon } from "../../../assets/ImageIcon";
+// import { ImageIcon } from "../../../assets/ImageIcon";
 import { LoadingCircle } from "../../../assets/LoadingCircle";
-
-interface IProps {
-	addPostTC: (post: string) => Promise<void>;
-}
 
 const newPostDraft: { value: string; height: string } = JSON.parse(
 	sessionStorage.getItem("newPostDraft") || "{}"
 );
 const newPostHeight = newPostDraft.height || "50px";
 
-export function Input(props: IProps) {
+export function Input() {
+	const dispatch = useAppDispatch();
+
 	const [newPostValue, setNewPostValue] = useState(newPostDraft.value || "");
-	const [addPostInProgress, setAddPostInProgress] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const fieldRef = useRef<HTMLTextAreaElement>(null);
 	// const postImage = useRef<HTMLImageElement>(null);
 
 	// first render scroll bottom
-	useLayoutEffect(() => {
+	useEffect(() => {
 		fieldRef.current?.scrollTo(0, fieldRef.current.scrollHeight);
 	}, []);
 
@@ -51,13 +52,16 @@ export function Input(props: IProps) {
 		}
 		sessionStorage.setItem("newPostDraft", JSON.stringify(newPostDraft));
 	}
-	function addPost() {
-		setAddPostInProgress(true);
-		updateNewPostValue("");
+	async function addPost() {
 		if (newPostValue.trim() !== "") {
-			props.addPostTC(newPostValue).finally(() => setAddPostInProgress(false));
+			setIsLoading(true);
+			await dispatch(addPostTC(newPostValue));
+			setIsLoading(false);
+			updateNewPostValue("");
 		}
 	}
+
+	// add post on enter press
 	function onKeyDownHandler(
 		e: React.KeyboardEvent<HTMLSpanElement>,
 		disabled: boolean
@@ -94,9 +98,9 @@ export function Input(props: IProps) {
 			<div className="profile__posts_input">
 				<textarea
 					ref={fieldRef}
-					disabled={addPostInProgress}
+					disabled={isLoading}
 					onKeyDown={(e) =>
-						onKeyDownHandler(e, newPostValue.trim() === "" || addPostInProgress)
+						onKeyDownHandler(e, newPostValue.trim() === "" || isLoading)
 					}
 					onChange={(e) => updateNewPostValue(e.target.value)}
 					value={newPostValue}
@@ -107,10 +111,10 @@ export function Input(props: IProps) {
 
 				<button
 					onClick={() => addPost()}
-					disabled={newPostValue.trim() === "" || addPostInProgress}
+					disabled={newPostValue.trim() === "" || isLoading}
 					className="profile__posts_input_send"
 				>
-					{addPostInProgress ? <LoadingCircle /> : <Arrow id="addPostArrow" />}
+					{isLoading ? <LoadingCircle /> : <Arrow id="addPostArrow" />}
 				</button>
 
 				{/* <label

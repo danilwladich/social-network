@@ -1,35 +1,44 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Arrow } from "../../../assets/Arrow";
 import { socket } from "../../../../App";
-
-interface IProps {
-	authNickname: string;
-	userNickname: string;
-	readMessagesOption: boolean;
-	sendMessage: (message: string, id: string) => void;
-	readMessages: (userNickname: string) => void;
-}
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import {
+	readMessages,
+	sendMessage,
+} from "../../../../redux/reducers/messagesReducer";
 
 const newMessagesDraft: {
 	[key: string]: string;
 } = JSON.parse(sessionStorage.getItem("newMessagesDraft") || "{}");
 
-export function Input(props: IProps) {
-	const [newMessageValue, setNewMessageValue] = useState(
-		newMessagesDraft[props.userNickname + "\\value"] || ""
+export function Input() {
+	const dispatch = useAppDispatch();
+
+	const { nickname: userNickname } = useAppSelector(
+		(state) => state.messages.chatWith
 	);
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
+
+	const [newMessageValue, setNewMessageValue] = useState(
+		newMessagesDraft[userNickname + "\\value"] || ""
+	);
+
 	const fieldRef = useRef<HTMLTextAreaElement>(null);
+
 	const newMessageHeight =
-		newMessagesDraft[props.userNickname + "\\height"] || "50px";
+		newMessagesDraft[userNickname + "\\height"] || "50px";
+	const readMessagesOption =
+		localStorage.getItem("readMessages") === "false" ? false : true;
 
 	// first render scroll bottom
-	useLayoutEffect(() => {
+	useEffect(() => {
 		fieldRef.current?.scrollTo(0, fieldRef.current.scrollHeight);
 	}, []);
 
 	function updateNewMessageValue(v: string) {
 		if (v.length <= 5000) {
-			newMessagesDraft[props.userNickname + "\\value"] = v;
+			newMessagesDraft[userNickname + "\\value"] = v;
 
 			setNewMessageValue(v);
 		}
@@ -40,17 +49,17 @@ export function Input(props: IProps) {
 			fieldRef.current!.style.height =
 				fieldRef.current!.scrollHeight + 4 + "px";
 
-			newMessagesDraft[props.userNickname + "\\height"] =
+			newMessagesDraft[userNickname + "\\height"] =
 				fieldRef.current!.scrollHeight + 4 + "px";
 		} else {
 			fieldRef.current!.style.height = "284px";
 
-			newMessagesDraft[props.userNickname + "\\height"] = "284px";
+			newMessagesDraft[userNickname + "\\height"] = "284px";
 		}
 
 		if (v === "") {
-			delete newMessagesDraft[props.userNickname + "\\value"];
-			delete newMessagesDraft[props.userNickname + "\\height"];
+			delete newMessagesDraft[userNickname + "\\value"];
+			delete newMessagesDraft[userNickname + "\\height"];
 
 			fieldRef.current!.style.height = "50px";
 		}
@@ -59,13 +68,12 @@ export function Input(props: IProps) {
 			JSON.stringify(newMessagesDraft)
 		);
 	}
-	function sendMessage() {
+	function sendMessageHandler() {
 		if (newMessageValue.trim() !== "") {
 			fieldRef.current?.focus();
-			updateNewMessageValue("");
 
-			const from = props.authNickname;
-			const to = props.userNickname;
+			const from = authNickname;
+			const to = userNickname;
 
 			const id = "temporaryid//" + Math.round(Math.random() * 1000000000);
 
@@ -76,23 +84,25 @@ export function Input(props: IProps) {
 				id,
 			});
 
-			if (!props.readMessagesOption) {
+			if (!readMessagesOption) {
 				socket.emit("readMessages", {
-					who: props.authNickname,
-					whom: props.userNickname,
+					who: authNickname,
+					whom: userNickname,
 				});
 
-				props.readMessages(props.userNickname);
+				dispatch(readMessages(userNickname));
 			}
 
-			props.sendMessage(newMessageValue.trim(), id);
+			dispatch(sendMessage({ message: newMessageValue.trim(), id }));
+
+			updateNewMessageValue("");
 		}
 	}
 	function onKeyDownHandler(e: React.KeyboardEvent<HTMLSpanElement>) {
 		if (!e.shiftKey && e.key === "Enter") {
 			e.preventDefault();
 			if (newMessageValue.trim() !== "") {
-				sendMessage();
+				sendMessageHandler();
 			}
 		}
 	}
@@ -112,7 +122,7 @@ export function Input(props: IProps) {
 				/>
 
 				<button
-					onClick={() => sendMessage()}
+					onClick={() => sendMessageHandler()}
 					disabled={newMessageValue.trim() === ""}
 					className="messages__chat_input_send"
 				>

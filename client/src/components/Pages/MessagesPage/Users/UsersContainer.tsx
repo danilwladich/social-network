@@ -1,46 +1,65 @@
-import React, { useLayoutEffect, useState } from "react";
-import { IState } from "../../../../models/IState";
-import { connect } from "react-redux";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Users } from "./Users";
-import { MessagesUserData } from "../../../../models/Messages/MessagesUserData";
-import { getChatsTC } from "../../../../redux/messagesReducer";
 import { UsersLoading } from "./UsersLoading";
-import { deleteChatTC } from "./../../../../redux/messagesReducer";
+import { useAppSelector } from "./../../../../hooks/useAppSelector";
+import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
+import { fetchChatsTC } from "../../../../redux/reducers/messagesReducer";
 
-interface IProps {
-	usersData: MessagesUserData[];
-	bodyTheme: string;
-	getChatsTC: () => Promise<void>;
-	deleteChatTC: (userNickname: string) => Promise<void>;
-}
+export function UsersContainerAPI() {
+	const dispatch = useAppDispatch();
 
-export function UsersContainerAPI(props: IProps) {
 	const [isLoading, setIsLoading] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
 
+	const { usersTotalCount: totalCount, usersPageSize: pageSize } =
+		useAppSelector((state) => state.messages);
+
+	const pagesCount = Math.ceil(totalCount / pageSize);
+	const pages: number[] = [];
+	for (let i = 1; i <= pagesCount; i++) {
+		pages.push(i);
+	}
+
+	// pagination
+	useEffect(() => {
+		function scrollHandler() {
+			if (
+				pagesCount > 0 &&
+				currentPage !== pagesCount &&
+				!isLoading &&
+				window.pageYOffset >=
+					document.documentElement.scrollHeight -
+						Math.max(
+							window.innerHeight,
+							document.documentElement.clientHeight
+						) *
+							2
+			) {
+				setCurrentPage((prev) => prev + 1);
+			}
+		}
+
+		window.addEventListener("scroll", scrollHandler);
+		return () => window.removeEventListener("scroll", scrollHandler);
+	}, [isLoading, currentPage, pagesCount]);
+
+	// fetching
 	useLayoutEffect(() => {
 		setIsLoading(true);
-		props.getChatsTC().finally(() => setIsLoading(false));
-		// eslint-disable-next-line
-	}, []);
+		dispatch(fetchChatsTC({ page: currentPage, pageSize })).finally(() =>
+			setIsLoading(false)
+		);
+	}, [currentPage, pageSize, dispatch]);
 
 	if (isLoading) {
 		return <UsersLoading />;
 	}
+
 	return (
 		<>
-			<Users {...props} />
+			<Users />
 		</>
 	);
 }
 
-function mapStateToProps(state: IState) {
-	return {
-		usersData: state.messages.usersData,
-		bodyTheme: state.settings.bodyTheme,
-	};
-}
-
-export const UsersContainer = connect(mapStateToProps, {
-	getChatsTC,
-	deleteChatTC,
-})(UsersContainerAPI);
+export default UsersContainerAPI;
