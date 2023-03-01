@@ -33,7 +33,7 @@ interface IConnectedSockets {
 }
 
 // parse json
-export const connectedSockets = JSON.parse(
+export let connectedSockets = JSON.parse(
 	connectedSocketsTxt || "{}"
 ) as IConnectedSockets;
 
@@ -46,6 +46,9 @@ export default (io: Server) => {
 		// connected
 		socket.on("connected", (data) => {
 			try {
+				console.log('before ',connectedSockets);
+				console.log("connect");
+
 				const decoded = jwt.verify(
 					data.token,
 					config.get("jwtSecret")
@@ -59,6 +62,8 @@ export default (io: Server) => {
 				};
 
 				writeConnectedSockets();
+
+				console.log('after',connectedSockets);
 			} catch (e) {}
 		});
 
