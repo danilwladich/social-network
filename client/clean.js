@@ -1,7 +1,9 @@
 const fs = require("fs");
 
-fs.access("./production", (err) => {
+const path = "./production/static";
+
+fs.access(path, (err) => {
 	if (!err) {
-		fs.rmSync("./production", { recursive: true });
+		fs.rmSync(path, { recursive: true });
 	}
 });
