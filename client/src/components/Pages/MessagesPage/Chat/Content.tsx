@@ -69,19 +69,34 @@ export function Content(props: IProps) {
 		if (reverseMessageData[index]) {
 			const date = reverseMessageData[index].date.split(" ");
 			const dateBefore = reverseMessageData[index - 1]?.date.split(" ");
-			const dateNow = new Date().toString().split(" ").slice(1, 5);
 
 			if (
 				(dateBefore &&
 					date.slice(0, 3).join(" ") !== dateBefore.slice(0, 3).join(" ")) ||
 				index === 0
 			) {
-				const dateToShow =
-					date[0] === dateNow[0] && date[2] === dateNow[2]
-						? date[1] === dateNow[1]
-							? "Today"
-							: date[0] + " " + date[1]
-						: date[1] + " " + date[0] + " " + date[2];
+				const dateNow = new Date().toString().split(" ").slice(1, 5);
+
+				const year = date[2];
+				const yearNow = dateNow[2];
+				const month = date[0];
+				const monthNumber =
+					new Date(Date.parse(reverseMessageData[index].date)).getMonth() + 1;
+				const monthNumberNow = new Date().getMonth() + 1;
+				const day = date[1];
+				const dayNow = dateNow[1];
+
+				let dateToShow;
+
+				if (+year === +yearNow) {
+					if (+day === +dayNow && monthNumber === monthNumberNow) {
+						dateToShow = "Today";
+					} else {
+						dateToShow = `${day} ${month}`;
+					}
+				} else {
+					dateToShow = `${day} ${month} ${year}`;
+				}
 
 				return dateToShow;
 			}
