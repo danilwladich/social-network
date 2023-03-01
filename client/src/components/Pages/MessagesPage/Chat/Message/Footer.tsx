@@ -6,7 +6,7 @@ interface IProps {
 	messageData: MessagesMessageData;
 }
 
-export function MessageFooter(props: IProps) {
+export function Footer(props: IProps) {
 	const messageData = props.messageData;
 	const time = messageData.date.split(" ")[3].slice(0, 5);
 	return (

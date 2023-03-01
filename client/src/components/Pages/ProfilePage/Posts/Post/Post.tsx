@@ -2,7 +2,7 @@ import React from "react";
 import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
 import { Actions } from "./Actions";
 import { Content } from "./Content";
-import { Info } from "./Info";
+import { Footer } from "./Footer";
 
 interface IProps {
 	isAuth: boolean;
@@ -20,7 +20,7 @@ export function Post(props: IProps) {
 			<div className="profile__post">
 				<Content postData={postData} />
 
-				<Info {...props} />
+				<Footer {...props} />
 
 				{!!props.deletePost && (
 					<Actions

@@ -1,7 +1,7 @@
 import React from "react";
 import { NewsPostData } from "../../../../models/News/NewsPostData";
 import { Content } from "./Content";
-import { Info } from "./Info";
+import { Footer } from "./Footer";
 import { Owner } from "./Owner";
 
 interface IProps {
@@ -21,7 +21,7 @@ export function Post(props: IProps) {
 
 				<Content postData={postData} />
 
-				<Info {...props} />
+				<Footer {...props} />
 			</div>
 		</>
 	);

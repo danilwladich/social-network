@@ -3,6 +3,8 @@ import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
 import { LikeHeart } from "../../../../assets/LikeHeart";
 import { LoadingCircle } from "../../../../assets/LoadingCircle";
 import { useNavigate } from "react-router-dom";
+import { DateToShow } from "../../../../assets/DateToShow";
+import { LikesToShow } from "../../../../assets/LikesToShow";
 
 interface IProps {
 	isAuth: boolean;
@@ -12,24 +14,9 @@ interface IProps {
 	unlikePost: () => void;
 }
 
-export function Info(props: IProps) {
+export function Footer(props: IProps) {
 	const navigate = useNavigate();
 	const postData = props.postData;
-
-	const date = postData.date.split(" ");
-	const dateNow = new Date().toString().split(" ").slice(1, 5);
-	const dateToShow =
-		date[0] === dateNow[0] && date[2] === dateNow[2]
-			? date[1] === dateNow[1]
-				? date[3].slice(0, 5)
-				: date[0] + " " + date[1] + " " + date[3].slice(0, 5)
-			: date[1] + " " + date[0] + " " + date[2];
-
-	const likes = postData.likes.toString();
-	const likesToShow =
-		postData.likes >= 1000
-			? likes.slice(0, -3) + "." + likes.slice(-3, -2) + "K"
-			: likes;
 
 	function onLikeClickHandler() {
 		if (!props.isAuth) {
@@ -49,16 +36,20 @@ export function Info(props: IProps) {
 					onClick={() => onLikeClickHandler()}
 					disabled={props.buttonInProgress}
 					className="profile__post_like"
+					title={postData.likedMe ? "Unlike" : "Like"}
 				>
 					{props.buttonInProgress ? (
 						<LoadingCircle />
 					) : (
 						<LikeHeart likedMe={postData.likedMe} />
 					)}
-					{likesToShow}
+
+					<LikesToShow likes={postData.likes} />
 				</button>
 
-				<div className="profile__post_date">{dateToShow}</div>
+				<div className="profile__post_date">
+					<DateToShow date={postData.date} />
+				</div>
 			</div>
 		</>
 	);

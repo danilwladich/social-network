@@ -1,6 +1,7 @@
 import React from "react";
 import { MessagesMessageData } from "../../../../../models/Messages/MessagesMessageData";
 import { CheckMark } from "../../../../assets/CheckMark";
+import { DateToShow } from "../../../../assets/DateToShow";
 
 interface IProps {
 	lastMessage: MessagesMessageData;
@@ -8,16 +9,6 @@ interface IProps {
 
 export function LastMessage(props: IProps) {
 	const lastMessage = props.lastMessage;
-
-	const date = lastMessage.date.split(" ");
-	const dateNow = new Date().toString().split(" ").slice(1, 5);
-	const dateToShow =
-		date[0] === dateNow[0] && date[2] === dateNow[2]
-			? date[1] === dateNow[1]
-				? date[3].slice(0, 5)
-				: date[0] + " " + date[1] + " " + date[3].slice(0, 5)
-			: date[1] + " " + date[0] + " " + date[2];
-
 	return (
 		<>
 			<div className="messages__user_lastmessage">
@@ -42,7 +33,10 @@ export function LastMessage(props: IProps) {
 						)}
 					</div>
 				)}
-				<div className="messages__user_lastmessage_date">{dateToShow}</div>
+				
+				<div className="messages__user_lastmessage_date">
+					<DateToShow date={lastMessage.date} short/>
+				</div>
 			</div>
 		</>
 	);

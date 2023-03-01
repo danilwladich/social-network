@@ -248,6 +248,7 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   height: 18px;
 }
 .news__post_date {
+  line-height: 150%;
   opacity: 0.7;
   font-size: 12px;
 }

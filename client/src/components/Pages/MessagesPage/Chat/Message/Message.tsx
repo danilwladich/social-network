@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MessagesMessageData } from "../../../../../models/Messages/MessagesMessageData";
 import { LoadingCircle } from "../../../../assets/LoadingCircle";
-import { MessageFooter } from "./MessageFooter";
+import { Footer } from "./Footer";
 import Linkify from "react-linkify";
 
 interface IProps {
@@ -51,7 +51,7 @@ export function Message(props: IProps) {
 						</span>
 					</Linkify>
 
-					<MessageFooter messageData={messageData} />
+					<Footer messageData={messageData} />
 
 					{messageData.out && !messageData.id.includes("temporaryid") && (
 						<div className="messages__message_actions">

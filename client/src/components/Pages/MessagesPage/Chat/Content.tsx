@@ -66,23 +66,25 @@ export function Content(props: IProps) {
 
 	// return date if message before has a different date or this is the first message
 	function checkMessageDate(index: number) {
-		const date = reverseMessageData[index].date.split(" ");
-		const dateBefore = reverseMessageData[index - 1]?.date.split(" ");
-		const dateNow = new Date().toString().split(" ").slice(1, 5);
+		if (reverseMessageData[index]) {
+			const date = reverseMessageData[index].date.split(" ");
+			const dateBefore = reverseMessageData[index - 1]?.date.split(" ");
+			const dateNow = new Date().toString().split(" ").slice(1, 5);
 
-		if (
-			(dateBefore &&
-				date.slice(0, 3).join(" ") !== dateBefore.slice(0, 3).join(" ")) ||
-			index === 0
-		) {
-			const dateToShow =
-				date[0] === dateNow[0] && date[2] === dateNow[2]
-					? date[1] === dateNow[1]
-						? "Today"
-						: date[0] + " " + date[1]
-					: date[1] + " " + date[0] + " " + date[2];
+			if (
+				(dateBefore &&
+					date.slice(0, 3).join(" ") !== dateBefore.slice(0, 3).join(" ")) ||
+				index === 0
+			) {
+				const dateToShow =
+					date[0] === dateNow[0] && date[2] === dateNow[2]
+						? date[1] === dateNow[1]
+							? "Today"
+							: date[0] + " " + date[1]
+						: date[1] + " " + date[0] + " " + date[2];
 
-			return dateToShow;
+				return dateToShow;
+			}
 		}
 	}
 
@@ -103,7 +105,7 @@ export function Content(props: IProps) {
 			} else {
 				if (
 					!reverseMessageData[index - 1]?.out &&
-					!reverseMessageData[index + 1]?.out  &&
+					!reverseMessageData[index + 1]?.out &&
 					!checkMessageDate(index + 1)
 				) {
 					return "middle";
