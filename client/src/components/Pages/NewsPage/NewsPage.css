@@ -12,6 +12,9 @@ html[theme=dark] .news__post_like {
   color: var(--light-button-text-color);
   background-color: var(--dark-button-bg);
 }
+html[theme=dark] .news__post_like * {
+  color: var(--light-button-text-color);
+}
 html[theme=dark] .news__post_like:hover, html[theme=dark] .news__post_like:focus {
   background-color: var(--dark-button-bg-active);
 }
@@ -29,6 +32,9 @@ html[theme=light] .news__post_more:hover, html[theme=light] .news__post_more:foc
 html[theme=light] .news__post_like {
   color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
+}
+html[theme=light] .news__post_like * {
+  color: var(--light-button-text-color);
 }
 html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:focus {
   background-color: var(--light-button-bg-active);
