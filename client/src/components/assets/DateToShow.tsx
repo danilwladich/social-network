@@ -58,8 +58,7 @@ export function DateToShow(props: IProps) {
 			((monthNumber + 1 === monthNumberNow ||
 				(12 - monthNumber + 1 === monthNumberNow && +year + 1 === +yearNow)) &&
 				daysInMonth - +dayNow + 1 === +day)) &&
-		+hour > +hourNow &&
-		+day >= +dayNow
+		+hour > +hourNow
 	) {
 		dateToShow = `${24 - +hour + +hourNow}h ${!props.short ? "ago" : ""}`;
 	} else {

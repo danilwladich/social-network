@@ -66,8 +66,7 @@ export function UserOnline(props: IProps) {
 					(12 - monthNumber + 1 === monthNumberNow &&
 						+year + 1 === +yearNow)) &&
 					daysInMonth - +dayNow + 1 === +day)) &&
-			+hour > +hourNow &&
-			+day >= +dayNow
+			+hour > +hourNow
 		) {
 			userOnline = 24 - +hour + +hourNow + "h";
 
