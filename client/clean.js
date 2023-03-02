@@ -1,9 +1,12 @@
 const fs = require("fs");
+const fse = require("fs-extra");
 
-const path = "./production/static";
-
-fs.access(path, (err) => {
+fs.access("./production/static", (err) => {
 	if (!err) {
-		fs.rmSync(path, { recursive: true });
+		fs.rmSync("./production/static", { recursive: true });
 	}
 });
+
+setTimeout(() => {
+	fse.copySync("./build", "./production", { overwrite: true });
+}, 500);
