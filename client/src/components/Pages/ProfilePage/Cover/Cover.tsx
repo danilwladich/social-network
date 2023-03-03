@@ -48,7 +48,10 @@ export function Cover() {
 
 						{showModal && (
 							<>
-								<div className="profile__cover_modal__bg modal__bg" />
+								<div
+									onClick={() => modalOff()}
+									className="profile__cover_modal__bg modal__bg"
+								/>
 								<div className="profile__cover_modal modal">
 									<h3 className="profile__cover_modal_title title">
 										Update cover
