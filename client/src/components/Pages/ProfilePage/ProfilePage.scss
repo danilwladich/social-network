@@ -8,6 +8,9 @@ html[theme="dark"] {
 		&__cover {
 			&_action {
 				background-color: var(--dark-input-bg);
+				&:focus {
+					border: 1px solid var(--dark-text-color);
+				}
 			}
 		}
 		&__user {
@@ -134,6 +137,9 @@ html[theme="light"] {
 		&__cover {
 			&_action {
 				background-color: var(--light-input-bg);
+				&:focus {
+					border: 1px solid var(--light-text-color);
+				}
 			}
 		}
 		&__user {
@@ -439,10 +445,9 @@ html[theme="light"] {
 					height: 40px;
 				}
 				opacity: 0;
-				visibility: hidden;
-				&.active {
+				&.active,
+				&:focus {
 					opacity: 1;
-					visibility: visible;
 				}
 			}
 			&_modal {

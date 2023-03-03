@@ -44,7 +44,10 @@ export function Image(props: IProps) {
 
 				{isOwner && (
 					<button
-						onClick={() => modalOn()}
+						onClick={() => {
+							modalOn();
+							setShowAction(false);
+						}}
 						className={
 							"profile__user_image_action " + (showAction ? "active" : "")
 						}
