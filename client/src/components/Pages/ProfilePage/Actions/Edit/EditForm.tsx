@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
-import { LoadingCircle } from "../../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../../assets/svg/LoadingCircle";
 import { useNavigate } from "react-router-dom";
 import { socket } from "../../../../../App";
 import { useAppSelector } from "./../../../../../hooks/useAppSelector";
@@ -15,42 +15,23 @@ export function EditForm(props: IProps) {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 	const { userData } = useAppSelector((state) => state.profile);
 	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
 
-	const newImageRef = useRef<HTMLImageElement>(null);
 	const [submitting, setSubmitting] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const hostname = window.location.hostname;
 
-	let userImage: string = `/images/user&theme=${bodyTheme}.jpg`;
-	if (userData.image) {
-		userImage = userData.image.split(".jpg")[0] + "&size=small.jpg";
-	}
-
-	function onUpdateProfileImage(e: React.ChangeEvent<HTMLInputElement>) {
-		if (e.target.files?.length && e.target.files[0].size <= 10000000) {
-			const reader = new FileReader();
-			reader.readAsDataURL(e.target.files![0]);
-			reader.onload = function (e) {
-				newImageRef.current!.src = e.target?.result as string;
-			};
-		}
-	}
 	async function onSubmit(v: {
-		image?: FileList;
 		nickname?: string;
 		country?: string;
 		city?: string;
 	}) {
 		setSubmitting(true);
-		const image = v.image ? v.image[0] : undefined;
 
 		const { meta, payload } = await dispatch(
 			editProfileTC({
-				image,
 				nickname: v.nickname?.trim(),
 				country: v.country?.trim(),
 				city: v.city?.trim(),
@@ -69,25 +50,12 @@ export function EditForm(props: IProps) {
 
 		setSubmitting(false);
 	}
-	function validate(e: {
-		image?: FileList;
-		nickname?: string;
-		country?: string;
-		city?: string;
-	}) {
+	function validate(e: { nickname?: string; country?: string; city?: string }) {
 		const errors: {
-			image?: string;
 			nickname?: string;
 			country?: string;
 			city?: string;
 		} = {};
-		// image
-		if (e.image && e.image.length) {
-			if (e.image[0].size > 10 * 1024 * 1024) {
-				errors.image = "File size cannot be more than 10mb!";
-			}
-		}
-
 		// nickname
 		if (e.nickname) {
 			if (e.nickname.trim()) {
@@ -158,38 +126,6 @@ export function EditForm(props: IProps) {
 				validate={validate}
 				render={({ handleSubmit, pristine, values }) => (
 					<form>
-						<Field
-							name="image"
-							render={({ input: { onChange, value, ...input }, meta }) => (
-								<div className="profile__edit_field form__field">
-									<label
-										htmlFor="imageInput"
-										id="imageInputLabel"
-										className="profile__edit_label form__label row"
-									>
-										<span>Update profile image</span>
-										<img ref={newImageRef} src={userImage} alt={authNickname} />
-									</label>
-									<input
-										{...input}
-										id="imageInput"
-										onChange={(e) => {
-											onUpdateProfileImage(e);
-											onChange(e.target.files);
-										}}
-										type="file"
-										accept="image/png, image/jpeg"
-										style={{ display: "none" }}
-									/>
-									{meta.error && (
-										<div className="profile__edit_incorrect form__incorrect">
-											{meta.error}
-										</div>
-									)}
-								</div>
-							)}
-						/>
-
 						<Field
 							name="nickname"
 							render={({ input, meta }) => (

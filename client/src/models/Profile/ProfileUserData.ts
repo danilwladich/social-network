@@ -3,6 +3,7 @@ export interface ProfileUserData {
 	firstName: string;
 	lastName: string;
 	image?: string;
+	cover?: string;
 	location: {
 		country?: string;
 		city?: string;

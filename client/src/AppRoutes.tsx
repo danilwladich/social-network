@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { AppLoading } from "./components/assets/AppLoading";
+import { AppLoading } from "./components/assets/svg/AppLoading";
 import { AuthRedirect } from "./hoc/AuthRedirect";
 import { NotExist } from "./components/Pages/NotExist/NotExist";
 

@@ -5,7 +5,6 @@ import { useAppSelector } from "./../../../../hooks/useAppSelector";
 
 export function About() {
 	const { followData } = useAppSelector((state) => state.profile);
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 	const { nickname: userNickname } = useAppSelector(
 		(state) => state.profile.userData
 	);
@@ -45,7 +44,7 @@ export function About() {
 				{!!friends.usersData.length && (
 					<div className="profile__about_users">
 						{friends.usersData.slice(0, 8).map((u) => (
-							<User key={u.nickname} userData={u} bodyTheme={bodyTheme} />
+							<User key={u.nickname} userData={u} />
 						))}
 					</div>
 				)}

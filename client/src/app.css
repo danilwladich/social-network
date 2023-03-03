@@ -117,7 +117,7 @@ h6 {
   --dark-items-border-bottom: rgba(255, 255, 255, 0.3);
   --dark-input-bg: rgba(255, 255, 255, 0.1);
   --dark-highlight: #497e8a;
-  --dark-loading-element: rgba(255, 255, 255, 0.1);
+  --dark-loading-element: #3b3b3b;
   --light-text-color: #000;
   --light-subsection-bg: #ffffff;
   --light-main-bg: #eeeeee;
@@ -127,7 +127,7 @@ h6 {
   --light-items-border-bottom: rgba(0, 0, 0, 0.3);
   --light-input-bg: rgba(0, 0, 0, 0.1);
   --light-highlight: #497e8a;
-  --light-loading-element: rgba(0, 0, 0, 0.1);
+  --light-loading-element: #e5e5e5;
   --link-color: yellowgreen;
   --app-height: 100vh;
 }
@@ -211,6 +211,9 @@ html[theme=dark] .imageIcon path {
 html[theme=dark] .userOnline:not(.empty) {
   border: 2px solid var(--dark-subsection-bg);
 }
+html[theme=dark] .editPen path {
+  stroke: #fff;
+}
 
 html[theme=light] ::-webkit-scrollbar-track {
   background: rgba(85, 85, 85, 0.3);
@@ -290,6 +293,9 @@ html[theme=light] .imageIcon path {
 }
 html[theme=light] .userOnline:not(.empty) {
   border: 2px solid var(--light-subsection-bg);
+}
+html[theme=light] .editPen path {
+  stroke: #fff;
 }
 
 html {
@@ -489,7 +495,6 @@ body.lock {
 
 .form__label {
   line-height: 150%;
-  opacity: 0.8;
   cursor: pointer;
   display: block;
   font-size: 18px;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 import { useNavigate } from "react-router-dom";
 import { socket } from "../../../../App";
 import { useAppDispatch } from "./../../../../hooks/useAppDispatch";

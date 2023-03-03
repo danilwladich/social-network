@@ -7,7 +7,6 @@ import { Owner } from "./Owner";
 interface IProps {
 	postData: NewsPostData;
 	buttonInProgress: boolean;
-	bodyTheme: string;
 	likePost: () => void;
 	unlikePost: () => void;
 }
@@ -17,7 +16,7 @@ export function Post(props: IProps) {
 	return (
 		<>
 			<div className="news__post">
-				<Owner ownerData={postData.owner} bodyTheme={props.bodyTheme} />
+				<Owner ownerData={postData.owner}/>
 
 				<Content postData={postData} />
 

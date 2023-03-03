@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UsersUserData } from "../../../../models/Users/UsersUserData";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 
 interface IProps {
 	isAuth: boolean;

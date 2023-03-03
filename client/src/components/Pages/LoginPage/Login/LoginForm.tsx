@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Field, Form } from "react-final-form";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
 import { loginTC } from "../../../../redux/reducers/authReducer";

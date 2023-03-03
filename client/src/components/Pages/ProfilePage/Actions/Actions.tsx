@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Edit } from "./Edit/Edit";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 import { useAppSelector } from "../../../../hooks/useAppSelector";
 import { useAppDispatch } from "../../../../hooks/useAppDispatch";
 import {

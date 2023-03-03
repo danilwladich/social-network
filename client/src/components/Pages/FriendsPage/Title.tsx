@@ -1,20 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useUserImage } from "../../../hooks/useUserImage";
 import { WhoseFriends } from "../../../models/Friends/WhoseFriends";
 
 interface IProps {
 	whoseFriends: WhoseFriends;
-	bodyTheme: string;
 	category: string;
 }
 
 export function Title(props: IProps) {
 	const whoseFriends = props.whoseFriends;
 
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
-	if (!!whoseFriends.image) {
-		userImage = whoseFriends.image.split(".jpg")[0] + "&size=small.jpg";
-	}
+	const userImage = useUserImage(whoseFriends.image, true);
 
 	return (
 		<>

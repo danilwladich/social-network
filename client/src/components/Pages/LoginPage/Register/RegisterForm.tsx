@@ -5,7 +5,7 @@ import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import { useAppDispatch } from "../../../../hooks/useAppDispatch";
 import { useAppSelector } from "../../../../hooks/useAppSelector";
 import { registerTC } from "../../../../redux/reducers/authReducer";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 
 export function RegisterForm() {
 	const dispatch = useAppDispatch();

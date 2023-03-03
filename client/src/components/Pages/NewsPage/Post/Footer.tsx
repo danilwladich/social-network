@@ -1,9 +1,9 @@
 import React from "react";
 import { NewsPostData } from "../../../../models/News/NewsPostData";
 import { DateToShow } from "../../../assets/DateToShow";
-import { LikeHeart } from "../../../assets/LikeHeart";
+import { LikeHeart } from "../../../assets/svg/LikeHeart";
 import { LikesToShow } from "../../../assets/LikesToShow";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 
 interface IProps {
 	postData: NewsPostData;

@@ -5,11 +5,16 @@ interface IProps {
 }
 
 export function ProfilePageLoading(props: IProps) {
+	const loadingElements: JSX.Element[] = [];
+	for (let i = 0; i < 8; i++) {
+		loadingElements.push(<AboutUserLoading key={i} />);
+	}
 	return (
 		<>
 			<section className="profile">
 				<div className="subsection">
 					<div className="profile__loading">
+						<div className="profile__loading_cover loading_element"></div>
 						<div className="profile__loading_user">
 							<div className="profile__loading_image loading_element"></div>
 							<div className="profile__loading_info">
@@ -34,38 +39,7 @@ export function ProfilePageLoading(props: IProps) {
 						</div>
 
 						<div className="profile__loading_about_users">
-							<div className="profile__loading_about_user">
-								<div className="profile__loading_about_user_image loading_element"></div>
-								<div className="profile__loading_about_user_name loading_element"></div>
-							</div>
-							<div className="profile__loading_about_user">
-								<div className="profile__loading_about_user_image loading_element"></div>
-								<div className="profile__loading_about_user_name loading_element"></div>
-							</div>
-							<div className="profile__loading_about_user">
-								<div className="profile__loading_about_user_image loading_element"></div>
-								<div className="profile__loading_about_user_name loading_element"></div>
-							</div>
-							<div className="profile__loading_about_user">
-								<div className="profile__loading_about_user_image loading_element"></div>
-								<div className="profile__loading_about_user_name loading_element"></div>
-							</div>
-							<div className="profile__loading_about_user">
-								<div className="profile__loading_about_user_image loading_element"></div>
-								<div className="profile__loading_about_user_name loading_element"></div>
-							</div>
-							<div className="profile__loading_about_user">
-								<div className="profile__loading_about_user_image loading_element"></div>
-								<div className="profile__loading_about_user_name loading_element"></div>
-							</div>
-							<div className="profile__loading_about_user">
-								<div className="profile__loading_about_user_image loading_element"></div>
-								<div className="profile__loading_about_user_name loading_element"></div>
-							</div>
-							<div className="profile__loading_about_user">
-								<div className="profile__loading_about_user_image loading_element"></div>
-								<div className="profile__loading_about_user_name loading_element"></div>
-							</div>
+							{loadingElements}
 						</div>
 					</div>
 				</div>
@@ -85,5 +59,14 @@ export function ProfilePageLoading(props: IProps) {
 				</div>
 			</section>
 		</>
+	);
+}
+
+function AboutUserLoading() {
+	return (
+		<div className="profile__loading_about_user">
+			<div className="profile__loading_about_user_image loading_element"></div>
+			<div className="profile__loading_about_user_name loading_element"></div>
+		</div>
 	);
 }

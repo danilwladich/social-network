@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Posts } from "./Posts";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 import { useAppSelector } from "./../../../../hooks/useAppSelector";
 import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
 import { fetchPostsTC } from "../../../../redux/reducers/profileReducer";

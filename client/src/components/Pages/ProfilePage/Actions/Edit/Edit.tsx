@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { CloseX } from "../../../../assets/CloseX";
+import { CloseX } from "../../../../assets/svg/CloseX";
 import { EditForm } from "./EditForm";
 
 export function Edit() {
 	const [showModal, setShowModal] = useState(false);
 
-	const bodyLock = document.querySelector("body");
+	const body = document.querySelector("body");
 	function modalOn() {
-		bodyLock?.classList.add("lock");
+		body?.classList.add("lock");
 		setShowModal(true);
 	}
 	function modalOff() {
-		bodyLock?.classList.remove("lock");
+		body?.classList.remove("lock");
 		setShowModal(false);
 	}
 
@@ -29,7 +29,7 @@ export function Edit() {
 					></div>
 
 					<div className="profile__edit_modal modal">
-						<h2 className="profile__edit_title title">Edit profile</h2>
+						<h3 className="profile__edit_title title">Edit profile</h3>
 
 						<button className="profile__edit_close" onClick={() => modalOff()}>
 							<CloseX />

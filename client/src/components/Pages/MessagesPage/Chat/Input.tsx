@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Arrow } from "../../../assets/Arrow";
+import { Arrow } from "../../../assets/svg/Arrow";
 import { socket } from "../../../../App";
 import { useAppSelector } from "./../../../../hooks/useAppSelector";
 import { useAppDispatch } from "./../../../../hooks/useAppDispatch";

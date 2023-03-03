@@ -15,7 +15,7 @@ export function SubmitModal(props: IProps) {
 				<div
 					onClick={() => props.hideModal()}
 					className="submitModal__bg modal__bg"
-				></div>
+				/>
 
 				<div className="submitModal__modal modal">
 					<div className="submitModal__text">{props.text}</div>

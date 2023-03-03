@@ -7,6 +7,7 @@ const schema = new Schema({
 	firstName: { type: String, required: true },
 	lastName: { type: String, required: true },
 	avatar: { type: String },
+	cover: { type: String },
 	location: {
 		country: { type: String },
 		city: { type: String },

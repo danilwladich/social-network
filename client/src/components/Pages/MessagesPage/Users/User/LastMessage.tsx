@@ -1,6 +1,6 @@
 import React from "react";
 import { MessagesMessageData } from "../../../../../models/Messages/MessagesMessageData";
-import { CheckMark } from "../../../../assets/CheckMark";
+import { CheckMark } from "../../../../assets/svg/CheckMark";
 import { DateToShow } from "../../../../assets/DateToShow";
 
 interface IProps {
@@ -33,9 +33,9 @@ export function LastMessage(props: IProps) {
 						)}
 					</div>
 				)}
-				
+
 				<div className="messages__user_lastmessage_date">
-					<DateToShow date={lastMessage.date} short/>
+					<DateToShow date={lastMessage.date} short />
 				</div>
 			</div>
 		</>

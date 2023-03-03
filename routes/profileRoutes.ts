@@ -36,6 +36,7 @@ router.get("/user/:nickname", async (req: Request, res: Response) => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			image: user.avatar,
+			cover: user.cover,
 			location: {
 				country: user.location?.country,
 				city: user.location?.city,
@@ -324,7 +325,6 @@ router.delete(
 router.put(
 	"/edit",
 	authMiddleware,
-	upload.single("image"),
 	[
 		check("nickname", "Invalid nickname length")
 			.trim()
@@ -367,7 +367,6 @@ router.put(
 			const authID = req.user!.userID as string;
 
 			const { nickname, country, city } = req.body;
-			const image = req.file;
 
 			const user = await User.findById(authID);
 			if (!user) {
@@ -377,71 +376,23 @@ router.put(
 				});
 			}
 
-			// set new avatar
-			if (!!image) {
-				let path: string;
-				if (process.env.NODE_ENV === "production") {
-					path = `client/production/images/${authID}/avatar`;
-				} else {
-					path = `client/public/images/${authID}/avatar`;
-				}
-
-				// create dir
-				fs.access(path, (err) => {
-					if (err) {
-						fs.mkdirSync(path, { recursive: true });
-					}
-				});
-
-				// remove old avatar
-				fs.readdir(path, (err, files) => {
-					if (files) {
-						for (const file of files) {
-							if (file.includes("avatar")) {
-								fs.unlink(path + "/" + file, (err) => {});
-							}
-						}
-					}
-				});
-
-				const dateNow = Date.now();
-
-				// sharp image
-				await sharp(image.buffer)
-					.withMetadata()
-					.resize({ width: 750, height: 750 })
-					.jpeg({ quality: 50 })
-					.toFile(`${path}/avatar&date=${dateNow}.jpg`);
-
-				// small size
-				await sharp(image.buffer)
-					.withMetadata()
-					.resize({ width: 150, height: 150 })
-					.jpeg({ quality: 50 })
-					.toFile(`${path}/avatar&date=${dateNow}&size=small.jpg`);
-
-				await user.updateOne({
-					avatar: `/images/${authID}/avatar/avatar&date=${dateNow}.jpg`,
-				});
-			}
-
 			// set new country
-			if (!!country) {
+			if (country) {
 				await user.updateOne({ "location.country": country.trim() });
 			}
 
 			// set new city
-			if (!!city) {
+			if (city) {
 				await user.updateOne({ "location.city": city.trim() });
 			}
 
 			// set new nickname
-			if (!!nickname) {
+			if (nickname) {
 				const nicknameAlreadyExist = await User.findOne({
 					nickname: nickname.trim(),
 				});
 
-				if (!!nicknameAlreadyExist) {
+				if (nicknameAlreadyExist) {
 					return res.status(200).json({
 						success: false,
 						statusText: "Nickname already taken",
@@ -473,9 +424,161 @@ router.put(
 	}
 );
 
-// TODO make another router only for update avatar
-// TODO make another router only for update avatar
-// TODO make another router only for update avatar
-// TODO make another router only for update avatar
+// /profile/edit/avatar
+router.put(
+	"/edit/avatar",
+	authMiddleware,
+	upload.single("image"),
+	async (req: IGetUserAuthRequest, res: Response) => {
+		try {
+			const authID = req.user!.userID as string;
+
+			const image = req.file;
+
+			const user = await User.findById(authID);
+			if (!user) {
+				return res.status(400).json({
+					success: false,
+					statusText: "Auth error",
+				});
+			}
+
+			// set new avatar
+			if (image) {
+				let path: string;
+				if (process.env.NODE_ENV === "production") {
+					path = `client/production/images/${authID}/avatar`;
+				} else {
+					path = `client/public/images/${authID}/avatar`;
+				}
+
+				// create dir
+				fs.access(path, (err) => {
+					if (err) {
+						fs.mkdirSync(path, { recursive: true });
+					}
+				});
+
+				// remove old avatar
+				fs.readdir(path, (err, files) => {
+					if (files) {
+						for (const file of files) {
+							if (file.includes("avatar")) {
+								fs.unlink(path + "/" + file, (err) => {});
+							}
+						}
+					}
+				});
+
+				const dateNow = Date.now();
+
+				// sharp image
+				await sharp(image.buffer)
+					.withMetadata()
+					.resize({ width: 900, height: 900 })
+					.jpeg({ quality: 50 })
+					.toFile(`${path}/avatar&date=${dateNow}.jpg`);
+
+				// small size
+				await sharp(image.buffer)
+					.withMetadata()
+					.resize({ width: 150, height: 150 })
+					.jpeg({ quality: 50 })
+					.toFile(`${path}/avatar&date=${dateNow}&size=small.jpg`);
+
+				await user.updateOne({
+					avatar: `/images/${authID}/avatar/avatar&date=${dateNow}.jpg`,
+				});
+			} else {
+				return res.status(200).json({
+					success: false,
+					statusText: "Image upload error",
+				});
+			}
+
+			res.status(201).json({
+				success: true,
+				statusText: "Profile avatar edit successfully",
+			});
+		} catch (e) {
+			res.status(500).json({ success: false, statusText: "Server error" });
+		}
+	}
+);
+
+// /profile/edit/cover
+router.put(
+	"/edit/cover",
+	authMiddleware,
+	upload.single("cover"),
+	async (req: IGetUserAuthRequest, res: Response) => {
+		try {
+			const authID = req.user!.userID as string;
+
+			const cover = req.file;
+
+			const user = await User.findById(authID);
+			if (!user) {
+				return res.status(400).json({
+					success: false,
+					statusText: "Auth error",
+				});
+			}
+
+			// set new cover
+			if (cover) {
+				let path: string;
+				if (process.env.NODE_ENV === "production") {
+					path = `client/production/images/${authID}/cover`;
+				} else {
+					path = `client/public/images/${authID}/cover`;
+				}
+
+				// create dir
+				fs.access(path, (err) => {
+					if (err) {
+						fs.mkdirSync(path, { recursive: true });
+					}
+				});
+
+				// remove old cover
+				fs.readdir(path, (err, files) => {
+					if (files) {
+						for (const file of files) {
+							if (file.includes("cover")) {
+								fs.unlink(path + "/" + file, (err) => {});
+							}
+						}
+					}
+				});
+
+				const dateNow = Date.now();
+
+				// sharp image
+				await sharp(cover.buffer)
+					.withMetadata()
+					.resize({ width: 750, height: 750 })
+					.jpeg({ quality: 50 })
+					.toFile(`${path}/cover&date=${dateNow}.jpg`);
+
+				await user.updateOne({
+					cover: `/images/${authID}/cover/cover&date=${dateNow}.jpg`,
+				});
+			} else {
+				return res.status(200).json({
+					success: false,
+					statusText: "Image upload error",
+				});
+			}
+
+			res.status(201).json({
+				success: true,
+				statusText: "Profile cover edit successfully",
+			});
+		} catch (e) {
+			res.status(500).json({ success: false, statusText: "Server error" });
+		}
+	}
+);
 
 export default router;

@@ -13,19 +13,19 @@ export function Search(props: IProps) {
 
 	// go to search page when enter pressed
 	useEffect(() => {
-		window.addEventListener("keydown", keyDownHandler);
-		return () => {
-			window.removeEventListener("keydown", keyDownHandler);
-		};
-		// eslint-disable-next-line
-	}, [searchValue]);
-	function keyDownHandler(e: KeyboardEvent) {
-		if (e.key === "Enter") {
-			navigate(
-				!!searchValue.trim() ? "/users?search=" + searchValue.trim() : "/users"
-			);
+		function keyDownHandler(e: KeyboardEvent) {
+			if (e.key === "Enter") {
+				navigate(
+					!!searchValue.trim()
+						? "/users?search=" + searchValue.trim()
+						: "/users"
+				);
+			}
 		}
-	}
+
+		window.addEventListener("keydown", keyDownHandler);
+		return () => window.removeEventListener("keydown", keyDownHandler);
+	}, [searchValue, navigate]);
 
 	// set search value
 	function onChangeHandler(v: string) {

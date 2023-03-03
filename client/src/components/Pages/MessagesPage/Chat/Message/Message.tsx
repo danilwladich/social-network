@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MessagesMessageData } from "../../../../../models/Messages/MessagesMessageData";
-import { LoadingCircle } from "../../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../../assets/svg/LoadingCircle";
 import { Footer } from "./Footer";
 import Linkify from "react-linkify";
 
@@ -42,7 +42,11 @@ export function Message(props: IProps) {
 			<div
 				onMouseLeave={() => setShowActions(false)}
 				onClick={(e) => processClick(e)}
-				className={"messages__message " + (messageData.out ? "out " : "") + props.rowClassName}
+				className={
+					"messages__message " +
+					(messageData.out ? "out " : "") +
+					props.rowClassName
+				}
 			>
 				<div className="messages__message_content">
 					<Linkify>

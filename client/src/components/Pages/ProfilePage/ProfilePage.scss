@@ -1,5 +1,25 @@
 html[theme="dark"] {
 	.profile {
+		&__loading {
+			&_image {
+				border: 4px solid var(--dark-subsection-bg);
+			}
+		}
+		&__cover {
+			&_action {
+				background-color: var(--dark-input-bg);
+			}
+		}
+		&__user {
+			&_image {
+				img {
+					border: 4px solid var(--dark-subsection-bg);
+				}
+				&_action {
+					border: 4px solid var(--dark-subsection-bg);
+				}
+			}
+		}
 		&__actions {
 			& > a,
 			> button {
@@ -106,6 +126,26 @@ html[theme="dark"] {
 }
 html[theme="light"] {
 	.profile {
+		&__loading {
+			&_image {
+				border: 4px solid var(--light-subsection-bg);
+			}
+		}
+		&__cover {
+			&_action {
+				background-color: var(--light-input-bg);
+			}
+		}
+		&__user {
+			&_image {
+				img {
+					border: 4px solid var(--light-subsection-bg);
+				}
+				&_action {
+					border: 4px solid var(--light-subsection-bg);
+				}
+			}
+		}
 		&__actions {
 			& > a,
 			> button {
@@ -213,13 +253,20 @@ html[theme="light"] {
 
 .profile {
 	&__loading {
+		&_cover {
+			width: calc(100% + 20px);
+			margin: -10px 0px -50px -10px;
+			padding: 0px 0px 27% 0px;
+			border-radius: 0;
+		}
 		&_image {
-			margin: 0px auto 15px auto;
+			margin: 0px auto 10px auto;
 			pointer-events: none;
 			user-select: none;
 			width: 100px;
 			height: 100px;
 			border-radius: 50% !important;
+			position: relative;
 		}
 		&_info {
 			display: flex;
@@ -296,38 +343,136 @@ html[theme="light"] {
 		font-size: 20px;
 		text-align: center;
 	}
-	// &__cover {
-	// 	margin: -10px -10px 0px;
-	// 	position: relative;
-	// 	padding: 0px 0px 27% 0px;
-	// 	img {
-	// 		width: 100%;
-	// 		height: 100%;
-	// 		object-fit: cover;
-	// 		position: absolute;
-	// 		top: 0;
-	// 		left: 0;
-	// 	}
-	// }
+	&__cover {
+		margin: -10px -10px -50px;
+		position: relative;
+		padding: 0px 0px 27% 0px;
+		overflow: hidden;
+		box-shadow: inset 0px -5px 5px -5px rgba(0, 0, 0, 0.3);
+		img {
+			user-select: none;
+			pointer-events: none;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+			&.blur {
+				filter: blur(35px);
+			}
+		}
+		&_action {
+			background-color: transparent;
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			padding: 2px;
+			border-radius: 4px;
+			svg {
+				margin: 0px 0px -3px 0px;
+				width: 25px;
+				height: 25px;
+			}
+		}
+		&_modal {
+			&_close {
+				position: absolute;
+				top: 15px;
+				right: 15px;
+				width: 30px;
+				height: 30px;
+				background-color: transparent;
+				svg {
+					width: 30px;
+					height: 30px;
+				}
+			}
+		}
+		&_label {
+			overflow: hidden;
+			border-radius: 4px;
+			position: relative;
+			padding: 0px 0px 100% 0px;
+			img {
+				pointer-events: none;
+				user-select: none;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				position: absolute;
+				top: 0;
+				left: 0;
+				border-radius: 4px;
+			}
+		}
+	}
 	&__user {
-		// margin: -50px 0px 0px 0px;
 		position: relative;
 		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 10px;
-		gap: 15px;
 		&_image {
 			position: relative;
+			border-radius: 50%;
 			img {
-				// border: 4px solid var(--dark-subsection-bg);
 				pointer-events: none;
 				user-select: none;
 				width: 100px;
 				height: 100px;
 				object-fit: cover;
 				border-radius: 50%;
+			}
+			&_action {
+				background-color: transparent;
+				backdrop-filter: blur(10px);
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				svg {
+					width: 40px;
+					height: 40px;
+				}
+				opacity: 0;
+				visibility: hidden;
+				&.active {
+					opacity: 1;
+					visibility: visible;
+				}
+			}
+			&_modal {
+				&_close {
+					position: absolute;
+					top: 15px;
+					right: 15px;
+					width: 30px;
+					height: 30px;
+					background-color: transparent;
+					svg {
+						width: 30px;
+						height: 30px;
+					}
+				}
+			}
+			&_label {
+				position: relative;
+				padding: 0px 0px 100% 0px;
+				img {
+					pointer-events: none;
+					user-select: none;
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+					left: 0;
+					border-radius: 4px;
+				}
 			}
 		}
 		&_info {
@@ -423,14 +568,10 @@ html[theme="light"] {
 		}
 	}
 	&__edit {
-		&_title {
-			line-height: 1;
-			font-size: 22px;
-		}
 		&_close {
 			position: absolute;
-			top: 10px;
-			right: 10px;
+			top: 15px;
+			right: 15px;
 			width: 30px;
 			height: 30px;
 			background-color: transparent;
@@ -440,22 +581,6 @@ html[theme="light"] {
 			}
 		}
 		&_label {
-			&.row {
-				opacity: 1;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding: 0;
-			}
-			span {
-				line-height: 50px;
-			}
-			img {
-				pointer-events: none;
-				width: 50px;
-				height: 50px;
-				border-radius: 50%;
-			}
 			p {
 				margin: -5px 0px 0px 0px;
 				opacity: 0.5;
@@ -742,9 +867,15 @@ html[theme="light"] {
 	}
 	@media (min-width: 767px) {
 		&__loading {
+			&_cover {
+				margin: -15px 0px -75px -15px;
+				width: calc(100% + 30px);
+				border-top-right-radius: 8px;
+				border-top-left-radius: 8px;
+			}
 			&_user {
 				display: flex;
-				align-items: center;
+				align-items: flex-end;
 			}
 			&_actions {
 				gap: 15px;
@@ -753,7 +884,9 @@ html[theme="light"] {
 				}
 			}
 			&_info {
-				align-items: start;
+				justify-content: center;
+				height: 75px;
+				align-items: flex-start;
 			}
 			&_image {
 				margin: 0px 30px 0px 0px;
@@ -801,16 +934,17 @@ html[theme="light"] {
 				height: 90px;
 			}
 		}
-		// &__cover {
-		// 	img {
-		// 		border-top-right-radius: 8px;
-		// 		border-top-left-radius: 8px;
-		// 	}
-		// 	margin: -15px -15px 0px;
-		// }
+		&__cover {
+			margin: -15px -15px -75px;
+			border-top-right-radius: 8px;
+			border-top-left-radius: 8px;
+			img {
+				border-top-right-radius: 8px;
+				border-top-left-radius: 8px;
+			}
+		}
 		&__user {
-			// margin: -75px 0px 0px 0px;
-			// align-items: flex-end;
+			align-items: flex-end;
 			flex-direction: row;
 			gap: 30px;
 			&_image {

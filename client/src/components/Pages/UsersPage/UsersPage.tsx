@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./UsersPage.css";
 import { User } from "./User/User";
-import { LoadingCircle } from "../../assets/LoadingCircle";
+import { LoadingCircle } from "../../assets/svg/LoadingCircle";
 import { Search } from "./Search";
 import { Helmet } from "react-helmet";
 import { useAppDispatch } from "./../../../hooks/useAppDispatch";
@@ -25,7 +25,6 @@ export function UsersPage(props: IProps) {
 
 	const { usersData } = useAppSelector((state) => state.users);
 	const { isAuth } = useAppSelector((state) => state.auth);
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 
 	async function setFollow(userNickname: string) {
 		setFollowButtonsInProgress((prev) => [...prev, userNickname]);
@@ -65,7 +64,6 @@ export function UsersPage(props: IProps) {
 									key={u.nickname}
 									isAuth={isAuth}
 									userData={u}
-									bodyTheme={bodyTheme}
 									setFollow={() => setFollow(u.nickname)}
 									setUnfollow={() => setUnfollow(u.nickname)}
 									followButtonInProgress={followButtonsInProgress.some(

@@ -14,20 +14,21 @@ export default function NavBar() {
 
 	const cOUM = countOfUnreadMessages.length;
 
+	function onClickHandler() {
+		dispatch(setBurger(false));
+	}
+
 	return (
 		<>
 			<aside className={"navbar " + (burger ? "active" : "")}>
 				<div className="navbar__bg"></div>
-				<div
-					className="navbar__blur"
-					onClick={() => dispatch(setBurger(false))}
-				/>
+				<div className="navbar__blur" onClick={() => onClickHandler()} />
 
 				<nav className="navbar__menu">
 					<NavLink
 						draggable="false"
 						to={!authNickname ? "/login" : "/" + authNickname}
-						onClick={() => dispatch(setBurger(false))}
+						onClick={() => onClickHandler()}
 						className={"navbar__link " + (!authNickname ? "notAuth" : "")}
 					>
 						My Profile
@@ -35,7 +36,7 @@ export default function NavBar() {
 					<NavLink
 						draggable="false"
 						to={!authNickname ? "/login" : "/news"}
-						onClick={() => dispatch(setBurger(false))}
+						onClick={() => onClickHandler()}
 						className={"navbar__link " + (!authNickname ? "notAuth" : "")}
 					>
 						News
@@ -43,7 +44,7 @@ export default function NavBar() {
 					<NavLink
 						draggable="false"
 						to={!authNickname ? "/login" : "/messages"}
-						onClick={() => dispatch(setBurger(false))}
+						onClick={() => onClickHandler()}
 						className={
 							"navbar__link messages " + (!authNickname ? "notAuth" : "")
 						}
@@ -58,7 +59,7 @@ export default function NavBar() {
 					<NavLink
 						draggable="false"
 						to={!authNickname ? "/login" : "/friends/" + authNickname}
-						onClick={() => dispatch(setBurger(false))}
+						onClick={() => onClickHandler()}
 						className={"navbar__link " + (!authNickname ? "notAuth" : "")}
 					>
 						My Friends
@@ -66,7 +67,7 @@ export default function NavBar() {
 					<NavLink
 						draggable="false"
 						to="/users"
-						onClick={() => dispatch(setBurger(false))}
+						onClick={() => onClickHandler()}
 						className="navbar__link"
 					>
 						Find users
@@ -74,7 +75,7 @@ export default function NavBar() {
 					<NavLink
 						draggable="false"
 						to="/settings"
-						onClick={() => dispatch(setBurger(false))}
+						onClick={() => onClickHandler()}
 						className="navbar__link"
 					>
 						Settings

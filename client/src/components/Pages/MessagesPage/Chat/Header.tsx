@@ -1,16 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useUserImage } from "../../../../hooks/useUserImage";
 import { UserOnline } from "../../../assets/UserOnline";
 import { useAppSelector } from "./../../../../hooks/useAppSelector";
 
 export function Header() {
 	const { chatWith } = useAppSelector((state) => state.messages);
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 
-	let userImage: string = `/images/user&theme=${bodyTheme}.jpg`;
-	if (!!chatWith.image) {
-		userImage = chatWith.image.split(".jpg")[0] + "&size=small.jpg";
-	}
+	const userImage = useUserImage(chatWith.image, true);
 
 	return (
 		<>

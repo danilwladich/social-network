@@ -92,19 +92,30 @@ export const API = {
 			.then((response) => response.data);
 	},
 	editProfile(
-		image: File | null = null,
 		nickname: string | null = null,
 		country: string | null = null,
 		city: string | null = null
 	) {
+		return instance
+			.put(`profile/edit`, { nickname, country, city })
+			.then((response) => response.data);
+	},
+	editProfileImage(image: File) {
 		const formData = new FormData();
-		image && formData.append("image", image, "avatar.jpg");
-		nickname && formData.append("nickname", nickname);
-		country && formData.append("country", country);
-		city && formData.append("city", city);
+		formData.append("image", image, "avatar.jpg");
 
 		return instance
-			.put(`profile/edit`, formData, {
+			.put(`profile/edit/avatar`, formData, {
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+			.then((response) => response.data);
+	},
+	editProfileCover(cover: File) {
+		const formData = new FormData();
+		formData.append("cover", cover, "cover.jpg");
+
+		return instance
+			.put(`profile/edit/cover`, formData, {
 				headers: { "Content-Type": "multipart/form-data" },
 			})
 			.then((response) => response.data);

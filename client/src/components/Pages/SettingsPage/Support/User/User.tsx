@@ -1,19 +1,16 @@
 import React from "react";
 import { DonationData } from "../../../../../models/Settings/DonationData";
 import { NavLink } from "react-router-dom";
+import { useUserImage } from "../../../../../hooks/useUserImage";
 
 interface IProps {
 	donationData: DonationData;
-	bodyTheme: string;
 }
 
 export function User(props: IProps) {
 	const donationData = props.donationData;
 
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
-	if (!!donationData.image) {
-		userImage = donationData.image.split(".jpg")[0] + "&size=small.jpg";
-	}
+	const userImage = useUserImage(donationData.image, true);
 
 	return (
 		<>

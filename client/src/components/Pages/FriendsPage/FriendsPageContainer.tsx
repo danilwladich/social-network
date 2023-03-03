@@ -5,6 +5,7 @@ import { FriendsPageLoading } from "./FriendsPageLoading";
 import { useAppDispatch } from "./../../../hooks/useAppDispatch";
 import { useAppSelector } from "./../../../hooks/useAppSelector";
 import { fetchFriendsTC } from "../../../redux/reducers/friendsReducer";
+import { useQueryString } from "../../../hooks/useQueryString";
 
 function FriendsPageAPI() {
 	const dispatch = useAppDispatch();
@@ -16,8 +17,7 @@ function FriendsPageAPI() {
 	const category = useParams().category;
 	const location = useLocation().pathname;
 
-	const query = useLocation().search.slice(1).replaceAll("&", " ").split(" ");
-	const search = query.find((q) => q.split("=")[0] === "search")?.split("=")[1];
+	const search = useQueryString("search");
 
 	const { totalCount, pageSize, whoseFriends } = useAppSelector(
 		(state) => state.friends

@@ -17,6 +17,7 @@ const initialState: IProfile = {
 		firstName: "",
 		lastName: "",
 		image: "",
+		cover: "",
 		location: {
 			country: "",
 			city: "",
@@ -370,7 +371,6 @@ export const setUnfollowTC = createAsyncThunk<void, string, { state: IState }>(
 export const editProfileTC = createAsyncThunk<
 	void,
 	{
-		image?: File;
 		nickname?: string;
 		country?: string;
 		city?: string;
@@ -379,13 +379,12 @@ export const editProfileTC = createAsyncThunk<
 >(
 	"profile/editProfileTC",
 	async (
-		{ image, nickname, country, city },
+		{ nickname, country, city },
 		{ dispatch, getState, rejectWithValue }
 	) => {
 		dispatch(setErrorMessage(""));
 		try {
 			const data = (await API.editProfile(
-				image,
 				nickname,
 				country,
 				city
@@ -403,6 +402,54 @@ export const editProfileTC = createAsyncThunk<
 		} catch (e: unknown) {
 			const error = e as AxiosError;
 			dispatch(setErrorMessage("Edit profile: " + error.message));
+			return rejectWithValue(error.message);
+		}
+	}
+);
+
+export const editProfileImageTC = createAsyncThunk<
+	void,
+	File,
+	{ state: IState }
+>(
+	"profile/editProfileTC",
+	async (image, { dispatch, getState, rejectWithValue }) => {
+		dispatch(setErrorMessage(""));
+		try {
+			const data = (await API.editProfileImage(image)) as ServerResponse;
+
+			if (data.success === true) {
+				await dispatch(fetchProfileTC(getState().auth.user.nickname));
+			} else {
+				return rejectWithValue(data.statusText);
+			}
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Edit profile image: " + error.message));
+			return rejectWithValue(error.message);
+		}
+	}
+);
+
+export const editProfileCoverTC = createAsyncThunk<
+	void,
+	File,
+	{ state: IState }
+>(
+	"profile/editProfileTC",
+	async (cover, { dispatch, getState, rejectWithValue }) => {
+		dispatch(setErrorMessage(""));
+		try {
+			const data = (await API.editProfileCover(cover)) as ServerResponse;
+
+			if (data.success === true) {
+				await dispatch(fetchProfileTC(getState().auth.user.nickname));
+			} else {
+				return rejectWithValue(data.statusText);
+			}
+		} catch (e: unknown) {
+			const error = e as AxiosError;
+			dispatch(setErrorMessage("Edit profile cover: " + error.message));
 			return rejectWithValue(error.message);
 		}
 	}

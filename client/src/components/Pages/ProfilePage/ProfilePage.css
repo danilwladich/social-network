@@ -1,3 +1,15 @@
+html[theme=dark] .profile__loading_image {
+  border: 4px solid var(--dark-subsection-bg);
+}
+html[theme=dark] .profile__cover_action {
+  background-color: var(--dark-input-bg);
+}
+html[theme=dark] .profile__user_image img {
+  border: 4px solid var(--dark-subsection-bg);
+}
+html[theme=dark] .profile__user_image_action {
+  border: 4px solid var(--dark-subsection-bg);
+}
 html[theme=dark] .profile__actions > a,
 html[theme=dark] .profile__actions > button {
   color: var(--dark-button-text-color);
@@ -73,6 +85,18 @@ html[theme=dark] .profile__post_actions_delete:hover, html[theme=dark] .profile_
   background-color: var(--dark-button-bg-active);
 }
 
+html[theme=light] .profile__loading_image {
+  border: 4px solid var(--light-subsection-bg);
+}
+html[theme=light] .profile__cover_action {
+  background-color: var(--light-input-bg);
+}
+html[theme=light] .profile__user_image img {
+  border: 4px solid var(--light-subsection-bg);
+}
+html[theme=light] .profile__user_image_action {
+  border: 4px solid var(--light-subsection-bg);
+}
 html[theme=light] .profile__actions > a,
 html[theme=light] .profile__actions > button {
   color: var(--light-button-text-color);
@@ -148,8 +172,14 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   background-color: var(--light-button-bg-active);
 }
 
+.profile__loading_cover {
+  width: calc(100% + 20px);
+  margin: -10px 0px -50px -10px;
+  padding: 0px 0px 27% 0px;
+  border-radius: 0;
+}
 .profile__loading_image {
-  margin: 0px auto 15px auto;
+  margin: 0px auto 10px auto;
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -158,6 +188,7 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   width: 100px;
   height: 100px;
   border-radius: 50% !important;
+  position: relative;
 }
 .profile__loading_info {
   display: -webkit-box;
@@ -242,6 +273,78 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   font-size: 20px;
   text-align: center;
 }
+.profile__cover {
+  margin: -10px -10px -50px;
+  position: relative;
+  padding: 0px 0px 27% 0px;
+  overflow: hidden;
+  -webkit-box-shadow: inset 0px -5px 5px -5px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0px -5px 5px -5px rgba(0, 0, 0, 0.3);
+}
+.profile__cover img {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.profile__cover img.blur {
+  -webkit-filter: blur(35px);
+          filter: blur(35px);
+}
+.profile__cover_action {
+  background-color: transparent;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  padding: 2px;
+  border-radius: 4px;
+}
+.profile__cover_action svg {
+  margin: 0px 0px -3px 0px;
+  width: 25px;
+  height: 25px;
+}
+.profile__cover_modal_close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+.profile__cover_modal_close svg {
+  width: 30px;
+  height: 30px;
+}
+.profile__cover_label {
+  overflow: hidden;
+  border-radius: 4px;
+  position: relative;
+  padding: 0px 0px 100% 0px;
+}
+.profile__cover_label img {
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+}
 .profile__user {
   position: relative;
   text-align: center;
@@ -256,10 +359,10 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
       -ms-flex-align: center;
           align-items: center;
   gap: 10px;
-  gap: 15px;
 }
 .profile__user_image {
   position: relative;
+  border-radius: 50%;
 }
 .profile__user_image img {
   pointer-events: none;
@@ -272,6 +375,58 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 50%;
+}
+.profile__user_image_action {
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+}
+.profile__user_image_action svg {
+  width: 40px;
+  height: 40px;
+}
+.profile__user_image_action.active {
+  opacity: 1;
+  visibility: visible;
+}
+.profile__user_image_modal_close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+.profile__user_image_modal_close svg {
+  width: 30px;
+  height: 30px;
+}
+.profile__user_image_label {
+  position: relative;
+  padding: 0px 0px 100% 0px;
+}
+.profile__user_image_label img {
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
 }
 .profile__user_info {
   display: -webkit-box;
@@ -383,14 +538,10 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 .profile__about_user_name {
   display: none;
 }
-.profile__edit_title {
-  line-height: 1;
-  font-size: 22px;
-}
 .profile__edit_close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   width: 30px;
   height: 30px;
   background-color: transparent;
@@ -398,28 +549,6 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 .profile__edit_close svg {
   width: 30px;
   height: 30px;
-}
-.profile__edit_label.row {
-  opacity: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0;
-}
-.profile__edit_label span {
-  line-height: 50px;
-}
-.profile__edit_label img {
-  pointer-events: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
 }
 .profile__edit_label p {
   margin: -5px 0px 0px 0px;
@@ -710,13 +839,19 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   font-size: 12px;
 }
 @media (min-width: 767px) {
+  .profile__loading_cover {
+    margin: -15px 0px -75px -15px;
+    width: calc(100% + 30px);
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+  }
   .profile__loading_user {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
   }
   .profile__loading_actions {
     gap: 15px;
@@ -725,9 +860,13 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
     width: 175px;
   }
   .profile__loading_info {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    height: 75px;
     -webkit-box-align: start;
         -ms-flex-align: start;
-            align-items: start;
+            align-items: flex-start;
   }
   .profile__loading_image {
     margin: 0px 30px 0px 0px;
@@ -775,7 +914,19 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   .profile__loading_post {
     height: 90px;
   }
+  .profile__cover {
+    margin: -15px -15px -75px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+  .profile__cover img {
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+  }
   .profile__user {
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;

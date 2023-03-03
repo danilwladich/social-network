@@ -15,26 +15,24 @@ export function Search(props: IProps) {
 
 	// go to search page when enter pressed
 	useEffect(() => {
-		window.addEventListener("keydown", keyDownHandler);
-		return () => {
-			window.removeEventListener("keydown", keyDownHandler);
-		};
-		// eslint-disable-next-line
-	}, [searchValue]);
-	function keyDownHandler(e: KeyboardEvent) {
-		if (e.key === "Enter") {
-			navigate(
-				!!searchValue.trim()
-					? "/friends/" +
-							props.nickname +
-							"/" +
-							props.category +
-							"?search=" +
-							searchValue.trim()
-					: "/friends/" + props.nickname + "/" + props.category
-			);
+		function keyDownHandler(e: KeyboardEvent) {
+			if (e.key === "Enter") {
+				navigate(
+					!!searchValue.trim()
+						? "/friends/" +
+								props.nickname +
+								"/" +
+								props.category +
+								"?search=" +
+								searchValue.trim()
+						: "/friends/" + props.nickname + "/" + props.category
+				);
+			}
 		}
-	}
+
+		window.addEventListener("keydown", keyDownHandler);
+		return () => window.removeEventListener("keydown", keyDownHandler);
+	}, [searchValue, navigate, props.category, props.nickname]);
 
 	// set search value
 	function onChangeHandler(v: string) {

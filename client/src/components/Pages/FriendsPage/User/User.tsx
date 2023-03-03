@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useUserImage } from "../../../../hooks/useUserImage";
 import { FriendsUserData } from "../../../../models/Friends/FriendsUserData";
 import { UserOnline } from "../../../assets/UserOnline";
 import { Actions } from "./Actions";
@@ -9,7 +10,6 @@ interface IProps {
 	itsMe: boolean;
 	userData: FriendsUserData;
 	followButtonInProgress: boolean;
-	bodyTheme: string;
 	setFollow: () => void;
 	setUnfollow: () => void;
 }
@@ -17,10 +17,7 @@ interface IProps {
 export function User(props: IProps) {
 	const userData = props.userData;
 
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
-	if (!!userData.image) {
-		userImage = userData.image.split(".jpg")[0] + "&size=small.jpg";
-	}
+	const userImage = useUserImage(userData.image, true);
 
 	let userLocation = "";
 	if (!!userData.location.country) {

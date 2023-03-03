@@ -1,7 +1,7 @@
 import React from "react";
 import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
-import { LikeHeart } from "../../../../assets/LikeHeart";
-import { LoadingCircle } from "../../../../assets/LoadingCircle";
+import { LikeHeart } from "../../../../assets/svg/LikeHeart";
+import { LoadingCircle } from "../../../../assets/svg/LoadingCircle";
 import { useNavigate } from "react-router-dom";
 import { DateToShow } from "../../../../assets/DateToShow";
 import { LikesToShow } from "../../../../assets/LikesToShow";

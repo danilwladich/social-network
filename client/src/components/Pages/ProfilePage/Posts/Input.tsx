@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../../../../hooks/useAppDispatch";
 import { addPostTC } from "../../../../redux/reducers/profileReducer";
-import { Arrow } from "../../../assets/Arrow";
+import { Arrow } from "../../../assets/svg/Arrow";
 // import { ImageIcon } from "../../../assets/ImageIcon";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 
 const newPostDraft: { value: string; height: string } = JSON.parse(
 	sessionStorage.getItem("newPostDraft") || "{}"

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CloseX } from "../../../assets/CloseX";
+import { CloseX } from "../../../assets/svg/CloseX";
 import { DeleteAccountForm } from "./DeleteAccountForm";
 import { useNavigate } from "react-router-dom";
 import { socket } from "./../../../../App";
@@ -54,7 +54,7 @@ export function Account() {
 						></div>
 
 						<div className="settings__delete_modal modal">
-							<h2 className="settings__delete_title title">Delete account</h2>
+							<h3 className="settings__delete_title title">Delete account</h3>
 
 							<button
 								className="settings__delete_close"

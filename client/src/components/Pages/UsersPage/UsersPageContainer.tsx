@@ -1,10 +1,10 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { UsersPage } from "./UsersPage";
 import { UsersPageLoading } from "./UsersPageLoading";
-import { useLocation } from "react-router-dom";
 import { useAppDispatch } from "./../../../hooks/useAppDispatch";
 import { fetchUsersTC } from "../../../redux/reducers/usersReducer";
 import { useAppSelector } from "./../../../hooks/useAppSelector";
+import { useQueryString } from "../../../hooks/useQueryString";
 
 function UsersPageAPI() {
 	const dispatch = useAppDispatch();
@@ -14,8 +14,7 @@ function UsersPageAPI() {
 
 	const { totalCount, pageSize } = useAppSelector((state) => state.users);
 
-	const query = useLocation().search.slice(1).replaceAll("&", " ").split(" ");
-	const search = query.find((q) => q.split("=")[0] === "search")?.split("=")[1];
+	const search = useQueryString("search");
 
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pages: number[] = [];

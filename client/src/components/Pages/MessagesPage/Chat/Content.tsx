@@ -7,7 +7,7 @@ import {
 	deleteMessageTC,
 	readMessages,
 } from "../../../../redux/reducers/messagesReducer";
-import { LoadingCircle } from "../../../assets/LoadingCircle";
+import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 
 interface IProps {
 	isLoading: boolean;

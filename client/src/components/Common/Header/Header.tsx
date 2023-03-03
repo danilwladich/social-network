@@ -4,21 +4,18 @@ import { NavLink } from "react-router-dom";
 import { useAppSelector } from "./../../../hooks/useAppSelector";
 import { useAppDispatch } from "./../../../hooks/useAppDispatch";
 import { setBurger } from "../../../redux/reducers/headerReducer";
+import { useUserImage } from "../../../hooks/useUserImage";
 
 export default function Header() {
 	const dispatch = useAppDispatch();
 
 	const { countOfUnreadMessages } = useAppSelector((state) => state.messages);
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 	const { authProfile, user: authUser } = useAppSelector((state) => state.auth);
 	const { burger } = useAppSelector((state) => state.header);
 
 	const cOUM = countOfUnreadMessages.length;
 
-	let userImage: string = `/images/user&theme=${bodyTheme}.jpg`;
-	if (authProfile.image) {
-		userImage = authProfile.image.split(".jpg")[0] + "&size=small.jpg";
-	}
+	const userImage = useUserImage(authProfile.image, true);
 
 	// logo button scroll to top
 	function scrollToTop() {

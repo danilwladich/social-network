@@ -5,9 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useAppSelector } from "./../../../../hooks/useAppSelector";
 
 export function Support() {
-	const { donationsData, bodyTheme } = useAppSelector(
-		(state) => state.settings
-	);
+	const { donationsData } = useAppSelector((state) => state.settings);
 	const { isAuth } = useAppSelector((state) => state.auth);
 
 	return (
@@ -15,7 +13,7 @@ export function Support() {
 			<div className="settings__item">
 				<h3 className="settings__category">Support project</h3>
 
-				<PayPal />
+				{!!window.PayPal && <PayPal />}
 
 				{!!donationsData.length && (
 					<>
@@ -27,15 +25,11 @@ export function Support() {
 						)}
 
 						<div className="settings__topdonations">
-							<p className="settings__topdonations_title">Top 3 donations</p>
+							<h4 className="settings__topdonations_title">Top 3 donations</h4>
 
 							<div className="settings__topdonations_items">
 								{donationsData.map((donation) => (
-									<User
-										key={donation.nickname}
-										donationData={donation}
-										bodyTheme={bodyTheme}
-									/>
+									<User key={donation.nickname} donationData={donation} />
 								))}
 							</div>
 						</div>

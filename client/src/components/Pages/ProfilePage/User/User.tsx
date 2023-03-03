@@ -1,14 +1,10 @@
 import React from "react";
-import { UserOnline } from "../../../assets/UserOnline";
 import { Helmet } from "react-helmet";
 import { useAppSelector } from "../../../../hooks/useAppSelector";
+import { Image } from "./Image/Image";
 
 export function User() {
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 	const { userData } = useAppSelector((state) => state.profile);
-
-	let userImage: string =
-		userData.image || `/images/user&theme=${bodyTheme}.jpg`;
 
 	let userLocation = "";
 	if (!!userData.location.country) {
@@ -21,18 +17,11 @@ export function User() {
 	return (
 		<>
 			<Helmet>
-				<title>{`${userData.firstName} ${userData.lastName}`}</title>
+				<title>{userData.firstName + " " + userData.lastName}</title>
 			</Helmet>
 
 			<div className="profile__user">
-				<div className="profile__user_image">
-					<img src={userImage} alt={userData.nickname} />
-
-					<UserOnline
-						online={userData.online}
-						className="profile__user_online"
-					/>
-				</div>
+				<Image userData={userData} />
 
 				<div className="profile__user_info">
 					<h2 className="profile__user_name">

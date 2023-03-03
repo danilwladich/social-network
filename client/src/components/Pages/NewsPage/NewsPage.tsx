@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./NewsPage.css";
-import { LoadingCircle } from "../../assets/LoadingCircle";
+import { LoadingCircle } from "../../assets/svg/LoadingCircle";
 import { Post } from "./Post/Post";
 import { NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -18,7 +18,6 @@ export function NewsPage(props: IProps) {
 	const [buttonsInProgress, setButtonsInProgress] = useState<string[]>([]);
 
 	const { postsData } = useAppSelector((state) => state.news);
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 
 	async function likePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
@@ -52,7 +51,6 @@ export function NewsPage(props: IProps) {
 									buttonInProgress={buttonsInProgress.some(
 										(id) => id === post.id
 									)}
-									bodyTheme={bodyTheme}
 									likePost={() => likePost(post.id)}
 									unlikePost={() => unlikePost(post.id)}
 								/>

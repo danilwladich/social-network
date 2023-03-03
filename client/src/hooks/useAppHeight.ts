@@ -10,9 +10,6 @@ appHeight();
 export function useAppHeight() {
 	useEffect(() => {
 		window.addEventListener("resize", appHeight);
-		return () => {
-			window.removeEventListener("resize", appHeight);
-		};
-		// eslint-disable-next-line
+		return () => window.removeEventListener("resize", appHeight);
 	}, []);
 }

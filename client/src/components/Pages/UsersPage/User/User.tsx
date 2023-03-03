@@ -3,12 +3,12 @@ import { NavLink } from "react-router-dom";
 import { UsersUserData } from "../../../../models/Users/UsersUserData";
 import { UserOnline } from "../../../assets/UserOnline";
 import { Actions } from "./Actions";
+import { useUserImage } from "./../../../../hooks/useUserImage";
 
 interface IProps {
 	isAuth: boolean;
 	userData: UsersUserData;
 	followButtonInProgress: boolean;
-	bodyTheme: string;
 	setFollow: () => void;
 	setUnfollow: () => void;
 }
@@ -16,10 +16,7 @@ interface IProps {
 export function User(props: IProps) {
 	const userData = props.userData;
 
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
-	if (!!userData.image) {
-		userImage = userData.image.split(".jpg")[0] + "&size=small.jpg";
-	}
+	const userImage = useUserImage(userData.image, true);
 
 	let userLocation = "";
 	if (!!userData.location.country) {
@@ -39,7 +36,11 @@ export function User(props: IProps) {
 				>
 					<img loading="lazy" src={userImage} alt={userData.nickname} />
 
-					<UserOnline className="users__user_online" online={userData.online} small/>
+					<UserOnline
+						className="users__user_online"
+						online={userData.online}
+						small
+					/>
 				</NavLink>
 
 				<div className="users__user_info">

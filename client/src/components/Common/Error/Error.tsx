@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { socket } from "../../../App";
-import { CloseX } from "../../assets/CloseX";
+import { CloseX } from "../../assets/svg/CloseX";
 import "./Error.css";
 import { useAppDispatch } from "./../../../hooks/useAppDispatch";
 import { setErrorMessage } from "../../../redux/reducers/appReducer";

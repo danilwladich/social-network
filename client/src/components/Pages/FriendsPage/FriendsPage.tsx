@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./FriendsPage.css";
-import { LoadingCircle } from "../../assets/LoadingCircle";
+import { LoadingCircle } from "../../assets/svg/LoadingCircle";
 import { Categories } from "./Categories";
 import { Search } from "./Search";
 import { Title } from "./Title";
@@ -28,7 +28,6 @@ export function FriendsPage(props: IProps) {
 
 	const { whoseFriends, usersData } = useAppSelector((state) => state.friends);
 	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 
 	const category = props.category === "all" ? "friends" : props.category;
 
@@ -63,11 +62,7 @@ export function FriendsPage(props: IProps) {
 
 			<section className="friends">
 				<div className="subsection">
-					<Title
-						whoseFriends={whoseFriends}
-						bodyTheme={bodyTheme}
-						category={category}
-					/>
+					<Title whoseFriends={whoseFriends} category={category} />
 
 					<Categories nickname={whoseFriends.nickname} />
 
@@ -87,7 +82,6 @@ export function FriendsPage(props: IProps) {
 									isAuth={!!authNickname}
 									itsMe={u.nickname === authNickname}
 									userData={u}
-									bodyTheme={bodyTheme}
 									setFollow={() => setFollow(u.nickname)}
 									setUnfollow={() => setUnfollow(u.nickname)}
 									followButtonInProgress={followButtonsInProgress.some(

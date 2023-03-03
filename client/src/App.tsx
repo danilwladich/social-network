@@ -4,7 +4,7 @@ import Header from "./components/Common/Header/Header";
 import NavBar from "./components/Common/NavBar/NavBar";
 import Error from "./components/Common/Error/Error";
 import AppRoutes from "./AppRoutes";
-import { AppLoading } from "./components/assets/AppLoading";
+import { AppLoading } from "./components/assets/svg/AppLoading";
 import * as io from "socket.io-client";
 import { useAppHeight } from "./hooks/useAppHeight";
 import { Helmet } from "react-helmet";

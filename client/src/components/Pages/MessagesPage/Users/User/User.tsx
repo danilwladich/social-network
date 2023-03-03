@@ -4,11 +4,11 @@ import { MessagesUserData } from "../../../../../models/Messages/MessagesUserDat
 import { Actions } from "./Actions";
 import { LastMessage } from "./LastMessage";
 import { UserOnline } from "./../../../../assets/UserOnline";
+import { useUserImage } from "../../../../../hooks/useUserImage";
 
 interface IProps {
 	userData: MessagesUserData;
 	deleteButtonInProgress: boolean;
-	bodyTheme: string;
 	deleteChat: () => void;
 }
 
@@ -16,10 +16,7 @@ export function User(props: IProps) {
 	const userData = props.userData;
 	const lastMessage = userData.lastMessage;
 
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
-	if (!!userData.image) {
-		userImage = userData.image.split(".jpg")[0] + "&size=small.jpg";
-	}
+	const userImage = useUserImage(userData.image, true);
 
 	return (
 		<>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { DeleteBin } from "../../../../assets/DeleteBin";
-import { LoadingCircle } from "../../../../assets/LoadingCircle";
+import { DeleteBin } from "../../../../assets/svg/DeleteBin";
+import { LoadingCircle } from "../../../../assets/svg/LoadingCircle";
 import { SubmitModal } from "../../../../Common/SubmitModal/SubmitModal";
 
 interface IProps {
@@ -11,6 +11,17 @@ interface IProps {
 export function Actions(props: IProps) {
 	const [showActions, setShowActions] = useState(false);
 	const [showSubmitModal, setShowSubmitModal] = useState(false);
+
+	const body = document.querySelector("body");
+	function modalOn() {
+		body?.classList.add("lock");
+		setShowSubmitModal(true);
+	}
+	function modalOff() {
+		body?.classList.remove("lock");
+		setShowSubmitModal(false);
+	}
+
 	return (
 		<>
 			<div
@@ -28,7 +39,7 @@ export function Actions(props: IProps) {
 				</button>
 
 				<button
-					onClick={() => setShowSubmitModal(true)}
+					onClick={() => modalOn()}
 					disabled={props.buttonInProgress}
 					className={
 						"profile__post_actions_delete " + (showActions ? "active" : "")
@@ -43,7 +54,7 @@ export function Actions(props: IProps) {
 						funct={() => props.deletePost()}
 						hideModal={() => {
 							setShowActions(false);
-							setShowSubmitModal(false);
+							modalOff();
 						}}
 					/>
 				)}

@@ -8,7 +8,6 @@ export function Users() {
 	const dispatch = useAppDispatch();
 
 	const { usersData } = useAppSelector((state) => state.messages);
-	const { bodyTheme } = useAppSelector((state) => state.settings);
 
 	const [deleteButtonsInProgress, setDeleteButtonsInProgress] = useState<
 		string[]
@@ -35,7 +34,6 @@ export function Users() {
 							deleteButtonInProgress={deleteButtonsInProgress.some(
 								(nickname) => nickname === user.nickname
 							)}
-							bodyTheme={bodyTheme}
 							deleteChat={() => deleteChat(user.nickname)}
 						/>
 					))}

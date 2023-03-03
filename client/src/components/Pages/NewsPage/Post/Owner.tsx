@@ -1,19 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useUserImage } from "../../../../hooks/useUserImage";
 import { NewsPostOwnerData } from "../../../../models/News/NewsPostOwnerData";
 
 interface IProps {
 	ownerData: NewsPostOwnerData;
-	bodyTheme: string;
 }
 
 export function Owner(props: IProps) {
 	const ownerData = props.ownerData;
 
-	let userImage: string = `/images/user&theme=${props.bodyTheme}.jpg`;
-	if (!!ownerData.image) {
-		userImage = ownerData.image.split(".jpg")[0] + "&size=small.jpg";
-	}
+	const userImage = useUserImage(ownerData.image, true);
 
 	return (
 		<>
