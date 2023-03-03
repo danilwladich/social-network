@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUserImage } from "../../../../../hooks/useUserImage";
 import { ProfileUserData } from "../../../../../models/Profile/ProfileUserData";
 import { EditPen } from "../../../../assets/svg/EditPen";
@@ -32,6 +32,23 @@ export function Image(props: IProps) {
 		body?.classList.remove("lock");
 		setShowModal(false);
 	}
+
+	// modal off on esc press
+	useEffect(() => {
+		function modalOff() {
+			body?.classList.remove("lock");
+			setShowModal(false);
+		}
+
+		function keyDownHandler(e: KeyboardEvent) {
+			if (e.key === "Escape") {
+				modalOff();
+			}
+		}
+
+		window.addEventListener("keydown", keyDownHandler);
+		return () => window.removeEventListener("keydown", keyDownHandler);
+	}, [body]);
 
 	return (
 		<>

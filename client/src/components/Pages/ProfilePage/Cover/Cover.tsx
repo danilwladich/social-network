@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUserImage } from "../../../../hooks/useUserImage";
 import { CloseX } from "../../../assets/svg/CloseX";
 import { useAppSelector } from "./../../../../hooks/useAppSelector";
@@ -26,6 +26,23 @@ export function Cover() {
 		body?.classList.remove("lock");
 		setShowModal(false);
 	}
+
+	// modal off on esc press
+	useEffect(() => {
+		function modalOff() {
+			body?.classList.remove("lock");
+			setShowModal(false);
+		}
+
+		function keyDownHandler(e: KeyboardEvent) {
+			if (e.key === "Escape") {
+				modalOff();
+			}
+		}
+
+		window.addEventListener("keydown", keyDownHandler);
+		return () => window.removeEventListener("keydown", keyDownHandler);
+	}, [body]);
 
 	return (
 		<>

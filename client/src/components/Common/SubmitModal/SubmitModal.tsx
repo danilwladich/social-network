@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./SubmitModal.css";
 
 interface IProps {
@@ -9,6 +9,19 @@ interface IProps {
 
 export function SubmitModal(props: IProps) {
 	const isDelete = props.text.includes("delete");
+
+	// hide modal on esc press
+	useEffect(() => {
+		function keyDownHandler(e: KeyboardEvent) {
+			if (e.key === "Escape") {
+				props.hideModal();
+			}
+		}
+
+		window.addEventListener("keydown", keyDownHandler);
+		return () => window.removeEventListener("keydown", keyDownHandler);
+	}, [props]);
+
 	return (
 		<>
 			<div className="submitModal">
