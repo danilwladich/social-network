@@ -1,9 +1,14 @@
 const fs = require("fs");
 const fse = require("fs-extra");
 
-fs.access("./production/static", (err) => {
+fs.access("./production/static/js", (err) => {
 	if (!err) {
-		fs.rmSync("./production/static", { recursive: true });
+		fs.rmSync("./production/static/js", { recursive: true });
+	}
+});
+fs.access("./production/static/css", (err) => {
+	if (!err) {
+		fs.rmSync("./production/static/css", { recursive: true });
 	}
 });
 
