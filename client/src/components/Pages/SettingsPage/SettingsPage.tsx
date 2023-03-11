@@ -14,9 +14,6 @@ export default function SettingsPage() {
 		<>
 			<Helmet>
 				<title>Settings</title>
-				{!window.PayPal && (
-					<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" />
-				)}
 			</Helmet>
 
 			<section className="settings">

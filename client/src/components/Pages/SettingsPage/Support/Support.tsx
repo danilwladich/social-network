@@ -13,7 +13,7 @@ export function Support() {
 			<div className="settings__item">
 				<h3 className="settings__category">Support project</h3>
 
-				{!!window.PayPal && <PayPal />}
+				<PayPal />
 
 				{!!donationsData.length && (
 					<>

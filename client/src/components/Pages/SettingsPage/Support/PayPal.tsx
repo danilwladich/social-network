@@ -27,10 +27,10 @@ export function PayPal() {
 				if (isAuth) {
 					dispatch(newDonationTC(+params.amt));
 				}
-				alert(`Thank you very much for your support`);
+				alert("Thank you very much for your support");
 			},
 		});
-		button.render(`#payPalButton`);
+		button.render("#payPalButton");
 	}, [isAuth, dispatch]);
 
 	return (
