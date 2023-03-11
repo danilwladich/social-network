@@ -445,6 +445,13 @@ router.put(
 
 			// set new avatar
 			if (image) {
+				if (image.size > 10 * 1024 * 1024) {
+					return res.status(200).json({
+						success: false,
+						statusText: "File size cannot be more than 10mb!",
+					});
+				}
+
 				let path: string;
 				if (process.env.NODE_ENV === "production") {
 					path = `client/production/images/${authID}/avatar`;
@@ -527,6 +534,13 @@ router.put(
 
 			// set new cover
 			if (cover) {
+				if (cover.size > 10 * 1024 * 1024) {
+					return res.status(200).json({
+						success: false,
+						statusText: "File size cannot be more than 10mb!",
+					});
+				}
+
 				let path: string;
 				if (process.env.NODE_ENV === "production") {
 					path = `client/production/images/${authID}/cover`;
