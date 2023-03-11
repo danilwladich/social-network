@@ -26,19 +26,31 @@ export default function Error() {
 		};
 	}, [dispatch]);
 
+	useEffect(() => {
+		if (errorMessage) {
+			const timer = setTimeout(() => {
+				dispatch(setErrorMessage(""));
+			}, errorMessage.length * 200);
+			return () => clearTimeout(timer);
+		}
+	}, [errorMessage, dispatch]);
+
 	return (
 		<>
-			{!!errorMessage && (
-				<div className="error">
-					<span className="error__message">{errorMessage}</span>
-					<button
-						onClick={() => dispatch(setErrorMessage(""))}
-						className="error__close"
-					>
-						<CloseX />
-					</button>
-				</div>
-			)}
+			<div className={"error " + (errorMessage ? "active" : "")}>
+				{!!errorMessage && (
+					<>
+						<span className="error__message">{errorMessage}</span>
+						<button
+							tabIndex={1}
+							onClick={() => dispatch(setErrorMessage(""))}
+							className="error__close"
+						>
+							<CloseX />
+						</button>
+					</>
+				)}
+			</div>
 		</>
 	);
 }
