@@ -57,9 +57,6 @@ html[theme=light] .error {
   height: 35px;
   margin: 0px 0px -3px 0px;
 }
-.error__close path {
-  stroke-width: 1.5;
-}
 @media (min-width: 767px) {
   .error {
     font-size: 22px;

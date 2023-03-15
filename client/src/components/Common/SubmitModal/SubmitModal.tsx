@@ -33,26 +33,29 @@ export function SubmitModal(props: IProps) {
 				<div className="submitModal__modal modal">
 					<div className="submitModal__text">{props.text}</div>
 
-					<button
-						tabIndex={1}
-						onClick={() => {
-							props.hideModal();
-							props.funct();
-						}}
-						className={
-							"submitModal__button " + (isDelete ? "delete" : "submit")
-						}
-					>
-						{isDelete ? "Delete" : "Confirm"}
-					</button>
+					<div className="submitModal__actions">
+						<button
+							tabIndex={1}
+							onClick={() => {
+								props.hideModal();
+								props.funct();
+							}}
+							className={
+								"submitModal__actions_button " +
+								(isDelete ? "delete" : "submit")
+							}
+						>
+							{isDelete ? "Delete" : "Confirm"}
+						</button>
 
-					<button
-						tabIndex={2}
-						onClick={() => props.hideModal()}
-						className="submitModal__button cancel"
-					>
-						Cancel
-					</button>
+						<button
+							tabIndex={2}
+							onClick={() => props.hideModal()}
+							className="submitModal__actions_button cancel"
+						>
+							Cancel
+						</button>
+					</div>
 				</div>
 			</div>
 		</>

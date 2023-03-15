@@ -1,21 +1,23 @@
 html[theme="dark"] {
 	.submitModal {
-		&__button {
-			&.submit {
-				color: var(--dark-button-text-color);
-				background-color: var(--dark-button-bg);
-				&:hover,
-				&:focus {
-					background-color: var(--dark-button-bg-active);
-				}
-			}
-			&.cancel {
-				color: var(--dark-text-color);
-				background-color: var(--dark-main-bg);
-				&:hover,
-				&:focus {
+		&__actions {
+			&_button {
+				&.submit {
 					color: var(--dark-button-text-color);
-					background-color: var(--dark-button-bg-active);
+					background-color: var(--dark-button-bg);
+					&:hover,
+					&:focus {
+						background-color: var(--dark-button-bg-active);
+					}
+				}
+				&.cancel {
+					color: var(--dark-text-color);
+					background-color: var(--dark-main-bg);
+					&:hover,
+					&:focus {
+						color: var(--dark-button-text-color);
+						background-color: var(--dark-button-bg-active);
+					}
 				}
 			}
 		}
@@ -23,22 +25,24 @@ html[theme="dark"] {
 }
 html[theme="light"] {
 	.submitModal {
-		&__button {
-			&.submit {
-				color: var(--light-button-text-color);
-				background-color: var(--light-button-bg);
-				&:hover,
-				&:focus {
-					background-color: var(--light-button-bg-active);
-				}
-			}
-			&.cancel {
-				color: var(--light-text-color);
-				background-color: var(--light-main-bg);
-				&:hover,
-				&:focus {
+		&_button {
+			&_button {
+				&.submit {
 					color: var(--light-button-text-color);
-					background-color: var(--light-button-bg-active);
+					background-color: var(--light-button-bg);
+					&:hover,
+					&:focus {
+						background-color: var(--light-button-bg-active);
+					}
+				}
+				&.cancel {
+					color: var(--light-text-color);
+					background-color: var(--light-main-bg);
+					&:hover,
+					&:focus {
+						color: var(--light-button-text-color);
+						background-color: var(--light-button-bg-active);
+					}
 				}
 			}
 		}
@@ -61,22 +65,26 @@ html[theme="light"] {
 		line-height: 150%;
 		font-size: 18px;
 		text-align: center;
-		margin: 0px 0px 15px 0px;
+		margin: 0px 0px 10px 0px;
 	}
-	&__button {
-		display: block;
-		width: 100%;
-		font-size: 20px;
-		line-height: 150%;
-		background-color: transparent;
-		padding: 10px 50px;
-		border-radius: 4px;
-		transition: all 0.2s;
-		&.delete {
-			background-color: rgba(255, 0, 0, 0.6) !important;
-			color: #fff !important;
-			&:hover {
-				background-color: red !important;
+	&__actions {
+		display: flex;
+		gap: 5px;
+		&_button {
+			display: block;
+			width: 100%;
+			font-size: 18px;
+			line-height: 150%;
+			background-color: transparent;
+			padding: 5px 0px;
+			border-radius: 4px;
+			transition: all 0.2s;
+			&.delete {
+				background-color: rgba(255, 0, 0, 0.6) !important;
+				color: #fff !important;
+				&:hover {
+					background-color: red !important;
+				}
 			}
 		}
 	}
