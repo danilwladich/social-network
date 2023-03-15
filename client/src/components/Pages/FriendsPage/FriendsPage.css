@@ -121,7 +121,6 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
 .friends__loading_search {
   height: 40px;
   width: 100%;
-  margin: 0px 0px 15px 0px;
 }
 .friends__loading_items {
   margin: -10px 0;
@@ -187,8 +186,13 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
       -ms-flex-pack: center;
           justify-content: center;
   gap: 10px;
+  padding: 0px 0px 15px 0px;
 }
 .friends__title_name {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 150%;
+  text-align: center;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 auto;
           flex: 0 1 auto;
@@ -214,7 +218,7 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
 }
 .friends__categories {
   max-width: 600px;
-  margin: 0px auto 15px;
+  margin: 0px auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -235,7 +239,7 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
 .friends__search {
   padding: 5px 10px;
   border-radius: 4px;
-  margin: 0px 0px 15px 0px;
+  margin: 15px 0px 0px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -417,6 +421,9 @@ html[theme=light] .friends__user_actions_follow:hover, html[theme=light] .friend
 @media (min-width: 767px) {
   .friends__title {
     gap: 15px;
+  }
+  .friends__title_name {
+    font-size: 22px;
   }
   .friends__loading_item {
     gap: 15px;

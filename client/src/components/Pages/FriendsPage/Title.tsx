@@ -15,7 +15,7 @@ export function Title(props: IProps) {
 
 	return (
 		<>
-			<div className="friends__title title">
+			<div className="friends__title">
 				<NavLink
 					draggable="false"
 					to={"/" + whoseFriends.nickname}

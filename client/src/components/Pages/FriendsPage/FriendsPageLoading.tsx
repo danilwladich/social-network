@@ -18,6 +18,8 @@ export function FriendsPageLoading() {
 					<div className="loading_element"></div>
 				</div>
 				<div className="friends__loading_search loading_element"></div>
+			</div>
+			<div className="subsection">
 				<div className="friends__loading_items">{loadingElements}</div>
 			</div>
 		</section>

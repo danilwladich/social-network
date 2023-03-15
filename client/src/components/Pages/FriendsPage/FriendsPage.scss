@@ -146,7 +146,6 @@ html[theme="light"] {
 		&_search {
 			height: 40px;
 			width: 100%;
-			margin: 0px 0px 15px 0px;
 		}
 		&_items {
 			margin: -10px 0;
@@ -190,7 +189,12 @@ html[theme="light"] {
 		align-items: center;
 		justify-content: center;
 		gap: 10px;
+		padding: 0px 0px 15px 0px;
 		&_name {
+			font-size: 20px;
+			font-weight: 700;
+			line-height: 150%;
+			text-align: center;
 			flex: 0 1 auto;
 			overflow: hidden;
 			h2 {
@@ -215,7 +219,7 @@ html[theme="light"] {
 	}
 	&__categories {
 		max-width: 600px;
-		margin: 0px auto 15px;
+		margin: 0px auto;
 		display: flex;
 		justify-content: space-around;
 		gap: 10px;
@@ -233,7 +237,7 @@ html[theme="light"] {
 	&__search {
 		padding: 5px 10px;
 		border-radius: 4px;
-		margin: 0px 0px 15px 0px;
+		margin: 15px 0px 0px 0px;
 		display: flex;
 		gap: 10px;
 		height: 40px;
@@ -387,6 +391,9 @@ html[theme="light"] {
 	@media (min-width: 767px) {
 		&__title {
 			gap: 15px;
+			&_name {
+				font-size: 22px;
+			}
 		}
 		&__loading {
 			&_item {

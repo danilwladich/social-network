@@ -73,7 +73,9 @@ export function FriendsPage(props: IProps) {
 							search={props.search}
 						/>
 					)}
+				</div>
 
+				<div className="subsection">
 					{!!usersData.length ? (
 						<div className="friends__items">
 							{usersData.map((u) => (
