@@ -1,10 +1,10 @@
 import React from "react";
 import "./SettingsPage.css";
+import SupportContainer from "./Support/SupportContainer";
 import { General } from "./General/General";
 import { Account } from "./Account/Account";
 import { Copyright } from "./Copyright/Copyright";
 import { Messages } from "./Messages/Messages";
-import SupportContainer from "./Support/SupportContainer";
 import { Helmet } from "react-helmet";
 import { useAppSelector } from "./../../../hooks/useAppSelector";
 
