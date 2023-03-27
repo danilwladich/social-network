@@ -130,12 +130,13 @@ export function Input() {
 		return errors;
 	}
 
+	// TODO bug with form initial value newPostDraft.value
+
 	return (
 		<>
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
-				initialValues={{ post: newPostDraft.value }}
 				render={({
 					handleSubmit,
 					submitting,
