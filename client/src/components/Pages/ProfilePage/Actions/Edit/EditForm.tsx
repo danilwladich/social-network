@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Field, Form } from "react-final-form";
+import { FORM_ERROR } from "final-form";
 import { LoadingCircle } from "../../../../assets/svg/LoadingCircle";
 import { useNavigate } from "react-router-dom";
 import { socket } from "../../../../../App";
@@ -18,9 +19,6 @@ export function EditForm(props: IProps) {
 	const { userData } = useAppSelector((state) => state.profile);
 	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
 
-	const [submitting, setSubmitting] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
-
 	const hostname = window.location.hostname;
 
 	async function onSubmit(v: {
@@ -28,8 +26,6 @@ export function EditForm(props: IProps) {
 		country?: string;
 		city?: string;
 	}) {
-		setSubmitting(true);
-
 		const { meta, payload } = await dispatch(
 			editProfileTC({
 				nickname: v.nickname?.trim(),
@@ -39,16 +35,17 @@ export function EditForm(props: IProps) {
 		);
 
 		if (meta.requestStatus === "rejected") {
-			setErrorMessage(payload as string);
-		} else {
+			return { [FORM_ERROR]: payload as string };
+		}
+
+		if (meta.requestStatus === "fulfilled") {
 			if (v.nickname) {
 				socket.emit("nicknameChanged", { nickname: authNickname });
 				navigate("/" + v.nickname);
 			}
+
 			props.modalOff();
 		}
-
-		setSubmitting(false);
 	}
 	function validate(e: { nickname?: string; country?: string; city?: string }) {
 		const errors: {
@@ -65,16 +62,17 @@ export function EditForm(props: IProps) {
 				if (e.nickname.trim().length > 15) {
 					errors.nickname = "Too long!";
 				}
-				if (
-					e.nickname.trim() === "login" ||
-					e.nickname.trim() === "register" ||
-					e.nickname.trim() === "messages" ||
-					e.nickname.trim() === "friends" ||
-					e.nickname.trim() === "users" ||
-					e.nickname.trim() === "settings" ||
-					e.nickname.trim() === "news" ||
-					e.nickname.trim() === "images"
-				) {
+				const notAllowedNicknames = [
+					"login",
+					"register",
+					"messages",
+					"friends",
+					"users",
+					"settings",
+					"news",
+					"images",
+				];
+				if (notAllowedNicknames.includes(e.nickname.trim())) {
 					errors.nickname = "Not allowed!";
 				}
 				if (e.nickname.trim() === authNickname) {
@@ -124,7 +122,13 @@ export function EditForm(props: IProps) {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
-				render={({ handleSubmit, pristine, values }) => (
+				render={({
+					handleSubmit,
+					submitting,
+					pristine,
+					values,
+					submitError,
+				}) => (
 					<form>
 						<Field
 							name="nickname"
@@ -136,14 +140,14 @@ export function EditForm(props: IProps) {
 									>
 										Nickname
 										<p>
-											{hostname +
-												"/" +
-												(values.nickname
+											{`${hostname}/${
+												values.nickname
 													? values.nickname
 															.trim()
 															.slice(0, 15)
 															.replace(/[^\w]/g, "")
-													: authNickname)}
+													: authNickname
+											}`}
 										</p>
 									</label>
 									<input
@@ -214,9 +218,9 @@ export function EditForm(props: IProps) {
 							)}
 						/>
 
-						{errorMessage && (
+						{submitError && (
 							<div className="profile__edit_error form__error">
-								{errorMessage}
+								{submitError}
 							</div>
 						)}
 

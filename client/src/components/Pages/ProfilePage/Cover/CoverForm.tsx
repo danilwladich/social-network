@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Field, Form } from "react-final-form";
+import { FORM_ERROR } from "final-form";
 import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
 import { editProfileCoverTC } from "../../../../redux/reducers/profileReducer";
+import { blobToData } from "../../../../hooks/useBlobToData";
 
 interface IProps {
 	authNickname: string;
@@ -16,34 +18,34 @@ export function CoverForm(props: IProps) {
 
 	const newCoverRef = useRef<HTMLImageElement>(null);
 
-	const [submitting, setSubmitting] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
+	async function onUpdateProfileCover(e: React.ChangeEvent<HTMLInputElement>) {
+		if (newCoverRef.current !== null && e.target.files?.length) {
+			const file = e.target.files[0];
 
-	function onUpdateProfileCover(e: React.ChangeEvent<HTMLInputElement>) {
-		if (e.target.files?.length && e.target.files[0].size <= 10 * 1024 * 1024) {
-			const reader = new FileReader();
-			reader.readAsDataURL(e.target.files[0]);
-			reader.onload = function (e) {
-				newCoverRef.current!.src = e.target?.result as string;
-			};
+			if (file.type.split("/")[0] === "image") {
+				if (file.size <= 10 * 1024 * 1024) {
+					const result = await blobToData(file);
+					newCoverRef.current.src = result;
+					newCoverRef.current.alt = file.name;
+				}
+			}
 		}
 	}
-	async function onSubmit(v: { cover?: FileList }) {
-		setSubmitting(true);
 
+	async function onSubmit(v: { cover?: FileList }) {
 		if (v.cover) {
 			const cover = v.cover[0];
 
 			const { meta, payload } = await dispatch(editProfileCoverTC(cover));
 
 			if (meta.requestStatus === "rejected") {
-				setErrorMessage(payload as string);
-			} else {
+				return { [FORM_ERROR]: payload as string };
+			}
+
+			if (meta.requestStatus === "fulfilled") {
 				props.modalOff();
 			}
 		}
-
-		setSubmitting(false);
 	}
 	function validate(e: { cover?: FileList }) {
 		const errors: {
@@ -51,8 +53,11 @@ export function CoverForm(props: IProps) {
 		} = {};
 		// cover
 		if (e.cover && e.cover.length) {
+			if (e.cover[0].type.split("/")[0] !== "image") {
+				errors.cover = "Only image allowed";
+			}
 			if (e.cover[0].size > 10 * 1024 * 1024) {
-				errors.cover = "File size cannot be more than 10mb!";
+				errors.cover = "File size cannot be more than 10mb";
 			}
 		}
 
@@ -64,7 +69,13 @@ export function CoverForm(props: IProps) {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
-				render={({ handleSubmit, pristine, values }) => (
+				render={({
+					handleSubmit,
+					submitting,
+					pristine,
+					values,
+					submitError,
+				}) => (
 					<form>
 						<Field
 							name="cover"
@@ -106,9 +117,9 @@ export function CoverForm(props: IProps) {
 							)}
 						/>
 
-						{errorMessage && (
+						{submitError && (
 							<div className="profile__cover_error form__error">
-								{errorMessage}
+								{submitError}
 							</div>
 						)}
 

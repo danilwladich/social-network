@@ -1,0 +1,130 @@
+html[theme="dark"] {
+	.imagesModal {
+		background-color: var(--dark-subsection-bg);
+	}
+}
+html[theme="light"] {
+	.imagesModal {
+		background-color: var(--light-subsection-bg);
+	}
+}
+
+.imagesModal {
+	position: fixed;
+	max-width: 600px;
+	width: 100%;
+	min-width: 280px;
+	@media (min-width: 600px) {
+		border-radius: 4px;
+	}
+	overflow: hidden;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 100;
+	&__image {
+		position: relative;
+		img {
+			max-height: calc(100vh - 20px);
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+	&__close {
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		background-color: transparent;
+		z-index: 2;
+		width: 27px;
+		height: 27px;
+		opacity: 0.7;
+		svg {
+			transition: all 0.2s;
+			path {
+				stroke: #fff !important;
+			}
+		}
+		&:hover,
+		&:focus {
+			opacity: 1;
+			svg {
+				filter: drop-shadow(0px 0px 1px #000);
+			}
+		}
+	}
+
+	.slick-list {
+		overflow: hidden;
+	}
+	.slick-track {
+		display: flex;
+		align-items: center;
+	}
+	.slick-arrow {
+		position: absolute;
+		z-index: 2;
+		top: 50%;
+		font-size: 0;
+		width: 30px;
+		height: 30px;
+		background-color: transparent;
+		transform: translateY(-50%);
+		opacity: 0.7;
+		svg {
+			transition: all 0.2s;
+		}
+		&:hover,
+		&:focus {
+			opacity: 1;
+			svg {
+				filter: drop-shadow(0px 0px 1px #000);
+			}
+		}
+		&.slick-prev {
+			left: 0;
+		}
+		&.slick-next {
+			right: 0;
+		}
+		&.slick-disabled {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+	.slick-dots {
+		display: flex !important;
+		gap: 10px;
+		position: absolute;
+		bottom: 10px;
+		right: 50%;
+		transform: translateX(50%);
+		li {
+			cursor: pointer;
+			position: relative;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			border: 2px solid #fff;
+			opacity: 0.7;
+			&:hover,
+			&:focus {
+				opacity: 1;
+				box-shadow: 0px 0px 1px #000;
+			}
+			&.slick-active {
+				background-color: #fff;
+			}
+			button {
+				font-size: 0;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background-color: transparent;
+			}
+		}
+	}
+}

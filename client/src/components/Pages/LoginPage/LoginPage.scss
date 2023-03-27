@@ -5,6 +5,9 @@ html[theme="dark"] {
 				color: var(--dark-button-bg);
 			}
 		}
+		&__title {
+			border-bottom: 1px solid var(--dark-items-border-bottom);
+		}
 	}
 }
 html[theme="light"] {
@@ -13,6 +16,9 @@ html[theme="light"] {
 			span {
 				color: var(--light-button-bg);
 			}
+		}
+		&__title {
+			border-bottom: 1px solid var(--light-items-border-bottom);
 		}
 	}
 }
@@ -30,6 +36,13 @@ html[theme="light"] {
 		margin: 0 !important;
 		max-width: 260px;
 		overflow: hidden;
+	}
+	&__title {
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 150%;
+		padding: 0px 0px 5px 0px;
+		margin: 0px 0px 10px 0px;
 	}
 	&__link {
 		font-weight: 700;
@@ -81,6 +94,9 @@ html[theme="light"] {
 		}
 		.subsection {
 			max-width: 280px;
+		}
+		&__title {
+			padding: 0px 0px 10px 0px;
 		}
 	}
 }

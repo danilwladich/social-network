@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Field, Form } from "react-final-form";
+import { FORM_ERROR } from "final-form";
 import { LoadingCircle } from "../../../../assets/svg/LoadingCircle";
 import { useAppDispatch } from "./../../../../../hooks/useAppDispatch";
 import { editProfileImageTC } from "../../../../../redux/reducers/profileReducer";
+import { blobToData } from "../../../../../hooks/useBlobToData";
 
 interface IProps {
 	authNickname: string;
@@ -15,34 +17,34 @@ export function ImageForm(props: IProps) {
 
 	const newImageRef = useRef<HTMLImageElement>(null);
 
-	const [submitting, setSubmitting] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
+	async function onUpdateProfileImage(e: React.ChangeEvent<HTMLInputElement>) {
+		if (newImageRef.current !== null && e.target.files?.length) {
+			const file = e.target.files[0];
 
-	function onUpdateProfileImage(e: React.ChangeEvent<HTMLInputElement>) {
-		if (e.target.files?.length && e.target.files[0].size <= 10 * 1024 * 1024) {
-			const reader = new FileReader();
-			reader.readAsDataURL(e.target.files[0]);
-			reader.onload = function (e) {
-				newImageRef.current!.src = e.target?.result as string;
-			};
+			if (file.type.split("/")[0] === "image") {
+				if (file.size <= 10 * 1024 * 1024) {
+					const result = await blobToData(file);
+					newImageRef.current.src = result;
+					newImageRef.current.alt = file.name;
+				}
+			}
 		}
 	}
-	async function onSubmit(v: { image?: FileList }) {
-		setSubmitting(true);
 
+	async function onSubmit(v: { image?: FileList }) {
 		if (v.image) {
 			const image = v.image[0];
 
 			const { meta, payload } = await dispatch(editProfileImageTC(image));
 
 			if (meta.requestStatus === "rejected") {
-				setErrorMessage(payload as string);
-			} else {
+				return { [FORM_ERROR]: payload as string };
+			}
+
+			if (meta.requestStatus === "fulfilled") {
 				props.modalOff();
 			}
 		}
-
-		setSubmitting(false);
 	}
 	function validate(e: { image?: FileList }) {
 		const errors: {
@@ -50,8 +52,11 @@ export function ImageForm(props: IProps) {
 		} = {};
 		// image
 		if (e.image && e.image.length) {
+			if (e.image[0].type.split("/")[0] !== "image") {
+				errors.image = "Only image allowed";
+			}
 			if (e.image[0].size > 10 * 1024 * 1024) {
-				errors.image = "File size cannot be more than 10mb!";
+				errors.image = "File size cannot be more than 10mb";
 			}
 		}
 
@@ -63,7 +68,7 @@ export function ImageForm(props: IProps) {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
-				render={({ handleSubmit, pristine }) => (
+				render={({ handleSubmit, submitting, pristine, submitError }) => (
 					<form>
 						<Field
 							name="image"
@@ -100,9 +105,9 @@ export function ImageForm(props: IProps) {
 							)}
 						/>
 
-						{errorMessage && (
+						{submitError && (
 							<div className="profile__user_image_error form__error">
-								{errorMessage}
+								{submitError}
 							</div>
 						)}
 

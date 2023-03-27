@@ -66,29 +66,41 @@ export const API = {
 	) {
 		return instance
 			.get(
-				`profile/posts/${userNickname}?page=${page}&count=${pageSize}` +
+				`posts/${userNickname}?page=${page}&count=${pageSize}` +
 					(!!lastPostID ? `&lastPostID=${lastPostID}` : "")
 			)
 			.then((response) => response.data);
 	},
-	addPost(post: string) {
+	addPost(post: string | null = null, images: FileList | null = null) {
+		const formData = new FormData();
+
+		if (post) {
+			formData.append("post", post);
+		}
+
+		if (images) {
+			for (let i = 0; i < images.length; i++) {
+				formData.append("images", images[i]);
+			}
+		}
+
 		return instance
-			.post(`profile/posts`, { post })
+			.post(`posts`, formData, {
+				headers: { "Content-Type": "multipart/form-data" },
+			})
 			.then((response) => response.data);
 	},
 	deletePost(postID: string) {
-		return instance
-			.delete(`profile/posts/${postID}`)
-			.then((response) => response.data);
+		return instance.delete(`posts/${postID}`).then((response) => response.data);
 	},
 	likePost(postID: string) {
 		return instance
-			.post(`profile/posts/like/${postID}`)
+			.post(`posts/like/${postID}`)
 			.then((response) => response.data);
 	},
 	unlikePost(postID: string) {
 		return instance
-			.delete(`profile/posts/like/${postID}`)
+			.delete(`posts/like/${postID}`)
 			.then((response) => response.data);
 	},
 	editProfile(

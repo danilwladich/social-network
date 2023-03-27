@@ -4,9 +4,6 @@ html[theme=dark] .profile__loading_image {
 html[theme=dark] .profile__cover_action {
   background-color: var(--dark-input-bg);
 }
-html[theme=dark] .profile__cover_action:focus {
-  border: 1px solid var(--dark-text-color);
-}
 html[theme=dark] .profile__user_image img {
   border: 4px solid var(--dark-subsection-bg);
 }
@@ -93,9 +90,6 @@ html[theme=light] .profile__loading_image {
 }
 html[theme=light] .profile__cover_action {
   background-color: var(--light-input-bg);
-}
-html[theme=light] .profile__cover_action:focus {
-  border: 1px solid var(--light-text-color);
 }
 html[theme=light] .profile__user_image img {
   border: 4px solid var(--light-subsection-bg);
@@ -256,6 +250,7 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 }
 .profile__loading_posts {
   position: relative;
+  margin: 1px 0;
 }
 .profile__loading_posts_input {
   width: calc(100% - 50px);
@@ -264,7 +259,7 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 .profile__loading_posts_send {
   position: absolute;
   top: 7.5px;
-  right: 0;
+  right: 2.5px;
   width: 35px;
   height: 35px;
 }
@@ -312,23 +307,17 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   top: 15px;
   padding: 2px;
   border-radius: 4px;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
 }
 .profile__cover_action svg {
   margin: 0px 0px -3px 0px;
   width: 25px;
   height: 25px;
 }
-.profile__cover_modal_close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-}
-.profile__cover_modal_close svg {
-  width: 30px;
-  height: 30px;
+.profile__cover_action:hover, .profile__cover_action:focus {
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
 }
 .profile__cover_label {
   overflow: hidden;
@@ -353,7 +342,6 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 }
 .profile__user {
   position: relative;
-  text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -400,18 +388,6 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 }
 .profile__user_image_action.active, .profile__user_image_action:focus {
   opacity: 1;
-}
-.profile__user_image_modal_close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-}
-.profile__user_image_modal_close svg {
-  width: 30px;
-  height: 30px;
 }
 .profile__user_image_label {
   position: relative;
@@ -542,18 +518,6 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 .profile__about_user_name {
   display: none;
 }
-.profile__edit_close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-}
-.profile__edit_close svg {
-  width: 30px;
-  height: 30px;
-}
 .profile__edit_label p {
   margin: -5px 0px 0px 0px;
   opacity: 0.5;
@@ -566,9 +530,6 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 }
 .profile__posts_input {
   position: relative;
-}
-.profile__posts_input:not(:last-child) {
-  margin: 0px 0px 10px 0px;
 }
 .profile__posts_input_field {
   border-radius: 4px;
@@ -591,11 +552,6 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   border-radius: 4px;
   background-color: transparent;
 }
-.profile__posts_input_send #addPostArrow {
-  -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-          transform: rotate(90deg);
-}
 .profile__posts_input_send:not(:disabled) {
   opacity: 1;
 }
@@ -604,6 +560,15 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   height: 40px;
 }
 .profile__posts_input_images {
+  display: grid;
+  gap: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.profile__posts_input_images:not(:empty) {
+  margin: 10px -10px 0px;
+}
+.profile__posts_input_images_label {
   cursor: pointer;
   position: absolute;
   right: 61px;
@@ -613,12 +578,139 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   height: 30px;
   opacity: 0.8;
 }
-.profile__posts_input_images:hover, .profile__posts_input_images:focus {
+.profile__posts_input_images_label:hover, .profile__posts_input_images_label:focus {
   opacity: 1;
 }
-.profile__posts_input_images svg {
+.profile__posts_input_images_label svg {
   width: 30px;
   height: 30px;
+}
+.profile__posts_input_images_count {
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: absolute;
+  right: 54px;
+  top: 2px;
+  font-size: 10px;
+  opacity: 0.7;
+}
+.profile__posts_input_images .profile__posts_input_image {
+  z-index: 1;
+  position: relative;
+  padding: 0px 0px 100% 0px;
+}
+.profile__posts_input_images .profile__posts_input_image img {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.profile__posts_input_images .profile__posts_input_image_delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  opacity: 0.8;
+}
+.profile__posts_input_images .profile__posts_input_image_delete:hover, .profile__posts_input_images .profile__posts_input_image_delete:focus {
+  opacity: 1;
+  -webkit-backdrop-filter: blur(40px);
+          backdrop-filter: blur(40px);
+}
+.profile__posts_input_images .profile__posts_input_image_loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.profile__posts_input_images .profile__posts_input_image_loading svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 33.333%;
+  height: 33.333%;
+}
+.profile__posts_input_images.one {
+  grid-template-columns: 1fr minmax(270px, 425px) 1fr;
+  gap: 0;
+}
+.profile__posts_input_images.one .profile__posts_input_image {
+  grid-column: 2/3;
+}
+.profile__posts_input_images.two {
+  grid-template-columns: 1fr 1fr;
+}
+.profile__posts_input_images.three {
+  grid-template-columns: 1.3333fr 0.6777fr;
+}
+.profile__posts_input_images.three .profile__posts_input_image:first-child {
+  grid-row: span 2;
+}
+.profile__posts_input_images.four {
+  grid-template-columns: 1fr 1fr;
+}
+.profile__posts_input_images.five {
+  grid-template-columns: repeat(6, 1fr);
+}
+.profile__posts_input_images.five .profile__posts_input_image {
+  grid-column: span 2;
+}
+.profile__posts_input_images.five .profile__posts_input_image:nth-child(1), .profile__posts_input_images.five .profile__posts_input_image:nth-child(2) {
+  grid-column: span 3;
+}
+.profile__posts_input_images.six {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.profile__posts_input_images.seven {
+  grid-template-columns: repeat(10, 1fr);
+}
+.profile__posts_input_images.seven .profile__posts_input_image {
+  grid-column: span 2;
+}
+.profile__posts_input_images.seven .profile__posts_input_image:nth-child(1), .profile__posts_input_images.seven .profile__posts_input_image:nth-child(2) {
+  grid-column: span 5;
+}
+.profile__posts_input_images.eight {
+  grid-template-columns: repeat(6, 1fr);
+}
+.profile__posts_input_images.eight .profile__posts_input_image:nth-child(1), .profile__posts_input_images.eight .profile__posts_input_image:nth-child(2) {
+  grid-column: span 3;
+}
+.profile__posts_input_images.nine {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.profile__posts_input_images.ten {
+  grid-template-columns: repeat(8, 1fr);
+}
+.profile__posts_input_images.ten .profile__posts_input_image:nth-child(1), .profile__posts_input_images.ten .profile__posts_input_image:nth-child(2) {
+  grid-column: span 4;
+}
+.profile__posts_input_images:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background: var(--post-bg-blur);
+  -webkit-filter: blur(25px);
+          filter: blur(25px);
 }
 .profile__posts_loading {
   margin: 30px 0px 0px 0px;
@@ -658,15 +750,24 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   margin: 0 -10px;
   display: grid;
   gap: 2px;
+  position: relative;
+  overflow: hidden;
 }
 .profile__post_content_images:not(:first-child) {
   margin: 10px -10px 0px;
 }
 .profile__post_content_images .profile__post_content_image {
+  background-color: transparent;
+  z-index: 1;
   position: relative;
   padding: 0px 0px 100% 0px;
 }
 .profile__post_content_images .profile__post_content_image img {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -729,6 +830,16 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 }
 .profile__post_content_images.ten .profile__post_content_image:nth-child(1), .profile__post_content_images.ten .profile__post_content_image:nth-child(2) {
   grid-column: span 4;
+}
+.profile__post_content_images:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background: var(--post-bg-blur);
+  -webkit-filter: blur(25px);
+          filter: blur(25px);
 }
 .profile__post_more {
   background-color: transparent;
@@ -1005,13 +1116,26 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
   .profile__about_user_online {
     display: block;
   }
+  .profile__posts_input_images {
+    border-radius: 4px;
+  }
+  .profile__posts_input_images:not(:empty) {
+    margin: 10px 0px 0px 0px;
+  }
+  .profile__posts_input_image img {
+    border-radius: 4px;
+  }
+  .profile__posts_input_image_delete {
+    border-top-right-radius: 4px;
+  }
   .profile__post_content_images {
+    border-radius: 4px;
     margin: 0;
   }
   .profile__post_content_images:not(:first-child) {
     margin: 10px 0px 0px 0px;
   }
-  .profile__post_content_images .profile__post_content_image img {
+  .profile__post_content_image img {
     border-radius: 4px;
   }
   .profile__post_date {

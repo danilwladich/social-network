@@ -32,6 +32,18 @@ export function Edit() {
 		return () => window.removeEventListener("keydown", keyDownHandler);
 	}, [body]);
 
+	// useEffect(() => {
+	// 	function beforeUnloadHandler(e: BeforeUnloadEvent) {
+	// 		if (showModal) {
+	// 			e.returnValue = `Are you sure you want to leave?`;
+	// 		}
+	// 	}
+
+	// 	window.addEventListener("beforeunload", beforeUnloadHandler);
+	// 	return () =>
+	// 		window.removeEventListener("beforeunload", beforeUnloadHandler);
+	// }, [showModal]);
+
 	return (
 		<>
 			<button onClick={() => modalOn()} className="profile__actions_edit">
@@ -43,14 +55,21 @@ export function Edit() {
 					<div
 						className="profile__edit_bg modal__bg"
 						onClick={() => modalOff()}
-					></div>
+					/>
 
 					<div className="profile__edit_modal modal">
-						<h3 className="profile__edit_title title">Edit profile</h3>
+						<div className="profile__edit_modal_header modal__header">
+							<h3 className="profile__edit_modal_header_title modal__header_title">
+								Edit profile
+							</h3>
 
-						<button className="profile__edit_close" onClick={() => modalOff()}>
-							<CloseX />
-						</button>
+							<button
+								className="profile__edit_close modal__header_close"
+								onClick={() => modalOff()}
+							>
+								<CloseX />
+							</button>
+						</div>
 
 						<EditForm modalOff={modalOff} />
 					</div>

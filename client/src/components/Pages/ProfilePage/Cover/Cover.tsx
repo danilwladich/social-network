@@ -70,16 +70,18 @@ export function Cover() {
 									className="profile__cover_modal__bg modal__bg"
 								/>
 								<div className="profile__cover_modal modal">
-									<h3 className="profile__cover_modal_title title">
-										Update cover
-									</h3>
+									<div className="profile__cover_modal_header modal__header">
+										<h3 className="profile__cover_modal_header_title modal__header_title">
+											Update cover
+										</h3>
 
-									<button
-										className="profile__cover_modal_close "
-										onClick={() => modalOff()}
-									>
-										<CloseX />
-									</button>
+										<button
+											className="profile__cover_modal_header_close  modal__header_close"
+											onClick={() => modalOff()}
+										>
+											<CloseX />
+										</button>
+									</div>
 
 									<CoverForm
 										authNickname={authNickname}

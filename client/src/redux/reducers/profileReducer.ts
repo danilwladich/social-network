@@ -68,11 +68,15 @@ const profileSlice = createSlice({
 		setPostsTotalCount(state, action: PayloadAction<number>) {
 			state.totalCount = action.payload;
 		},
-		addPost(state, action: PayloadAction<{ post: string; id: string }>) {
+		addPost(
+			state,
+			action: PayloadAction<{ post?: string; uploadedImages?: string[]; id: string }>
+		) {
 			const newPost: ProfilePostData = {
 				id: action.payload.id,
 				date: new Date().toString().split(" ").slice(1, 5).join(" "),
 				post: action.payload.post,
+				images: action.payload.uploadedImages,
 				likes: 0,
 				likedMe: false,
 			};
@@ -240,18 +244,25 @@ export const fetchPostsTC = createAsyncThunk<
 	}
 );
 
-export const addPostTC = createAsyncThunk<void, string>(
+export const addPostTC = createAsyncThunk<
+	void,
+	{
+		post?: string;
+		images?: FileList;
+		uploadedImages?: string[];
+	}
+>(
 	"profile/addPostTC",
-	async (post, { dispatch, rejectWithValue }) => {
+	async ({ post, images, uploadedImages }, { dispatch, rejectWithValue }) => {
 		dispatch(setErrorMessage(""));
 		try {
-			const data = (await API.addPost(post)) as ServerResponse<{
+			const data = (await API.addPost(post, images)) as ServerResponse<{
 				postID: string;
 			}>;
 			const items = data.items;
 
 			if (data.success === true) {
-				dispatch(addPost({ post, id: items.postID }));
+				dispatch(addPost({ post, uploadedImages, id: items.postID }));
 			} else {
 				dispatch(setErrorMessage("Add post: " + data.statusText));
 			}

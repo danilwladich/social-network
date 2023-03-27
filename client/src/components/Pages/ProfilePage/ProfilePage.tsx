@@ -22,9 +22,7 @@ export function ProfilePage() {
 					<About />
 				</div>
 
-				<div className="subsection">
-					<PostsContainer />
-				</div>
+				<PostsContainer />
 			</section>
 		</>
 	);

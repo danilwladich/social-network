@@ -16,6 +16,7 @@ interface IProps {
 
 export function Footer(props: IProps) {
 	const navigate = useNavigate();
+
 	const postData = props.postData;
 
 	function onLikeClickHandler() {

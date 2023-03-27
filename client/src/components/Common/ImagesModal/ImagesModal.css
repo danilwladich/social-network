@@ -1,0 +1,145 @@
+html[theme=dark] .imagesModal {
+  background-color: var(--dark-subsection-bg);
+}
+
+html[theme=light] .imagesModal {
+  background-color: var(--light-subsection-bg);
+}
+
+.imagesModal {
+  position: fixed;
+  max-width: 600px;
+  width: 100%;
+  min-width: 280px;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 100;
+}
+@media (min-width: 600px) {
+  .imagesModal {
+    border-radius: 4px;
+  }
+}
+.imagesModal__image {
+  position: relative;
+}
+.imagesModal__image img {
+  max-height: calc(100vh - 20px);
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.imagesModal__close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background-color: transparent;
+  z-index: 2;
+  width: 27px;
+  height: 27px;
+  opacity: 0.7;
+}
+.imagesModal__close svg {
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.imagesModal__close svg path {
+  stroke: #fff !important;
+}
+.imagesModal__close:hover, .imagesModal__close:focus {
+  opacity: 1;
+}
+.imagesModal__close:hover svg, .imagesModal__close:focus svg {
+  -webkit-filter: drop-shadow(0px 0px 1px #000);
+          filter: drop-shadow(0px 0px 1px #000);
+}
+.imagesModal .slick-list {
+  overflow: hidden;
+}
+.imagesModal .slick-track {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.imagesModal .slick-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  font-size: 0;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  opacity: 0.7;
+}
+.imagesModal .slick-arrow svg {
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.imagesModal .slick-arrow:hover, .imagesModal .slick-arrow:focus {
+  opacity: 1;
+}
+.imagesModal .slick-arrow:hover svg, .imagesModal .slick-arrow:focus svg {
+  -webkit-filter: drop-shadow(0px 0px 1px #000);
+          filter: drop-shadow(0px 0px 1px #000);
+}
+.imagesModal .slick-arrow.slick-prev {
+  left: 0;
+}
+.imagesModal .slick-arrow.slick-next {
+  right: 0;
+}
+.imagesModal .slick-arrow.slick-disabled {
+  opacity: 0;
+  visibility: hidden;
+}
+.imagesModal .slick-dots {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  gap: 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+      -ms-transform: translateX(50%);
+          transform: translateX(50%);
+}
+.imagesModal .slick-dots li {
+  cursor: pointer;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  opacity: 0.7;
+}
+.imagesModal .slick-dots li:hover, .imagesModal .slick-dots li:focus {
+  opacity: 1;
+  -webkit-box-shadow: 0px 0px 1px #000;
+          box-shadow: 0px 0px 1px #000;
+}
+.imagesModal .slick-dots li.slick-active {
+  background-color: #fff;
+}
+.imagesModal .slick-dots li button {
+  font-size: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+}

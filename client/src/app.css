@@ -173,6 +173,9 @@ html[theme=dark] .modal {
   background-color: var(--dark-subsection-bg);
   border: 1px solid var(--dark-button-bg);
 }
+html[theme=dark] .modal__header {
+  border-bottom: 1px solid var(--dark-items-border-bottom);
+}
 html[theme=dark] .loading_element {
   background-color: var(--dark-loading-element);
 }
@@ -255,6 +258,9 @@ html[theme=light] .subsection:not(:empty):not(:first-child), html[theme=light] .
 html[theme=light] .modal {
   background-color: var(--light-subsection-bg);
   border: 1px solid var(--light-button-bg);
+}
+html[theme=light] .modal__header {
+  border-bottom: 1px solid var(--light-items-border-bottom);
 }
 html[theme=light] .loading_element {
   background-color: var(--light-loading-element);
@@ -371,21 +377,6 @@ body.lock {
   }
 }
 
-.title {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 150%;
-}
-.title:not(:last-child) {
-  padding: 0px 0px 15px 0px;
-}
-@media (min-width: 767px) {
-  .title {
-    font-size: 22px;
-  }
-}
-
 .modal {
   overflow-x: hidden;
   overflow-y: overlay;
@@ -414,10 +405,37 @@ body.lock {
   -webkit-animation: showModal 0.2s;
           animation: showModal 0.2s;
 }
+.modal__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0px 0px 5px 0px;
+  margin: 0px 0px 10px 0px;
+}
+.modal__header_title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 150%;
+}
+.modal__header_close {
+  width: 27px;
+  height: 27px;
+  background-color: transparent;
+  opacity: 0.7;
+}
+.modal__header_close:hover, .modal__header_close:focus {
+  opacity: 1;
+}
 @media (min-width: 767px) {
   .modal {
     width: 280px;
     padding: 15px;
+  }
+  .modal__header {
+    padding: 0px 0px 10px 0px;
   }
 }
 
@@ -497,7 +515,7 @@ body.lock {
   line-height: 150%;
   cursor: pointer;
   display: block;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0px 0px 5px 0px;
 }
 .form__field {
@@ -516,15 +534,17 @@ body.lock {
   cursor: pointer;
 }
 .form__incorrect {
+  line-height: 150%;
   font-size: 14px;
   color: rgba(255, 0, 0, 0.87) !important;
   position: absolute;
-  bottom: -14px;
+  bottom: -16px;
+  width: 100%;
 }
 .form__button {
   display: block;
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 150%;
   background-color: transparent;
   padding: 10px 50px;
@@ -550,7 +570,7 @@ body.lock {
 }
 .form__button svg {
   height: 26px;
-  margin: -5px 0px -5px 0px;
+  margin: -5px 0px -7px 0px;
 }
 .form__error {
   word-wrap: break-word;

@@ -59,6 +59,7 @@ router.get(
 						id: p._id,
 						date: p.date,
 						post: p.post,
+						images: p.images,
 						likes: p.likes.length,
 						likedMe: p.likes.some((id) => id === authID),
 					};

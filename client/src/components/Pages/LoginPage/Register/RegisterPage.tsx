@@ -31,7 +31,7 @@ export default function RegisterPage() {
 				</div>
 
 				<div className="subsection">
-					<h2 className="login__title title">Register</h2>
+					<h2 className="login__title">Register</h2>
 
 					<RegisterForm />
 

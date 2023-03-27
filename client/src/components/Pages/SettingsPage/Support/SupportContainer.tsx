@@ -15,7 +15,7 @@ function SupportAPI() {
 		dispatch(fetchDonationsTC());
 	}, [dispatch]);
 
-	// PayPal script loaded
+	// check if PayPal script loaded
 	if (!isLoaded && !timer) {
 		setTimer(
 			setInterval(() => {

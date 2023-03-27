@@ -17,7 +17,7 @@ export function Post(props: IProps) {
 	const postData = props.postData;
 	return (
 		<>
-			<div className="profile__post">
+			<div id={postData.id} className="profile__post">
 				<Content postData={postData} />
 
 				<Footer {...props} />

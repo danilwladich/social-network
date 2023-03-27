@@ -83,16 +83,18 @@ export function Image(props: IProps) {
 						className="profile__user_image_modal__bg modal__bg"
 					/>
 					<div className="profile__user_image_modal modal">
-						<h3 className="profile__user_image_modal_title title">
-							Update image
-						</h3>
+						<div className="profile__user_image_modal_header modal__header">
+							<h3 className="profile__user_image_modal_title modal__header_title">
+								Update image
+							</h3>
 
-						<button
-							className="profile__user_image_modal_close "
-							onClick={() => modalOff()}
-						>
-							<CloseX />
-						</button>
+							<button
+								className="profile__user_image_modal_close modal__header_close"
+								onClick={() => modalOff()}
+							>
+								<CloseX />
+							</button>
+						</div>
 
 						<ImageForm
 							authNickname={authNickname}

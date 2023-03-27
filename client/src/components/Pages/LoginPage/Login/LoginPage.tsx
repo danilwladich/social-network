@@ -31,7 +31,7 @@ export default function LoginPage() {
 				</div>
 
 				<div className="subsection">
-					<h2 className="login__title title">Login</h2>
+					<h2 className="login__title">Login</h2>
 
 					<LoginForm />
 

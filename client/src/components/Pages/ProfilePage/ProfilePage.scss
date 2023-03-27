@@ -8,9 +8,6 @@ html[theme="dark"] {
 		&__cover {
 			&_action {
 				background-color: var(--dark-input-bg);
-				&:focus {
-					border: 1px solid var(--dark-text-color);
-				}
 			}
 		}
 		&__user {
@@ -137,9 +134,6 @@ html[theme="light"] {
 		&__cover {
 			&_action {
 				background-color: var(--light-input-bg);
-				&:focus {
-					border: 1px solid var(--light-text-color);
-				}
 			}
 		}
 		&__user {
@@ -325,6 +319,7 @@ html[theme="light"] {
 		}
 		&_posts {
 			position: relative;
+			margin: 1px 0;
 			&_input {
 				width: calc(100% - 50px);
 				height: 50px;
@@ -332,7 +327,7 @@ html[theme="light"] {
 			&_send {
 				position: absolute;
 				top: 7.5px;
-				right: 0;
+				right: 2.5px;
 				width: 35px;
 				height: 35px;
 			}
@@ -380,19 +375,10 @@ html[theme="light"] {
 				width: 25px;
 				height: 25px;
 			}
-		}
-		&_modal {
-			&_close {
-				position: absolute;
-				top: 15px;
-				right: 15px;
-				width: 30px;
-				height: 30px;
-				background-color: transparent;
-				svg {
-					width: 30px;
-					height: 30px;
-				}
+			backdrop-filter: blur(2px);
+			&:hover,
+			&:focus {
+				backdrop-filter: blur(5px);
 			}
 		}
 		&_label {
@@ -415,7 +401,6 @@ html[theme="light"] {
 	}
 	&__user {
 		position: relative;
-		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -448,20 +433,6 @@ html[theme="light"] {
 				&.active,
 				&:focus {
 					opacity: 1;
-				}
-			}
-			&_modal {
-				&_close {
-					position: absolute;
-					top: 15px;
-					right: 15px;
-					width: 30px;
-					height: 30px;
-					background-color: transparent;
-					svg {
-						width: 30px;
-						height: 30px;
-					}
 				}
 			}
 			&_label {
@@ -573,18 +544,6 @@ html[theme="light"] {
 		}
 	}
 	&__edit {
-		&_close {
-			position: absolute;
-			top: 15px;
-			right: 15px;
-			width: 30px;
-			height: 30px;
-			background-color: transparent;
-			svg {
-				width: 30px;
-				height: 30px;
-			}
-		}
 		&_label {
 			p {
 				margin: -5px 0px 0px 0px;
@@ -598,9 +557,6 @@ html[theme="light"] {
 		overflow-wrap: break-word;
 		position: relative;
 		&_input {
-			&:not(:last-child) {
-				margin: 0px 0px 10px 0px;
-			}
 			position: relative;
 			&_field {
 				border-radius: 4px;
@@ -622,9 +578,6 @@ html[theme="light"] {
 				opacity: 0.3;
 				border-radius: 4px;
 				background-color: transparent;
-				#addPostArrow {
-					transform: rotate(90deg);
-				}
 				&:not(:disabled) {
 					opacity: 1;
 				}
@@ -634,21 +587,156 @@ html[theme="light"] {
 				}
 			}
 			&_images {
-				cursor: pointer;
-				position: absolute;
-				right: 61px;
-				top: 10px;
-				background-color: transparent;
-				width: 30px;
-				height: 30px;
-				opacity: 0.8;
-				&:hover,
-				&:focus {
-					opacity: 1;
+				&:not(:empty) {
+					margin: 10px -10px 0px;
 				}
-				svg {
+				&_label {
+					cursor: pointer;
+					position: absolute;
+					right: 61px;
+					top: 10px;
+					background-color: transparent;
 					width: 30px;
 					height: 30px;
+					opacity: 0.8;
+					&:hover,
+					&:focus {
+						opacity: 1;
+					}
+					svg {
+						width: 30px;
+						height: 30px;
+					}
+				}
+				&_count {
+					pointer-events: none;
+					user-select: none;
+					position: absolute;
+					right: 54px;
+					top: 2px;
+					font-size: 10px;
+					opacity: 0.7;
+				}
+				display: grid;
+				gap: 2px;
+				.profile__posts_input_image {
+					z-index: 1;
+					position: relative;
+					padding: 0px 0px 100% 0px;
+					img {
+						user-select: none;
+						pointer-events: none;
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						position: absolute;
+						top: 0;
+						left: 0;
+					}
+					&_delete {
+						position: absolute;
+						right: 0;
+						top: 0;
+						width: 20px;
+						height: 20px;
+						background-color: transparent;
+						backdrop-filter: blur(20px);
+						opacity: 0.8;
+						&:hover,
+						&:focus {
+							opacity: 1;
+							backdrop-filter: blur(40px);
+						}
+					}
+					&_loading {
+						width: 100%;
+						height: 100%;
+						position: absolute;
+						svg {
+							position: absolute;
+							left: 50%;
+							top: 50%;
+							transform: translate(-50%, -50%);
+							width: 33.333%;
+							height: 33.333%;
+						}
+					}
+				}
+				&.one {
+					grid-template-columns: 1fr minmax(270px, 425px) 1fr;
+					gap: 0;
+					.profile__posts_input_image {
+						grid-column: 2/3;
+					}
+				}
+				&.two {
+					grid-template-columns: 1fr 1fr;
+				}
+				&.three {
+					grid-template-columns: 1.3333fr 0.6777fr;
+					.profile__posts_input_image {
+						&:first-child {
+							grid-row: span 2;
+						}
+					}
+				}
+				&.four {
+					grid-template-columns: 1fr 1fr;
+				}
+				&.five {
+					grid-template-columns: repeat(6, 1fr);
+					.profile__posts_input_image {
+						grid-column: span 2;
+						&:nth-child(1),
+						&:nth-child(2) {
+							grid-column: span 3;
+						}
+					}
+				}
+				&.six {
+					grid-template-columns: 1fr 1fr 1fr;
+				}
+				&.seven {
+					grid-template-columns: repeat(10, 1fr);
+					.profile__posts_input_image {
+						grid-column: span 2;
+						&:nth-child(1),
+						&:nth-child(2) {
+							grid-column: span 5;
+						}
+					}
+				}
+				&.eight {
+					grid-template-columns: repeat(6, 1fr);
+					.profile__posts_input_image {
+						&:nth-child(1),
+						&:nth-child(2) {
+							grid-column: span 3;
+						}
+					}
+				}
+				&.nine {
+					grid-template-columns: 1fr 1fr 1fr;
+				}
+				&.ten {
+					grid-template-columns: repeat(8, 1fr);
+					.profile__posts_input_image {
+						&:nth-child(1),
+						&:nth-child(2) {
+							grid-column: span 4;
+						}
+					}
+				}
+				position: relative;
+				overflow: hidden;
+				&:after {
+					content: "";
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					opacity: 0.7;
+					background: var(--post-bg-blur);
+					filter: blur(25px);
 				}
 			}
 		}
@@ -694,9 +782,13 @@ html[theme="light"] {
 				display: grid;
 				gap: 2px;
 				.profile__post_content_image {
+					background-color: transparent;
+					z-index: 1;
 					position: relative;
 					padding: 0px 0px 100% 0px;
 					img {
+						user-select: none;
+						pointer-events: none;
 						width: 100%;
 						height: 100%;
 						object-fit: cover;
@@ -769,6 +861,17 @@ html[theme="light"] {
 							grid-column: span 4;
 						}
 					}
+				}
+				position: relative;
+				overflow: hidden;
+				&:after {
+					content: "";
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					opacity: 0.7;
+					background: var(--post-bg-blur);
+					filter: blur(25px);
 				}
 			}
 		}
@@ -1023,17 +1126,36 @@ html[theme="light"] {
 				}
 			}
 		}
+		&__posts {
+			&_input {
+				&_images {
+					border-radius: 4px;
+					&:not(:empty) {
+						margin: 10px 0px 0px 0px;
+					}
+				}
+				&_image {
+					img {
+						border-radius: 4px;
+					}
+					&_delete {
+						border-top-right-radius: 4px;
+					}
+				}
+			}
+		}
 		&__post {
 			&_content {
 				&_images {
+					border-radius: 4px;
 					margin: 0;
 					&:not(:first-child) {
 						margin: 10px 0px 0px 0px;
 					}
-					.profile__post_content_image {
-						img {
-							border-radius: 4px;
-						}
+				}
+				&_image {
+					img {
+						border-radius: 4px;
 					}
 				}
 			}

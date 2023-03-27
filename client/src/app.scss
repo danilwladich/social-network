@@ -81,6 +81,9 @@ html[theme="dark"] {
 	.modal {
 		background-color: var(--dark-subsection-bg);
 		border: 1px solid var(--dark-button-bg);
+		&__header {
+			border-bottom: 1px solid var(--dark-items-border-bottom);
+		}
 	}
 	.loading_element {
 		background-color: var(--dark-loading-element);
@@ -187,6 +190,9 @@ html[theme="light"] {
 	.modal {
 		background-color: var(--light-subsection-bg);
 		border: 1px solid var(--light-button-bg);
+		&__header {
+			border-bottom: 1px solid var(--light-items-border-bottom);
+		}
 	}
 	.loading_element {
 		background-color: var(--light-loading-element);
@@ -306,19 +312,6 @@ body {
 	}
 }
 
-.title {
-	&:not(:last-child) {
-		padding: 0px 0px 15px 0px;
-	}
-	text-align: center;
-	font-size: 20px;
-	font-weight: 700;
-	line-height: 150%;
-	@media (min-width: 767px) {
-		font-size: 22px;
-	}
-}
-
 .modal {
 	&__bg {
 		position: fixed;
@@ -342,9 +335,33 @@ body {
 	border-radius: 8px;
 	max-height: calc(100vh - 30px);
 	animation: showModal 0.2s;
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		padding: 0px 0px 5px 0px;
+		margin: 0px 0px 10px 0px;
+		&_title {
+			font-size: 18px;
+			font-weight: 700;
+			line-height: 150%;
+		}
+		&_close {
+			width: 27px;
+			height: 27px;
+			background-color: transparent;
+			opacity: 0.7;
+			&:hover,
+			&:focus {
+				opacity: 1;
+			}
+		}
+	}
 	@media (min-width: 767px) {
 		width: 280px;
 		padding: 15px;
+		&__header {
+			padding: 0px 0px 10px 0px;
+		}
 	}
 }
 
@@ -424,7 +441,7 @@ body {
 		line-height: 150%;
 		cursor: pointer;
 		display: block;
-		font-size: 18px;
+		font-size: 16px;
 		padding: 0px 0px 5px 0px;
 	}
 	&__field {
@@ -443,15 +460,17 @@ body {
 		cursor: pointer;
 	}
 	&__incorrect {
+		line-height: 150%;
 		font-size: 14px;
 		color: rgba(255, 0, 0, 0.87) !important;
 		position: absolute;
-		bottom: -14px;
+		bottom: -16px;
+		width: 100%;
 	}
 	&__button {
 		display: block;
 		width: 100%;
-		font-size: 20px;
+		font-size: 18px;
 		line-height: 150%;
 		background-color: transparent;
 		padding: 10px 50px;
@@ -470,7 +489,7 @@ body {
 		}
 		svg {
 			height: 26px;
-			margin: -5px 0px -5px 0px;
+			margin: -5px 0px -7px 0px;
 		}
 	}
 	&__error {

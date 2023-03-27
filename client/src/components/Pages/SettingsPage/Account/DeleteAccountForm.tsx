@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Field, Form } from "react-final-form";
 import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 import { useNavigate } from "react-router-dom";
+import { FORM_ERROR } from "final-form";
 import { socket } from "../../../../App";
 import { useAppDispatch } from "./../../../../hooks/useAppDispatch";
 import { deleteAccountTC } from "../../../../redux/reducers/authReducer";
@@ -11,25 +12,19 @@ export function DeleteAccountForm() {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
-	const [submitting, setSubmitting] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
-
 	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
 
 	async function onSubmit(v: { password: string }) {
-		setSubmitting(true);
 		const { meta, payload } = await dispatch(deleteAccountTC(v.password));
 
 		if (meta.requestStatus === "rejected") {
-			setErrorMessage(payload as string);
+			return { [FORM_ERROR]: payload as string };
 		}
 
 		if (meta.requestStatus === "fulfilled") {
 			navigate("/login");
 			socket.emit("deleteAccount", { nickname: authNickname });
 		}
-
-		setSubmitting(false);
 	}
 	function validate(e: { password: string; confirmPassword: string }) {
 		const errors: { password?: string; confirmPassword?: string } = {};
@@ -56,7 +51,7 @@ export function DeleteAccountForm() {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
-				render={({ handleSubmit, pristine }) => (
+				render={({ handleSubmit, submitting, pristine, submitError }) => (
 					<form>
 						<Field
 							name="password"
@@ -115,9 +110,9 @@ export function DeleteAccountForm() {
 							)}
 						/>
 
-						{errorMessage && (
+						{submitError && (
 							<div className="settings__delete_error form__error">
-								{errorMessage}
+								{submitError}
 							</div>
 						)}
 

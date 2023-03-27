@@ -3,6 +3,7 @@ import "./app.css";
 import Header from "./components/Common/Header/Header";
 import NavBar from "./components/Common/NavBar/NavBar";
 import Error from "./components/Common/Error/Error";
+import ImagesModal from "./components/Common/ImagesModal/ImagesModal";
 import AppRoutes from "./AppRoutes";
 import { AppLoading } from "./components/assets/svg/AppLoading";
 import * as io from "socket.io-client";
@@ -112,6 +113,8 @@ export default function App() {
 
 			<div className="wrapper">
 				<Error />
+
+				<ImagesModal />
 
 				<Header />
 				<main className="content">

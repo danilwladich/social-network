@@ -8,6 +8,7 @@ import appReducer from "./reducers/appReducer";
 import headerReducer from "./reducers/headerReducer";
 import friendsReducer from "./reducers/friendsReducer";
 import newsReducer from "./reducers/newsReducer";
+import imagesReducer from "./reducers/imagesReducer";
 
 export const store = configureStore({
 	reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
 		friends: friendsReducer,
 		users: usersReducer,
 		settings: settingsReducer,
+		images: imagesReducer,
 	},
 });
 

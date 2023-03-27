@@ -92,18 +92,6 @@ html[theme="light"] {
 		}
 	}
 	&__delete {
-		&_close {
-			position: absolute;
-			top: 15px;
-			right: 15px;
-			width: 30px;
-			height: 30px;
-			background-color: transparent;
-			svg {
-				width: 30px;
-				height: 30px;
-			}
-		}
 		&_button {
 			background-color: rgba(255, 0, 0, 0.6) !important;
 			color: #fff !important;

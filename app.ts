@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes";
 import profileRoutes from "./routes/profileRoutes";
+import postsRoutes from "./routes/postsRoutes";
 import newsRoutes from "./routes/newsRoutes";
 import messagesRoutes from "./routes/messagesRoutes";
 import friendsRoutes from "./routes/friendsRoutes";
@@ -23,10 +24,11 @@ if (process.env.NODE_ENV === "development") {
 	app.use(cors({ credentials: true, origin: true }));
 }
 
-app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.json({ limit: "100mb" }));
 app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/posts", postsRoutes);
 app.use("/api/news", newsRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/friends", friendsRoutes);

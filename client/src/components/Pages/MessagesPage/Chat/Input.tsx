@@ -126,7 +126,7 @@ export function Input() {
 					disabled={newMessageValue.trim() === ""}
 					className="messages__chat_input_send"
 				>
-					<Arrow />
+					<Arrow rotate="-90deg" />
 				</button>
 			</div>
 		</>

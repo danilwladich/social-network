@@ -1,9 +1,15 @@
 html[theme=dark] .login__tagline span {
   color: var(--dark-button-bg);
 }
+html[theme=dark] .login__title {
+  border-bottom: 1px solid var(--dark-items-border-bottom);
+}
 
 html[theme=light] .login__tagline span {
   color: var(--light-button-bg);
+}
+html[theme=light] .login__title {
+  border-bottom: 1px solid var(--light-items-border-bottom);
 }
 
 .login {
@@ -23,6 +29,13 @@ html[theme=light] .login__tagline span {
   margin: 0 !important;
   max-width: 260px;
   overflow: hidden;
+}
+.login__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 150%;
+  padding: 0px 0px 5px 0px;
+  margin: 0px 0px 10px 0px;
 }
 .login__link {
   font-weight: 700;
@@ -78,6 +91,9 @@ html[theme=light] .login__tagline span {
   }
   .login .subsection {
     max-width: 280px;
+  }
+  .login__title {
+    padding: 0px 0px 10px 0px;
   }
 }
 

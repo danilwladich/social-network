@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Field, Form } from "react-final-form";
+import { FORM_ERROR } from "final-form";
 import ReCAPTCHA from "react-google-recaptcha";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import { useAppDispatch } from "../../../../hooks/useAppDispatch";
@@ -9,9 +10,6 @@ import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
 
 export function RegisterForm() {
 	const dispatch = useAppDispatch();
-
-	const [errorMessage, setErrorMessage] = useState("");
-	const [submitting, setSubmitting] = useState(false);
 
 	const recaptchaRef = useRef<ReCAPTCHA>(null);
 
@@ -23,13 +21,10 @@ export function RegisterForm() {
 		firstName: string;
 		lastName: string;
 	}) {
-		setSubmitting(true);
-
 		const recaptcha = await recaptchaRef.current?.executeAsync();
 		if (!recaptcha) {
-			setSubmitting(false);
 			recaptchaRef.current?.reset();
-			return () => setErrorMessage("Recaptcha error, try again");
+			return { [FORM_ERROR]: "Recaptcha error, try again" };
 		}
 
 		const { meta, payload } = await dispatch(
@@ -43,18 +38,16 @@ export function RegisterForm() {
 		);
 
 		if (meta.requestStatus === "rejected") {
-			setErrorMessage(payload as string);
-			recaptchaRef.current?.reset();
+			recaptchaRef.current!.reset();
+			return { [FORM_ERROR]: payload as string };
 		}
-
-		setSubmitting(false);
 	}
 	function validate(e: {
-		phoneNumber: string;
-		password: string;
-		confirmPassword: string;
-		firstName: string;
-		lastName: string;
+		phoneNumber?: string;
+		password?: string;
+		confirmPassword?: string;
+		firstName?: string;
+		lastName?: string;
 	}) {
 		const errors: {
 			phoneNumber?: string;
@@ -166,7 +159,7 @@ export function RegisterForm() {
 		<Form
 			onSubmit={onSubmit}
 			validate={validate}
-			render={({ handleSubmit, pristine }) => (
+			render={({ handleSubmit, submitting, pristine, submitError }) => (
 				<form>
 					<Field
 						name="phoneNumber"
@@ -314,8 +307,8 @@ export function RegisterForm() {
 						ref={recaptchaRef}
 					/>
 
-					{errorMessage && (
-						<div className="login__error form__error">{errorMessage}</div>
+					{submitError && (
+						<div className="login__error form__error">{submitError}</div>
 					)}
 
 					<button

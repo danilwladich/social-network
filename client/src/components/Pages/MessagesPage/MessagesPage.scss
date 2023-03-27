@@ -597,7 +597,8 @@ html[theme="light"] {
 					left: 4px;
 				}
 				opacity: 0.8;
-				&:hover {
+				&:hover,
+				&:focus {
 					opacity: 1;
 				}
 			}
@@ -694,7 +695,6 @@ html[theme="light"] {
 				border-radius: 4px;
 				background-color: transparent;
 				svg {
-					transform: rotate(-90deg);
 					width: 40px;
 					height: 40px;
 				}

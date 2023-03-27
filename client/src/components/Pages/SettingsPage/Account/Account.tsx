@@ -68,17 +68,21 @@ export function Account() {
 						<div
 							className="settings__delete_bg modal__bg"
 							onClick={() => modalOff()}
-						></div>
+						/>
 
 						<div className="settings__delete_modal modal">
-							<h3 className="settings__delete_title title">Delete account</h3>
+							<div className="settings__delete_modal_header modal__header">
+								<h3 className="settings__delete_modal_header_title modal__header_title">
+									Delete account
+								</h3>
 
-							<button
-								className="settings__delete_close"
-								onClick={() => modalOff()}
-							>
-								<CloseX />
-							</button>
+								<button
+									className="settings__delete_modal_header_close modal__header_close"
+									onClick={() => modalOff()}
+								>
+									<CloseX />
+								</button>
+							</div>
 
 							<DeleteAccountForm />
 						</div>

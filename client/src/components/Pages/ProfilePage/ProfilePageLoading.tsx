@@ -44,18 +44,19 @@ export function ProfilePageLoading(props: IProps) {
 					</div>
 				</div>
 
-				<div className="subsection">
-					<div className="profile__loading_posts">
-						{props.itsMe && (
-							<>
-								<div className="profile__loading_posts_input loading_element"></div>
-								<div className="profile__loading_posts_send loading_element"></div>
-							</>
-						)}
-						<div className="profile__loading_post loading_element"></div>
-						<div className="profile__loading_post loading_element"></div>
-						<div className="profile__loading_post loading_element"></div>
+				{props.itsMe && (
+					<div className="subsection">
+						<div className="profile__loading_posts">
+							<div className="profile__loading_posts_input loading_element"></div>
+							<div className="profile__loading_posts_send loading_element"></div>
+						</div>
 					</div>
+				)}
+
+				<div className="subsection">
+					<div className="profile__loading_post loading_element"></div>
+					<div className="profile__loading_post loading_element"></div>
+					<div className="profile__loading_post loading_element"></div>
 				</div>
 			</section>
 		</>

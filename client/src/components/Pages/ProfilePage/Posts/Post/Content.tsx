@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
 import Linkify from "react-linkify";
+import { useAppDispatch } from "./../../../../../hooks/useAppDispatch";
+import { setImages } from "../../../../../redux/reducers/imagesReducer";
 
 interface IProps {
 	postData: ProfilePostData;
@@ -24,27 +26,28 @@ function numberToWord(number: number) {
 }
 
 export function Content(props: IProps) {
+	const dispatch = useAppDispatch();
+
 	const [showMore, setShowMore] = useState(false);
+
 	const postData = props.postData;
 
 	// if !showMore show first 75 words or 500 symbols
 	const postToShow = showMore
 		? postData.post
-		: postData.post.split(" ").slice(0, 75).join(" ").slice(0, 500);
+		: postData.post?.split(" ").slice(0, 75).join(" ").slice(0, 500);
 
-	const images: string[] = [];
-
-	const imagesCount = numberToWord(images.length);
+	const images = postData.images;
 
 	return (
 		<>
 			<div className="profile__post_content">
 				{!!postToShow && (
-					<div className="profile__post_content_text">
+					<p className="profile__post_content_text">
 						<Linkify>{postToShow}</Linkify>
 
-						{(postData.post.split(" ").length > 75 ||
-							postData.post.length > 500) &&
+						{(postData.post!.split(" ").length > 75 ||
+							postData.post!.length > 500) &&
 							!showMore && (
 								<>
 									<span> ... </span>
@@ -56,15 +59,34 @@ export function Content(props: IProps) {
 									</button>
 								</>
 							)}
-					</div>
+					</p>
 				)}
 
-				{!!images.length && (
-					<div className={"profile__post_content_images " + imagesCount}>
-						{images.map((i, index) => (
-							<div key={index} className="profile__post_content_image">
-								<img src={i} alt="post" />
-							</div>
+				{!!images?.length && (
+					<div
+						className={
+							"profile__post_content_images " + numberToWord(images.length)
+						}
+						style={
+							images.length === 1
+								? ({
+										"--post-bg-blur": `url(${images[0]})`,
+								  } as React.CSSProperties)
+								: {}
+						}
+					>
+						{images.map((image, index) => (
+							<button
+								key={index}
+								onClick={() => dispatch(setImages({ images, current: index }))}
+								className="profile__post_content_image"
+							>
+								<img
+									loading="lazy"
+									src={image}
+									alt={`${index} post ${postData.id}`}
+								/>
+							</button>
 						))}
 					</div>
 				)}
