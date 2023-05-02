@@ -1,7 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
 const schema = new Schema({
-	date: { type: String, required: true },
+	date: { type: Number, required: true },
 	post: { type: String },
 	images: { type: Array },
 	likes: { type: Array },

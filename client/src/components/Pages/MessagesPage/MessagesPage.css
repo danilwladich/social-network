@@ -454,6 +454,7 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
 }
 .messages__user_lastmessage_status {
   opacity: 0.7;
+  margin: 0px 0px -5px 0px;
 }
 .messages__user_lastmessage_status svg {
   height: 10px;
@@ -802,6 +803,7 @@ html[theme=light] .messages__message_actions_delete:hover, html[theme=light] .me
 }
 .messages__message_status {
   opacity: 0.7;
+  margin: 0px 0px -2px 0px;
 }
 .messages__message_status svg {
   height: 10px;

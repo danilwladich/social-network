@@ -3,8 +3,8 @@ import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
 import { LikeHeart } from "../../../../assets/svg/LikeHeart";
 import { LoadingCircle } from "../../../../assets/svg/LoadingCircle";
 import { useNavigate } from "react-router-dom";
-import { DateToShow } from "../../../../assets/DateToShow";
 import { LikesToShow } from "../../../../assets/LikesToShow";
+import { useDateToShow } from "../../../../../hooks/useDateToShow";
 
 interface IProps {
 	isAuth: boolean;
@@ -18,6 +18,8 @@ export function Footer(props: IProps) {
 	const navigate = useNavigate();
 
 	const postData = props.postData;
+
+	const dateToShow = useDateToShow(postData.date);
 
 	function onLikeClickHandler() {
 		if (!props.isAuth) {
@@ -37,7 +39,6 @@ export function Footer(props: IProps) {
 					onClick={() => onLikeClickHandler()}
 					disabled={props.buttonInProgress}
 					className="profile__post_like"
-					title={postData.likedMe ? "Unlike" : "Like"}
 				>
 					{props.buttonInProgress ? (
 						<LoadingCircle />
@@ -48,9 +49,7 @@ export function Footer(props: IProps) {
 					<LikesToShow likes={postData.likes} />
 				</button>
 
-				<div className="profile__post_date">
-					<DateToShow date={postData.date} />
-				</div>
+				<span className="profile__post_date">{dateToShow}</span>
 			</div>
 		</>
 	);

@@ -8,6 +8,7 @@ import {
 	readMessages,
 } from "../../../../redux/reducers/messagesReducer";
 import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
+import moment from "moment";
 
 interface IProps {
 	isLoading: boolean;
@@ -67,35 +68,23 @@ export function Content(props: IProps) {
 	// return date if message before has a different date or this is the first message
 	function checkMessageDate(index: number) {
 		if (reverseMessageData[index]) {
-			const date = reverseMessageData[index].date.split(" ");
-			const dateBefore = reverseMessageData[index - 1]?.date.split(" ");
+			const date = reverseMessageData[index].date;
+			const dateBefore = reverseMessageData[index - 1]?.date;
 
 			if (
-				(dateBefore &&
-					date.slice(0, 3).join(" ") !== dateBefore.slice(0, 3).join(" ")) ||
+				(dateBefore && moment(date).diff(dateBefore, "days")) ||
 				index === 0
 			) {
-				const dateNow = new Date().toString().split(" ").slice(1, 5);
-
-				const year = date[2];
-				const yearNow = dateNow[2];
-				const month = date[0];
-				const monthNumber =
-					new Date(Date.parse(reverseMessageData[index].date)).getMonth() + 1;
-				const monthNumberNow = new Date().getMonth() + 1;
-				const day = date[1];
-				const dayNow = dateNow[1];
-
 				let dateToShow;
 
-				if (+year === +yearNow) {
-					if (+day === +dayNow && monthNumber === monthNumberNow) {
-						dateToShow = "Today";
-					} else {
-						dateToShow = `${day} ${month}`;
-					}
+				if (moment(date).diff(dateBefore, "years")) {
+					dateToShow = moment(date).format("DD.MM.YYYY");
 				} else {
-					dateToShow = `${day} ${month} ${year}`;
+					if (moment(date).diff(dateBefore, "days")) {
+						dateToShow = moment(date).format("DD.MM");
+					} else {
+						dateToShow = "Today";
+					}
 				}
 
 				return dateToShow;

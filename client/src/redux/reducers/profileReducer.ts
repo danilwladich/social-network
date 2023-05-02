@@ -70,11 +70,15 @@ const profileSlice = createSlice({
 		},
 		addPost(
 			state,
-			action: PayloadAction<{ post?: string; uploadedImages?: string[]; id: string }>
+			action: PayloadAction<{
+				post?: string;
+				uploadedImages?: string[];
+				id: string;
+			}>
 		) {
 			const newPost: ProfilePostData = {
 				id: action.payload.id,
-				date: new Date().toString().split(" ").slice(1, 5).join(" "),
+				date: Date.now(),
 				post: action.payload.post,
 				images: action.payload.uploadedImages,
 				likes: 0,

@@ -2,9 +2,6 @@ import config from "config";
 import { Server } from "socket.io";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import Post from "./models/Post";
-import Message from "./models/Message";
-import User from "./models/User";
 import fs from "fs";
 
 let baseURL: string;
@@ -28,7 +25,7 @@ interface IConnectedSockets {
 	[nickname: string]: {
 		socketID: string;
 		userID: string;
-		online: string | boolean;
+		online: number | boolean;
 	};
 }
 
@@ -159,11 +156,7 @@ export default (io: Server) => {
 		// logout
 		socket.on("logout", (data) => {
 			if (connectedSockets[data.nickname]) {
-				connectedSockets[data.nickname].online = new Date()
-					.toString()
-					.split(" ")
-					.slice(1, 5)
-					.join(" ");
+				connectedSockets[data.nickname].online = Date.now();
 
 				connectedSockets[data.nickname].socketID = "";
 
@@ -184,11 +177,7 @@ export default (io: Server) => {
 		socket.on("disconnect", (data) => {
 			for (let nickname in connectedSockets) {
 				if (connectedSockets[nickname].socketID === socket.id) {
-					connectedSockets[nickname].online = new Date()
-						.toString()
-						.split(" ")
-						.slice(1, 5)
-						.join(" ");
+					connectedSockets[nickname].online = Date.now();
 
 					connectedSockets[nickname].socketID = "";
 
@@ -199,87 +188,6 @@ export default (io: Server) => {
 		});
 	});
 };
-
-// deleting non active users
-const exceptions = [
-	"63da5c970bb0d00c8cb47e14",
-	"63da6f93b02443e6f67fc7a3",
-	"63da8dbbb02443e6f67fceff",
-	"63dc51586c2af2d76b387d86",
-	"63da6bf4a9f9b3d6aad0a5ff",
-	"63f3d7990ae0cab7532b4508",
-	"63da69dda9f9b3d6aad0a44b",
-];
-
-const secondsToCheck = 86400;
-
-setInterval(async () => {
-	for (let nickname in connectedSockets) {
-		const online = connectedSockets[nickname].online;
-		if (
-			typeof online === "string" &&
-			!exceptions.includes(connectedSockets[nickname].userID)
-		) {
-			const day = new Date(Date.parse(online)).getDate();
-			const dayNow = new Date().getDate();
-			const daysInMonth = new Date(
-				new Date(Date.parse(online)).getFullYear(),
-				new Date(Date.parse(online)).getMonth() + 1,
-				0
-			).getDate();
-			const month = new Date(Date.parse(online)).getMonth() + 1;
-			const monthNow = new Date(Date.parse(online)).getMonth() + 1;
-			if (
-				dayNow - day >= 28 ||
-				(month !== monthNow && daysInMonth - day + dayNow >= 28)
-			) {
-				const userID = connectedSockets[nickname].userID;
-
-				const user = await User.findById(userID);
-				if (!user) {
-					return;
-				}
-
-				// delete all images
-				let path: string;
-				if (process.env.NODE_ENV === "production") {
-					path = "client/production/images/" + userID;
-				} else {
-					path = "client/public/images/" + userID;
-				}
-
-				fs.rmSync(path, {
-					recursive: true,
-					force: true,
-				});
-
-				await Post.deleteMany({ owner: userID });
-
-				await Post.updateMany({ likes: userID }, { $pull: { likes: userID } });
-
-				await Message.deleteMany({ $or: [{ from: userID }, { to: userID }] });
-
-				await User.updateMany(
-					{ _id: { $in: user.following } },
-					{ $pull: { followers: userID } }
-				);
-
-				await User.updateMany(
-					{ _id: { $in: user.followers } },
-					{ $pull: { following: userID } }
-				);
-
-				await Message.deleteMany({ $or: [{ from: userID }, { to: userID }] });
-
-				await user.deleteOne();
-
-				delete connectedSockets[nickname];
-
-				writeConnectedSockets();
-			}
-		}
-	}
-}, secondsToCheck);
 
 // async function deleteAllUsers() {
 // 	const users = await User.find().sort({ _id: 1 });

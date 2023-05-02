@@ -127,7 +127,7 @@ router.post(
 
 			// create new post
 			const newPost = new Post({
-				date: new Date().toString().split(" ").slice(1, 5).join(" "),
+				date: Date.now(),
 				owner: authID,
 			});
 			const postID = newPost._id;

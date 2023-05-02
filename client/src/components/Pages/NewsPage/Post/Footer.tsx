@@ -1,9 +1,9 @@
 import React from "react";
 import { NewsPostData } from "../../../../models/News/NewsPostData";
-import { DateToShow } from "../../../assets/DateToShow";
 import { LikeHeart } from "../../../assets/svg/LikeHeart";
 import { LikesToShow } from "../../../assets/LikesToShow";
 import { LoadingCircle } from "../../../assets/svg/LoadingCircle";
+import { useDateToShow } from "../../../../hooks/useDateToShow";
 
 interface IProps {
 	postData: NewsPostData;
@@ -14,6 +14,9 @@ interface IProps {
 
 export function Footer(props: IProps) {
 	const postData = props.postData;
+
+	const dateToShow = useDateToShow(postData.date);
+
 	return (
 		<>
 			<div className="news__post_info">
@@ -23,7 +26,6 @@ export function Footer(props: IProps) {
 					}
 					disabled={props.buttonInProgress}
 					className="news__post_like"
-					title={postData.likedMe ? "Unlike" : "Like"}
 				>
 					{props.buttonInProgress ? (
 						<LoadingCircle />
@@ -34,9 +36,7 @@ export function Footer(props: IProps) {
 					<LikesToShow likes={postData.likes} />
 				</button>
 
-				<div className="news__post_date">
-					<DateToShow date={postData.date} />
-				</div>
+				<span className="news__post_date">{dateToShow}</span>
 			</div>
 		</>
 	);

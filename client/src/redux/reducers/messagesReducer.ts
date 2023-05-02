@@ -66,7 +66,7 @@ const messagesSlice = createSlice({
 			const newMessage = {
 				id: action.payload.id,
 				message: action.payload.message,
-				date: new Date().toString().split(" ").slice(1, 5).join(" "),
+				date: Date.now(),
 				out: true,
 				read: false,
 			};

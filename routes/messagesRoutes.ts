@@ -194,7 +194,7 @@ router.post(
 			const toUserID = toUser._id;
 
 			const newMessage = new Message({
-				date: new Date().toString().split(" ").slice(1, 5).join(" "),
+				date: Date.now(),
 				message: message,
 				from: fromUserID,
 				to: toUserID,

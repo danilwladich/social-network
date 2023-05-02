@@ -1,6 +1,7 @@
 import React from "react";
 import { MessagesMessageData } from "../../../../../models/Messages/MessagesMessageData";
 import { CheckMark } from "../../../../assets/svg/CheckMark";
+import moment from "moment";
 
 interface IProps {
 	messageData: MessagesMessageData;
@@ -8,7 +9,6 @@ interface IProps {
 
 export function Footer(props: IProps) {
 	const messageData = props.messageData;
-	const time = messageData.date.split(" ")[3].slice(0, 5);
 	return (
 		<>
 			<div className="messages__message_footer">
@@ -29,7 +29,9 @@ export function Footer(props: IProps) {
 					</div>
 				)}
 
-				<span className="messages__message_date">{time}</span>
+				<span className="messages__message_date">
+					{moment(messageData.date).format("HH:mm")}
+				</span>
 			</div>
 		</>
 	);
