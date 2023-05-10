@@ -77,10 +77,10 @@ export function Content(props: IProps) {
 			) {
 				let dateToShow;
 
-				if (moment(date).diff(dateBefore, "years")) {
+				if (moment().diff(date, "years")) {
 					dateToShow = moment(date).format("DD.MM.YYYY");
 				} else {
-					if (moment(date).diff(dateBefore, "days")) {
+					if (moment().diff(date, "days")) {
 						dateToShow = moment(date).format("DD.MM");
 					} else {
 						dateToShow = "Today";
