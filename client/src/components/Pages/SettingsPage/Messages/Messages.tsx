@@ -14,7 +14,14 @@ export function Messages() {
 			<div className="settings__item">
 				<h3 className="settings__category">Messages</h3>
 				<button onClick={() => onClickHandler()} className="settings__button">
-					Read messages: <strong>{readMessages ? "on" : " off"}</strong>
+					Read messages{" "}
+					<div
+						className={
+							"settings__button_toggleswitch " + (readMessages ? "active" : "")
+						}
+					>
+						<div className="settings__button_toggleswitch_slider" />
+					</div>
 				</button>
 			</div>
 		</>

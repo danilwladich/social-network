@@ -88,6 +88,43 @@ html[theme=light] .settings__button:hover, html[theme=light] .settings__button:f
 .settings__button:hover path {
   stroke-width: 2px;
 }
+.settings__button_toggleswitch {
+  margin: 0px 0px 0px 3px;
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 15px;
+}
+.settings__button_toggleswitch_slider {
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f00000;
+}
+.settings__button_toggleswitch_slider:before {
+  content: "";
+  border-radius: 50%;
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  left: 2.5px;
+  bottom: 2.5px;
+  background-color: #fff;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+}
+.settings__button_toggleswitch.active .settings__button_toggleswitch_slider {
+  background-color: #00d200;
+}
+.settings__button_toggleswitch.active .settings__button_toggleswitch_slider:before {
+  -webkit-transform: translateX(15px);
+      -ms-transform: translateX(15px);
+          transform: translateX(15px);
+}
 .settings__button.disabled {
   opacity: 0.7;
 }

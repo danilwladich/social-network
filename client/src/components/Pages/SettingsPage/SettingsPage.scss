@@ -87,6 +87,41 @@ html[theme="light"] {
 				stroke-width: 2px;
 			}
 		}
+		&_toggleswitch {
+			margin: 0px 0px 0px 3px;
+			position: relative;
+			display: inline-block;
+			width: 30px;
+			height: 15px;
+			&_slider {
+				border-radius: 20px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: #f00000;
+				&:before {
+					content: "";
+					border-radius: 50%;
+					position: absolute;
+					height: 10px;
+					width: 10px;
+					left: 2.5px;
+					bottom: 2.5px;
+					background-color: #fff;
+					transition: 0.2s;
+				}
+			}
+			&.active {
+				.settings__button_toggleswitch_slider {
+					background-color: #00d200;
+					&:before {
+						transform: translateX(15px);
+					}
+				}
+			}
+		}
 		&.disabled {
 			opacity: 0.7;
 		}
