@@ -19,6 +19,9 @@ html[theme=light] .navbar__link:hover, html[theme=light] .navbar__link:focus {
 html[theme=light] .navbar__bg {
   background-color: var(--light-main-bg);
 }
+html[theme=light] .navbar .countOfUnreadMessages {
+  color: #fff;
+}
 
 .navbar__menu {
   display: -webkit-box;

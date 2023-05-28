@@ -33,6 +33,9 @@ html[theme=light] .header__burger:before, html[theme=light] .header__burger:afte
 html[theme=light] .header__burger span {
   background-color: var(--light-button-bg-active);
 }
+html[theme=light] .header .countOfUnreadMessages {
+  color: #fff;
+}
 
 .header {
   -webkit-transition: background-color 0s;

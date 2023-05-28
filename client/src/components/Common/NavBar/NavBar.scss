@@ -31,6 +31,9 @@ html[theme="light"] {
 		&__bg {
 			background-color: var(--light-main-bg);
 		}
+		.countOfUnreadMessages {
+			color: #fff;
+		}
 	}
 }
 
