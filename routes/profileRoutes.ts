@@ -228,7 +228,8 @@ router.put(
 			// set new avatar
 			if (image) {
 				// check mimetype
-				if (image.mimetype.split("/")[0] === "image") {
+				console.log(image.mimetype)
+				if (image.mimetype.split("/")[0] !== "image") {
 					return res.status(200).json({
 						success: false,
 						statusText: "Only image allowed",
@@ -326,7 +327,7 @@ router.put(
 			// set new cover
 			if (cover) {
 				// check mimetype
-				if (cover.mimetype.split("/")[0] === "image") {
+				if (cover.mimetype.split("/")[0] !== "image") {
 					return res.status(200).json({
 						success: false,
 						statusText: "Only image allowed",
