@@ -389,6 +389,15 @@ html[theme=light] .profile__post_actions_delete:hover, html[theme=light] .profil
 .profile__user_image_action.active, .profile__user_image_action:focus {
   opacity: 1;
 }
+.profile__user_image_setimage {
+  background-color: transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
 .profile__user_image_label {
   position: relative;
   padding: 0px 0px 100% 0px;

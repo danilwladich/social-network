@@ -6,12 +6,16 @@ import { UserOnline } from "../../../../assets/UserOnline";
 import { useAppSelector } from "../../../../../hooks/useAppSelector";
 import { CloseX } from "../../../../assets/svg/CloseX";
 import { ImageForm } from "./ImageForm";
+import { useAppDispatch } from "../../../../../hooks/useAppDispatch";
+import { setImages } from "../../../../../redux/reducers/imagesReducer";
 
 interface IProps {
 	userData: ProfileUserData;
 }
 
 export function Image(props: IProps) {
+	const dispatch = useAppDispatch();
+
 	const [showAction, setShowAction] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
@@ -58,7 +62,6 @@ export function Image(props: IProps) {
 				className="profile__user_image"
 			>
 				<img src={userImage} alt={userData.nickname} />
-
 				{isOwner && (
 					<button
 						onClick={() => {
@@ -71,6 +74,15 @@ export function Image(props: IProps) {
 					>
 						<EditPen />
 					</button>
+				)}
+
+				{!isOwner && (
+					<button
+						onClick={() =>
+							dispatch(setImages({ images: userImage.split(" ") }))
+						}
+						className="profile__user_image_setimage"
+					/>
 				)}
 
 				<UserOnline online={userData.online} className="profile__user_online" />

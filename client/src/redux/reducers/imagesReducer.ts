@@ -16,11 +16,11 @@ const imagesSlice = createSlice({
 			state,
 			action: PayloadAction<{
 				images: string[];
-				current: number;
+				current?: number;
 			}>
 		) => {
 			state.images = action.payload.images;
-			state.current = action.payload.current;
+			state.current = action.payload.current || 0;
 		},
 	},
 });
