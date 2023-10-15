@@ -130,8 +130,6 @@ export function Input() {
 		return errors;
 	}
 
-	// TODO bug with form initial value newPostDraft.value
-
 	return (
 		<>
 			<Form
@@ -155,7 +153,11 @@ export function Input() {
 									onKeyDown={(e) =>
 										onKeyDownHandler(
 											e,
-											!(values.post?.trim() || values.images?.files?.length) ||
+											!(
+												values.post?.trim() ||
+												newPostDraft.value ||
+												values.images?.files?.length
+											) ||
 												values.images?.isLoading ||
 												submitting ||
 												hasValidationErrors,
@@ -166,7 +168,7 @@ export function Input() {
 										onUpdateNewPostValue(e.target.value);
 										onChange(e);
 									}}
-									value={value.slice(0, 15000)}
+									value={value.slice(0, 15000) || newPostDraft.value}
 									placeholder="Write new post..."
 									style={{ height: inputHeight }}
 									className="profile__posts_input_field"
@@ -180,7 +182,11 @@ export function Input() {
 							type="submit"
 							onClick={(e) => handleSubmit(e)?.then(form.reset)}
 							disabled={
-								!(values.post?.trim() || values.images?.files?.length) ||
+								!(
+									values.post?.trim() ||
+									newPostDraft.value ||
+									values.images?.files?.length
+								) ||
 								values.images?.isLoading ||
 								submitting ||
 								hasValidationErrors

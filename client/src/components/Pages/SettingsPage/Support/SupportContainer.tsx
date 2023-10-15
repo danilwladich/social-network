@@ -19,7 +19,6 @@ function SupportAPI() {
 	if (!isLoaded && !timer) {
 		setTimer(
 			setInterval(() => {
-				console.log(1);
 				if (!!window.PayPal) {
 					setIsLoaded(!!window.PayPal);
 				}

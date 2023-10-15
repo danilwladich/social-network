@@ -1,33 +1,39 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useUserImage } from "../../../../hooks/useUserImage";
-import { NewsPostOwnerData } from "../../../../models/News/NewsPostOwnerData";
+import { NewsPostData } from "../../../../models/News/NewsPostData";
+import { useDateToShow } from "../../../../hooks/useDateToShow";
 
 interface IProps {
-	ownerData: NewsPostOwnerData;
+	postData: NewsPostData;
 }
 
-export function Owner(props: IProps) {
-	const ownerData = props.ownerData;
+export function Header(props: IProps) {
+	const postData = props.postData;
+	const ownerData = postData.owner;
+
+	const dateToShow = useDateToShow(postData.date);
 
 	const userImage = useUserImage(ownerData.image, true);
 
 	return (
 		<>
-			<div className="news__post_owner">
+			<div className="news__post_header">
 				<NavLink
 					draggable="false"
 					to={"/" + ownerData.nickname}
-					className="news__post_owner_image"
+					className="news__post_header_image"
 				>
 					<img loading="lazy" src={userImage} alt={ownerData.nickname} />
 				</NavLink>
 
-				<div className="news__post_owner_name">
+				<div className="news__post_header_name">
 					<NavLink draggable="false" to={"/" + ownerData.nickname}>
 						{ownerData.firstName + " " + ownerData.lastName}
 					</NavLink>
 				</div>
+
+				<span className="news__post_header_date">{dateToShow}</span>
 			</div>
 		</>
 	);

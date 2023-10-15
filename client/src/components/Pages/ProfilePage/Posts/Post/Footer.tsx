@@ -34,11 +34,11 @@ export function Footer(props: IProps) {
 
 	return (
 		<>
-			<div className="profile__post_info">
+			<div className="profile__post_footer_info">
 				<button
 					onClick={() => onLikeClickHandler()}
 					disabled={props.buttonInProgress}
-					className="profile__post_like"
+					className="profile__post_footer_like"
 				>
 					{props.buttonInProgress ? (
 						<LoadingCircle />
@@ -48,8 +48,6 @@ export function Footer(props: IProps) {
 
 					<LikesToShow likes={postData.likes} />
 				</button>
-
-				<span className="profile__post_date">{dateToShow}</span>
 			</div>
 		</>
 	);

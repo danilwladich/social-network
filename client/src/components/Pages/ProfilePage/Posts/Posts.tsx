@@ -15,10 +15,7 @@ export function Posts() {
 	const [buttonsInProgress, setButtonsInProgress] = useState<string[]>([]);
 
 	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
-	const { nickname: userNickname, firstName } = useAppSelector(
-		(state) => state.profile.userData
-	);
-	const { postsData } = useAppSelector((state) => state.profile);
+	const { postsData, userData } = useAppSelector((state) => state.profile);
 
 	async function likePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
@@ -39,7 +36,7 @@ export function Posts() {
 	return (
 		<>
 			<div className="subsection">
-				{authNickname === userNickname && <Input />}
+				{authNickname === userData.nickname && <Input />}
 			</div>
 
 			<div className="subsection">
@@ -49,10 +46,11 @@ export function Posts() {
 							<Post
 								key={p.id}
 								isAuth={!!authNickname}
+								userData={userData}
 								postData={p}
 								buttonInProgress={buttonsInProgress.some((id) => id === p.id)}
 								deletePost={
-									authNickname === userNickname
+									authNickname === userData.nickname
 										? () => deletePost(p.id)
 										: undefined
 								}
@@ -64,7 +62,7 @@ export function Posts() {
 				) : (
 					<div className="profile__posts_no_posts">
 						{`${
-							authNickname === userNickname ? "You" : firstName
+							authNickname === userData.nickname ? "You" : userData.firstName
 						} have not added any post yet`}
 					</div>
 				)}

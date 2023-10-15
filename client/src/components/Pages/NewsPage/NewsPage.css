@@ -1,6 +1,3 @@
-html[theme=dark] .news__post:not(:last-child) {
-  border-bottom: var(--dark-items-border-bottom) solid 1px;
-}
 html[theme=dark] .news__post_more {
   color: var(--dark-button-text-color);
   background-color: var(--dark-button-bg);
@@ -8,20 +5,17 @@ html[theme=dark] .news__post_more {
 html[theme=dark] .news__post_more:hover, html[theme=dark] .news__post_more:focus {
   background-color: var(--dark-button-bg-active);
 }
-html[theme=dark] .news__post_like {
+html[theme=dark] .news__post_footer_like {
   color: var(--light-button-text-color);
   background-color: var(--dark-button-bg);
 }
-html[theme=dark] .news__post_like * {
+html[theme=dark] .news__post_footer_like * {
   color: var(--light-button-text-color);
 }
-html[theme=dark] .news__post_like:hover, html[theme=dark] .news__post_like:focus {
+html[theme=dark] .news__post_footer_like:hover, html[theme=dark] .news__post_footer_like:focus {
   background-color: var(--dark-button-bg-active);
 }
 
-html[theme=light] .news__post:not(:last-child) {
-  border-bottom: var(--light-items-border-bottom) solid 1px;
-}
 html[theme=light] .news__post_more {
   color: var(--dark-button-text-color);
   background-color: var(--light-button-bg);
@@ -29,21 +23,21 @@ html[theme=light] .news__post_more {
 html[theme=light] .news__post_more:hover, html[theme=light] .news__post_more:focus {
   background-color: var(--light-button-bg-active);
 }
-html[theme=light] .news__post_like {
+html[theme=light] .news__post_footer_like {
   color: var(--light-button-text-color);
   background-color: var(--light-button-bg);
 }
-html[theme=light] .news__post_like * {
+html[theme=light] .news__post_footer_like * {
   color: var(--light-button-text-color);
 }
-html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:focus {
+html[theme=light] .news__post_footer_like:hover, html[theme=light] .news__post_footer_like:focus {
   background-color: var(--light-button-bg-active);
 }
 
 .news__loading_post:not(:first-child) {
   margin: 15px 0px 0px 0px;
 }
-.news__loading_post_owner {
+.news__loading_post_header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -53,14 +47,14 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   gap: 10px;
   margin: 0px 0px 10px 0px;
 }
-.news__loading_post_owner_image {
+.news__loading_post_header_image {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 35px;
           flex: 0 0 35px;
   border-radius: 50%;
   height: 35px;
 }
-.news__loading_post_owner_name {
+.news__loading_post_header_name {
   height: 16px;
   width: 125px;
 }
@@ -96,7 +90,7 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
 .news__post {
   padding: 10px 0;
 }
-.news__post_owner {
+.news__post_header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -106,12 +100,12 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   gap: 10px;
   margin: 0px 0px 10px 0px;
 }
-.news__post_owner_image {
+.news__post_header_image {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 35px;
           flex: 0 0 35px;
 }
-.news__post_owner_image img {
+.news__post_header_image img {
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -121,7 +115,7 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   width: 100%;
   height: 35px;
 }
-.news__post_owner_name {
+.news__post_header_name {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
@@ -129,12 +123,16 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
-  -o-text-overflow: ellipsis;
-     text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
-.news__post_owner_name a {
+.news__post_header_name a {
   display: block;
   line-height: 35px;
+}
+.news__post_header_date {
+  line-height: 150%;
+  opacity: 0.7;
+  font-size: 12px;
 }
 .news__post_content_text {
   line-height: 150%;
@@ -247,7 +245,7 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   font-size: 16px;
   border-radius: 4px;
 }
-.news__post_info {
+.news__post_footer_info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -260,59 +258,57 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   margin: 10px 0px 0px 0px;
   position: relative;
 }
-.news__post_like {
+.news__post_footer_like {
   border-radius: 4px;
   padding: 5px 10px;
   background-color: transparent;
   font-size: 16px;
 }
-.news__post_like svg {
+.news__post_footer_like svg {
   margin: 0px 5px -4px 0px;
   width: 18px;
   height: 18px;
 }
-.news__post_date {
-  line-height: 150%;
-  opacity: 0.7;
-  font-size: 12px;
-}
 @media (min-width: 767px) {
-  .news__loading_post_owner {
+  .news__loading_post_header {
     gap: 15px;
   }
-  .news__loading_post_owner_image {
+  .news__loading_post_header_image {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 45px;
             flex: 0 0 45px;
     height: 45px;
   }
-  .news__loading_post_owner_name {
+  .news__loading_post_header_name {
     height: 18px;
     width: 150px;
   }
   .news__loading_post_content {
     height: 90px;
   }
-  .news__post_owner {
+  .news__post_header {
     gap: 15px;
   }
-  .news__post_owner_image {
+  .news__post_header_image {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 45px;
             flex: 0 0 45px;
   }
-  .news__post_owner_image img {
+  .news__post_header_image img {
     height: 45px;
   }
-  .news__post_owner_name {
+  .news__post_header_name {
     font-size: 16px;
   }
-  .news__post_owner_name a {
+  .news__post_header_name a {
     display: inline-block;
     line-height: 150%;
   }
-  .news__post_owner_name a:hover, .news__post_owner_name a:focus {
+  .news__post_header_name a:hover, .news__post_header_name a:focus {
     text-decoration: underline;
+  }
+  .news__post_header_date {
+    font-size: 14px;
   }
   .news__post_content_images {
     border-radius: 4px;
@@ -323,8 +319,5 @@ html[theme=light] .news__post_like:hover, html[theme=light] .news__post_like:foc
   }
   .news__post_content_image img {
     border-radius: 4px;
-  }
-  .news__post_date {
-    font-size: 14px;
   }
 }

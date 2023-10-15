@@ -15,17 +15,15 @@ interface IProps {
 export function Footer(props: IProps) {
 	const postData = props.postData;
 
-	const dateToShow = useDateToShow(postData.date);
-
 	return (
 		<>
-			<div className="news__post_info">
+			<div className="news__post_footer_info">
 				<button
 					onClick={() =>
 						postData.likedMe ? props.unlikePost() : props.likePost()
 					}
 					disabled={props.buttonInProgress}
-					className="news__post_like"
+					className="news__post_footer_like"
 				>
 					{props.buttonInProgress ? (
 						<LoadingCircle />
@@ -35,8 +33,6 @@ export function Footer(props: IProps) {
 
 					<LikesToShow likes={postData.likes} />
 				</button>
-
-				<span className="news__post_date">{dateToShow}</span>
 			</div>
 		</>
 	);
