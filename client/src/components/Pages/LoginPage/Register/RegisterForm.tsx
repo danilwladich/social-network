@@ -177,7 +177,9 @@ export function RegisterForm() {
 									tabIndex={1}
 									type="tel"
 									autoComplete="tel"
-									className="login__input form__input"
+									className={`login__input form__input ${
+										meta.touched && meta.error ? "form__input_error" : ""
+									}`}
 									placeholder="+1 XXX XXX XXX"
 								/>
 								{meta.touched && meta.error && (
@@ -204,7 +206,9 @@ export function RegisterForm() {
 									id="passwordInput"
 									tabIndex={2}
 									type="password"
-									className="login__input form__input"
+									className={`login__input form__input ${
+										meta.touched && meta.error ? "form__input_error" : ""
+									}`}
 									placeholder="New password"
 								/>
 								{meta.touched && meta.error && (
@@ -231,7 +235,9 @@ export function RegisterForm() {
 									id="confirmPasswordInput"
 									tabIndex={3}
 									type="password"
-									className="login__input form__input"
+									className={`login__input form__input ${
+										meta.touched && meta.error ? "form__input_error" : ""
+									}`}
 									placeholder="Confirm password"
 								/>
 								{meta.touched && meta.error && (
@@ -259,7 +265,9 @@ export function RegisterForm() {
 									tabIndex={4}
 									type="text"
 									autoComplete="given-name"
-									className="login__input form__input"
+									className={`login__input form__input ${
+										meta.touched && meta.error ? "form__input_error" : ""
+									}`}
 									placeholder="First name"
 								/>
 								{meta.touched && meta.error && (
@@ -287,7 +295,9 @@ export function RegisterForm() {
 									tabIndex={5}
 									type="text"
 									autoComplete="family-name"
-									className="login__input form__input"
+									className={`login__input form__input ${
+										meta.touched && meta.error ? "form__input_error" : ""
+									}`}
 									placeholder="Last name"
 								/>
 								{meta.touched && meta.error && (

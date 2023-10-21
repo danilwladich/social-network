@@ -70,7 +70,9 @@ export function DeleteAccountForm() {
 										autoComplete="off"
 										tabIndex={1}
 										type="password"
-										className="settings__delete_input form__input"
+										className={`settings__delete_input form__input ${
+											meta.touched && meta.error ? "form__input_error" : ""
+										}`}
 										placeholder="Password"
 									/>
 									{meta.touched && meta.error && (
@@ -98,7 +100,9 @@ export function DeleteAccountForm() {
 										tabIndex={2}
 										autoComplete="off"
 										type="password"
-										className="settings__delete_input form__input"
+										className={`settings__delete_input form__input ${
+											meta.touched && meta.error ? "form__input_error" : ""
+										}`}
 										placeholder="Confirm password"
 									/>
 									{meta.touched && meta.error && (

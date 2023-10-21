@@ -445,8 +445,7 @@ body {
 		padding: 0px 0px 5px 0px;
 	}
 	&__field {
-		padding: 0px 0px 5px 0px;
-		margin: 0px 0px 25px 0px;
+		margin: 0px 0px 10px 0px;
 		position: relative;
 	}
 	&__input {
@@ -458,14 +457,18 @@ body {
 		background-color: transparent;
 		max-width: 250px;
 		cursor: pointer;
+		transition: margin 0s, padding 0s, border 0s;
+		margin: 2px 0;
+		&_error {
+			margin: 0px;
+			padding: 5px 8px;
+			border: 2px solid rgba(255, 0, 0, 0.87);
+		}
 	}
 	&__incorrect {
 		line-height: 150%;
 		font-size: 14px;
 		color: rgba(255, 0, 0, 0.87) !important;
-		position: absolute;
-		bottom: -16px;
-		width: 100%;
 	}
 	&__button {
 		display: block;
@@ -474,13 +477,14 @@ body {
 		line-height: 150%;
 		background-color: transparent;
 		padding: 10px 50px;
-		margin: 30px 0px 0px 0px;
+		margin: 20px 0px 0px 0px;
 		border-radius: 4px;
 		opacity: 0.7;
 		transition: all 0.2s;
 		&:not(:disabled) {
 			opacity: 1;
-			&:hover {
+			&:hover,
+			&:focus {
 				transform: translate(-1px, -1px);
 			}
 			&:active {
@@ -493,6 +497,8 @@ body {
 		}
 	}
 	&__error {
+		font-size: 14px;
+		line-height: 150%;
 		word-wrap: break-word;
 		text-align: center;
 		color: rgba(255, 0, 0, 0.87) !important;

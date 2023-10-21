@@ -102,7 +102,6 @@ h6 {
 * {
   -webkit-transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
   transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
-  -o-transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
   transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s;
   transition: background-color 0.2s, color 0.2s, stroke 0.2s, stroke-width 0.2s, fill 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s, visibility 0.2s, -webkit-box-shadow 0.2s;
 }
@@ -311,7 +310,6 @@ html {
 
 body {
   -webkit-transition: background-color 0s;
-  -o-transition: background-color 0s;
   transition: background-color 0s;
   overflow-x: hidden;
   overflow-y: overlay;
@@ -358,7 +356,6 @@ body.lock {
 
 .subsection:not(:empty) {
   -webkit-transition: background-color 0s;
-  -o-transition: background-color 0s;
   transition: background-color 0s;
   position: relative;
   padding: 10px 0px;
@@ -519,8 +516,7 @@ body.lock {
   padding: 0px 0px 5px 0px;
 }
 .form__field {
-  padding: 0px 0px 5px 0px;
-  margin: 0px 0px 25px 0px;
+  margin: 0px 0px 10px 0px;
   position: relative;
 }
 .form__input {
@@ -532,14 +528,19 @@ body.lock {
   background-color: transparent;
   max-width: 250px;
   cursor: pointer;
+  -webkit-transition: margin 0s, padding 0s, border 0s;
+  transition: margin 0s, padding 0s, border 0s;
+  margin: 2px 0;
+}
+.form__input_error {
+  margin: 0px;
+  padding: 5px 8px;
+  border: 2px solid rgba(255, 0, 0, 0.87);
 }
 .form__incorrect {
   line-height: 150%;
   font-size: 14px;
   color: rgba(255, 0, 0, 0.87) !important;
-  position: absolute;
-  bottom: -16px;
-  width: 100%;
 }
 .form__button {
   display: block;
@@ -548,17 +549,16 @@ body.lock {
   line-height: 150%;
   background-color: transparent;
   padding: 10px 50px;
-  margin: 30px 0px 0px 0px;
+  margin: 20px 0px 0px 0px;
   border-radius: 4px;
   opacity: 0.7;
   -webkit-transition: all 0.2s;
-  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 .form__button:not(:disabled) {
   opacity: 1;
 }
-.form__button:not(:disabled):hover {
+.form__button:not(:disabled):hover, .form__button:not(:disabled):focus {
   -webkit-transform: translate(-1px, -1px);
       -ms-transform: translate(-1px, -1px);
           transform: translate(-1px, -1px);
@@ -573,6 +573,8 @@ body.lock {
   margin: -5px 0px -7px 0px;
 }
 .form__error {
+  font-size: 14px;
+  line-height: 150%;
   word-wrap: break-word;
   text-align: center;
   color: rgba(255, 0, 0, 0.87) !important;

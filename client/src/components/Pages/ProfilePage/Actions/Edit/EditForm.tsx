@@ -154,7 +154,9 @@ export function EditForm(props: IProps) {
 										{...input}
 										id="idInput"
 										type="text"
-										className="profile__edit_input form__input"
+										className={`profile__edit_input form__input ${
+											meta.touched && meta.error ? "form__input_error" : ""
+										}`}
 										placeholder="New nickname"
 									/>
 									{meta.touched && meta.error && (
@@ -180,7 +182,9 @@ export function EditForm(props: IProps) {
 										{...input}
 										id="countryInput"
 										type="text"
-										className="profile__edit_input form__input"
+										className={`profile__edit_input form__input ${
+											meta.touched && meta.error ? "form__input_error" : ""
+										}`}
 										placeholder={userData.location.country || "Your country"}
 									/>
 									{meta.touched && meta.error && (
@@ -206,7 +210,9 @@ export function EditForm(props: IProps) {
 										{...input}
 										id="cityInput"
 										type="text"
-										className="profile__edit_input form__input"
+										className={`profile__edit_input form__input ${
+											meta.touched && meta.error ? "form__input_error" : ""
+										}`}
 										placeholder={userData.location.city || "Your city"}
 									/>
 									{meta.touched && meta.error && (

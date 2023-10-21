@@ -70,7 +70,9 @@ export function LoginForm() {
 									tabIndex={1}
 									type="tel"
 									autoComplete="tel"
-									className="login__input form__input"
+									className={`login__input form__input ${
+										meta.touched && meta.error ? "form__input_error" : ""
+									}`}
 									placeholder="+1 XXX XXX XXX"
 								/>
 								{meta.touched && meta.error && (
@@ -97,7 +99,9 @@ export function LoginForm() {
 									id="passwordInput"
 									tabIndex={2}
 									type="password"
-									className="login__input form__input"
+									className={`login__input form__input ${
+										meta.touched && meta.error ? "form__input_error" : ""
+									}`}
 									placeholder="Your password"
 								/>
 								{meta.touched && meta.error && (
