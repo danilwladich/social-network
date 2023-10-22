@@ -25,7 +25,7 @@ html[theme="dark"] {
 }
 html[theme="light"] {
 	.submitModal {
-		&_button {
+		&__actions {
 			&_button {
 				&.submit {
 					color: var(--light-button-text-color);
