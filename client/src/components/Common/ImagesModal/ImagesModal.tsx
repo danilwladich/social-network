@@ -36,11 +36,23 @@ export default function ImagesModal() {
 		const body = document.querySelector("body");
 
 		if (images.length) {
-			body?.classList.add("lock")
+			body?.classList.add("lock");
 		} else {
 			body?.classList.remove("lock");
 		}
-	}, [images])
+	}, [images]);
+
+	// hide modal on esc press
+	useEffect(() => {
+		function keyDownHandler(e: KeyboardEvent) {
+			if (e.key === "Escape") {
+				onClose();
+			}
+		}
+
+		window.addEventListener("keydown", keyDownHandler);
+		return () => window.removeEventListener("keydown", keyDownHandler);
+	}, [images]);
 
 	function onClose() {
 		dispatch(setImages({ images: [], current: 0 }));
