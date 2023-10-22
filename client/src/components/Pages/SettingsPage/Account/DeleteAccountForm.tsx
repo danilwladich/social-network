@@ -66,7 +66,6 @@ export function DeleteAccountForm() {
 									<input
 										{...input}
 										id="passwordInput"
-										autoFocus
 										autoComplete="off"
 										tabIndex={1}
 										type="password"
