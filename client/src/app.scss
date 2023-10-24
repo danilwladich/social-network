@@ -273,6 +273,9 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: var(--app-height);
+	@media (min-width: 767px) {
+		width: calc(100vw - 7px);
+	}
 }
 
 .content {

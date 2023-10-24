@@ -330,6 +330,11 @@ body.lock {
           flex-direction: column;
   min-height: var(--app-height);
 }
+@media (min-width: 767px) {
+  .wrapper {
+    width: calc(100vw - 7px);
+  }
+}
 
 .content {
   position: relative;

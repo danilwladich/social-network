@@ -31,39 +31,41 @@ export default function Header() {
 	return (
 		<>
 			<header className="header">
-				<nav className="header__menu">
-					{!!authUser.nickname ? (
-						<NavLink
-							to={"/" + authUser.nickname}
-							draggable="false"
-							className="header__user"
-						>
-							<img src={userImage} alt={authUser.nickname} />
-						</NavLink>
-					) : (
-						<NavLink to="/login" draggable="false" className="header__login">
-							login
-						</NavLink>
-					)}
-
-					<button onClick={() => scrollToTop()} className="header__logo">
-						<h1>
-							Blo<span>xx</span>
-						</h1>
-					</button>
-
-					<button
-						onClick={() => dispatch(setBurger(!burger))}
-						className={"header__burger " + (burger ? "active" : "")}
-					>
-						{!burger && !!cOUM && (
-							<div className="countOfUnreadMessages">
-								{!!cOUM && (cOUM > 9 ? "9+" : cOUM)}
-							</div>
+				<div className="header__container">
+					<nav className="header__menu">
+						{!!authUser.nickname ? (
+							<NavLink
+								to={"/" + authUser.nickname}
+								draggable="false"
+								className="header__user"
+							>
+								<img src={userImage} alt={authUser.nickname} />
+							</NavLink>
+						) : (
+							<NavLink to="/login" draggable="false" className="header__login">
+								login
+							</NavLink>
 						)}
-						<span></span>
-					</button>
-				</nav>
+
+						<button onClick={() => scrollToTop()} className="header__logo">
+							<h1>
+								Blo<span>xx</span>
+							</h1>
+						</button>
+
+						<button
+							onClick={() => dispatch(setBurger(!burger))}
+							className={"header__burger " + (burger ? "active" : "")}
+						>
+							{!burger && !!cOUM && (
+								<div className="countOfUnreadMessages">
+									{!!cOUM && (cOUM > 9 ? "9+" : cOUM)}
+								</div>
+							)}
+							<span></span>
+						</button>
+					</nav>
+				</div>
 			</header>
 		</>
 	);
