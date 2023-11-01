@@ -17,20 +17,17 @@ export function NewsPage(props: IProps) {
 
 	const [buttonsInProgress, setButtonsInProgress] = useState<string[]>([]);
 
+	const { nickname: authNickname } = useAppSelector((state) => state.auth.user);
 	const { postsData } = useAppSelector((state) => state.news);
 
 	async function likePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
-
 		await dispatch(likePostTC(postID));
-
 		setButtonsInProgress((prev) => prev.filter((id) => id !== postID));
 	}
 	async function unlikePost(postID: string) {
 		setButtonsInProgress((prev) => [...prev, postID]);
-
 		await dispatch(unlikePostTC(postID));
-
 		setButtonsInProgress((prev) => prev.filter((id) => id !== postID));
 	}
 
@@ -47,6 +44,7 @@ export function NewsPage(props: IProps) {
 							postsData.map((post) => (
 								<Post
 									key={post.id}
+									isAuth={!!authNickname}
 									postData={post}
 									buttonInProgress={buttonsInProgress.some(
 										(id) => id === post.id

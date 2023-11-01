@@ -1,0 +1,78 @@
+html[theme=dark] .actionsModal__actions_button {
+  color: var(--dark-button-text-color);
+  background-color: var(--dark-button-bg);
+}
+html[theme=dark] .actionsModal__actions_button:hover, html[theme=dark] .actionsModal__actions_button:focus {
+  background-color: var(--dark-button-bg-active);
+}
+html[theme=dark] .actionsModal__actions_button.cancel {
+  color: var(--dark-text-color);
+  background-color: var(--dark-main-bg);
+}
+html[theme=dark] .actionsModal__actions_button.cancel:hover, html[theme=dark] .actionsModal__actions_button.cancel:focus {
+  color: var(--dark-button-text-color);
+  background-color: var(--dark-button-bg-active);
+}
+
+html[theme=light] .actionsModal__actions_button {
+  color: var(--light-button-text-color);
+  background-color: var(--light-button-bg);
+}
+html[theme=light] .actionsModal__actions_button:hover, html[theme=light] .actionsModal__actions_button:focus {
+  background-color: var(--light-button-bg-active);
+}
+html[theme=light] .actionsModal__actions_button.cancel {
+  color: var(--light-text-color);
+  background-color: var(--light-main-bg);
+}
+html[theme=light] .actionsModal__actions_button.cancel:hover, html[theme=light] .actionsModal__actions_button.cancel:focus {
+  color: var(--light-button-text-color);
+  background-color: var(--light-button-bg-active);
+}
+
+.actionsModal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  left: 0;
+  top: 0;
+}
+.actionsModal__modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+.actionsModal__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+.actionsModal__actions_button {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  line-height: 150%;
+  background-color: transparent;
+  padding: 5px 0px;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.actionsModal__actions_button.delete {
+  background-color: rgba(255, 0, 0, 0.6) !important;
+  color: #fff !important;
+}
+.actionsModal__actions_button.delete:hover {
+  background-color: red !important;
+}

@@ -1,0 +1,82 @@
+html[theme="dark"] {
+	.actionsModal {
+		&__actions {
+			&_button {
+				color: var(--dark-button-text-color);
+				background-color: var(--dark-button-bg);
+				&:hover,
+				&:focus {
+					background-color: var(--dark-button-bg-active);
+				}
+				&.cancel {
+					color: var(--dark-text-color);
+					background-color: var(--dark-main-bg);
+					&:hover,
+					&:focus {
+						color: var(--dark-button-text-color);
+						background-color: var(--dark-button-bg-active);
+					}
+				}
+			}
+		}
+	}
+}
+html[theme="light"] {
+	.actionsModal {
+		&__actions {
+			&_button {
+				color: var(--light-button-text-color);
+				background-color: var(--light-button-bg);
+				&:hover,
+				&:focus {
+					background-color: var(--light-button-bg-active);
+				}
+				&.cancel {
+					color: var(--light-text-color);
+					background-color: var(--light-main-bg);
+					&:hover,
+					&:focus {
+						color: var(--light-button-text-color);
+						background-color: var(--light-button-bg-active);
+					}
+				}
+			}
+		}
+	}
+}
+
+.actionsModal {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	z-index: 100;
+	left: 0;
+	top: 0;
+	&__modal {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	&__actions {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		&_button {
+			display: block;
+			width: 100%;
+			font-size: 18px;
+			line-height: 150%;
+			background-color: transparent;
+			padding: 5px 0px;
+			border-radius: 4px;
+			transition: all 0.2s;
+			&.delete {
+				background-color: rgba(255, 0, 0, 0.6) !important;
+				color: #fff !important;
+				&:hover {
+					background-color: red !important;
+				}
+			}
+		}
+	}
+}

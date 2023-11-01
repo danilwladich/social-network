@@ -4,10 +4,16 @@ import { useUserImage } from "../../../../../hooks/useUserImage";
 import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
 import { useDateToShow } from "../../../../../hooks/useDateToShow";
 import { ProfileUserData } from "../../../../../models/Profile/ProfileUserData";
+import { Actions } from "./Actions";
 
 interface IProps {
+	isAuth: boolean;
 	userData: ProfileUserData;
 	postData: ProfilePostData;
+	buttonInProgress: boolean;
+	deletePost?: () => void;
+	likePost: () => void;
+	unlikePost: () => void;
 }
 
 export function Header(props: IProps) {
@@ -36,6 +42,8 @@ export function Header(props: IProps) {
 				</div>
 
 				<span className="profile__post_header_date">{dateToShow}</span>
+
+				<Actions {...props} />
 			</div>
 		</>
 	);

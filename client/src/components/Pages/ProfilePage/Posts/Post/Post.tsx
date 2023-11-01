@@ -1,7 +1,6 @@
 import React from "react";
 import { ProfilePostData } from "../../../../../models/Profile/ProfilePostData";
-import { Actions } from "./Actions";
-import { Content } from "./Content";
+import { Content } from "./Content/Content";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { ProfileUserData } from "../../../../../models/Profile/ProfileUserData";
@@ -18,23 +17,15 @@ interface IProps {
 
 export function Post(props: IProps) {
 	const postData = props.postData;
-	const userData = props.userData;
 
 	return (
 		<>
-			<div id={postData.id} className="profile__post">
-				<Header userData={userData} postData={postData} />
+			<div className="profile__post">
+				<Header {...props} />
 
 				<Content postData={postData} />
 
 				<Footer {...props} />
-
-				{!!props.deletePost && (
-					<Actions
-						buttonInProgress={props.buttonInProgress}
-						deletePost={props.deletePost}
-					/>
-				)}
 			</div>
 		</>
 	);

@@ -1,10 +1,11 @@
 import React from "react";
 import { NewsPostData } from "../../../../models/News/NewsPostData";
-import { Content } from "./Content";
+import { Content } from "./Content/Content";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
 interface IProps {
+	isAuth: boolean;
 	postData: NewsPostData;
 	buttonInProgress: boolean;
 	likePost: () => void;
@@ -13,11 +14,11 @@ interface IProps {
 
 export function Post(props: IProps) {
 	const postData = props.postData;
-	
+
 	return (
 		<>
 			<div className="news__post">
-				<Header postData={postData}/>
+				<Header {...props} />
 
 				<Content postData={postData} />
 

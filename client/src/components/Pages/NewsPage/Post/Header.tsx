@@ -3,9 +3,13 @@ import { NavLink } from "react-router-dom";
 import { useUserImage } from "../../../../hooks/useUserImage";
 import { NewsPostData } from "../../../../models/News/NewsPostData";
 import { useDateToShow } from "../../../../hooks/useDateToShow";
+import { Actions } from "./Actions";
 
 interface IProps {
 	postData: NewsPostData;
+	buttonInProgress: boolean;
+	likePost: () => void;
+	unlikePost: () => void;
 }
 
 export function Header(props: IProps) {
@@ -34,6 +38,8 @@ export function Header(props: IProps) {
 				</div>
 
 				<span className="news__post_header_date">{dateToShow}</span>
+
+				<Actions {...props} />
 			</div>
 		</>
 	);
